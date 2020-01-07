@@ -1,23 +1,66 @@
 # What2Do2Day
+This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home.
 
-This site allows communities to track free events to help their children
-figure out what to do today. The name and concept is loosely based on the key phrase from the cartoon
-series Phineas and Ferb.
+Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members in the community know they will not be the only one going to a function.
+ 
+Users can also see a list of all the places in the community that have ever hosted an event. Users can add reviews to places to better share their experiences with the community. Places, Events, and Reviews can be added, deleted and updated. If an activity doesn't match quite right, users can add a new activity when creating an event or place.
 
-Small businesses and communities can add their places to the site and then set up free events.
+Small businesses, social groups, and communities would ideally be in charge of their organizations's data and events but in this beta phase, user authentication, roles and permissions are not implemented.
 
-Parents and children with parental permission can use the site to figure out what to do today (or any time in the future).
+Site owners could enable affiliate linking associated with promos from any organization associated with the site that results in a booking for paid events. Site admins could also gather data based on searches and sell ads on their site to help earn money.
 
+The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series Phineas and Ferb.
+
+[![Phineas and Ferb](static/images/readme/PhineasAndFerb.jpg)](https://en.wikipedia.org/wiki/Phineas_and_Ferb)
  
 ## Author
 Malia Havlicek
 
 ## UX
-Data Modeling:
+### Strategy:
+The first step of any UX Project is Strategy where the business goals of a project are defined.
 
-Mock Ups:
+Upon reading the suggested projects for the Data Centric Milestone Project, I came up with 2 ideas:
+1. Texting Translator:
 
+ ![Texting Translator](static/images/readme/Idea1.png)
+2. What2Do2Day:
+
+![What2Do2Day](static/images/readme/Idea2.png)
  
+Out of these two concepts,  What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the nextdoor app.  What2Do2Day is more intriguing and likely to keep me vested as a user and as a developer will provide greater value in the long term towards my coding skills due to it's complexity.
+
+### Scope & Strategy:
+The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that skips over those can still provide a clean efficient minimal viable product (MVP).  Thus user profiles and management of users will not be included initially. 
+
+Restricting results based on user's location would be ideal for a long term solution but it is not necessary for the MVP. Since I do not have experience with Google Maps's Nearby API, this bit of scope will be deferred until a polished core product is developed.
+
+Creating, adding and updating functionality will only be accessible from menu options. This will allow the MVP to be built to server the majority of long term users and keep the UX cleaner without an overwhelming amount of buttons. Admin proximity/ease of use functionality can be added later. 
+
+Business logic to track search requests, and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be included but graphical visualization will not be included in the MVP, only a list of the data collected. Likewise we need to know how many users are coming to the site and what percentage of them interact or do not interact with out buttons so we will attempt to track unique visits to our site.
+
+### Structure:
+In order to have a better idea of the tables and the relationships between them:
+ ![Data Diagram](static/images/readme/Data Diagram.png)
+I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the date and the relationship helped me refine the data and take it down to its MVP form.
+
+### Skeleton:
+Having the data structure in hand, I know what I need to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups as my proficiency with UX tools is lacking and I'm very reluctant to pony up money for a license. An added feature to hand drawing is sometimes a concept you want isn't available in  the UX tools such as background images covered with a semi transparent layer housing buttons.
+- ![home page](static/images/readme/homepage.png)
+- ![add_place](static/images/readme/add_place.png)
+- ![edit place](static/images/readme/edit_place.png)
+- ![edit_review](static/images/readme/edit_review.png)
+
+After making the drawings above, I switched over to balsamiq and created more formal mockups for the pages:
+
+
+Taking the time to do mockups exposed an issue with the crowding of edit buttons and delete buttons.
+
+### Surface:
+
+####Color & font Choice, material vs bootstrap, user interaction/animation
+
+#### User Stories:
 Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
 
 In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
@@ -28,22 +71,41 @@ This section is also where you would share links to any wireframes, mockups, dia
 ## Features
 
 In this section, you should go over the different parts of your project, and describe each in a sentence or so.
+
+To streamline the development process without the complexity of users and permissions, it was decided that the MVP consists of:
+1. Home Page: What are we going to do today screen. Explains purpose of site and includes 2 buttons for Events and Places lists.
+1. Places Page:  User sees a list of enabled places. Search functionality for City, State Country, Rating and Activity will be present to reduce results and compensate for no geolocation. Track Activity Search inputs. Track expansion of details and reviews of Places. Allow pagination.
+1. Creating Place Page: User inputs values where adding a review and an event are part of the process but not necessarily required. A warning will be provided if the name is found in existing database.
+1. Update Place Page: User is presented a find field that will list 5 results with update options including disabled ones. List enabled Places first. If no match found, users can add a place or revise their search criteria. Once the update button is clicked, the user is presented with a form prepopulated with the Place's existing data. Aggregated rating values is visible but cannot be updated. Reviews associated with the place are presented in a list, cannot be managed from this screen. MVP dictates that ease of use/proximity of managing reviews is not essential to initial deployment.
+1. Delete Place Page: User is presented a Name find field that will list 5 results of enabled places with delete options. Once a delete button is clicked, the place will be disabled and user will be taken to places list page. Deleted Places will just disable items to prevent user from having to reenter data if the Place is moving locations or undergoing maintenance.
+1. Events Page: Display all future events to user ascending by date. Include ability to limit results by City, State Country, Activity to compensate for no geolocation. Track Activity Search inputs. Track expansion of details and count me in interaction. Allow pagination.
+1. Create Event Page: User is presented an input field for the place's name it is associated with. If no matches found they can opt to create a place. If matches are found enabled items are listed first. Limit results to 5. Once the create event button is clicked, the user is shown a from to create an event. A warning will be provided upon submit if the Date and Title match an existing event for that Place.
+1. Update Event Page: User is presented a find field for the place's name, date and activity to aid in finding the event.  If no matches found they can update their search criteria. If matches are found enabled items are listed first, allow pagination of results. Once the update button is clicked, the user is shown a from prepopulated with the existing entries. Upon submit, the Event's Name and Date is checked against existing events
+for the place and the user is warned if a match is found. If no warning, the database is updated and user is returned to the Places page with results limited to that Place. 
+1. Deleting Event Page:  User is presented a find field for the place's name, date and activity to aid in finding the event.  If no matches found they can update their search criteria. If matches are found only enabled items are listed. Allow pagination of results. Deleting only disables an event. Once user clicks Delete button, they are returned to the Delete Event Page.
+1. Create Review Page: User is presented a find field for the place's name to aid in finding the Place.  If no matches found they can update their search criteria. Only show matches for enabled Places. Limit results to 5.
+1. Update Review Page: User is presented a find field for the place's name to aid in finding the Review.  If no places are found they can update their search criteria. Show matches for both enabled and disabled Places, listing enabled first. Limit results to 5. Once a Place is picked, the reviews associated for that Place are listed with enabled first and disabled second. Pagination of results is allowed. Once an update button is clicked, the user is presented with a form field prepopulated with the review's current entries. Clicking the submit button updates the review and takes the user back to the update review page.
+1. Delete Review Page: User is presented a find field for the place's name to aid in finding the Review..  If no matches found they can update their search criteria. Show matches for enabled and disabled Places, listing enabled first. Limit results to 5. Once a place is selected, present the user with enabled reviews for that place. Clicking Delete only toggles Review to disabled, return user to Places Page.
+1. Create Activity Screen: When creating an event or place, the activity specific to the place may not exist. Only on Add/Update screens of Place or Event will there be a button to access this functionality exist. When clicked the create Activity button exposes two more form fields and hides the Activity drop down. This allows the user to add an activity icon and name. Submitting a Place or Event with these fields exposed will create a new Activity.
+1. Navigation
+
  
-### Existing Features
-- Feature 1 - allows users X to achieve Y, by having them fill out Z
-- ...
-
-For some/all of your features, you may choose to reference the specific project files that implement them, although this is entirely optional.
-
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
-
 ### Features Left to Implement
-- Another feature idea
+In the long term once this concept proves viable, authentication would be enabled and five sets of roles would accessing the site: 
+- <strong>Place Administrators</strong> -  users who have permissions to manage the Place, Events and Activities.
+- <strong>External Users Adults</strong> - users who have permissions to grant minor external users  access to the site. Adult users
+would also have permissions to manage their profile and create, edit and delete their own reviews.
+- <strong>External Users Minors</strong> - users who must be granted permissions to the site by Adult External Users.
+Minor users can manage their profile with limited features to help ensure their safety (no images or location settings if
+and when those features are added to the site). Minor users can also create, edit and delete their own reviews.
+- <strong>Content Admins</strong> -  users who approve reviews for inappropriate content and bot induced batch reviews. Content admins would
+also be in charge of setting up ad campaigns.
+- <strong>Site Administrators</strong> - users who have permissions to create, update and delete all the data hosted on the site 
+(Users, Places, Events, Reviews
 
 ## Technologies Used
-
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
-
+- [draw.io](https://about.draw.io/features/) - used to create Entity Relationship diagram.
+- [balsamiq](https://balsamiq.com/) - used to create more professional mock ups.
 - [JQuery](https://jquery.com)
     - The project uses **JQuery** to simplify DOM manipulation.
 
