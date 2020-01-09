@@ -1,13 +1,13 @@
 # What2Do2Day
 This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home.
 
-Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members in the community know they will not be the only one going to a function.
+Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function.
  
-Users can also see a list of all the places in the community that have ever hosted an event. Users can add reviews to places to better share their experiences with the community. Places, Events, and Reviews can be added, deleted and updated. If an activity doesn't match quite right, users can add a new activity when creating an event or place.
+Users can also see a list of all the places in the community that have ever hosted an event and read reviews about them. Users can add reviews about places to share their experiences. Places, Events, and Reviews can be added, deleted and updated from the site. If an activity doesn't quite fit into the list provided, users can add a new activity when creating an event or place.
 
 Small businesses, social groups, and communities would ideally be in charge of their organizations's data and events but in this beta phase, user authentication, roles and permissions are not implemented.
 
-Site owners could enable affiliate linking associated with promos from any organization associated with the site that results in a booking for paid events. Site admins could also gather data based on searches and sell ads on their site to help earn money.
+Site owners could enable affiliate linking associated with promos from any organization associated with the site that results in a booking for paid events. Site admins could also gather data based on search activity as well as Places and Events with heavy interaction and sell ads on their site to help earn money.
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series Phineas and Ferb.
 
@@ -18,24 +18,52 @@ Malia Havlicek
 
 ## UX
 ### Strategy:
-The first step of any UX Project is Strategy where the business goals of a project are defined.
+The first step of any UX Project is defining business goals of a project.
 
 Upon reading the suggested projects for the Data Centric Milestone Project, I came up with 2 ideas:
-1. Texting Translator:
 
- ![Texting Translator](static/images/readme/Idea1.png)
-2. What2Do2Day:
+1.Texting Translator:
+> External Goals
+>  -  Lookup definitions so you know what LOL and MILF means before determining if you need to have  serious talk with your children
+>
+> Site Owner's Goals
+>  - Publish T-shirts, & stickers mugs for benign but up to date trends
+>
+> Features
+>   - Forms that allows users to Add , Edit , Delete Search Texting Terms   
+>   - Up and Down voting if Definition is Good, BAD, AWFUL
+>   - SATs about what words were search for the most so owner can Stock Online store accordingly
 
-![What2Do2Day](static/images/readme/Idea2.png)
- 
-Out of these two concepts,  What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the nextdoor app.  What2Do2Day is more intriguing and likely to keep me vested as a user and as a developer will provide greater value in the long term towards my coding skills due to it's complexity.
+2.What2Do2Day:
+> External Goals
+>  - Find something safe for your kids to do near home
+>  - Find something that's interesting to me with others I know when mom and dad take away my electronics
+>  - Bring Attention to business or organization by being involved in teh community
+> Site Owner's Goal
+>  - Earn $ from affiliate links to businesses that post their places on site when links lead to online sales
+>  - Track most popular activities on site to score some $ from ads
+> Features
+>  - Create an app that allows users to upload details about places to do things with kids. Main objects are Places and Events tied to them
+>  - Allow users to write reviews about places and rate them
+>  - Allow users to follow a place so they know new events posted by that business
+>  - Allow users to join an event so other members know how many people might show up
+>  - Create back end code to manage:
+>    - reviews
+>    - Places
+>    - Events
+>  - Search, allow searching by activity as means to filter results
+>  - Metrics - track follows to business and joins to business as well as visitors to site.
+
+Out of these two concepts,  What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the Nextdoor app.  What2Do2Day is more intriguing and likely to keep me coming back to the site as a user. As a developer, the What2Do2Day app will provide greater value in the long term towards my coding skills due to it's complexity.
 
 ### Scope & Strategy:
-The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that skips over those can still provide a clean efficient minimal viable product (MVP).  Thus user profiles and management of users will not be included initially. 
+The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that skips over authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user profiles and management of users will not be included initially. 
 
-Restricting results based on user's location would be ideal for a long term solution but it is not necessary for the MVP. Since I do not have experience with Google Maps's Nearby API, this bit of scope will be deferred until a polished core product is developed.
+Restricting results based on user's location would be ideal for a long term solution but it is not necessary for the MVP. Since I do not have experience with Google Maps's Nearby API, this bit of scope will be deferred until a polished core product is developed. Also not enough data will be loaded to make searching and geolocation viable initially.
 
-Creating, adding and updating functionality will only be accessible from menu options. This will allow the MVP to be built to server the majority of long term users and keep the UX cleaner without an overwhelming amount of buttons. Admin proximity/ease of use functionality can be added later. 
+Creating, adding and updating functionality will only be accessible from menu options. This will allow the MVP to be built to serve the majority of long term users and keep the UX cleaner without an overwhelming amount of buttons. Admin proximity/ease of use functionality can be added later. 
+
+Consolidating Delete functionality into an enable/disable property reduces pages to develop. It also reduces the number of items in the menus and makes overall navigation easier.
 
 Business logic to track search requests, and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be included but graphical visualization will not be included in the MVP, only a list of the data collected. Likewise we need to know how many users are coming to the site and what percentage of them interact or do not interact with out buttons so we will attempt to track unique visits to our site.
 
@@ -45,22 +73,58 @@ In order to have a better idea of the tables and the relationships between them:
 I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the date and the relationship helped me refine the data and take it down to its MVP form.
 
 ### Skeleton:
-Having the data structure in hand, I know what I need to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups as my proficiency with UX tools is lacking and I'm very reluctant to pony up money for a license. An added feature to hand drawing is sometimes a concept you want isn't available in  the UX tools such as background images covered with a semi transparent layer housing buttons.
-- ![home page](static/images/readme/homepage.png)
-- ![add_place](static/images/readme/add_place.png)
-- ![edit place](static/images/readme/edit_place.png)
-- ![edit_review](static/images/readme/edit_review.png)
+Having the data structure in hand, I know what I need to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups as my proficiency with UX tools is lacking and I'm very reluctant to pony up money for a license.
+[view hand drawn mockups](handdrawn.md)
 
-After making the drawings above, I switched over to balsamiq and created more formal mockups for the pages:
+After noticing Code Institute partnered with Balsamiq, I invested several hours to mockup and fine tune the user experience:
+[view balsamiq deck](balsamiq.md)
+
+Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons. I decided that delete is really an update function since I'm using the enabled attribute to hide or show items on the Places and Events pages.  The more formal  mockups also allowed me to try several different fits and layouts of the data for the main list pages. So while not proficient, I am learning the importance as it draws out a more definitive user experience.  I added layers for filtering and in site adding of reviews. 
 
 
-Taking the time to do mockups exposed an issue with the crowding of edit buttons and delete buttons.
+#### user stories
+1. Home
+1. Navigation
+1. Events List
+> As a kid bored out of my mind, I want to find something cheap to do that is nearby so I can be around others doing something other than online gaming without bugging my parents who are busy working.
+1. Places
+1. Edit Places
+1. Edit Events
+1. Edit Review - take user to Edit Places Page
+1. Add Place
+1. Add Event - take user to Edit Places Page
+1. Add Review - take user to Edit Places Page
+1. Delete Place - take user ot Edit Places Page
+1. Delete Event - take user to Edit Places Page
+1. Delete Review - take user to Edit Places Page
+- Pagination of results, only show a max of 10 results per page.
+- 
+- Filter Places by activity and age.
+
+
+
+
 
 ### Surface:
 
-####Color & font Choice, material vs bootstrap, user interaction/animation
+####Color Choice
+https://www.sherwin-williams.com/homeowners/color/find-and-explore-colors/paint-colors-by-family/SW6790-adriatic-sea#/6790/?s=coordinatingColors&p=PS0
+
+#### Typography
+ https://uxplanet.org/10-tips-on-typography-in-web-design-13a378f4aa0d
+
+#### Image Choice
+https://www.flaticon.com/packs/outdoor-activities-32
+
+#### Design Elements
+
+#### animations/Transitions
+materialize or bootstraps
+
+####
 
 #### User Stories:
+
 Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
 
 In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
