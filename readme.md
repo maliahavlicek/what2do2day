@@ -1,3 +1,4 @@
+<div class="myWrapper" markdown="1">
 # What2Do2Day
 This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home.
 
@@ -11,7 +12,7 @@ Site owners could enable affiliate linking associated with promos from any organ
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series Phineas and Ferb.
 
-[![Phineas and Ferb](static/images/readme/PhineasAndFerb.jpg)](https://en.wikipedia.org/wiki/Phineas_and_Ferb)
+[![Phineas and Ferb](Documentation/readme/PhineasAndFerb.jpg)](https://en.wikipedia.org/wiki/Phineas_and_Ferb)
  
 ## Author
 Malia Havlicek
@@ -30,9 +31,9 @@ Upon reading the suggested projects for the Data Centric Milestone Project, I ca
 >  - Publish T-shirts, & stickers mugs for benign but up to date trends
 >
 > Features
->   - Forms that allows users to Add , Edit , Delete Search Texting Terms   
+>   - Forms that allows users to Add , Edit , Delete, Search Texting Terms   
 >   - Up and Down voting if Definition is Good, BAD, AWFUL
->   - SATs about what words were search for the most so owner can Stock Online store accordingly
+>   - Metrics about what words were search for the most so owner can Stock Online store accordingly
 
 2.What2Do2Day:
 > External Goals
@@ -48,13 +49,30 @@ Upon reading the suggested projects for the Data Centric Milestone Project, I ca
 >  - Allow users to follow a place so they know new events posted by that business
 >  - Allow users to join an event so other members know how many people might show up
 >  - Create back end code to manage:
->    - reviews
+>    - Reviews
 >    - Places
 >    - Events
 >  - Search, allow searching by activity as means to filter results
 >  - Metrics - track follows to business and joins to business as well as visitors to site.
 
-Out of these two concepts,  What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the Nextdoor app.  What2Do2Day is more intriguing and likely to keep me coming back to the site as a user. As a developer, the What2Do2Day app will provide greater value in the long term towards my coding skills due to it's complexity.
+Out of these two concepts, I weighed the pros and cons of each:
+<p style="text-align: center;">Texting Translator</p>
+|             Pros              |                        Cons                        |
+|-------------------------------|----------------------------------------------------|
+| MVP could go live             | Rather Simple                                      |
+| Moderate  UX                  | No API integration                                 |
+| Scalable to world market      |                                                    |
+| Ad and product placement high |                                                    |
+
+<p style="text-align: center;">What2Do2Day</p>
+|             Pros              |                        Cons                        |
+|-------------------------------|----------------------------------------------------|
+| Integration with Google Maps  | Very complex                                       |
+| Challenging UX                | MVP not production worthy, anyone can make updates |
+| Scalable to world market      | MVP not production worthy, (kid safety first)      |
+| Ad potential is high          |                                                    |
+
+ What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the Nextdoor app.  What2Do2Day is more intriguing and likely to keep me coming back to the site as a user. As a developer, the What2Do2Day app will provide greater value in the long term towards my coding skills due to it's complexity.
 
 ### Scope & Strategy:
 The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that skips over authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user profiles and management of users will not be included initially. 
@@ -69,15 +87,15 @@ Business logic to track search requests, and the events and places that users in
 
 ### Structure:
 In order to have a better idea of the tables and the relationships between them:
- ![Data Diagram](static/images/readme/Data Diagram.png)
+ ![Data Diagram](Documentation/readme/Data Diagram.png)
 I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the date and the relationship helped me refine the data and take it down to its MVP form.
 
 ### Skeleton:
 Having the data structure in hand, I know what I need to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups as my proficiency with UX tools is lacking and I'm very reluctant to pony up money for a license.
-[view hand drawn mockups](handdrawn.md)
+[view hand drawn mockups](Documentation/handdrawn.md)
 
 After noticing Code Institute partnered with Balsamiq, I invested several hours to mockup and fine tune the user experience:
-[view balsamiq deck](balsamiq.md)
+[view balsamiq deck](Documentation/balsamiq.md)
 
 Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons. I decided that delete is really an update function since I'm using the enabled attribute to hide or show items on the Places and Events pages.  The more formal  mockups also allowed me to try several different fits and layouts of the data for the main list pages. So while not proficient, I am learning the importance as it draws out a more definitive user experience.  I added layers for filtering and in site adding of reviews. 
 
@@ -170,8 +188,9 @@ also be in charge of setting up ad campaigns.
 ## Technologies Used
 - [draw.io](https://about.draw.io/features/) - used to create Entity Relationship diagram.
 - [balsamiq](https://balsamiq.com/) - used to create more professional mock ups.
-- [JQuery](https://jquery.com)
-    - The project uses **JQuery** to simplify DOM manipulation.
+- [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
+- [JQuery](https://jquery.com)- The project uses **JQuery** to simplify DOM manipulation.
+
 
 
 ## Testing
@@ -217,3 +236,5 @@ In addition, if it is not obvious, you should also describe how to run your code
 ### Acknowledgements
 
 - I received inspiration for this project from X
+
+</div>
