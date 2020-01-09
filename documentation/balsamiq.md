@@ -1,13 +1,13 @@
 Home Page
 
-![home page mockup](readme/Home.png)
+![home page mockup](images/Home.png)
 
 - Have cartoons present the about me information.
 - Present two call to action buttions: List of Places & List of Events
 
 Events Page 
 
-![events page mockup](readme/Events.png)
+![events page mockup](images/Events.png)
 
 - List out enabled events that are in the future and enabled, sorted by Date, ascending.
 - Paginate results so only 10 show per page on desktop. 
@@ -18,7 +18,7 @@ Events Page
 
 Places Page
 
-![places page mockup](readme/Places.png)
+![places page mockup](images/Places.png)
 
 - List out enabled places alphabetically.
 - Allow filtering/sorting by name, activity and rating. 
@@ -29,14 +29,14 @@ Places Page
 
 Review Add Page
 
-![add review page mockup](readme/Add%20Review.png)
+![add review page mockup](images/Add%20Review.png)
 
 - accessible from button on Places Page and Navigation
 - if accessed from Navigation, user must search for Place to associate review with
 
 Event Add Page
 
-![add event page mockup](readme/Add%20Event.png)
+![add event page mockup](images/Add%20Event.png)
 
  - accessible only from button on Places Edit page and navigation
  - presents user with form including the name of the place the event is being added to. 
@@ -44,7 +44,7 @@ Event Add Page
  
 Events Edit Page 
 
-![edit event page mockup](readme/Edit%20Event.png)
+![edit event page mockup](images/Edit%20Event.png)
 
 - accessed from navigation
 - find associated Place first, then list events associated to place with edit buttons (enabled and enabled, but only those in future)
@@ -52,7 +52,7 @@ Events Edit Page
 
 Events Update Page 
 
-![update event page mockup](readme/Update%20Event.png)
+![update event page mockup](images/Update%20Event.png)
 
 - display events form field with values prepopulated
 - allow user to change values
@@ -61,7 +61,7 @@ Events Update Page
 
 Places Add Page 
 
-![add place page mockup](readme/Add%20Place.png)
+![add place page mockup](images/Add%20Place.png)
 - capture user email (newsletters, groupon deals?)
 - present form to fill out to make a place
 - on submit add warning if Name already exists. 
@@ -69,7 +69,7 @@ Places Add Page
 
 Places Edit Page 
 
-![edit place page mockup](readme/Edit%20Place.png)
+![edit place page mockup](images/Edit%20Place.png)
 
 - List out enabled places, sorted by Name, ascending.
 - Paginate results so only 10 show per page on desktop. 
@@ -78,7 +78,7 @@ Places Edit Page
 
 Places Update Page 
 
-![update place page mockup](readme/Edit%20Place.png)
+![update place page mockup](images/Edit%20Place.png)
 
 - present form prepopulated with inputs to user to update.
 - on submit, make sure Name check is performed
@@ -86,7 +86,7 @@ Places Update Page
 
 Review Edit Page 
 
-![edit review page mockup](readme/Edit%20Review.png)
+![edit review page mockup](images/Edit%20Review.png)
 
 - Have user find place Review is associated with
 - on successful match, list out reviews descending by date with edit buttons
@@ -94,21 +94,21 @@ Review Edit Page
 
 Review Update Page 
 
-![update review page mockup](readme/Update%20Review.png)
+![update review page mockup](images/Update%20Review.png)
 
 - present form prepopulated with inputs to user to update.
 - once changes are saved, return to Places Page
 
 Navigation
 
-![update review page mockup](readme/Navigation.png)
+![update review page mockup](images/Navigation.png)
 
 - desktop: drop down menu for Contribute and Update menus
 - small devices: side bar menu with icons
 
 Site Activity
 
-![update review page mockup](readme/Navigation.png)
+![update review page mockup](images/Navigation.png)
 
 - flat file of metrics tracking
    - Action: [follow, create, update, attend, Search]

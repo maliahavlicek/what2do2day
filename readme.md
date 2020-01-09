@@ -1,5 +1,4 @@
-<div class="myWrapper" markdown="1">
-# What2Do2Day
+#What2Do2Day
 This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home.
 
 Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function.
@@ -12,7 +11,7 @@ Site owners could enable affiliate linking associated with promos from any organ
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series Phineas and Ferb.
 
-[![Phineas and Ferb](Documentation/readme/PhineasAndFerb.jpg)](https://en.wikipedia.org/wiki/Phineas_and_Ferb)
+[![Phineas and Ferb](documentation/images/PhineasAndFerb.jpg)](https://en.wikipedia.org/wiki/Phineas_and_Ferb)
  
 ## Author
 Malia Havlicek
@@ -56,7 +55,9 @@ Upon reading the suggested projects for the Data Centric Milestone Project, I ca
 >  - Metrics - track follows to business and joins to business as well as visitors to site.
 
 Out of these two concepts, I weighed the pros and cons of each:
-<p style="text-align: center;">Texting Translator</p>
+
+                     Texting Translator
+             
 |             Pros              |                        Cons                        |
 |-------------------------------|----------------------------------------------------|
 | MVP could go live             | Rather Simple                                      |
@@ -64,7 +65,8 @@ Out of these two concepts, I weighed the pros and cons of each:
 | Scalable to world market      |                                                    |
 | Ad and product placement high |                                                    |
 
-<p style="text-align: center;">What2Do2Day</p>
+                          What2Do2Day
+
 |             Pros              |                        Cons                        |
 |-------------------------------|----------------------------------------------------|
 | Integration with Google Maps  | Very complex                                       |
@@ -87,15 +89,15 @@ Business logic to track search requests, and the events and places that users in
 
 ### Structure:
 In order to have a better idea of the tables and the relationships between them:
- ![Data Diagram](Documentation/readme/Data Diagram.png)
+ ![Data Diagram](documentation/images/Data Diagram.png)
 I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the date and the relationship helped me refine the data and take it down to its MVP form.
 
 ### Skeleton:
 Having the data structure in hand, I know what I need to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups as my proficiency with UX tools is lacking and I'm very reluctant to pony up money for a license.
-[view hand drawn mockups](Documentation/handdrawn.md)
+[view hand drawn mockups](documentation/handdrawn.md)
 
 After noticing Code Institute partnered with Balsamiq, I invested several hours to mockup and fine tune the user experience:
-[view balsamiq deck](Documentation/balsamiq.md)
+[view balsamiq deck](documentation/balsamiq.md)
 
 Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons. I decided that delete is really an update function since I'm using the enabled attribute to hide or show items on the Places and Events pages.  The more formal  mockups also allowed me to try several different fits and layouts of the data for the main list pages. So while not proficient, I am learning the importance as it draws out a more definitive user experience.  I added layers for filtering and in site adding of reviews. 
 
@@ -237,4 +239,3 @@ In addition, if it is not obvious, you should also describe how to run your code
 
 - I received inspiration for this project from X
 
-</div>
