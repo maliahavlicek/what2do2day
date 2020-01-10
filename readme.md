@@ -161,9 +161,8 @@ While Open Sans matched the curvy flowing fonts which I was trying to achieve wi
 #### Image Choice
 I wanted easily recognizable activities as icons that users could use to associate to events and places on my website rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
 By having icons that are compatible with the colors I plan on using throughout my site, I am hoping to achieve a calm yet cheerful website. 
-![icon](static/images/icons/002-football-field.svg)<!-- .element height="24" width="24" -->
-![icon](static/images/icons/002-football-field.svg|width=24px|height=24px)
-<img src="static/images/icons/002-football-field.svg" width="24" height ="24"/>
+
+<img src="static/images/icons/002-football-field.svg" width="50" height ="50"/>
 
 #### Design Elements
 The formal wireframe process identified the need for:
