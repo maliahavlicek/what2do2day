@@ -54,9 +54,11 @@ Upon reading the suggested projects for the Data Centric Milestone Project, I ca
 >  - Find something safe for your kids to do near home
 >  - Find something that's interesting to me with others I know when mom and dad take away my electronics
 >  - Bring Attention to your business or organization by being involved in the community
+> 
 > Site Owner's Goal
 >  - Earn money from affiliate links to businesses that post their places on site when links lead to online sales
 >  - Track most popular activities on site to score some money from ads
+> 
 > Features
 >  - Create an app that allows users to upload details about places to do things with kids. Main objects are Places and Events tied to them
 >  - Allow users to write reviews about places and rate them
@@ -109,9 +111,10 @@ In order to have a better idea of the tables and the relationships between them 
 
 After the decision to remove user roles and permissions and some refactoring around fields, I ended up with:
 
+ ![Data Diagram](documentation/images/Data Diagram.png)
 
 ### Skeleton
-Having the data structure in hand, I knew what data fields I had at hand to present users managing the PLACES, EVENTS and REVIEW objects. A I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had higher priority.
+Having the data structure in hand, I knew what data fields I had at hand to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had higher priority.
 [view hand drawn mockups](documentation/handdrawn.md)
 
 Once I had the Places list drawn out, I invested several hours to mockup and fine tune the user experience using Basalmiq.
@@ -179,37 +182,16 @@ The formal wireframe process identified the need for:
  and collapsible drawers, icons for closing modals, chevrons for opening modals, pagination trash cans and more. I've already tried boostrap4.0 and materilize via the tutorials. I looked at https://get.foundation/learn/tutorials.html and although I've used SCSS, i never had to manage what mixins to include before so it's a learning opportunity. 
 
 #### Animations & Transitions
-I trolled codrops to look for some inspiration.
+I trolled codrops to look for some inspiration.  These sites gave animation ideas I may never have tried. I went back to my designs and checked where I could reduce the amount of data seen on the lists pages so the user can see more and if they click on the row, it can expand out to full screen and present all the data needed.
  - [expanding search option](https://tympanus.net/Tutorials/ExpandingSearchBar/) 
  - [grid icon expansion](https://tympanus.net/codrops/2013/03/19/thumbnail-grid-with-expanding-preview/)
  - [expanding overlay](https://tympanus.net/Tutorials/ExpandingOverlayEffect/)
  - [fullscreen overly](https://tympanus.net/Development/FullscreenGridPortfolioTemplate/)
- These sites gave animation ideas I may never have tried. I went back to my designs and checked where I could reduce the amount of data seen on the lists pages so the user can see more and if they click on the row, it can expand out to full screen and present all the data needed.
+
  
- 
-#### User Stories:
+### User Stories:
+Once the mocks up were done and most of the UX decisions were tackled, I looked at the final [mockups](documentation/balsamiq.md) again and wrote out user stories to help breakdown the project into manageable development chunks.
 
-Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
-
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
-- As a user type, I want to perform an action, so that I can achieve a goal.
-
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
-
-1. Home
-1. Navigation
-1. Events List
-> As a kid bored out of my mind, I want to find something cheap to do that is nearby so I can be around others doing something other than online gaming without bugging my parents who are busy working.
-1. Places
-1. Edit Places
-1. Edit Events
-1. Edit Review - take user to Edit Places Page
-1. Add Place
-1. Add Event - take user to Edit Places Page
-1. Add Review - take user to Edit Places Page
-1. Delete Place - take user ot Edit Places Page
-1. Delete Event - take user to Edit Places Page
-1. Delete Review - take user to Edit Places Page
 
 ## Features
 
@@ -252,9 +234,18 @@ also be in charge of setting up ad campaigns.
 - [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
 - [JQuery](https://jquery.com)- The project uses **JQuery** to simplify DOM manipulation.
 
+Pygal - charting  http://www.pygal.org/en/stable/documentation/
+unittest - testing apis  https://docs.python.org/3/library/unittest.html
+google calendar API https://developers.google.com/calendar/v3/reference/events
+https://developers.google.com/calendar/create-events
+
+
 
 
 ## Testing
+ 
+unittest - testing apis  https://docs.python.org/3/library/unittest.html
+
 
 In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
 
