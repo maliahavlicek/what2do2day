@@ -2,19 +2,13 @@
 ## Author
 Malia Havlicek
 ## Project Overview
-This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home.
+This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. 
 
-Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function.
- 
-Users can also see a list of all the places in the community that have ever hosted an event and read reviews about them. Users can add reviews about places to share their experiences. Places, Events, and Reviews can be added, deleted and updated from the site. If an activity doesn't quite fit into the list provided, users can add a new activity when creating an event or place.
+Users can also see a list of all the places in the community that have ever hosted an event and read reviews about them. Users can add reviews about places to share their experiences and rate organizations. Places, Events, and Reviews can be added, deleted and updated from the site. If an activity doesn't quite fit into the list provided, users can add a new activity when creating an event or place. Small businesses, social groups, and communities would ideally be in charge of their organizations's data and events but in this beta phase, user authentication, roles and permissions are not implemented.
 
-Small businesses, social groups, and communities would ideally be in charge of their organizations's data and events but in this beta phase, user authentication, roles and permissions are not implemented.
+Site owners could enable affiliate linking from any organization associated with the site that results in a booking for paid events by adding a Google Click Identifier (GCLID) to place's url. Site admins could also gather data based on search activity as well as Places and Events with heavy interaction and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places's page has natural side bars in desktop when users are looking at events and reviews)
 
-Site owners could enable affiliate linking associated with promos from any organization associated with the site that results in a booking for paid events. Site admins could also gather data based on search activity as well as Places and Events with heavy interaction and sell ads on their site to help earn money.
-
-The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series Phineas and Ferb.
-
-[![Phineas and Ferb](documentation/images/PhineasAndFerb.jpg)](https://en.wikipedia.org/wiki/Phineas_and_Ferb)
+The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series [Phineas and Ferb](https://en.wikipedia.org/wiki/Phineas_and_Ferb).
  
 >## Table of Contents
 > - [UX](#UX)
@@ -32,30 +26,37 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 
 ## UX
 ### Strategy
-The first step of any UX Project is defining business goals of a project.
+Before launching any website, business partners want to know how they can earn money and if there is a need or demand for the project. Defining business goals of a project from the standpoint of an external user as well as site owners helps you evaluate possible return on investment.
 
 Upon reading the suggested projects for the Data Centric Milestone Project, I came up with 2 ideas:
 
 1.Texting Translator:
 > External Goals
->  -  Lookup definitions so you know what LOL and MILF means before determining if you need to have  serious talk with your children
+>  - Lookup definitions so you know what LOL and MILF means before determining if you need to have a serious talk with your children
+>  - Find out what your savvy friend means rather than embarrassing yourself by asking your clueless parents
+>  - Correct poor definitions by providing a new one and down voting the older definitions so people are better informed
 >
 > Site Owner's Goals
 >  - Publish T-shirts, & stickers mugs for benign but up to date trends
 >
 > Features
->   - Forms that allows users to Add , Edit , Delete, Search Texting Terms   
->   - Up and Down voting if Definition is Good, BAD, AWFUL
+>   - Create an app that allows users to upload Texting Terms, definitions 
+>   - Allow users to Up and Down voting if Definition is Accurate or not.
+>   - Create back end code to manage:
+>     - Terms
+>     - Definitions
+>     - Votes
+>   - Search, allow users to search terms for a texting phrase they are unfamiliar with 
 >   - Metrics about what words were search for the most so owner can Stock Online store accordingly
 
 2.What2Do2Day:
 > External Goals
 >  - Find something safe for your kids to do near home
 >  - Find something that's interesting to me with others I know when mom and dad take away my electronics
->  - Bring Attention to business or organization by being involved in teh community
+>  - Bring Attention to your business or organization by being involved in the community
 > Site Owner's Goal
->  - Earn $ from affiliate links to businesses that post their places on site when links lead to online sales
->  - Track most popular activities on site to score some $ from ads
+>  - Earn money from affiliate links to businesses that post their places on site when links lead to online sales
+>  - Track most popular activities on site to score some money from ads
 > Features
 >  - Create an app that allows users to upload details about places to do things with kids. Main objects are Places and Events tied to them
 >  - Allow users to write reviews about places and rate them
@@ -72,23 +73,24 @@ Out of these two concepts, I weighed the pros and cons of each:
 
 __Texting Translator__ 
             
-|             Pros              |                        Cons                        |
-|-------------------------------|----------------------------------------------------|
-| MVP could go live             | Rather Simple                                      |
-| Moderate  UX                  | No API integration                                 |
-| Scalable to world market      |                                                    |
-| Ad and product placement high |                                                    |
+|             Pros               |                        Cons                        |
+|--------------------------------|----------------------------------------------------|
+| MVP could go live              | Rather Simple                                      |
+| Moderate  UX                   | No API integration                                 |
+| Scalable to world market       |                                                    |
+| Ad & product earnings moderate |                                                    |
 
 __What2Do2Day__
 
-|             Pros              |                        Cons                        |
-|-------------------------------|----------------------------------------------------|
-| Integration with Google Maps  | Very complex                                       |
-| Challenging UX                | MVP not production worthy, anyone can make updates |
-| Scalable to world market      | MVP not production worthy, (kid safety first)      |
-| Ad potential is high          |                                                    |
+|             Pros               |                        Cons                        |
+|--------------------------------|----------------------------------------------------|
+| Integration with Google Maps   | Very complex                                       |
+| Challenging UX                 | MVP not production worthy, anyone can make updates |
+| Scalable to world market       | MVP not production worthy, (kid safety first)      |
+| Earnings from Ads is high      |                                                    |
+| Social Need is high            |                                                    |
 
- What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the Nextdoor app.  What2Do2Day is more intriguing and likely to keep me coming back to the site as a user. As a developer, the What2Do2Day app will provide greater value in the long term towards my coding skills due to it's complexity.
+ What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the Nextdoor app.  What2Do2Day is more intriguing and likely to keep users coming back to the site. As a developer, the What2Do2Day app will provide greater value in the long term towards my coding skills due to it's complexity.
 
 ### Scope
 The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that skips over authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user profiles and management of users will not be included initially. 
@@ -102,7 +104,7 @@ Consolidating Delete functionality into an enable/disable property reduces pages
 Business logic to track search requests, and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be included but graphical visualization will not be included in the MVP, only a list of the data collected. Likewise we need to know how many users are coming to the site and what percentage of them interact or do not interact with out buttons so we will attempt to track unique visits to our site.
 
 ### Structure
-In order to have a better idea of the tables and the relationships between them I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the data fields I may want to have and those that were extraneious, helped me devise a rough ERD:
+In order to have a better idea of the tables and the relationships between them I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise a rough Entity Relationship Diagram(ERD):
  ![Data Diagram](documentation/images/Data Diagram Initial.png)
 
 After the decision to remove user roles and permissions and some refactoring around fields, I ended up with:
@@ -115,7 +117,7 @@ Having the data structure in hand, I knew what data fields I had at hand to pres
 Once I had the Places list drawn out, I invested several hours to mockup and fine tune the user experience using Basalmiq.
 [view balsamiq deck](documentation/balsamiq.md)
 
-Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons. I decided that delete is really an update function since I'm using the enabled attribute to hide or show items on the Places and Events pages.  The more formal  mockups also allowed me to try several different fits and layouts of the data for the main list pages. So while not proficient, I am learning the importance as it draws out a more definitive user experience.  I added layers for filtering and in site adding of reviews. 
+Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons. I decided that delete is really an update function since I am using the enabled attribute to hide or show items on the Places and Events pages.  The more formal mockups also allowed me to try several different layouts of the data for the main list pages. The mockkups include layers for searching and in site adding of reviews. Search non-happy paths were also mocked up. 
 
 ### Surface:
 Below are the decisions and internal dialogs I had to help draw out what the end product will look like.
@@ -123,10 +125,16 @@ Below are the decisions and internal dialogs I had to help draw out what the end
 I have not had much success with color choice in the past using online tools such as picking colors from imagery via adobe or from color pallet wheels. My color choices pass accessibility audits but something is missing, so this time, I started with the pros at [Sherwin Williams](https://www.sherwin-williams.com/homeowners/color/find-and-explore-colors/paint-colors-by-family/SW6790-adriatic-sea#/6790/?s=coordinatingColors&p=PS0) and came up with the following colors:
 
 ![colors](documentation/images/AdriaticBlueCoordinatingColors.png)
-I then went to dribble.com and plugged in each of the colors from  Sherwin Williams to find other's pallets that had a cheerful look. Unfortunately Adriatic Blue, Aesthetic White, and Felted Wool all provided me with rather depressing options. Luckily Bravo Blue(\#d3e7e9) turned up a lot of more cheerful looking sites.
+
+I then went to dribble.com and plugged in each of the colors from  Sherwin Williams to find others' pallets that had a cheerful look. Unfortunately Adriatic Blue, Aesthetic White, and Felted Wool all provided me with rather depressing options. Luckily Bravo Blue(\#d3e7e9) turned up a lot of more cheerful looking sites.
 - [One nice day](https://dribbble.com/shots/9428106-Vector-illustration-One-nice-day)
 - [Online Learning App](https://dribbble.com/shots/9404019-Online-Learning-App)
+- [Daily UI 004](https://dribbble.com/shots/9423898-Daily-UI-004)
 - [Sign up](https://dribbble.com/shots/9404019-Online-Learning-App)
+
+So I'm hoping I'll have success with the Daily UI 004 color's pallet.
+
+![Color Pallet](documentation/images/colorpallet.png)
 
 
 #### Typography
@@ -145,22 +153,41 @@ Next I produced a short list of fonts for my main content by looking at google's
 - [Open Sans](https://fonts.google.com/specimen/Open+Sans)
 - [Raleway](https://fonts.google.com/specimen/Raleway)
 
-While Open Sans matched the curvy flowing fonts which I was trying to achieve with for my main content, I could not distinguish a capital I from a lower case l, so I chose Raleway as it met that criteria.
+While Open Sans matched the curvy flowing fonts which I was trying to achieve with for my main content, I could not distinguish a capital I from a lower case l, so I chose Raleway as it met that criteria. I don't plan on using many different font weights so I only imported those for normal and bold.
+
 `<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC&display=swap" rel="stylesheet">`
 `<link href="https://fonts.googleapis.com/css?family=Raleway:500,700&display=swap" rel="stylesheet">`
 
-
-
 #### Image Choice
-I wanted easily recognizable activities as icons that users could use to associate to events and places on my website. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
-By having icons that are compatible with the colors I plan on using throughout my site, I am hoping to acheive
-
+I wanted easily recognizable activities as icons that users could use to associate to events and places on my website rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
+By having icons that are compatible with the colors I plan on using throughout my site, I am hoping to achieve a calm yet cheerful website. 
+![icon](static/images/icons/002-football-field.svg)<!-- .element height="24" width="24" -->
+![icon](static/images/icons/002-football-field.svg|width=24px|height=24px)
+<img src="static/images/icons/002-football-field.svg" width="24" height ="24"/>
 
 #### Design Elements
+The formal wireframe process identified the need for:
+ -modals
+ -menu bar
+ -side nav bar
+ -modals
+ -accordion
+ -dropdown
+ -forms
+ 
+ I read [best css frameworks]('https://www.creativebloq.com/features/best-css-frameworks') and am toying with foundation with abide to help with form validation.
+ 
+ and collapsible drawers, icons for closing modals, chevrons for opening modals, pagination trash cans and more. I've already tried boostrap4.0 and materilize via the tutorials. I looked at https://get.foundation/learn/tutorials.html and although I've used SCSS, i never had to manage what mixins to include before so it's a learning opportunity. 
 
 #### Animations & Transitions
-materialize or bootstraps
-
+I trolled codrops to look for some inspiration.
+ - [expanding search option](https://tympanus.net/Tutorials/ExpandingSearchBar/) 
+ - [grid icon expansion](https://tympanus.net/codrops/2013/03/19/thumbnail-grid-with-expanding-preview/)
+ - [expanding overlay](https://tympanus.net/Tutorials/ExpandingOverlayEffect/)
+ - [fullscreen overly](https://tympanus.net/Development/FullscreenGridPortfolioTemplate/)
+ These sites gave animation ideas I may never have tried. I went back to my designs and checked where I could reduce the amount of data seen on the lists pages so the user can see more and if they click on the row, it can expand out to full screen and present all the data needed.
+ 
+ 
 #### User Stories:
 
 Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
@@ -170,7 +197,6 @@ In particular, as part of this section we recommend that you provide a list of U
 
 This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
 
-## User Stories
 1. Home
 1. Navigation
 1. Events List
@@ -262,6 +288,8 @@ In addition, if it is not obvious, you should also describe how to run your code
 
 
 ## Credits
+[Icons made by Freepik from www.flaticon.com](https://www.flaticon.com/packs/outdoor-activities-32)
+[tables in markdown](https://www.tablesgenerator.com/markdown_tables#)
 
 ### Content
 - The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
