@@ -1,4 +1,7 @@
-#What2Do2Day
+# What2Do2Day
+## Author
+Malia Havlicek
+## Project Overview
 This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home.
 
 Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function.
@@ -13,11 +16,22 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 
 [![Phineas and Ferb](documentation/images/PhineasAndFerb.jpg)](https://en.wikipedia.org/wiki/Phineas_and_Ferb)
  
-## Author
-Malia Havlicek
+>## Table of Contents
+> - [UX](#UX)
+>   - [Strategy](#Strategy)
+>   - [Scope](#Scope)
+>   - [Structure](#structure)
+>   - [Skeleton](#skeleton)
+>   - [Surface](#surface)
+>     - [Typography](#typography)
+>     - [Image Choice](#image-choice)
+>     - [Design Elements](#design-elements)
+>     - [Animations & Transitions](#animations--transitions)
+>   - [User Stories](#user-stories)
+>
 
 ## UX
-### Strategy:
+### Strategy
 The first step of any UX Project is defining business goals of a project.
 
 Upon reading the suggested projects for the Data Centric Milestone Project, I came up with 2 ideas:
@@ -56,8 +70,8 @@ Upon reading the suggested projects for the Data Centric Milestone Project, I ca
 
 Out of these two concepts, I weighed the pros and cons of each:
 
-                     Texting Translator
-             
+__Texting Translator__ 
+            
 |             Pros              |                        Cons                        |
 |-------------------------------|----------------------------------------------------|
 | MVP could go live             | Rather Simple                                      |
@@ -65,7 +79,7 @@ Out of these two concepts, I weighed the pros and cons of each:
 | Scalable to world market      |                                                    |
 | Ad and product placement high |                                                    |
 
-                          What2Do2Day
+__What2Do2Day__
 
 |             Pros              |                        Cons                        |
 |-------------------------------|----------------------------------------------------|
@@ -76,7 +90,7 @@ Out of these two concepts, I weighed the pros and cons of each:
 
  What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the Nextdoor app.  What2Do2Day is more intriguing and likely to keep me coming back to the site as a user. As a developer, the What2Do2Day app will provide greater value in the long term towards my coding skills due to it's complexity.
 
-### Scope & Strategy:
+### Scope
 The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that skips over authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user profiles and management of users will not be included initially. 
 
 Restricting results based on user's location would be ideal for a long term solution but it is not necessary for the MVP. Since I do not have experience with Google Maps's Nearby API, this bit of scope will be deferred until a polished core product is developed. Also not enough data will be loaded to make searching and geolocation viable initially.
@@ -87,22 +101,76 @@ Consolidating Delete functionality into an enable/disable property reduces pages
 
 Business logic to track search requests, and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be included but graphical visualization will not be included in the MVP, only a list of the data collected. Likewise we need to know how many users are coming to the site and what percentage of them interact or do not interact with out buttons so we will attempt to track unique visits to our site.
 
-### Structure:
-In order to have a better idea of the tables and the relationships between them:
- ![Data Diagram](documentation/images/Data Diagram.png)
-I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the date and the relationship helped me refine the data and take it down to its MVP form.
+### Structure
+In order to have a better idea of the tables and the relationships between them I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the data fields I may want to have and those that were extraneious, helped me devise a rough ERD:
+ ![Data Diagram](documentation/images/Data Diagram Initial.png)
 
-### Skeleton:
-Having the data structure in hand, I know what I need to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups as my proficiency with UX tools is lacking and I'm very reluctant to pony up money for a license.
+After the decision to remove user roles and permissions and some refactoring around fields, I ended up with:
+
+
+### Skeleton
+Having the data structure in hand, I knew what data fields I had at hand to present users managing the PLACES, EVENTS and REVIEW objects. A I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had higher priority.
 [view hand drawn mockups](documentation/handdrawn.md)
 
-After noticing Code Institute partnered with Balsamiq, I invested several hours to mockup and fine tune the user experience:
+Once I had the Places list drawn out, I invested several hours to mockup and fine tune the user experience using Basalmiq.
 [view balsamiq deck](documentation/balsamiq.md)
 
 Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons. I decided that delete is really an update function since I'm using the enabled attribute to hide or show items on the Places and Events pages.  The more formal  mockups also allowed me to try several different fits and layouts of the data for the main list pages. So while not proficient, I am learning the importance as it draws out a more definitive user experience.  I added layers for filtering and in site adding of reviews. 
 
+### Surface:
+Below are the decisions and internal dialogs I had to help draw out what the end product will look like.
+####Color Choice
+I have not had much success with color choice in the past using online tools such as picking colors from imagery via adobe or from color pallet wheels. My color choices pass accessibility audits but something is missing, so this time, I started with the pros at [Sherwin Williams](https://www.sherwin-williams.com/homeowners/color/find-and-explore-colors/paint-colors-by-family/SW6790-adriatic-sea#/6790/?s=coordinatingColors&p=PS0) and came up with the following colors:
 
-#### user stories
+![colors](documentation/images/AdriaticBlueCoordinatingColors.png)
+I then went to dribble.com and plugged in each of the colors from  Sherwin Williams to find other's pallets that had a cheerful look. Unfortunately Adriatic Blue, Aesthetic White, and Felted Wool all provided me with rather depressing options. Luckily Bravo Blue(\#d3e7e9) turned up a lot of more cheerful looking sites.
+- [One nice day](https://dribbble.com/shots/9428106-Vector-illustration-One-nice-day)
+- [Online Learning App](https://dribbble.com/shots/9404019-Online-Learning-App)
+- [Sign up](https://dribbble.com/shots/9404019-Online-Learning-App)
+
+
+#### Typography
+The home page lends itself to a comic strip so I searched Google's handwriting fonts and flagged the top 5 that matched what I had envisioned and typed some example lead text.
+- [WalterTurncoat](https://fonts.google.com/specimen/Walter+Turncoat)
+- [Sriracha](https://fonts.google.com/specimen/Sriracha)
+- [Coming Soon](https://fonts.google.com/specimen/Coming+Soon)
+- [Caveat Brush](https://fonts.google.com/specimen/Caveat+Brush)
+- [Patrick Hand SC](https://fonts.google.com/specimen/Patrick+Hand+SC)
+
+In my opinion, the Patrick Hand SC font presented itself perfectly for cartoon writing when typing out potential lead text. It was easy to read and I could discern where true capitalization was and saw a difference between capital I's followed by lower case L's.
+
+Next I produced a short list of fonts for my main content by looking at google's suggested pairings of fonts with Patrick Hand SC a list of [best fonts](https://kinsta.com/blog/best-google-fonts/):
+
+- [Lato](https://fonts.google.com/specimen/Lato)
+- [Open Sans](https://fonts.google.com/specimen/Open+Sans)
+- [Raleway](https://fonts.google.com/specimen/Raleway)
+
+While Open Sans matched the curvy flowing fonts which I was trying to achieve with for my main content, I could not distinguish a capital I from a lower case l, so I chose Raleway as it met that criteria.
+`<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC&display=swap" rel="stylesheet">`
+`<link href="https://fonts.googleapis.com/css?family=Raleway:500,700&display=swap" rel="stylesheet">`
+
+
+
+#### Image Choice
+I wanted easily recognizable activities as icons that users could use to associate to events and places on my website. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
+By having icons that are compatible with the colors I plan on using throughout my site, I am hoping to acheive
+
+
+#### Design Elements
+
+#### Animations & Transitions
+materialize or bootstraps
+
+#### User Stories:
+
+Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
+
+In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
+- As a user type, I want to perform an action, so that I can achieve a goal.
+
+This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
+
+## User Stories
 1. Home
 1. Navigation
 1. Events List
@@ -117,40 +185,6 @@ Taking the time to do more formal mockups exposed an issue with the crowding of 
 1. Delete Place - take user ot Edit Places Page
 1. Delete Event - take user to Edit Places Page
 1. Delete Review - take user to Edit Places Page
-- Pagination of results, only show a max of 10 results per page.
-- 
-- Filter Places by activity and age.
-
-
-
-
-
-### Surface:
-
-####Color Choice
-https://www.sherwin-williams.com/homeowners/color/find-and-explore-colors/paint-colors-by-family/SW6790-adriatic-sea#/6790/?s=coordinatingColors&p=PS0
-
-#### Typography
- https://uxplanet.org/10-tips-on-typography-in-web-design-13a378f4aa0d
-
-#### Image Choice
-https://www.flaticon.com/packs/outdoor-activities-32
-
-#### Design Elements
-
-#### animations/Transitions
-materialize or bootstraps
-
-####
-
-#### User Stories:
-
-Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
-
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
-- As a user type, I want to perform an action, so that I can achieve a goal.
-
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
 
 ## Features
 
