@@ -169,15 +169,16 @@ By having icons that are compatible with the colors I plan on using throughout m
 
 #### Design Elements
 The formal wireframe process identified the need for:
- -modals
- -menu bar
- -side nav bar
- -modals
- -accordion
- -dropdown
- -forms
+ - top menu bar for desktop
+ - side nav bar for mobile
+ - modals/layers
+ - accordions
+ - containers
+ - pagination
+ - forms
+ - maps
  
- I read [best css frameworks]('https://www.creativebloq.com/features/best-css-frameworks') and am toying with foundation with abide to help with form validation.
+ I read [best css frameworks]('https://www.creativebloq.com/features/best-css-frameworks'). I looked into foundation and bulma. 
  
  and collapsible drawers, icons for closing modals, chevrons for opening modals, pagination trash cans and more. I've already tried boostrap4.0 and materilize via the tutorials. I looked at https://get.foundation/learn/tutorials.html and although I've used SCSS, i never had to manage what mixins to include before so it's a learning opportunity. 
 

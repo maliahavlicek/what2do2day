@@ -11,6 +11,10 @@ app.config["MONGO_URI"] = 'mongodb+srv://root:2019Winter@mhavlicfirstcluster-pie
 mongo = PyMongo(app)
 
 @app.route('/')
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
 @app.route('/get_events')
 def get_tasks():
     return render_template('events.html')
