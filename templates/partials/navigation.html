@@ -1,0 +1,65 @@
+<nav class="navbar is-transparent">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{{ url_for('home') }}">
+            What2Do2Day
+        </a>
+        <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-end">
+            <a class="navbar-item" href="{{ url_for('home') }}">
+                Home
+            </a>
+            <a class="navbar-item" href="{{ url_for('home') }}">
+                Events
+            </a>
+            <a class="navbar-item" href="{{ url_for('home') }}">
+                Places
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <span class="navbar-link">
+                    Contribute
+                </span>
+                <div class="navbar-dropdown is-boxed">
+                    <a class="navbar-item" href="{{ url_for('home') }}">
+                        Add Event
+                    </a>
+                    <a class="navbar-item" href="{{ url_for('home') }}">
+                        Add Place
+                    </a>
+                    <a class="navbar-item" href="{{ url_for('home') }}">
+                        Add Review
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <span class="navbar-link">
+                    Update
+                </span>
+                <div class="navbar-dropdown is-boxed">
+                    <a class="navbar-item" href="{{ url_for('home') }}">
+                        Update Event
+                    </a>
+                    <a class="navbar-item" href="{{ url_for('home') }}">
+                        Update Place
+                    </a>
+                    <a class="navbar-item" href="{{ url_for('home') }}">
+                        Update Review
+                    </a>
+
+                </div>
+            </div>
+
+            <a class="navbar-item" href="{{ url_for('home') }}">
+                Metrics
+            </a>
+        </div>
+
+
+    </div>
+</nav>
