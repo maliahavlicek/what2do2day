@@ -321,7 +321,7 @@ def get_places():
     except Exception as e:
         db_issue(e)
         list_places = []
-    return render_template('pages/places/places.html', events=list_places)
+    return render_template('pages/places/places.html', places=list_places)
 
 
 @app.route('/add_place')

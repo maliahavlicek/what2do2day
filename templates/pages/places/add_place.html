@@ -20,14 +20,11 @@
             <form action="">
                 <div class="field">
                     <label for="email" class="label">Email</label>
-                    <div class="control has-icons-left has-icons-right">
+                    <div class="control has-icons-left">
                         <input class="input" id="email" name="email" type="email" placeholder="Email input"
                                value="hello@">
                         <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
-                    </span>
-                        <span class="icon is-small is-right">
-                         <i class="fas fa-exclamation-triangle"></i>
                     </span>
                     </div>
                     <p class="help is-danger">This email is invalid</p>
@@ -36,14 +33,14 @@
                 <div class="field">
                     <label for="name" class="label">Name of Place</label>
                     <div class="control">
-                        <input id="name" name="name" class="input" type="text" placeholder="Text input">
+                        <input id="name" name="name" class="input" type="text" placeholder="Place Name">
                     </div>
                 </div>
                 <div class="field">
                     <label for="activity" class="label">Activity</label>
                     <div class="control has-icons-left">
                         <div class="select">
-                            <select>
+                            <select id="activity" name="activity">
                                 <option value="disabled selected">Choose Activity</option>
                                 {% for icon in activities %}
                                     <option value="{{ icon.name }}">
@@ -79,9 +76,12 @@
                 <div class="field">
                     <div class="control">
                         <label for="phone" class="label">Phone</label>
-                        <div class="control">
+                        <div class="control has-icons-left">
                             <input id="phone" name="phone" class="input" type="text"
                                    placeholder="Phone">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-phone"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -116,6 +116,18 @@
                 </div>
                 <div id="review_block">
                     {% include '/pages/_partials/review.html' %}
+                </div>
+
+                <div class="field">
+                    <label class="label">Events</label>
+                    <div class="control">
+                        <input class="is-checkradio is-medium" id="has_event" name="has_event" type="checkbox"
+                               checked="checked">
+                        <label for="has_event">Add Event</label>
+                    </div>
+                </div>
+                <div id="event_block">
+                    {% include '/pages/_partials/event.html' %}
                 </div>
 
 
