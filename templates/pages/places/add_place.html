@@ -21,13 +21,12 @@
                 <div class="field">
                     <label for="email" class="label">Email</label>
                     <div class="control has-icons-left">
-                        <input class="input" id="email" name="email" type="email" placeholder="Email input"
-                               value="hello@">
-                        <span class="icon is-small is-left">
+                        <input class="input" id="email" name="email" type="email" placeholder="youremail@you.com">
+                        <span class="icon is-small is-left has-text-primary">
                         <i class="fas fa-envelope"></i>
                     </span>
                     </div>
-                    <p class="help is-danger">This email is invalid</p>
+
                 </div>
 
                 <div class="field">
@@ -49,7 +48,7 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="icon is-small is-left">
+                        <div class="icon is-small is-left has-text-primary">
                             <i class="fas fa-cogs"></i>
                         </div>
                     </div>
@@ -62,7 +61,7 @@
                         <label for="has_address">Has Physical Address </label>
                     </div>
                 </div>
-                <div id="address_block">
+                <div id="address_block" class="has-background-white-bis embedded">
                     {% include '/pages/_partials/address.html' %}
                 </div>
                 <div class="field">
@@ -79,14 +78,14 @@
                         <div class="control has-icons-left">
                             <input id="phone" name="phone" class="input" type="text"
                                    placeholder="Phone">
-                            <span class="icon is-small is-left">
+                            <span class="icon is-small is-left has-text-primary">
                                 <i class="fas fa-phone"></i>
                             </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="website">
+                <div class="field">
                     <div class="control">
                         <label for="website" class="label">Website</label>
                         <div class="control">
@@ -114,7 +113,7 @@
                         <label for="has_review">Add Review</label>
                     </div>
                 </div>
-                <div id="review_block">
+                <div id="review_block" class="has-background-white-bis embedded">
                     {% include '/pages/_partials/review.html' %}
                 </div>
 
@@ -126,7 +125,7 @@
                         <label for="has_event">Add Event</label>
                     </div>
                 </div>
-                <div id="event_block">
+                <div id="event_block" class="has-background-white-bis embedded">
                     {% include '/pages/_partials/event.html' %}
                 </div>
 

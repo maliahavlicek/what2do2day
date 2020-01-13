@@ -1,3 +1,17 @@
+/* select caret color*/
+.select:not(.is-multiple):not(.is-loading)::after{
+  border-color: #00d1b1;
+}
+
+/* ebmedded form elements */
+.embedded{
+  border: 1px solid #b5b5b5;
+  padding: 15px;
+  border-radius:4px;
+  margin: 10px;
+}
+
+
 /* toggle switch */
 .switch {
   position: relative;
@@ -37,11 +51,11 @@
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #00d1b1;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #00d1b1;
 }
 
 input:checked + .slider:before {
