@@ -1,0 +1,47 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Places
+                </h1>
+                {% if places.count() < 1 %}
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p class="subtitle">
+                                Sorry, there are no places at this time.
+                            </p>
+                        </div>
+                        <div class="level-item">
+                            <p class="control">
+                                <a class="button is-white" href="{{ url_for('add_place') }}">
+                                    <span class="icon">
+                                        <i class="fas fa-plus-square"></i>
+                                    </span>
+                                    <span class="icon">
+                                        <i class="fas fa-street-view"></i>
+                                    </span>
+                                    <span>Add Place</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                {% elif places.count() > 5 %}
+                    <h2 class="subtitle">
+                        <button class="button is-text">Filter</button>
+                        {{ places.filter }}
+                    </h2>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% if places.count() > 0 %}
+        <p>There are {{ places.count() }} events </p>
+        {% for place in places %}
+            <p>place.name</p>
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}

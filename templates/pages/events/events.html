@@ -1,0 +1,44 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Events
+                </h1>
+                {% if events.count() < 1 %}
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p class="subtitle">
+                                Sorry, there are no events at this time.
+                            </p>
+                        </div>
+                        <div class="level-item">
+                            <p class="control">
+                                <a class="button is-white" href="{{ url_for('add_event') }}">
+                                    <span class="icon">
+                                        <i class="fas fa-calendar-plus"></i>
+                                    </span>
+                                    <span>Add Event</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                {% elif events.count() > 5 %}
+                    <h2 class="subtitle">
+                        <button class="button is-text">Filter</button>
+                        {{ events.filter }}
+                    </h2>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% if events.count() > 0 %}
+        <p>There are {{ events.count() }} events </p>
+        {% for event in events %}
+            <p>event.name</p>
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}

@@ -15,10 +15,10 @@
             <a class="navbar-item" href="{{ url_for('home') }}">
                 Home
             </a>
-            <a class="navbar-item" href="{{ url_for('home') }}">
+            <a class="navbar-item" href="{{ url_for('get_events') }}">
                 Events
             </a>
-            <a class="navbar-item" href="{{ url_for('home') }}">
+            <a class="navbar-item" href="{{ url_for('get_places') }}">
                 Places
             </a>
             <div class="navbar-item has-dropdown is-hoverable">
@@ -26,10 +26,10 @@
                     Contribute
                 </span>
                 <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" href="{{ url_for('home') }}">
+                    <a class="navbar-item" href="{{ url_for('add_event') }}">
                         Add Event
                     </a>
-                    <a class="navbar-item" href="{{ url_for('home') }}">
+                    <a class="navbar-item" href="{{ url_for('add_place') }}">
                         Add Place
                     </a>
                     <a class="navbar-item" href="{{ url_for('home') }}">

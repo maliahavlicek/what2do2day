@@ -5,19 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>What2Do2Day</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/bulma-extensions.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <!-- <link rel="stylsheet" hrfe="../static/css/debug.css"> -->
 </head>
 <body>
-{% include '/partials/navigation.html' %}
-
+{% include '/pages/_partials/navigation.html' %}
 {% block content %}{% endblock %}
-
-
-{% include '/partials/footer.html' %}
+{% include '/pages/_partials/footer.html' %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
 
 </body>
 </html>

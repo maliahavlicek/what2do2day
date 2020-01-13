@@ -165,7 +165,7 @@ While Open Sans matched the curvy flowing fonts which I was trying to achieve wi
 I wanted easily recognizable activities as icons that users could use to associate to events and places on my website rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
 By having icons that are compatible with the colors I plan on using throughout my site, I am hoping to achieve a calm yet cheerful website. 
 
-<img src="static/images/icons/002-football-field.svg" width="50" height ="50"/>
+<img src="static/assets/images/icons/002-football-field.svg" width="50" height ="50"/>
 
 #### Design Elements
 The formal wireframe process identified the need for:
@@ -281,6 +281,8 @@ In addition, if it is not obvious, you should also describe how to run your code
 ## Credits
 [Icons made by Freepik from www.flaticon.com](https://www.flaticon.com/packs/outdoor-activities-32)
 [tables in markdown](https://www.tablesgenerator.com/markdown_tables#)
+[half star rating input][https://codepen.io/redlabor/pen/wyiAH]
+[toggle switch](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch)
 
 ### Content
 - The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)

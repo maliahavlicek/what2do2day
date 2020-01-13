@@ -1,0 +1,61 @@
+<div class="field">
+    <div class="control">
+        <label for="address_line_1" class="label">Street Address</label>
+        <div class="control">
+            <input id="address_line_1" name="address_line_1" class="input" type="text"
+                   placeholder="Street Address, P.O. Box">
+        </div>
+    </div>
+</div>
+<div class="field">
+    <div class="control">
+        <label for="address_line_2" class="label">Address Line 2</label>
+        <div class="control">
+            <input id="address_line_2" name="address_line_2" class="input" type="text"
+                   placeholder="Apartment, Suite, Unit, Building, Floor, etc.">
+        </div>
+    </div>
+</div>
+<div class="field">
+    <div class="control">
+        <label for="city" class="label">City</label>
+        <div class="control">
+            <input id="city" name="city" class="input" type="text" placeholder="City">
+        </div>
+    </div>
+</div>
+<div class="field">
+    <div class="control">
+        <label for="state" class="label">State/Province/Region</label>
+        <div class="control">
+            <input id="state" name="state" class="input" type="text" placeholder="State">
+        </div>
+    </div>
+</div>
+<div class="field">
+    <div class="control">
+        <label for="postal_code" class="label">Postal Code</label>
+        <div class="control">
+            <input id="postal_code" name="postal_code" class="input" type="text"
+                   placeholder="Postal Code">
+        </div>
+    </div>
+</div>
+<div class="field">
+    <label for="country" class="label">Country</label>
+    <div class="control has-icons-left">
+        <div class="select">
+            <select>
+                <option value="disabled selected">Country</option>
+                {% for country in countries %}
+                    <option value="{{ country }}">
+                        {{ country }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="icon is-small is-left">
+            <i class="fas fa-globe-europe"></i>
+        </div>
+    </div>
+</div>

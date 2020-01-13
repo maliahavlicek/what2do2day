@@ -1,0 +1,127 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Add Place
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+
+        <div class="container">
+            <h2 class="subtitle">
+                Thank you for adding to the community! We'll let you know if others contribute to your place.
+            </h2>
+        </div>
+        <div class="container">
+            <form action="">
+                <div class="field">
+                    <label for="email" class="label">Email</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" id="email" name="email" type="email" placeholder="Email input"
+                               value="hello@">
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                        <span class="icon is-small is-right">
+                         <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    </div>
+                    <p class="help is-danger">This email is invalid</p>
+                </div>
+
+                <div class="field">
+                    <label for="name" class="label">Name of Place</label>
+                    <div class="control">
+                        <input id="name" name="name" class="input" type="text" placeholder="Text input">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="activity" class="label">Activity</label>
+                    <div class="control has-icons-left">
+                        <div class="select">
+                            <select>
+                                <option value="disabled selected">Choose Activity</option>
+                                {% for icon in activities %}
+                                    <option value="{{ icon.name }}">
+                                        {{ icon.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="icon is-small is-left">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Address of Place</label>
+                    <div class="control">
+                        <input class="is-checkradio is-medium" id="has_address" name="has_address" type="checkbox"
+                               checked="checked">
+                        <label for="has_address">Has Physical Address </label>
+                    </div>
+                </div>
+                <div id="address_block">
+                    {% include '/pages/_partials/address.html' %}
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label for="description" class="label">Description</label>
+                        <textarea id="description" name="description" class="textarea"
+                                  placeholder="Enter Description"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <label for="phone" class="label">Phone</label>
+                        <div class="control">
+                            <input id="phone" name="phone" class="input" type="text"
+                                   placeholder="Phone">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="website">
+                    <div class="control">
+                        <label for="website" class="label">Website</label>
+                        <div class="control">
+                            <input id="website" name="website" class="input" type="text"
+                                   placeholder="website">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <label for="image_url" class="label">Image URL</label>
+                        <div class="control">
+                            <input id="image_url" name="image_url" class="input" type="text"
+                                   placeholder="Image URL">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Reviews</label>
+                    <div class="control">
+                        <input class="is-checkradio is-medium" id="has_review" name="has_review" type="checkbox"
+                               checked="checked">
+                        <label for="has_review">Add Review</label>
+                    </div>
+                </div>
+                <div id="review_block">
+                    {% include '/pages/_partials/review.html' %}
+                </div>
+
+
+            </form>
+        </div>
+
+
+    </section>
+{% endblock %}
