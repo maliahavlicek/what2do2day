@@ -12,46 +12,49 @@
 }
 
 /* Ratings widget */
-.rating {
-    overflow: hidden;
+div.stars {
     display: inline-block;
-}
-
-.rating-input {
-    float: right;
-    width: 16px;
-    height: 16px;
+    margin: 0;
     padding: 0;
-    margin: 0 0 0 -16px;
-    opacity: 0;
+    text-align: left;
 }
 
-.rating-star {
-    cursor: pointer;
+input.star {
+    display: none;
+}
+
+label.star {
     float: right;
-    position: relative;
-    display: block;
-    width: 16px;
-    height: 16px;
-    background: url('/static/assets/images/star.png') 0 -16px;
+    padding: 10px;
+    font-size: 36px;
+    color: #444;
+    transition: all .2s;
 }
 
-.rating:hover .rating-star:hover,
-.rating:hover .rating-star:hover ~ .rating-star,
-.rating-input:checked ~ .rating-star{
-    background-position: 0 0;
+input.star:checked ~ label.star:before {
+    content: '\f005';
+    color: #00d1b1;
+    transition: all .25s;
 }
 
-.rating-star,
-.rating:hover .rating-star {
-    position: relative;
-    float: right;
-    display: block;
-    width: 16px;
-    height: 16px;
-    background: url('/static/assets/images/star.png') 0 -16px;
+
+input.star-5:checked ~ label.star:before {
+    color: #00d1b1;
+    text-shadow: 0 0 10px #95eeeb;
 }
 
+input.star-1:checked ~ label.star:before {
+    color: #00d1b1;
+}
+
+label.star:hover {
+    transform: rotate(-15deg) scale(1.3);
+}
+
+label.star:before {
+    content: '\f006';
+    font-family: FontAwesome;
+}
 
 
 /* toggle switch */
