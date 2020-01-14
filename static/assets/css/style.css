@@ -1,13 +1,24 @@
 /* overwrite styles for base fonts */
-body{
+body, button, input, select, textarea {
     font-family: Raleway, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 18px;
     font-weight: 500;
 }
-h1{
+h1, .navbar-brand a.navbar-item{
     font-family: 'Patrick Hand SC',Tahoma, serif;
 }
-
+.is-checkradio[type=checkbox].is-medium + label {
+    font-size: 1rem;
+    padding-top: .3rem;
+}
+.navbar-brand a.navbar-item{
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15rem;
+}
+.switch-value{
+    font-size: 1rem;
+}
 /* fix contrast issue with white against green */
 .hero.is-primary .title{
     color: #222;
