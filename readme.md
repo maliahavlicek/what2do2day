@@ -281,7 +281,7 @@ In addition, if it is not obvious, you should also describe how to run your code
 ## Credits
 [Icons made by Freepik from www.flaticon.com](https://www.flaticon.com/packs/outdoor-activities-32)
 [tables in markdown](https://www.tablesgenerator.com/markdown_tables#)
-[half star rating input][https://codepen.io/redlabor/pen/wyiAH]
+[star rating input](https://codepen.io/jexordexan/pen/yyYEJa)
 [toggle switch](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch)
 
 ### Content

@@ -1,0 +1,19 @@
+{# macro to create activies select element #}
+{% macro activity_list (id='', acts=[], prepoulate_value=False) -%}
+    <label for="activity-{{ id }}" class="label">Activity</label>
+    <div class="control has-icons-left">
+        <div class="select">
+            <select id="activity_{{ id }}" name="activity_{{ id }}">
+                <option {% if not prepoulate_value %}selected{% endif %}>Choose Activity</option>
+                {% for act in acts %}
+                    <option value="{{ act.name }}" {% if prepoulate_value and prepoulate_value == act.name %}selected{% endif %}>
+                        {{ act.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="icon is-small is-left has-text-primary">
+            <i class="fas fa-cogs"></i>
+        </div>
+    </div>
+{%- endmacro %}

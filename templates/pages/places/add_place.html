@@ -36,22 +36,8 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label for="activity" class="label">Activity</label>
-                    <div class="control has-icons-left">
-                        <div class="select">
-                            <select id="activity" name="activity">
-                                <option value="disabled selected">Choose Activity</option>
-                                {% for icon in activities %}
-                                    <option value="{{ icon.name }}">
-                                        {{ icon.name }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="icon is-small is-left has-text-primary">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                    </div>
+                   {{activity_list('place', activities)}}
+
                 </div>
                 <div class="field">
                     <label class="label">Address of Place</label>
@@ -144,7 +130,6 @@
 
             </form>
         </div>
-
 
     </section>
 {% endblock %}

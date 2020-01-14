@@ -1,43 +1,34 @@
+{#
+    This template expects a list of activies for the drop down and when updating, an event object
+     to prepopulate values with. When updating, we'll display the switch element to share the event with
+     the community.
+#}
 <div class="columns">
     <div class="field column">
         <label for="event_name" class="label">Name of Event</label>
         <div class="control">
-            <input id="event_name" name="event_name" class="input" type="text" placeholder="Event Name">
+            <input id="event_name" name="event_name" class="input" type="text" {% if event %}value="{{ event.name }}" {% endif %} placeholder="Event Name">
         </div>
     </div>
     <div class="field column">
         <label class="label" for="event_start_datetime">End Date & Time</label>
-        <input class="input" id="event_start_datetime" name="event_start_datetime" type="datetime">
+        <input class="input" id="event_start_datetime" name="event_start_datetime" type="datetime"  {% if event %}value="{{ event.start_datetime }}" {% endif %}>
     </div>
     <div class="field column">
         <label class="label" for="event_end_datetime">End Date & Time</label>
-        <input class="input" id="event_end_datetime" name="event_end_datetime" type="datetime">
+        <input class="input" id="event_end_datetime" name="event_end_datetime" type="datetime"  {% if event %}value="{{ event.end_datetime }}" {% endif %}>
     </div>
 </div>
+
 <div class="columns">
     <div class="column">
         <div class="field">
-            <label for="event_activity" class="label">Activity</label>
-            <div class="control has-icons-left">
-                <div class="select">
-                    <select id="event_activity" name="event_activity">
-                        <option value="disabled selected">Choose Activity</option>
-                        {% for icon in activities %}
-                            <option value="{{ icon.name }}">
-                                {{ icon.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="icon is-small is-left">
-                    <i class="fas fa-cogs"></i>
-                </div>
-            </div>
+           {{activity_list('event', activities)}}
         </div>
         <div class="field">
             <label for="non_member_price" class="label">Price for Non-members</label>
             <div class="control">
-                <input id="non_member_price" name="non_member_price" class="input" type="text" placeholder="Free">
+                <input id="non_member_price" name="non_member_price" class="input" type="text" placeholder="Free" {% if event %}value="{{ event.non_member_price }}"{% endif %}>
         </div>
     </div>
     </div>
@@ -46,20 +37,24 @@
             <div class="control">
                 <label for="event_details" class="label">Details</label>
                 <textarea id="event_details" name="event_details" class="textarea"
-                          placeholder="Enter Details"></textarea>
+                          placeholder="Enter Details" {% if event %}value="{{ event.details }}"{% endif %}></textarea>
             </div>
         </div>
     </div>
 </div>
+
+{# show_enable determines if the user sees a event specific enablment or not #}
+{% if event %}
 <div class="field">
     <label for="share_event" class="label">Share Event with Community</label>
 
     <div class="control">
     <label class="switch">
-        <input id="share_event" name="share_event" type="checkbox" checked>
+        <input id="share_event" name="share_event" type="checkbox" {% if event.enabled %}checked{% endif %}>
         <span class="slider"></span>
     </label>
 
     </div>
     <span class="value">No&nbsp;&nbsp;&nbsp;Yes</span>
 </div>
+{% endif %}

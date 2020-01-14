@@ -16,46 +16,50 @@
         </div>
     </div>
 </div>
-<div class="field">
-    <div class="control">
-        <label for="city" class="label">City</label>
+<div class="columns">
+    <div class="field column">
         <div class="control">
-            <input id="city" name="city" class="input" type="text" placeholder="City">
+            <label for="city" class="label">City</label>
+            <div class="control">
+                <input id="city" name="city" class="input" type="text" placeholder="City">
+            </div>
+        </div>
+    </div>
+    <div class="field column">
+        <div class="control">
+            <label for="state" class="label">State/Province/Region</label>
+            <div class="control">
+                <input id="state" name="state" class="input" type="text" placeholder="State">
+            </div>
         </div>
     </div>
 </div>
-<div class="field">
-    <div class="control">
-        <label for="state" class="label">State/Province/Region</label>
+<div class="columns">
+    <div class="field column">
         <div class="control">
-            <input id="state" name="state" class="input" type="text" placeholder="State">
+            <label for="postal_code" class="label">Postal Code</label>
+            <div class="control">
+                <input id="postal_code" name="postal_code" class="input" type="text"
+                       placeholder="Postal Code">
+            </div>
         </div>
     </div>
-</div>
-<div class="field">
-    <div class="control">
-        <label for="postal_code" class="label">Postal Code</label>
-        <div class="control">
-            <input id="postal_code" name="postal_code" class="input" type="text"
-                   placeholder="Postal Code">
-        </div>
-    </div>
-</div>
-<div class="field">
-    <label for="country" class="label">Country</label>
-    <div class="control has-icons-left">
-        <div class="select">
-            <select>
-                <option value="disabled selected">Country</option>
-                {% for country in countries %}
-                    <option value="{{ country }}">
-                        {{ country }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="icon is-small is-left has-text-primary">
-            <i class="fas fa-globe"></i>
+    <div class="field column">
+        <label for="country" class="label">Country</label>
+        <div class="control has-icons-left">
+            <div class="select">
+                <select>
+                    <option value="disabled selected">Country</option>
+                    {% for country in countries %}
+                        <option value="{{ country }}">
+                            {{ country }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="icon is-small is-left has-text-primary">
+                <i class="fas fa-globe"></i>
+            </div>
         </div>
     </div>
 </div>
