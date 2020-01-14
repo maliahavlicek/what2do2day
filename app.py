@@ -285,7 +285,7 @@ def home():
 @app.route('/get_events')
 def get_events():
     try:
-        list_events = mongo.db.events.find()
+        list_events = list(mongo.db.events.find())
     except Exception as e:
         db_issue(e)
         list_events = []
@@ -295,7 +295,12 @@ def get_events():
 
 @app.route('/filter_events', methods=['POST'])
 def filter_events():
-    return render_template('pages/events/events.html', events=mongo.db.events.find(), filter='none')
+    try:
+        list_events = list(mongo.db.events.find())
+    except Exception as e:
+        db_issue(e)
+        list_events = []
+    return render_template('pages/events/events.html', events=list_events, filter='none')
 
 
 @app.route('/add_event', methods=['GET', 'POST'])
@@ -306,7 +311,7 @@ def add_event():
         filters = 'none'
 
     try:
-        list_places = mongo.db.places.find()
+        list_places = list(mongo.db.places.find())
     except Exception as e:
         db_issue(e)
         list_places = []
@@ -317,7 +322,7 @@ def add_event():
 @app.route('/get_places')
 def get_places():
     try:
-        list_places = mongo.db.places.find()
+        list_places = list(mongo.db.places.find())
     except Exception as e:
         db_issue(e)
         list_places = []

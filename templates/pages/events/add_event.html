@@ -6,7 +6,7 @@
             <h1 class="title">
                 Add Events
             </h1>
-            {% if places.count() < 1 and filter=='none' %}
+            {% if places | length < 1 and filter=='none' %}
                 <h2 class="subtitle">
                     Sorry, there are no places at this time, you must first add a place before adding events.
                 </h2>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-            {% elif places.count() > 5 %}
+            {% elif places | length > 5 %}
                 <h2 class="subtitle">
                     <button class="button is-text">Filter</button>
                     {{ places.filter }}
