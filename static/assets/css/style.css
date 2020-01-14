@@ -1,9 +1,24 @@
+/* overwrite styles for base fonts */
+body{
+    font-family: Raleway, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+}
+h1{
+    font-family: 'Patrick Hand SC',Tahoma, serif;
+}
+
+/* fix contrast issue with white against green */
+.hero.is-primary .title{
+    color: #222;
+}
+
 /* select caret color*/
 .select:not(.is-multiple):not(.is-loading)::after {
     border-color: #00d1b1;
 }
 
-/* ebmedded form elements */
+/* embedded form elements */
 .embedded {
     border: 1px solid #b5b5b5;
     padding: 15px;

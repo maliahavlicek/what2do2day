@@ -1,4 +1,5 @@
 {% from "macros.html" import activity_list with context %}
+{% from "macros.html" import enable_switch with context %}
 {% extends 'pages/base.html' %}
 {% block content %}
     <section class="hero is-primary">
@@ -38,7 +39,6 @@
                 </div>
                 <div class="field">
                    {{activity_list('place', activities)}}
-
                 </div>
                 <div class="field">
                     <label class="label">Address of Place</label>
@@ -116,19 +116,8 @@
                     {% include '/pages/_partials/event.html' %}
                 </div>
                 <div class="field">
-                    <label for="share_pace" class="label">Share Place with Community</label>
-
-                    <div class="control">
-                        <label class="switch">
-                            <input id="share_pace" name="share_pace" type="checkbox" checked>
-                            <span class="slider"></span>
-                        </label>
-
-                    </div>
-                    <span class="value">No&nbsp;&nbsp;&nbsp;Yes</span>
+                    {{enable_switch('place', True)}}
                 </div>
-
-
             </form>
         </div>
 

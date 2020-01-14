@@ -1,18 +1,18 @@
 <div class="columns">
     <div class="field column">
-    <div class="control">
-        <label for="author" class="label">Author</label>
         <div class="control">
-            <input id="author" name="phauthorone" class="input" type="text"
-                   placeholder="First Name">
+            <label for="author" class="label">Author</label>
+            <div class="control">
+                <input id="author" name="phauthorone" class="input" type="text"
+                       placeholder="First Name">
+            </div>
         </div>
     </div>
-</div>
-<div class="field column">
-    <div class="control">
-        {% include '/pages/_partials/rating.html' %}
+    <div class="field column">
+        <div class="control">
+            {% include '/pages/_partials/rating.html' %}
+        </div>
     </div>
-</div>
 </div>
 <div class="field">
     <div class="control">
@@ -21,17 +21,9 @@
                   placeholder="Enter Review"></textarea>
     </div>
 </div>
-<div class="field">
-    <label for="share_review" class="label">Share Review with Community</label>
 
-    <div class="control">
-    <label class="switch">
-        <input id="share_review" name="share_review" type="checkbox" checked>
-        <span class="slider"></span>
-    </label>
-
+{% if review %}
+    <div class="field">
+        {{ enable_switch('place', review.enabled) }}
     </div>
-    <span class="value">No&nbsp;&nbsp;&nbsp;Yes</span>
-</div>
-
-
+{% endif %}

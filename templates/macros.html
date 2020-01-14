@@ -3,7 +3,7 @@
     <label for="activity-{{ id }}" class="label">Activity</label>
     <div class="control has-icons-left">
         <div class="select">
-            <select id="activity_{{ id }}" name="activity_{{ id }}">
+            <select aria-label="Choose activity associated with {{ id }}" id="activity_{{ id }}" name="activity_{{ id }}">
                 <option {% if not prepoulate_value %}selected{% endif %}>Choose Activity</option>
                 {% for act in acts %}
                     <option value="{{ act.name }}" {% if prepoulate_value and prepoulate_value == act.name %}selected{% endif %}>
@@ -16,4 +16,16 @@
             <i class="fas fa-cogs"></i>
         </div>
     </div>
+{%- endmacro %}
+
+{# macro to create disable/enable (don't share/share) switch element #}
+{%  macro enable_switch (id='', prepopulate_value=False) -%}
+    <label for="share_{{id}}" class="label">Share {{ id | capitalize }} with Community</label>
+    <div class="control">
+    <label class="switch">
+        <input id="share_{{id}}" name="share_{{id}}" type="checkbox" {% if prepopulate_value %}checked{% endif %}>
+        <span class="slider"></span>
+    </label>
+    </div>
+    <span class="value">No&nbsp;&nbsp;&nbsp;Yes</span>
 {%- endmacro %}
