@@ -233,7 +233,17 @@ also be in charge of setting up ad campaigns.
 - [draw.io](https://about.draw.io/features/) - used to create Entity Relationship diagram.
 - [balsamiq](https://balsamiq.com/) - used to create more professional mock ups.
 - [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
-- [JQuery](https://jquery.com)- The project uses **JQuery** to simplify DOM manipulation.
+- [Patrick Hand SC](https://fonts.google.com/specimen/Patrick+Hand+SC) - Google Font's Patrick Hand font was used for headers and home page dialog
+- [Raleway](https://fonts.google.com/specimen/Raleway) - Google's Raleway font was used as the main font
+- [CSS3](https://www.w3schools.com/w3css/default.asp) The project uses **CSS** to define DOM appearance. 
+- [HTML5](https://www.w3schools.com/html/default.asp) The project uses **HTML** to define DOM elements. 
+- [JQuery](https://jquery.com)- used to initialize elements of Bulma framework: check boxes, date pickers, menu toggles.
+- [Bulma](https://bulma.io/) - Bluma is a mobile first, free, open source CSS framework based on Flexbox. Using this framework provides many nice top design elements such as navigation menu bar for desktop, side nav bar for mobile, modals/layers, containers and forms.
+- [Bulma extensions](https://wikiki.github.io/) extends bluma by adding more complex design features such as: accordions, pagination, datetime pickers, checkradios, and switches.
+- [flask](https://flask-doc.readthedocs.io/en/latest/) - Flask is a python based templating language that helps developers re-user HTML templates.
+- [python](https://www.python.org/) the project back-end functions are written using Python. Flask and Python is used to build route functions
+- [mongodb](https://www.mongodb.com/cloud/atlas)- a fully-managed cloud database used to store manage and query datasets
+- [icon generator](https://favicon.io/favicon-generator/) - free site to help in website icon generation
 
 Pygal - charting  http://www.pygal.org/en/stable/documentation/
 unittest - testing apis  https://docs.python.org/3/library/unittest.html
@@ -293,4 +303,5 @@ In addition, if it is not obvious, you should also describe how to run your code
 ### Acknowledgements
 
 - I received inspiration for this project from X
+- I found out how to make macros and include them from an external file from [uniwebsidad.com](https://uniwebsidad.com/libros/explore-flask/chapter-8/creating-macros)
 
