@@ -4,23 +4,122 @@ body, button, input, select, textarea {
     font-size: 18px;
     font-weight: 500;
 }
-h1, .navbar-brand a.navbar-item{
-    font-family: 'Patrick Hand SC',Tahoma, serif;
+
+h1, .navbar-brand a.navbar-item {
+    font-family: 'Patrick Hand SC', Tahoma, serif;
 }
+
 .is-checkradio[type=checkbox].is-medium + label {
     font-size: 1rem;
     padding-top: .3rem;
 }
-.navbar-brand a.navbar-item{
+
+.navbar-brand a.navbar-item {
     font-size: 1.6rem;
     font-weight: 700;
     letter-spacing: 0.15rem;
 }
-.switch-value{
+
+.switch-value {
     font-size: 1rem;
 }
+
+/* home page styles */
+.hero-body.home {
+    background: url(/static/assets/images/were_gonna_build_a_rollercoaster_sm.jpg) no-repeat bottom center;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
+
+.buttons.home {
+    position: absolute;
+    top: 74%;
+    left: 10%;
+}
+
+a.button.is-link.home-btn-1, a.button.is-link.home-btn-2 {
+    font-size: 2rem;
+    height: 3rem;
+    padding: 0 10px;
+    font-family: Patrick Hand SC, Arial, sans-serif;
+    border: 1px solid;
+
+}
+
+a.button.is-link.home-btn-2 {
+    margin-left: 100px;
+}
+
+/* speech bubble */
+.speech-bubble {
+    background: #efefef;
+    border: 1px solid #a7a7a7;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    font-size: 2rem;
+    line-height: 1.3;
+    margin: 0 auto 40px;
+    max-width: 80%;
+    padding: 10px;
+    position: absolute;
+    color: #222;
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
+}
+
+.speech-bubble.first {
+    margin-top: 80px;
+    left: 10px;
+    max-width: 77%;
+}
+
+.first .speech-bubble-arrow {
+    right: 20%;
+}
+
+.speech-bubble.second {
+    margin-top: 10px;
+    right: 10px;
+}
+
+.speech-bubble p {
+    margin-bottom: 10px;
+}
+
+.speech-bubble p:last-of-type {
+    margin-bottom: 0;
+}
+
+.speech-bubble-arrow {
+    border-left: 21px solid transparent;
+    border-top: 20px solid rgba(0, 0, 0, 0.2);
+    bottom: -25px;
+    position: absolute;
+    right: 15px;
+}
+
+.speech-bubble-arrow::before {
+    border-left: 23px solid transparent;
+    border-top: 23px solid #a7a7a7;
+    bottom: 2px;
+    content: "";
+    position: absolute;
+    right: 5px;
+}
+
+.speech-bubble-arrow::after {
+    border-left: 21px solid transparent;
+    border-top: 21px solid #efefef;
+    bottom: 4px;
+    content: "";
+    position: absolute;
+    right: 6px;
+}
+
 /* fix contrast issue with white against green */
-.hero.is-primary .title{
+.hero.is-primary .title {
     color: #222;
 }
 
@@ -134,4 +233,41 @@ input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
+}
+
+/* tablet styles */
+@media screen and (min-width: 769px) {
+    .hero-body.home {
+        background: url(/static/assets/images/were_gonna_build_a_rollercoaster.jpg) no-repeat center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .speech-bubble {
+        font-size: 2.5rem;
+        max-width: 75%;
+        padding: 15px;
+    }
+.speech-bubble.first {
+    left: 20px;
+    max-width: 55%;
+}
+    .speech-bubble.second {
+        margin-top: 20px;
+        right: 20%;
+    }
+}
+
+
+/* desktop and larger styles */
+@media screen and (min-width: 1024px) {
+    .speech-bubble {
+        font-size: 3rem;
+    }
+
+    .speech-bubble.second {
+        right: 33%;
+    }
 }

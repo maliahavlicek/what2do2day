@@ -304,4 +304,5 @@ In addition, if it is not obvious, you should also describe how to run your code
 
 - I received inspiration for this project from X
 - I found out how to make macros and include them from an external file from [uniwebsidad.com](https://uniwebsidad.com/libros/explore-flask/chapter-8/creating-macros)
+- [speech bubbles](https://auralinna.blog/post/2017/how-to-make-a-css-speech-bubble-with-borders-and-drop-shadow) on the home page were adopted from this post by Tero Auralinna.
 

@@ -1,15 +1,30 @@
 {% extends 'pages/base.html' %}
 {% block content %}
-<section class="hero is-medium is-primary is-fullheight-with-navbar is-bold">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Primary bold title
-            </h1>
-            <h2 class="subtitle">
-                Primary bold subtitle
-            </h2>
+    <section class="hero is-medium is-primary is-fullheight-with-navbar is-bold">
+        <div class="hero-body home">
+            <div class="container">
+            </div>
         </div>
-    </div>
-</section>
+        <div class="speech-bubble first">
+            <p>It's a community built repository to help kids find free things to do in their neighborhood.</p>
+            <div class="speech-bubble-arrow"></div>
+        </div>
+        <div class="speech-bubble second">
+            <p>What's What2Do2Day?</p>
+            <div class="speech-bubble-arrow"></div>
+        </div>
+        <div class="buttons home columns">
+            <div class="column is-half">
+                <a class="button is-link home-btn-1" href="{{ url_for('get_events') }}">
+                    <span>Discover Events</span>
+                </a>
+            </div>
+            <div class="column is-half">
+                <a class="button is-link home-btn-2" href="{{ url_for('get_places') }}">
+                    <span>Discover Places</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
 {% endblock %}
