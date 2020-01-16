@@ -6,7 +6,7 @@ This website provides people a way to find free events in their community as a m
 
 Users can also see a list of all the places in the community that have ever hosted an event and read reviews about them. Users can add reviews about places to share their experiences and rate organizations. Places, Events, and Reviews can be added, deleted and updated from the site. If an activity doesn't quite fit into the list provided, users can add a new activity when creating an event or place. Small businesses, social groups, and communities would ideally be in charge of their organizations's data and events but in this beta phase, user authentication, roles and permissions are not implemented.
 
-Site owners could enable affiliate linking from any organization associated with the site that results in a booking for paid events by adding a Google Click Identifier (GCLID) to place's url. Site admins could also gather data based on search activity as well as Places and Events with heavy interaction and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places's page has natural side bars in desktop when users are looking at events and reviews)
+Site owners could enable affiliate linking from any organization associated with the site that results in a sale from the place's own website.  By adding a Google Click Identifier (GCLID) to a place's url when leaving What2Do2Day's site, offline conversions could be tracked and negotiated to a monetary value for the site owners. Site admins could also gather data based on search activity as well as Places and Events with heavy interaction and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places's page has natural side bars in desktop when users are looking at events and reviews, on mobile devices ad space could be inserted below filtering options and above the footer too.)
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series [Phineas and Ferb](https://en.wikipedia.org/wiki/Phineas_and_Ferb).
  
@@ -177,87 +177,176 @@ The formal wireframe process identified the need for:
  - pagination
  - forms
  - maps
+ - rating selector
+ - buttons
+ - date pickers
+ - select choice/drop downs
+ - text input
+ - text area inputs
+ - checkboxes
+ - switches
+ - icon selection
  
- I read [best css frameworks]('https://www.creativebloq.com/features/best-css-frameworks'). I looked into foundation and bulma. 
- 
- and collapsible drawers, icons for closing modals, chevrons for opening modals, pagination trash cans and more. I've already tried boostrap4.0 and materilize via the tutorials. I looked at https://get.foundation/learn/tutorials.html and although I've used SCSS, i never had to manage what mixins to include before so it's a learning opportunity. 
+ I did not want to invent all of the above, so I read [best css frameworks]('https://www.creativebloq.com/features/best-css-frameworks') to help make an informed decision on what framework to use. Foundation, picnic, and bulma made my short list as they appeared light weight and were frameworks I did not get exposure to from previous milestone projects or coursework. After reading up a bit, I decided that Bulma was the best fit for what I hoped to include in this project.
 
 #### Animations & Transitions
-I trolled codrops to look for some inspiration.  These sites gave animation ideas I may never have tried. I went back to my designs and checked where I could reduce the amount of data seen on the lists pages so the user can see more and if they click on the row, it can expand out to full screen and present all the data needed.
+I trolled codrops to look for some inspiration.  The following sites gave animation ideas that greatly altered my original wireframes:
  - [expanding search option](https://tympanus.net/Tutorials/ExpandingSearchBar/) 
  - [grid icon expansion](https://tympanus.net/codrops/2013/03/19/thumbnail-grid-with-expanding-preview/)
  - [expanding overlay](https://tympanus.net/Tutorials/ExpandingOverlayEffect/)
  - [fullscreen overly](https://tympanus.net/Development/FullscreenGridPortfolioTemplate/)
 
+By seeing live examples, it dawned on me that I could have a small icon or minimal data in my list instead of the kitchen sink. I went back to my designs reduced the amount of data seen on the events and places lists pages so the user can see more options at one time. I hope to then enable clicking on a row to expand out to full screen and present all the data needed with a friendly animation.
  
 ### User Stories:
-Once the mocks up were done and most of the UX decisions were tackled, I looked at the final [mockups](documentation/balsamiq.md) again and wrote out user stories to help breakdown the project into manageable development chunks.
+This website serves 3 sets of users, thus the stories are broken down into 3 categories:
 
+- For kids looking for something free to do today in their neighborhood:
+  - As a user, I'd like a list of events happening.
+  - As a user, I want to filter events by age and activity so I can find something to do that matches my interests.
+  - As a user, I want to sort events by a date range so I can find something to do in the future easily.
+  - As a user, I want to join an event so I can be reminded when it happens.
+  - As a user, I want to follow a place that hosts events so I can know when a new event is added immediately.
+  - As a user, I want to read reviews about places that host events, so I know what to expect.
+  - As a user, I want to write a review about a place so I can share my opinion.
+  - As a user, I want to remove my review about a place so I can have a low profile online.
+
+- For places and organizations involved in building the community
+  - As a user, I want to list my place so the community knows about it.
+  - As a user, I want to have honest reviews about my place to build trust with the community.
+  - As a user, I want to remove reviews about my place so that inappropriate comments are not associated with my place.
+  - As a user, I want people to follow my place so they can know about events, and so I can compare my place to other places that host similar activities.
+  - As a user, I want to add events to my place so the community knows about them.
+  - As a user, I want people to join my events, so I can communicate with them if details change and plan for the right number of people.
+  - As a user, I want to disable my events if the weather doesn't cooperate.
+  - As a user, I want to disable my place if I decide to retire, go on vacation, or sell my place.
+
+- For site owners hosting a website to store community information
+  - Home page that communicates the purpose of the website
+  - ability to track search criteria to better sell ad space
+  - ability to track places users follow to negotiate offline conversion money
+  - ability to track events users join to negotiate offline conversion money and to better target ads
+  - ability to track reviews uses write to better gauge community engagement
+  - ability to track user's emails for research purposes in beta, potential marketing in the future
 
 ## Features
+To streamline the development process without the complexity of user roles and permissions, it was decided that the MVP consists of a beta product as a proof of concept for a small market. The beta features are those listed in the Implemented Features. If the project is taken to it's full potential, the Features Left to Implement would be tackled.
 
-In this section, you should go over the different parts of your project, and describe each in a sentence or so.
-
-To streamline the development process without the complexity of users and permissions, it was decided that the MVP consists of:
-1. Home Page: What are we going to do today screen. Explains purpose of site and includes 2 buttons for Events and Places lists.
-1. Places Page:  User sees a list of enabled places. Search functionality for City, State Country, Rating and Activity will be present to reduce results and compensate for no geolocation. Track Activity Search inputs. Track expansion of details and reviews of Places. Allow pagination.
-1. Creating Place Page: User inputs values where adding a review and an event are part of the process but not necessarily required. A warning will be provided if the name is found in existing database.
-1. Update Place Page: User is presented a find field that will list 5 results with update options including disabled ones. List enabled Places first. If no match found, users can add a place or revise their search criteria. Once the update button is clicked, the user is presented with a form prepopulated with the Place's existing data. Aggregated rating values is visible but cannot be updated. Reviews associated with the place are presented in a list, cannot be managed from this screen. MVP dictates that ease of use/proximity of managing reviews is not essential to initial deployment.
-1. Delete Place Page: User is presented a Name find field that will list 5 results of enabled places with delete options. Once a delete button is clicked, the place will be disabled and user will be taken to places list page. Deleted Places will just disable items to prevent user from having to reenter data if the Place is moving locations or undergoing maintenance.
-1. Events Page: Display all future events to user ascending by date. Include ability to limit results by City, State Country, Activity to compensate for no geolocation. Track Activity Search inputs. Track expansion of details and count me in interaction. Allow pagination.
-1. Create Event Page: User is presented an input field for the place's name it is associated with. If no matches found they can opt to create a place. If matches are found enabled items are listed first. Limit results to 5. Once the create event button is clicked, the user is shown a from to create an event. A warning will be provided upon submit if the Date and Title match an existing event for that Place.
-1. Update Event Page: User is presented a find field for the place's name, date and activity to aid in finding the event.  If no matches found they can update their search criteria. If matches are found enabled items are listed first, allow pagination of results. Once the update button is clicked, the user is shown a from prepopulated with the existing entries. Upon submit, the Event's Name and Date is checked against existing events
-for the place and the user is warned if a match is found. If no warning, the database is updated and user is returned to the Places page with results limited to that Place. 
-1. Deleting Event Page:  User is presented a find field for the place's name, date and activity to aid in finding the event.  If no matches found they can update their search criteria. If matches are found only enabled items are listed. Allow pagination of results. Deleting only disables an event. Once user clicks Delete button, they are returned to the Delete Event Page.
-1. Create Review Page: User is presented a find field for the place's name to aid in finding the Place.  If no matches found they can update their search criteria. Only show matches for enabled Places. Limit results to 5.
-1. Update Review Page: User is presented a find field for the place's name to aid in finding the Review.  If no places are found they can update their search criteria. Show matches for both enabled and disabled Places, listing enabled first. Limit results to 5. Once a Place is picked, the reviews associated for that Place are listed with enabled first and disabled second. Pagination of results is allowed. Once an update button is clicked, the user is presented with a form field prepopulated with the review's current entries. Clicking the submit button updates the review and takes the user back to the update review page.
-1. Delete Review Page: User is presented a find field for the place's name to aid in finding the Review..  If no matches found they can update their search criteria. Show matches for enabled and disabled Places, listing enabled first. Limit results to 5. Once a place is selected, present the user with enabled reviews for that place. Clicking Delete only toggles Review to disabled, return user to Places Page.
-1. Create Activity Screen: When creating an event or place, the activity specific to the place may not exist. Only on Add/Update screens of Place or Event will there be a button to access this functionality exist. When clicked the create Activity button exposes two more form fields and hides the Activity drop down. This allows the user to add an activity icon and name. Submitting a Place or Event with these fields exposed will create a new Activity.
-1. Navigation
-
+### Implemented Features
+#### Structure
+1. Navbar - the navbar stays collapsed on medium and small devices. The navbar contains brand logo and links to associated sections i.e. Home, Events, Places, Contribute Update. Bulma's navbar implementation was used.
+1. Footer - contains disclaimer, copyrights information, links to github repository and developer's resume
+#### Common Elements
+1. Speech Bubble - used on home page to inform users what the site is about
+1. Icon buttons - used to indicate adding events, adding places, adding reviews, following places, joining events
+1. Switches - enabling and disabling events, places and reviews
+1. Date Pickers - setting up time frames of events
+1. Rating Selector - star icon based radio button to record user ratings
+1. Overlays - way to disable main page while getting user input for filtering results, joining an event, following a place, add review
+1. Checkboxes - user friendly way to hide/show sections such as place address, place add event, place add review, event address
+1. Icon Selector - when feels a different activity is needed, they can pick from a list of icons to associate the activity to
+1. Accordion - collapse places' reviews and events, expand on click
+1. Pagination - when results for events or places pages exceed 10, paginate results
+#### Forms
+1. Add Place - validation for required fields and proper data, unique Name check
+1. Update Place - validation for required fields and proper data, uniqueness check
+1. Add Event - validation for required fields and proper data, unique Name and Date check
+1. Update Event - validation for required fields and proper data, uniqueness check
+1. Add Review - validation for required fields
+1. Update Review
+#### Advanced Data Operations
+1. Aggregated Review - from enabled reviews of a given place, present an average rating for a place
+1. Count of followers - When a unique email is entered, add them to follower list
+1. Count of event joiners - When a unique email is entered, add them to the joiner list
+#### API Integration
+1. Email JS - when an event is added to a place, email details to followers
+1. Google Calendar - when a user joins an event, send calendar invite, when event is updated, email joiner list
+1. Google Maps - show map of event location, show map of place location
+#### Metrics
+1. track follows by place and activity type
+1. track joins by event and activity type
+1. track searches by activity and age inputs
+1. track places in db by activity type
+1. track events in system by activity type
  
 ### Features Left to Implement
 In the long term once this concept proves viable, authentication would be enabled and five sets of roles would accessing the site: 
-- <strong>Place Administrators</strong> -  users who have permissions to manage the Place, Events and Activities.
-- <strong>External Users Adults</strong> - users who have permissions to grant minor external users  access to the site. Adult users
-would also have permissions to manage their profile and create, edit and delete their own reviews.
-- <strong>External Users Minors</strong> - users who must be granted permissions to the site by Adult External Users.
-Minor users can manage their profile with limited features to help ensure their safety (no images or location settings if
-and when those features are added to the site). Minor users can also create, edit and delete their own reviews.
-- <strong>Content Admins</strong> -  users who approve reviews for inappropriate content and bot induced batch reviews. Content admins would
-also be in charge of setting up ad campaigns.
-- <strong>Site Administrators</strong> - users who have permissions to create, update and delete all the data hosted on the site 
-(Users, Places, Events, Reviews
+#### User Roles & Permissions
+1. <strong>Place Administrators</strong> -  users who have permissions to manage the Place, Events and Activities.
+1. <strong>External Users Adults</strong> - users who have permissions to grant minor external users  access to the site. Adult users would also have permissions to manage their profile and create, edit and delete their own reviews.
+1. <strong>External Users Minors</strong> - users who must be granted permissions to the site by Adult External Users. Minor users can manage their profile with limited features to help ensure their safety (no images or location settings if and when those features are added to the site). Minor users can also create, edit and delete their own reviews.
+1. <strong>Content Admins</strong> -  users who approve reviews for inappropriate content and bot induced batch reviews. Content admins would also be in charge of setting up ad campaigns.
+1. <strong>Site Administrators</strong> - users who have permissions to create, update and delete all the data hosted on the site (Users, Places, Events, Reviews)
+#### Place Administrator Dashboard
+1. Limit number of attendees on events
+1. Allow cloning of events
+1. Allow set up of repeating events
+1. Allow emailing to event joiners
+1. Allow emailing to followers
+1. Approve/Disapprove reviews
+1. password management
+1. place profile management
+#### External User Adult Dashboard
+1. Allow user to upload image to share along with review
+1. Allow user to share location with other members
+1. Allow user to manage minors reviews/places/events/profile
+1. Allow user to opt into/out of minor's following and joining behavior
+1. Allow user to see and manage all reviews they've made
+1. Allow user to see and manage all places they have followed
+1. Allow user to see and manage all events they have joined
+1. password management
+1. user profile management
+#### External User Minor Dashboard
+1. Allow user to chose avatar to share along with review/follow/join
+1. Submit reviews/place following /event joining to supervising adult
+1. Allow user to see and manage all reviews they've made
+1. Allow user to see and manage all places they have followed
+1. Allow user to see and manage all events they have joined
+#### Content Admin
+1. Manage ad placement & campaigns
+1. Follow up on disapproved reviews
+1. Keep up with naughty word list identification
+1. Manage abuse reports
+#### Site Admin
+1. Pull metrics & manage dashboard graphics
+1. Manage users & permissions/role groups
+1. Password reset 
+#### API Integration
+1. GoogleAds - ad placement, offline conversions, automatic bidding
+1. GoogleMaps Sitepoint - get directions from current location
+1. GoogleMaps Geolocation - share location with other members
+
 
 ## Technologies Used
-- [draw.io](https://about.draw.io/features/) - used to create Entity Relationship diagram.
-- [balsamiq](https://balsamiq.com/) - used to create more professional mock ups.
-- [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
+### Programming languages
+- [CSS3](https://www.w3schools.com/w3css/default.asp) - used to define DOM appearance. 
+- [HTML5](https://www.w3schools.com/html/default.asp) -  used to define DOM elements. 
+- [JQuery](https://jquery.com) - used to initialize elements of Bulma framework: check boxes, date pickers, menu toggles.
+- [JavaScript](https://www.javascript.com/)  -  used to implement Maps JavaScript API, Calendar API, and EmailJS.
+- [Python](https://www.python.org/) the project back-end functions are written using Python. Flask and Python is used to build route functions
+- [Markdown](https://www.markdownguide.org/) Documentation within the readme was generated using markdown
+### Framework & Extensions
+- [Bulma](https://bulma.io/) - a mobile first, free, open source CSS framework based on Flex-box. Using this framework provides many nice top design elements such as navigation menu bar for desktop, side nav bar for mobile, modals/layers, containers and forms.
+- [Bulma Extensions](https://wikiki.github.io/) extends Bluma by adding more complex design features such as: accordions, pagination, datetime pickers, checkradios, and switches.
+- [mongodb](https://www.mongodb.com/cloud/atlas)- a fully-managed cloud database used to store manage and query data sets
+- [Flask](https://flask-doc.readthedocs.io/en/latest/) - python based templating language that helps developers re-user HTML templates.
+- [Pygal](http://www.pygal.org/en/stable/documentation/) - charting for metrics dashboard
+- [unittest](https://docs.python.org/3/library/unittest.html) - testing database CRUD functions, flask routing
+### Fonts
+- [FontAwesom]() - for icons
 - [Patrick Hand SC](https://fonts.google.com/specimen/Patrick+Hand+SC) - Google Font's Patrick Hand font was used for headers and home page dialog
 - [Raleway](https://fonts.google.com/specimen/Raleway) - Google's Raleway font was used as the main font
-- [CSS3](https://www.w3schools.com/w3css/default.asp) The project uses **CSS** to define DOM appearance. 
-- [HTML5](https://www.w3schools.com/html/default.asp) The project uses **HTML** to define DOM elements. 
-- [JQuery](https://jquery.com)- used to initialize elements of Bulma framework: check boxes, date pickers, menu toggles.
-- [Bulma](https://bulma.io/) - Bluma is a mobile first, free, open source CSS framework based on Flexbox. Using this framework provides many nice top design elements such as navigation menu bar for desktop, side nav bar for mobile, modals/layers, containers and forms.
-- [Bulma extensions](https://wikiki.github.io/) extends bluma by adding more complex design features such as: accordions, pagination, datetime pickers, checkradios, and switches.
-- [flask](https://flask-doc.readthedocs.io/en/latest/) - Flask is a python based templating language that helps developers re-user HTML templates.
-- [python](https://www.python.org/) the project back-end functions are written using Python. Flask and Python is used to build route functions
-- [mongodb](https://www.mongodb.com/cloud/atlas)- a fully-managed cloud database used to store manage and query datasets
+### Tools
+- [draw.io](https://about.draw.io/features/) - used to create Entity Relationship diagrams.
+- [balsamiq](https://balsamiq.com/) - used to create professional looking wire frames.
+- [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
 - [icon generator](https://favicon.io/favicon-generator/) - free site to help in website icon generation
-
-Pygal - charting  http://www.pygal.org/en/stable/documentation/
-unittest - testing apis  https://docs.python.org/3/library/unittest.html
-google calendar API https://developers.google.com/calendar/v3/reference/events
-https://developers.google.com/calendar/create-events
-
-
-
+### APIs
+- [emailJS](https://emailjs.com) - Send user notices when place they are following is modified, has a new event, or has a new review posted. 
+- [Google Calendar API](https://developers.google.com/calendar/v3/reference/events) - Used to [create events](https://developers.google.com/calendar/create-events) for application, add attendees when users join an event, and send updates to joiners if event is modified
+- [Google Maps Javascript API](https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/) - Customized Map of event and places
 
 ## Testing
- 
-unittest - testing apis  https://docs.python.org/3/library/unittest.html
-
-
 In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
 
 Whenever it is feasible, prefer to automate your tests, and if you've done so, provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
@@ -305,4 +394,5 @@ In addition, if it is not obvious, you should also describe how to run your code
 - I received inspiration for this project from X
 - I found out how to make macros and include them from an external file from [uniwebsidad.com](https://uniwebsidad.com/libros/explore-flask/chapter-8/creating-macros)
 - [speech bubbles](https://auralinna.blog/post/2017/how-to-make-a-css-speech-bubble-with-borders-and-drop-shadow) on the home page were adopted from this post by Tero Auralinna.
+- [home background](https://css-tricks.com/perfect-full-page-background-image/) centering technique via CSS
 
