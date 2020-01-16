@@ -6,17 +6,19 @@ body, button, input, select, textarea {
 }
 
 /* add background color to rails on desktop + renderings */
-.body {
+html {
     background-color: hsl(0, 0%, 86%)
 }
 
-/* remove ability to stretch inputs and containers across super large screens (restrict to desktop max size) */
-.body-container {
-    max-width: 1024px;
+body {
+
+    max-width: 1240px;
     margin-left: auto;
     margin-right: auto;
     background-color: #FFF
 }
+
+/* remove ability to stretch inputs and containers across super large screens  */
 
 /* overwrite fonts for h1 and navigation */
 h1, .navbar-brand a.navbar-item {
@@ -313,8 +315,37 @@ input:checked + .slider:before {
         font-size: 3rem;
     }
 
+    /* hitting rails in this view, pin speech bubble placement */
+    .speech-bubble.first {
+        right: 500px;
+        width: 700px;
+    }
+
     /* larger margin for second speech bubble on larger devices */
     .speech-bubble.second {
         right: 33%;
+    }
+
+    /* hitting rails, pin buttons placement */
+    .buttons.home {
+        top: 604px;
+        width: 1024px;
+        display: block;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        flex-wrap: nowrap;
+        justify-content: left;
+        max-width: 100%;
+    }
+
+    .buttons.home .column.is-half {
+        width: 215px;
+        display: inline-block;
+    }
+
+
+    a.button.is-link.home-btn-2 {
+        margin-left: 369px;
     }
 }
