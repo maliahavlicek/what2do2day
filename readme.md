@@ -1,5 +1,6 @@
 # What2Do2Day
 ## Author
+Malia Havlicek
 ## Project Overview
 This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. 
 
@@ -194,39 +195,34 @@ By having icons that are compatible with the colors I plan on using throughout m
 
 #### Design Elements
 The formal wireframe process identified the need for:
- - top menu bar for desktop
- - side nav bar for mobile
- - modals/layers
- - accordions
- - containers
- - pagination
- - forms
- - maps
- - rating selector
- - buttons
- - date pickers
- - select choice/drop downs
- - text input
- - text area inputs
- - checkboxes
- - switches
- - icon selection
  
- I did not want to invent all of the above, so I read [best css frameworks]('https://www.creativebloq.com/features/best-css-frameworks') to help make an informed decision on what framework to use. Foundation, picnic, and bulma made my short list as they appeared light weight and were frameworks I did not get exposure to from previous milestone projects or coursework. After reading up a bit, I decided that Bulma was the best fit for what I hoped to include in this project.
+ |                 	|               	|
+|-----------------	|---------------	|
+| top menu        	| sidebar menu  	|
+| modals/layers   	| accordions    	|
+| containers      	| pagination    	|
+| forms           	| maps          	|
+| rating selector 	| buttons       	|
+| date pickers    	| select choice 	|
+| drop downs      	| text input    	|
+| textarea input  	| check boxes   	|
+| switches        	| icon selector 	|
+ 
+ I did not want to invent all of the above, so I read [best css frameworks](https://www.creativebloq.com/features/best-css-frameworks) to help make an informed decision on what framework to use. Foundation, picnic, and bulma made my short list as they appeared light weight and were frameworks I did not get exposure to from previous milestone projects or coursework. After reading up a bit, I decided that Bulma was the best fit for what I hoped to include in this project.
 
 #### Animations & Transitions
-I trolled codrops to look for some inspiration.  The following sites gave animation ideas that greatly altered my original wireframes:
+I trolled [codrops](https://tympanus.net/codrops/) to look for some inspiration.  The following sites gave animation ideas that greatly altered my original wire-frames:
  - [expanding search option](https://tympanus.net/Tutorials/ExpandingSearchBar/) 
- - [grid icon expansion](https://tympanus.net/codrops/2013/03/19/thumbnail-grid-with-expanding-preview/)
+ - [grid icon expansion](https://tympanus.net/Tutorials/ThumbnailGridExpandingPreview/)
  - [expanding overlay](https://tympanus.net/Tutorials/ExpandingOverlayEffect/)
  - [fullscreen overly](https://tympanus.net/Development/FullscreenGridPortfolioTemplate/)
 
-By seeing live examples, it dawned on me that I could have a small icon or minimal data in my list instead of the kitchen sink. I went back to my designs reduced the amount of data seen on the events and places lists pages so the user can see more options at one time. I hope to then enable clicking on a row to expand out to full screen and present all the data needed with a friendly animation.
+By seeing live examples, it dawned on me that I could have a small icon or minimal data in my lists instead of cramming all the information on the screen. I went back to my designs reduced the amount of data seen on the events and places lists pages so the user can see more options at one time. The buttons to join or follow will expand out to full screen detail layer and present all the data needed with a friendly animation.
  
 ### User Stories:
 This website serves 3 sets of users, thus the stories are broken down into 3 categories:
 
-### For kids looking for something free to do today in their neighborhood:
+#### For kids looking for something free to do today in their neighborhood:
   - As a user, I'd like a list of events happening.
   - As a user, I want to filter events by age and activity so I can find something to do that matches my interests.
   - As a user, I want to sort events by a date range so I can find something to do in the future easily.
@@ -364,7 +360,7 @@ In the long term once this concept proves viable, authentication would be enable
 - [Pygal](http://www.pygal.org/en/stable/documentation/) - charting for metrics dashboard
 - [unittest](https://docs.python.org/3/library/unittest.html) - testing database CRUD functions, flask routing
 ### Fonts
-- [FontAwesom]() - for icons
+- [FontAwesome]() - for icons associated with buttons and inputs
 - [Patrick Hand SC](https://fonts.google.com/specimen/Patrick+Hand+SC) - Google Font's Patrick Hand font was used for headers and home page dialog
 - [Raleway](https://fonts.google.com/specimen/Raleway) - Google's Raleway font was used as the main font
 ### Tools
