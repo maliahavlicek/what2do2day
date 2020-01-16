@@ -194,19 +194,16 @@ By having icons that are compatible with the colors I plan on using throughout m
 <img src="static/assets/images/icons/002-football-field.svg" width="50" height ="50"/>
 
 #### Design Elements
-The formal wireframe process identified the need for:
- 
- |                 	|               	|
-|-----------------	|---------------	|
-| top menu        	| sidebar menu  	|
-| modals/layers   	| accordions    	|
-| containers      	| pagination    	|
-| forms           	| maps          	|
-| rating selector 	| buttons       	|
-| date pickers    	| select choice 	|
-| drop downs      	| text input    	|
-| textarea input  	| check boxes   	|
-| switches        	| icon selector 	|
+The formal wire-frame process identified the need for:
+
+|               	|              	|                 	|
+|---------------	|--------------	|-----------------	|
+| top menu      	| sidebar menu 	| rating selector 	|
+| modals/layers 	| accordions   	| textarea input  	|
+| containers    	| pagination   	| icon selector   	|
+| forms         	| maps         	| select choice   	|
+| check boxes   	| buttons      	| date picker     	|
+| switches      	| text input   	| drop downs      	|
  
  I did not want to invent all of the above, so I read [best css frameworks](https://www.creativebloq.com/features/best-css-frameworks) to help make an informed decision on what framework to use. Foundation, picnic, and bulma made my short list as they appeared light weight and were frameworks I did not get exposure to from previous milestone projects or coursework. After reading up a bit, I decided that Bulma was the best fit for what I hoped to include in this project.
 
@@ -238,7 +235,7 @@ This website serves 3 sets of users, thus the stories are broken down into 3 cat
   - As a user, I want to remove reviews about my place so that inappropriate comments are not associated with my place.
   - As a user, I want people to follow my place so they can know about events, and so I can compare my place to other places that host similar activities.
   - As a user, I want to add events to my place so the community knows about them.
-  - As a user, I want people to join my events, so I can communicate with them if details change and plan for the right number of people.
+  - As a user, I want people to join my events, so I can communicate with them if details change and plan for the right number of attendees.
   - As a user, I want to disable my events if the weather doesn't cooperate.
   - As a user, I want to disable my place if I decide to retire, go on vacation, or sell my place.
 
@@ -374,7 +371,18 @@ In the long term once this concept proves viable, authentication would be enable
 - [Google Maps Javascript API](https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/) - Customized Map of event and places
 
 ## Testing
-In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
+
+### Unit Testing
+Constant integration testing was preformed to ensure no console/javascript. Beyond that, validation testing, cross browser testing and accessibility testing were manually performed. 
+### Validation Testing
+To ensure core functionality and features were delivered and working a series of [test cases](/documentation/manual_unit_tests.md) were executed.
+
+### Regression Testing
+
+### Automated Testing
+
+### Bugs
+Several defects were discovered throughout the development process. They were tracked in a separate [document](/documentation/bugs_encountered.md).
 
 Whenever it is feasible, prefer to automate your tests, and if you've done so, provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
 

@@ -1,4 +1,4 @@
-# What2Do2Day Wireframes
+# What2Do2Day Wire-frames
 ## Author
 Malia Havlicek
 >## Table of Contents
