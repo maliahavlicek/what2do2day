@@ -107,11 +107,11 @@ Business logic to track search requests, and the events and places that users in
 
 ### Structure
 In order to have a better idea of the tables and the relationships between them I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise a rough Entity Relationship Diagram(ERD):
- ![Data Diagram](documentation/images/Data Diagram Initial.png)
+ ![Data Diagram](documentation/images/Data-Diagram-Initial.png)
 
 After the decision to remove user roles and permissions and some refactoring around fields, I ended up with:
 
- ![Data Diagram](documentation/images/Data Diagram.png)
+ ![Data Diagram](documentation/images/Data-Diagram.png)
 
 ### Skeleton
 Having the data structure in hand, I knew what data fields I had at hand to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had higher priority.
