@@ -10,15 +10,13 @@ html {
     background-color: hsl(0, 0%, 86%)
 }
 
+/* have rails appear for larger devices so that content and inputs don't get too wide */
 body {
-
     max-width: 1240px;
     margin-left: auto;
     margin-right: auto;
     background-color: #FFF
 }
-
-/* remove ability to stretch inputs and containers across super large screens  */
 
 /* overwrite fonts for h1 and navigation */
 h1, .navbar-brand a.navbar-item {
@@ -43,12 +41,37 @@ h1, .navbar-brand a.navbar-item {
     font-size: 1rem;
 }
 
-/* override home page hero background */
+/* have phineaus and ferb in backyard as home page background */
 .hero-body.home {
     background: url(/static/assets/images/were_gonna_build_a_rollercoaster_sm.jpg) no-repeat bottom center;
     background-size: cover;
     height: 100%;
     overflow: hidden;
+}
+
+/* add grassy bottom to hero-body, carry over backyard theme */
+.hero-body {
+    background: url(/static/assets/images/fence.png) repeat-x bottom center;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* add perry the platypus */
+.hero-body:after {
+    content: '';
+    position: absolute;
+    height: 180px;
+    width: 233px;
+    background: url(/static/assets/images/perry_the_platypus.png) no-repeat 0 0;
+    display: inline-block;
+    background-size: 63%;
+    top: 66px;
+    right: 0
+}
+
+/* homepage, no perry */
+.hero-body.home:after{
+    background: none;
 }
 
 /* customize buttons container on home page */
