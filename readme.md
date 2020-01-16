@@ -356,7 +356,11 @@ In the long term once this concept proves viable, authentication would be enable
 - [Bulma](https://bulma.io/) - a mobile first, free, open source CSS framework based on Flex-box. Using this framework provides many nice top design elements such as navigation menu bar for desktop, side nav bar for mobile, modals/layers, containers and forms.
 - [Bulma Extensions](https://wikiki.github.io/) extends Bluma by adding more complex design features such as: accordions, pagination, datetime pickers, checkradios, and switches.
 - [mongodb](https://www.mongodb.com/cloud/atlas)- a fully-managed cloud database used to store manage and query data sets
-- [Flask](https://flask-doc.readthedocs.io/en/latest/) - python based templating language that helps developers re-user HTML templates.
+- [Flask](https://flask-doc.readthedocs.io/en/latest/) - python based templating language. I used Flask for:
+  - routing - passing database queries to templates for page specific presentations
+  - layouts - extensions of templates for common layouts with prescribed blocks that can be customized
+  - common elements - inclusion of HTML templates for common design elements like the navigation, footer, various forms
+  - macros - to generate common HTML with variable dependent settings
 - [Pygal](http://www.pygal.org/en/stable/documentation/) - charting for metrics dashboard
 - [unittest](https://docs.python.org/3/library/unittest.html) - testing database CRUD functions, flask routing
 ### Fonts
