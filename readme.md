@@ -1,6 +1,5 @@
 # What2Do2Day
 ## Author
-Malia Havlicek
 ## Project Overview
 This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. 
 
@@ -14,7 +13,7 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 > - [UX](#UX)
 >   - [Strategy](#Strategy)
 >   - [Scope](#Scope)
->   - [Structure](#structure)
+>   - [Structure](#Structure)
 >   - [Skeleton](#skeleton)
 >   - [Surface](#surface)
 >     - [Typography](#typography)
@@ -22,7 +21,33 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 >     - [Design Elements](#design-elements)
 >     - [Animations & Transitions](#animations--transitions)
 >   - [User Stories](#user-stories)
->
+>     - [For Community Members](#for-kids-looking-for-something-free-to-do-today-in-their-neighborhood)
+>     - [For Places and Organizations](#for-places-and-organizations-involved-in-building-the-community)
+>     - [For Site Owners](#for-site-owners-hosting-a-website-to-store-community-information)
+>   - [Features](#features)
+>     - [Implemented](#implemented-features)
+>       - [Structural](#structural)
+>       - [Common Elements](#common-elements)
+>       - [Forms](#forms)
+>       - [Data Operations](#data-operations)
+>       - [API Integration](#api-integration)
+>       - [Metrics](#metrics)
+>     - [Future](#features-left-to-implement)
+>       - [User Roles & Permissions](#user-roles--permissions)
+>       - [Place Administrator Dashboard](#place-administrator-dashboard)
+>       - [External User Adult Dashboard](#external-user-adult-dashboard)
+>       - [External User Minor Dashboard](#external-user-minor-dashboard)
+>       - [Content Admin Dashboard](#content-admin-dashboard)
+>       - [Site Admin Dashboard](#site-admin-dashboard)
+>       - [API Integration](#api-integrations)
+> - [Technologies Used](#technologies-used)
+>     - [Programming languages](#programming-languages)
+>     - [Framework & Extensions](#framework--extensions)
+>     - [Fonts](#fonts)
+>     - [Tools](#tools)
+>     - [APIs](#apis)
+> - [Testing](#testing)
+
 
 ## UX
 ### Strategy
@@ -107,11 +132,11 @@ Business logic to track search requests, and the events and places that users in
 
 ### Structure
 In order to have a better idea of the tables and the relationships between them I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise a rough Entity Relationship Diagram(ERD):
- ![Data Diagram](documentation/images/Data-Diagram-Initial.png)
+ ![Data Diagram](documentation/images/data_model/Data-Diagram-Initial.png)
 
 After the decision to remove user roles and permissions and some refactoring around fields, I ended up with:
 
- ![Data Diagram](documentation/images/Data-Diagram.png)
+ ![Data Diagram](documentation/images/data_model/Data-Diagram.png)
 
 ### Skeleton
 Having the data structure in hand, I knew what data fields I had at hand to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had higher priority.
@@ -127,7 +152,7 @@ Below are the decisions and internal dialogs I had to help draw out what the end
 ####Color Choice
 I have not had much success with color choice in the past using online tools such as picking colors from imagery via adobe or from color pallet wheels. My color choices pass accessibility audits but something is missing, so this time, I started with the pros at [Sherwin Williams](https://www.sherwin-williams.com/homeowners/color/find-and-explore-colors/paint-colors-by-family/SW6790-adriatic-sea#/6790/?s=coordinatingColors&p=PS0) and came up with the following colors:
 
-![colors](documentation/images/AdriaticBlueCoordinatingColors.png)
+![colors](documentation/images/colors/AdriaticBlueCoordinatingColors.png)
 
 I then went to dribble.com and plugged in each of the colors from  Sherwin Williams to find others' pallets that had a cheerful look. Unfortunately Adriatic Blue, Aesthetic White, and Felted Wool all provided me with rather depressing options. Luckily Bravo Blue(\#d3e7e9) turned up a lot of more cheerful looking sites.
 - [One nice day](https://dribbble.com/shots/9428106-Vector-illustration-One-nice-day)
@@ -137,7 +162,7 @@ I then went to dribble.com and plugged in each of the colors from  Sherwin Willi
 
 So I'm hoping I'll have success with the Daily UI 004 color's pallet.
 
-![Color Pallet](documentation/images/colorpallet.png)
+![Color Pallet](documentation/images/colors/colorpallet.png)
 
 
 #### Typography
@@ -201,7 +226,7 @@ By seeing live examples, it dawned on me that I could have a small icon or minim
 ### User Stories:
 This website serves 3 sets of users, thus the stories are broken down into 3 categories:
 
-- For kids looking for something free to do today in their neighborhood:
+### For kids looking for something free to do today in their neighborhood:
   - As a user, I'd like a list of events happening.
   - As a user, I want to filter events by age and activity so I can find something to do that matches my interests.
   - As a user, I want to sort events by a date range so I can find something to do in the future easily.
@@ -211,7 +236,7 @@ This website serves 3 sets of users, thus the stories are broken down into 3 cat
   - As a user, I want to write a review about a place so I can share my opinion.
   - As a user, I want to remove my review about a place so I can have a low profile online.
 
-- For places and organizations involved in building the community
+#### For places and organizations involved in building the community
   - As a user, I want to list my place so the community knows about it.
   - As a user, I want to have honest reviews about my place to build trust with the community.
   - As a user, I want to remove reviews about my place so that inappropriate comments are not associated with my place.
@@ -221,7 +246,7 @@ This website serves 3 sets of users, thus the stories are broken down into 3 cat
   - As a user, I want to disable my events if the weather doesn't cooperate.
   - As a user, I want to disable my place if I decide to retire, go on vacation, or sell my place.
 
-- For site owners hosting a website to store community information
+#### For site owners hosting a website to store community information
   - Home page that communicates the purpose of the website
   - ability to track search criteria to better sell ad space
   - ability to track places users follow to negotiate offline conversion money
@@ -233,7 +258,7 @@ This website serves 3 sets of users, thus the stories are broken down into 3 cat
 To streamline the development process without the complexity of user roles and permissions, it was decided that the MVP consists of a beta product as a proof of concept for a small market. The beta features are those listed in the Implemented Features. If the project is taken to it's full potential, the Features Left to Implement would be tackled.
 
 ### Implemented Features
-#### Structure
+#### Structural
 1. Navbar - the navbar stays collapsed on medium and small devices. The navbar contains brand logo and links to associated sections i.e. Home, Events, Places, Contribute Update. Bulma's navbar implementation was used.
 1. Footer - contains disclaimer, copyrights information, links to github repository and developer's resume
 #### Common Elements
@@ -254,7 +279,7 @@ To streamline the development process without the complexity of user roles and p
 1. Update Event - validation for required fields and proper data, uniqueness check
 1. Add Review - validation for required fields
 1. Update Review
-#### Advanced Data Operations
+#### Data Operations
 1. Aggregated Review - from enabled reviews of a given place, present an average rating for a place
 1. Count of followers - When a unique email is entered, add them to follower list
 1. Count of event joiners - When a unique email is entered, add them to the joiner list
@@ -288,6 +313,7 @@ In the long term once this concept proves viable, authentication would be enable
 1. place profile management
 #### External User Adult Dashboard
 1. Allow user to upload image to share along with review
+1. Allow user to set proximity radius to parse down results to  1, 2, 5, 10 mi radius
 1. Allow user to share location with other members
 1. Allow user to manage minors reviews/places/events/profile
 1. Allow user to opt into/out of minor's following and joining behavior
@@ -298,23 +324,24 @@ In the long term once this concept proves viable, authentication would be enable
 1. user profile management
 #### External User Minor Dashboard
 1. Allow user to chose avatar to share along with review/follow/join
+1. Allow user to set proximity radius to parse down results to  1, 2, 5, 10 mi radius
 1. Submit reviews/place following /event joining to supervising adult
 1. Allow user to see and manage all reviews they've made
 1. Allow user to see and manage all places they have followed
 1. Allow user to see and manage all events they have joined
-#### Content Admin
+#### Content Admin Dashboard
 1. Manage ad placement & campaigns
 1. Follow up on disapproved reviews
 1. Keep up with naughty word list identification
 1. Manage abuse reports
-#### Site Admin
+#### Site Admin Dashboard
 1. Pull metrics & manage dashboard graphics
 1. Manage users & permissions/role groups
 1. Password reset 
-#### API Integration
+#### API Integrations
 1. GoogleAds - ad placement, offline conversions, automatic bidding
 1. GoogleMaps Sitepoint - get directions from current location
-1. GoogleMaps Geolocation - share location with other members
+1. GoogleMaps Geolocation - share location with other members, narrow results of events and places by proximity
 
 
 ## Technologies Used

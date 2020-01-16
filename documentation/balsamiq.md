@@ -22,13 +22,13 @@ Malia Havlicek
 > - [Metrics](#Metrics)
 
 ### Home Page
-![home page mockup](images/Home.png)
+![home page mockup](images/wireframes/Home.png)
 
 - Have cartoons present the about me information.
 - Present two call to action buttions: List of Places & List of Events
 
 ### Events List Page 
-![events page mockup](images/Events.png)
+![events page mockup](images/wireframes/Events.png)
 
 - List out enabled events that are in the future and enabled, sorted by Date, ascending.
 - Paginate results so only 10 show per page on desktop. 
@@ -54,7 +54,7 @@ Malia Havlicek
 - updates attendee list
 
 ### Places List Page
-![places page mockup](images/Places.png)
+![places page mockup](images/wireframes/Places.png)
 
 - List out enabled places alphabetically.
 - Allow filtering/sorting by name, activity and rating. 
@@ -142,13 +142,13 @@ Malia Havlicek
 - once changes are saved, return to Places Page
 
 ### Navigation
-![update review page mockup](images/Navigation.png)
+![update review page mockup](images/wireframes/Navigation.png)
 
 - desktop: drop down menu for Contribute and Update menus
 - small devices: side bar menu with icons
 
 ### Metrics
-![update review page mockup](images/Navigation.png)
+![update review page mockup](images/wireframes/Navigation.png)
 
 - flat file of metrics tracking
   - Action: [follow, create, update, attend, Search]

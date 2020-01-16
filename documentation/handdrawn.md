@@ -1,18 +1,18 @@
 Home Page
 
-![home page](images/homepage.png)
+![home page](images/initial_mcokups/homepage.png)
 
 
 Add Place
 
-![add_place](images/add_place.png)
+![add_place](images/initial_mcokups/add_place.png)
 
 
 Edit Place
 
-![edit place](images/edit_place.png)
+![edit place](images/initial_mcokups/edit_place.png)
 
 
 Edit Review
 
-![edit_review](images/edit_review.png)
+![edit_review](images/initial_mcokups/edit_review.png)
