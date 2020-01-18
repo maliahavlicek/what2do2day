@@ -331,7 +331,8 @@ input:checked + .slider:before {
 
 /* outline inputs with red if errors */
 .has-error input, .has-error input:hover, .has-error input:focus,
-.has-error textarea, .has-error textarea:hover, .has-error textarea:focus
+.has-error textarea, .has-error textarea:hover, .has-error textarea:focus.error-msg,
+.has-error select, .has-error select:hover, .has-error select:focus
 {
     border: 1px solid #f14668;
 }
