@@ -2,20 +2,12 @@ import os
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from forms import PlaceForm
+from config import Config
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=False)
+app.config.from_object('config.Config')
 
-''' Use Environment Variables to store sensitive information '''
-db_user = os.environ.get("DB_USER")
-db_password = os.environ.get("DB_PASS")
-print("db_user ", db_user)
-print("db_pass ", db_password)
-app.config["MONGO_DBNAME"] = 'what2do2day'
-app.config[
-    "MONGO_URI"] = 'mongodb+srv://' + db_user + ':' + db_password + '@mhavlicfirstcluster-pielp.mongodb.net/what2do2day?retryWrites=true&w=majority?'
-app.config["MONGO_SERVER_SELECTION_TIMEOUT_MS"] = '2000'
-app.config["MONGO_SOCKET_TIMEOUT_MS"] = '2000'
-app.config["MONGO_CONNECT_TIMEOUT_MS"] = '2000'
 mongo = PyMongo(app)
 
 countries = [
@@ -268,7 +260,7 @@ countries = [
     "Zambia",
     "Zimbabwe",
     "Åland Islands"
-];
+]
 
 
 def db_issue(e):
@@ -329,20 +321,24 @@ def get_places():
     return render_template('pages/places/places.html', places=list_places)
 
 
-@app.route('/add_place')
+@app.route('/add_place', methods=['GET', 'POST'])
 def add_place():
+    form = PlaceForm()
+
+    if form.validate_on_submit():
+        # all is good with the post
+        return redirect(url_for('get_places'))
+
     try:
         list_activities = list(mongo.db.activities.find())
     except Exception as e:
         db_issue(e)
         list_activities = []
 
-    return render_template('pages/places/add_place.html', activities=list_activities, countries=countries)
+    return render_template('pages/places/add_place.html', activities=list_activities, countries=countries, form=form)
 
 
 if __name__ == '__main__':
     app.run(host=os.getenv("IP", "0.0.0.0"),
             port=int(os.getenv("PORT", "5000")),
             debug=True)
-
-

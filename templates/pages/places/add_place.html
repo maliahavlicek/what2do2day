@@ -19,7 +19,9 @@
             </h2>
         </div>
         <div class="container">
-            <form action="">
+            <form method="POST" action="{{ url_for('add_place') }}">
+                {#  prevent cross site scripting #}
+                {{ form.csrf_token }}
                 <div class="field">
                     <label for="email" class="label">Email</label>
                     <div class="control has-icons-left">
@@ -31,14 +33,23 @@
 
                 </div>
 
-                <div class="field">
+                <div class="field {% if form.name.errors %}has-error{% endif %}">
                     <label for="name" class="label">Name of Place</label>
-                    <div class="control">
-                        <input id="name" name="name" class="input" type="text" placeholder="Place Name">
+                    <div class="control has-icons-right">
+                        <input id="name" name="name" class="input"
+                               type="text" placeholder="Place Name">
+                            <span class="error-msg icon is-small is-right">
+                              <i class="fas fa-exclamation-triangle"></i>
+                            </span>
                     </div>
+                    <p class="error-msg help is-danger">
+                        {% for error in form.name.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
                 </div>
                 <div class="field">
-                   {{activity_list('place', activities)}}
+                    {{ activity_list('place', activities) }}
                 </div>
                 <div class="field">
                     <label class="label">Address of Place</label>
@@ -116,7 +127,15 @@
                     {% include '/pages/_partials/event.html' %}
                 </div>
                 <div class="field">
-                    {{enable_switch('place', True)}}
+                    {{ enable_switch('place', True) }}
+                </div>
+                <div class="buttons">
+                    <input type="submit" class="is-primary">
+                    <span class="icon">
+                            <i class="fab fa-plus"></i>
+                        </span>
+                    <span>Add Place</span>
+                    </input>
                 </div>
             </form>
         </div>

@@ -49,28 +49,15 @@ h1, .navbar-brand a.navbar-item {
     overflow: hidden;
 }
 
-/* add grassy bottom to hero-body, carry over backyard theme */
+/* Perry the platypus and grassy bottom to hero-body background, carries over backyard theme */
 .hero-body {
-    background: url(/static/assets/images/fence.png) repeat-x bottom center;
-    height: 100%;
+    background: url(/static/assets/images/perry_the_platypus.png) no-repeat right bottom, url(/static/assets/images/fence.png) repeat-x bottom center;
     overflow: hidden;
-}
-
-/* add perry the platypus */
-.hero-body:after {
-    content: '';
-    position: absolute;
-    height: 180px;
-    width: 233px;
-    background: url(/static/assets/images/perry_the_platypus.png) no-repeat 0 0;
-    display: inline-block;
-    background-size: 63%;
-    top: 66px;
-    right: 0
+        background-size: auto 132px, auto 100%;
 }
 
 /* homepage, no perry */
-.hero-body.home:after{
+.hero.home:after{
     background: none;
 }
 
@@ -330,6 +317,20 @@ input:checked + .slider:before {
     }
 }
 
+/* error handling CSS */
+
+/* suppress error containers and styles if has-error is missing */
+.field .error-msg{
+    display: none;
+}
+
+/* show errors */
+.field.has-error .error-msg{
+    display: inline-flex;
+}
+
+/* outline inputs with red if errors */
+.has-error input, .has-error input:hover, .has-error input:focus{border: 1px solid #f14668;}
 
 /* desktop and larger styles */
 @media screen and (min-width: 1024px) {
