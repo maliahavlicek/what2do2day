@@ -2,6 +2,7 @@
 {% from "macros.html" import enable_switch with context %}
 {% extends 'pages/base.html' %}
 {% block content %}
+    {# hero/tile #}
     <section class="hero is-primary">
         <div class="hero-body">
             <div class="container">
@@ -12,14 +13,14 @@
         </div>
     </section>
     <section class="section">
-
         <div class="container">
             <h2 class="subtitle">
                 Thank you for adding to the community! We'll let you know if others contribute to your place.
             </h2>
         </div>
         <div class="container">
-            <form method="POST" action="{{ url_for('add_place') }}">
+        {# PLACE FORM  #}
+            <form method="POST" action="{{ url_for('add_place') }}" enctype="multipart/form-data">
                 {#  prevent cross site scripting #}
                 {{ form.csrf_token }}
                 <div class="field {% if form.email.errors %}has-error{% endif %}">
@@ -34,11 +35,10 @@
                         </span>
                     </div>
                     <p class="error-msg help is-danger">
-                        {% for error in form.email.errors %}
-                            {{ error }}
-                        {% endfor %}
+                        {% if form.email.errors|length > 0 %}
+                            {{ form.email.errors[0] }}
+                        {% endif %}
                     </p>
-
                 </div>
 
                 <div class="field {% if form.name.errors %}has-error{% endif %}">
@@ -50,9 +50,9 @@
                         </span>
                     </div>
                     <p class="error-msg help is-danger">
-                        {% for error in form.name.errors %}
-                            {{ error }}
-                        {% endfor %}
+                        {% if form.name.errors|length > 0 %}
+                            {{ form.name.errors[0] }}
+                        {% endif %}
                     </p>
                 </div>
 
@@ -62,9 +62,9 @@
                         {{ form.description(class_="textarea", placeholder="Provide a short description. What do you do or offer the community?") }}
                     </div>
                     <p class="error-msg help is-danger">
-                        {% for error in form.description.errors %}
-                            {{ error }}
-                        {% endfor %}
+                        {% if form.description.errors|length > 0 %}
+                            {{ form.description.errors[0] }}
+                        {% endif %}
                     </p>
                 </div>
 

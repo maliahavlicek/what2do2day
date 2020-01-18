@@ -1,5 +1,9 @@
 {% extends 'pages/base.html' %}
 {% block content %}
+    {# CSRF protection #}
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    </form>
     <section class="hero is-primary">
         <div class="hero-body">
             <div class="container">

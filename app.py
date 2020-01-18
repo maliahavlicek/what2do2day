@@ -3,11 +3,13 @@ from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from forms import PlaceForm
+from flask_wtf.csrf import CSRFProtect, CSRFError
 from config import Config
 
 app = Flask(__name__, instance_relative_config=False)
 app.config.from_object('config.Config')
 
+csrf = CSRFProtect(app)
 mongo = PyMongo(app)
 
 countries = [
@@ -339,6 +341,11 @@ def add_place():
 
     return render_template('pages/places/add_place.html', activities=list_activities, countries=countries,
                            form=form)
+
+
+@app.errorhandler(CSRFError)
+def handle_csrf_error(e):
+    return render_template('csrf_error.html', reason=e.description), 400
 
 
 if __name__ == '__main__':

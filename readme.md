@@ -357,7 +357,8 @@ In the long term once this concept proves viable, authentication would be enable
   - layouts - extensions of templates for common layouts with prescribed blocks that can be customized
   - common elements - inclusion of HTML templates for common design elements like the navigation, footer, various forms
   - macros - to generate common HTML with variable dependent settings
-- [flask-wtforms](https://hackersandslackers.com/flask-wtforms-forms/)- form validation and cross-site request forgery protection
+- [WTForms](https://wtforms.readthedocs.io/en/stable/csrf.html#example) - form validation & form level cross-site request forgery protection
+- [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/index.html)- extended form validation and global cross-site request forgery protection
 - [Pygal](http://www.pygal.org/en/stable/documentation/) - charting for metrics dashboard
 - [unittest](https://docs.python.org/3/library/unittest.html) - testing database CRUD functions, flask routing
 ### Fonts

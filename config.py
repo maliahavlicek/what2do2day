@@ -7,6 +7,7 @@ class Config:
 
     # General Config
     SECRET_KEY = environ.get('SECRET_KEY', "abc123abc123abc123abc123")
+    WTF_CSRF_SECRET_KEY = environ.get('WTF_CSRF_SECRET_KEY', 'what09897what1234WHAT0987')
 
     # mongodb connection
     MONGO_DBNAME = 'what2do2day'
