@@ -1,10 +1,10 @@
 {# macro to create activies select element #}
 {% macro activity_list (id='', acts=[], prepoulate_value=False) -%}
-    <label for="activity-{{ id }}" class="label">Activity</label>
+    <label for="activity_{{ id }}" class="label">Activity</label>
     <div class="control has-icons-left">
         <div class="select">
             <select aria-label="Choose activity associated with {{ id }}" id="activity_{{ id }}" name="activity_{{ id }}">
-                <option {% if not prepoulate_value %}selected{% endif %}>Choose Activity</option>
+                <option value="none" {% if not prepoulate_value %}selected{% endif %}>Choose Activity</option>
                 {% for act in acts %}
                     <option value="{{ act.name }}" {% if prepoulate_value and prepoulate_value == act.name %}selected{% endif %}>
                         {{ act.name }}

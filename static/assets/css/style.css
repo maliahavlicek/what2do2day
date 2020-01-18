@@ -330,7 +330,11 @@ input:checked + .slider:before {
 }
 
 /* outline inputs with red if errors */
-.has-error input, .has-error input:hover, .has-error input:focus{border: 1px solid #f14668;}
+.has-error input, .has-error input:hover, .has-error input:focus,
+.has-error textarea, .has-error textarea:hover, .has-error textarea:focus
+{
+    border: 1px solid #f14668;
+}
 
 /* desktop and larger styles */
 @media screen and (min-width: 1024px) {

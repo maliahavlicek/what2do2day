@@ -326,9 +326,8 @@ def get_places():
 @app.route('/add_place', methods=['GET', 'POST'])
 def add_place():
     form = PlaceForm()
-
     if form.validate_on_submit():
-        # all is good with the post
+        # all is good with the post based on PlaceForm wftForm validation
         return redirect(url_for('get_places'))
 
     try:
@@ -341,6 +340,13 @@ def add_place():
 
     return render_template('pages/places/add_place.html', activities=list_activities, countries=countries,
                            form=form)
+
+
+def place_custom_validation(form):
+    # check place activity
+    if form.activity_place.value == "none":
+        form.activity_place.errors = ['Please make a selection.']
+    return form
 
 
 @app.errorhandler(CSRFError)

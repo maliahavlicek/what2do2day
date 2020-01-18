@@ -4,7 +4,8 @@ from wtforms import (StringField,
                      SubmitField,
                      PasswordField,
                      DateField,
-                     SelectField)
+                     SelectField,
+                     ValidationError)
 from wtforms.validators import (DataRequired,
                                 Email,
                                 EqualTo,
@@ -26,3 +27,13 @@ class PlaceForm(FlaskForm):
         Length(min=1, message="Description is required"),
         Length(min=2, message='Your description is too short')
     ])
+
+
+
+
+    def validate_name(self, name):
+        """Custom validator to make sure name is unique"""
+        from app import mongo
+        places = list(mongo.db.places.find({"item.name": name.data}))
+        if len(places) > 0:
+            raise ValidationError('Place Name already exists.')
