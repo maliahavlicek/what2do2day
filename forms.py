@@ -13,8 +13,12 @@ from wtforms.validators import (DataRequired,
 
 
 class PlaceForm(FlaskForm):
-    """PPlace Form"""
+    """Place Form"""
 
+    email = StringField('Email', [
+        Email(message='Not a valid email address.'),
+        DataRequired()
+    ])
     name = StringField('Name', [
         DataRequired()
     ])

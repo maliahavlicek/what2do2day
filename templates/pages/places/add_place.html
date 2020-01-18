@@ -22,14 +22,24 @@
             <form method="POST" action="{{ url_for('add_place') }}">
                 {#  prevent cross site scripting #}
                 {{ form.csrf_token }}
-                <div class="field">
+                <div class="field {% if form.email.errors %}has-error{% endif %}">
                     <label for="email" class="label">Email</label>
-                    <div class="control has-icons-left">
-                        <input class="input" id="email" name="email" type="email" placeholder="youremail@you.com">
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" id="email" name="email" type="text"
+                               {% if orig.email %}value="{{ orig.email|safe }}" {% endif %}
+                               placeholder="youremail@you.com">
                         <span class="icon is-small is-left has-text-primary">
-                        <i class="fas fa-envelope"></i>
-                    </span>
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
                     </div>
+                    <p class="error-msg help is-danger">
+                        {% for error in form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
 
                 </div>
 
@@ -37,10 +47,11 @@
                     <label for="name" class="label">Name of Place</label>
                     <div class="control has-icons-right">
                         <input id="name" name="name" class="input"
+                               {% if orig.name %}value="{{ orig.name|safe }}" {% endif %}
                                type="text" placeholder="Place Name">
-                            <span class="error-msg icon is-small is-right">
-                              <i class="fas fa-exclamation-triangle"></i>
-                            </span>
+                        <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
                     </div>
                     <p class="error-msg help is-danger">
                         {% for error in form.name.errors %}

@@ -335,7 +335,10 @@ def add_place():
         db_issue(e)
         list_activities = []
 
-    return render_template('pages/places/add_place.html', activities=list_activities, countries=countries, form=form)
+    orig = request.form
+
+    return render_template('pages/places/add_place.html', activities=list_activities, countries=countries,
+                           form=form, orig=orig)
 
 
 if __name__ == '__main__':
