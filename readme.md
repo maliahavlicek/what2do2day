@@ -228,6 +228,7 @@ This website serves 3 sets of users, thus the stories are broken down into 3 cat
   - As a user, I want to read reviews about places that host events, so I know what to expect.
   - As a user, I want to write a review about a place so I can share my opinion.
   - As a user, I want to remove my review about a place so I can have a low profile online.
+  - As a user, if I don't enter the form data correctly, I want to know how to fix it.
 
 #### For places and organizations involved in building the community
   - As a user, I want to list my place so the community knows about it.
@@ -238,14 +239,16 @@ This website serves 3 sets of users, thus the stories are broken down into 3 cat
   - As a user, I want people to join my events, so I can communicate with them if details change and plan for the right number of attendees.
   - As a user, I want to disable my events if the weather doesn't cooperate.
   - As a user, I want to disable my place if I decide to retire, go on vacation, or sell my place.
+  - As a user, I want to know if I make any input errors easily so I can successfully update my form.
 
 #### For site owners hosting a website to store community information
-  - Home page that communicates the purpose of the website
-  - ability to track search criteria to better sell ad space
-  - ability to track places users follow to negotiate offline conversion money
-  - ability to track events users join to negotiate offline conversion money and to better target ads
-  - ability to track reviews uses write to better gauge community engagement
-  - ability to track user's emails for research purposes in beta, potential marketing in the future
+  - As a site owner, I want a Home page that communicates the purpose of the website.
+  - As a site owner, I want the ability to track search criteria to better target ad spacing on my site.
+  - As a site owner, I want the ability to track places users follow to negotiate offline conversion money from those places.
+  - As a site owner, I want the ability to track events users join to negotiate offline conversion money and to better target ads.
+  - As a site owner, I want the ability to track reviews uses write to better gauge community engagement.
+  - As a site owner, I want the ability to track user's emails for research purposes in beta, potential marketing in the future.
+  - As a site owner, I don't want hackers to mess with my data base, so I don't loose all the information my users have contributed.
 
 ## Features
 To streamline the development process without the complexity of user roles and permissions, it was decided that the MVP consists of a beta product as a proof of concept for a small market. The beta features are those listed in the Implemented Features. If the project is taken to it's full potential, the Features Left to Implement would be tackled.
@@ -354,6 +357,7 @@ In the long term once this concept proves viable, authentication would be enable
   - layouts - extensions of templates for common layouts with prescribed blocks that can be customized
   - common elements - inclusion of HTML templates for common design elements like the navigation, footer, various forms
   - macros - to generate common HTML with variable dependent settings
+- [flask-wtforms](https://hackersandslackers.com/flask-wtforms-forms/)- form validation and cross-site request forgery protection
 - [Pygal](http://www.pygal.org/en/stable/documentation/) - charting for metrics dashboard
 - [unittest](https://docs.python.org/3/library/unittest.html) - testing database CRUD functions, flask routing
 ### Fonts

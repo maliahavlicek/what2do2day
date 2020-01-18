@@ -338,7 +338,7 @@ def add_place():
     orig = request.form
 
     return render_template('pages/places/add_place.html', activities=list_activities, countries=countries,
-                           form=form, orig=orig)
+                           form=form)
 
 
 if __name__ == '__main__':

@@ -19,6 +19,10 @@ class PlaceForm(FlaskForm):
         Email(message='Not a valid email address.'),
         DataRequired()
     ])
-    name = StringField('Name', [
+    name = StringField('Name of Place', [
         DataRequired()
     ])
+    description = TextAreaField('Description', [
+                                    DataRequired(),
+                                    Length(min=2, message='Your description is too short')
+                                ])
