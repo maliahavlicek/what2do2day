@@ -19,7 +19,7 @@
             </h2>
         </div>
         <div class="container">
-        {# PLACE FORM  #}
+            {# PLACE FORM  #}
             <form method="POST" action="{{ url_for('add_place') }}" enctype="multipart/form-data">
                 {#  prevent cross site scripting #}
                 {{ form.csrf_token }}
@@ -61,7 +61,7 @@
 
                 <div class="field {% if form.description.errors %}has-error{% endif %}">
                     {{ form.description.label(class_="label") }}
-                    <div class="control has-icons-left has-icons-right">
+                    <div class="control has-icons-right">
                         {{ form.description(class_="textarea", placeholder="Provide a short description. What do you do or offer the community?") }}
                         <span class="error-msg icon is-small is-right">
                           <i class="fas fa-exclamation-triangle"></i>
@@ -78,15 +78,69 @@
                     {{ form.activity_place.label(class_='label') }}
                     <div class="control has-icons-left">
                         <div class="select">
-                        {{ form.activity_place}}
+                            {{ form.activity_place }}
                         </div>
                         <div class="icon is-small is-left has-text-primary">
                             <i class="fas fa-cogs" aria-hidden="true"></i>
                         </div>
                     </div>
                     <p class="error-msg help is-danger">
-                          {% if form.activity_place.errors|length > 0 %}
+                        {% if form.activity_place.errors|length > 0 %}
                             {{ form.activity_place.errors[0] }}
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="field {% if form.phone.errors %}has-error{% endif %}">
+                    {{ form.phone.label(class_="label") }}
+                    <div class="control has-icons-left has-icons-right">
+                        {{ form.phone(class_="input", placeholder="Phone") }}
+                        <span class="icon is-small is-left has-text-primary">
+                            <i class="fas fa-phone"></i>
+                        </span>
+                        <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                    <p class="error-msg help is-danger">
+                        {% if form.phone.errors|length > 0 %}
+                            {{ form.phone.errors[0] }}
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="field {% if form.website.errors %}has-error{% endif %}">
+                    {{ form.website.label(class_="label") }}
+                    <div class="control has-icons-left has-icons-right">
+                        {{ form.website(class_="input", placeholder="Website") }}
+                        <span class="icon is-small is-left has-text-primary">
+                            <i class="fas fa-globe-europe"></i>
+                        </span>
+                        <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                    <p class="error-msg help is-danger">
+                        {% if form.website.errors|length > 0 %}
+                            {{ form.website.errors[0] }}
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="field {% if form.image_url.errors %}has-error{% endif %}">
+                    {{ form.image_url.label(class_="label") }}
+                    <div class="control has-icons-left has-icons-right">
+                        {{ form.image_url(class_="input", placeholder="Image URL") }}
+                        <span class="icon is-small is-left has-text-primary">
+                            <i class="fas fa-image"></i>
+                        </span>
+                        <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                    <p class="error-msg help is-danger">
+                        {% if form.image_url.errors|length > 0 %}
+                            {{ form.image_url.errors[0] }}
                         {% endif %}
                     </p>
                 </div>
@@ -94,46 +148,13 @@
                 <div class="field">
                     <label class="label">Address of Place</label>
                     <div class="control">
-                        <input class="is-checkradio is-medium" id="has_address" name="has_address" type="checkbox"
-                               checked="checked">
-                        <label for="has_address">Has Physical Address </label>
+                        {{ form.has_address(class_="is-checkradio is-medium") }}
+                        {{ form.has_address.label }}
                     </div>
                 </div>
+
                 <div id="address_block" class="has-background-white-bis embedded">
                     {% include '/pages/_partials/address.html' %}
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        <label for="phone" class="label">Phone</label>
-                        <div class="control has-icons-left">
-                            <input id="phone" name="phone" class="input" type="text"
-                                   placeholder="Phone">
-                            <span class="icon is-small is-left has-text-primary">
-                                <i class="fas fa-phone"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        <label for="website" class="label">Website</label>
-                        <div class="control">
-                            <input id="website" name="website" class="input" type="text"
-                                   placeholder="website">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        <label for="image_url" class="label">Image URL</label>
-                        <div class="control">
-                            <input id="image_url" name="image_url" class="input" type="text"
-                                   placeholder="Image URL">
-                        </div>
-                    </div>
                 </div>
 
                 <div class="field">
