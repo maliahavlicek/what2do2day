@@ -25,7 +25,7 @@ $(document).ready(function () {
 
     // Check for click has event checkbox
     $("#has_event").click(function () {
-        //toggle on/off revent entry
+        //toggle on/off event entry
         $('#event_block').toggle(250);
     });
 

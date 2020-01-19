@@ -1,12 +1,37 @@
-<div class="field">
-    <div class="control">
-        <label for="address_line_1" class="label">Street Address</label>
-        <div class="control">
-            <input id="address_line_1" name="address_line_1" class="input" type="text"
-                   placeholder="Street Address, P.O. Box">
-        </div>
+{#{{ form.address.has_address(class_="is-checkradio is-medium") }}
+{{ form.address.has_address.label }}
+
+<div class="field {% if form.email.errors %}has-error{% endif %}">
+    {{ form.email.label(class_="label") }}
+    <div class="control has-icons-left has-icons-right">
+        {{ form.email(class_="input", placeholder="your.email@you.com") }}
+        <span class="icon is-small is-left has-text-primary">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+        <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
     </div>
+    <p class="error-msg help is-danger">
+        {% if form.email.errors|length > 0 %}
+            {{ form.email.errors[0] }}
+        {% endif %}
+    </p>
+</div>#}
+
+
+<div class="field {% if form.address.address_line_1.errors %}has-error{% endif %}">
+    {{ form.address.address_line_1.label(class_="label") }}
+    <div class="control">
+        {{ form.address.address_line_1(class_="input", placeholder="Street Address, P.O. Box") }}
+    </div>
+    <p class="error-msg help is-danger">
+        {% if form.address.address_line_1.errors|length > 0 %}
+            {{ form.address.address_line_1.errors[0] }}
+        {% endif %}
+    </p>
 </div>
+
 <div class="field">
     <div class="control">
         <label for="address_line_2" class="label">Address Line 2</label>

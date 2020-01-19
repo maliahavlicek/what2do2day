@@ -74,19 +74,19 @@
                     </p>
                 </div>
 
-                <div class="field {% if form.activity_place.errors %}has-error{% endif %}">
-                    {{ form.activity_place.label(class_='label') }}
+                <div class="field {% if form.activity.errors %}has-error{% endif %}">
+                    {{ form.activity.label(class_='label') }}
                     <div class="control has-icons-left">
                         <div class="select">
-                            {{ form.activity_place }}
+                            {{ form.activity }}
                         </div>
                         <div class="icon is-small is-left has-text-primary">
                             <i class="fas fa-cogs" aria-hidden="true"></i>
                         </div>
                     </div>
                     <p class="error-msg help is-danger">
-                        {% if form.activity_place.errors|length > 0 %}
-                            {{ form.activity_place.errors[0] }}
+                        {% if form.activity.errors|length > 0 %}
+                            {{ form.activity.errors[0] }}
                         {% endif %}
                     </p>
                 </div>
@@ -153,7 +153,9 @@
                     </div>
                 </div>
 
-                <div id="address_block" class="has-background-white-bis embedded">
+                {# hide the address block if submitted from toggled it off  #}
+                <div id="address_block" {% if not form.has_address.data %}style="display:none;"{% endif %}
+                     class="has-background-white-bis embedded">
                     {% include '/pages/_partials/address.html' %}
                 </div>
 

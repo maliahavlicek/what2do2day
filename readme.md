@@ -370,6 +370,7 @@ In the long term once this concept proves viable, authentication would be enable
 - [balsamiq](https://balsamiq.com/) - used to create professional looking wire frames.
 - [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
 - [icon generator](https://favicon.io/favicon-generator/) - free site to help in website icon generation
+- [regex101.com](https://regex101.com/) - used to help fine tune some regular expression based validation
 ### APIs
 - [emailJS](https://emailjs.com) - Send user notices when place they are following is modified, has a new event, or has a new review posted. 
 - [Google Calendar API](https://developers.google.com/calendar/v3/reference/events) - Used to [create events](https://developers.google.com/calendar/create-events) for application, add attendees when users join an event, and send updates to joiners if event is modified
@@ -432,7 +433,8 @@ In addition, if it is not obvious, you should also describe how to run your code
 ### Acknowledgements
 
 - I received inspiration for this project from X
-- I found out how to make macros and include them from an external file from [uniwebsidad.com](https://uniwebsidad.com/libros/explore-flask/chapter-8/creating-macros)
+- [uniwebsidad.com](https://uniwebsidad.com/libros/explore-flask/chapter-8/creating-macros) - how to make macros and include them from an external file from 
 - [speech bubbles](https://auralinna.blog/post/2017/how-to-make-a-css-speech-bubble-with-borders-and-drop-shadow) on the home page were adopted from this post by Tero Auralinna.
-- [home background](https://css-tricks.com/perfect-full-page-background-image/) centering technique via CSS
-
+- [home background](https://css-tricks.com/perfect-full-page-background-image/) image centering technique via CSS
+- [Kyle Marek-Spartz](https://kyle.marek-spartz.org/posts/2014-04-04-setting-wtforms-selection-fields-dynamically.html) - Setting WTForms Selection Fields Dynamically
+- [mcelhennyi](https://gist.github.com/devxoul/7638142) - Required If validation
