@@ -4,9 +4,6 @@ import pymongo
 from flask_wtf import FlaskForm
 from wtforms import (StringField,
                      TextAreaField,
-                     IntegerField,
-                     SubmitField,
-                     DateField,
                      SelectField,
                      BooleanField,
                      ValidationError,
@@ -18,8 +15,7 @@ from wtforms.validators import (DataRequired,
                                 Length,
                                 URL,
                                 Optional,
-                                NumberRange,
-                                EqualTo)
+                                NumberRange)
 
 from templates.validators import validate_option_not_none
 from wtforms.widgets import HiddenInput
@@ -81,7 +77,10 @@ class ReviewForm(FlaskForm):
     author = StringField('Author Email *',
                          [RequiredIf(use_place_email=False), Length(min=1, message='Email is required.'),
                           Email(message='Not a valid email address.')])
-    rating = RadioField('Rating *', [NumberRange(1, 5, message='Click a star to select a rating.')])
+    rating = RadioField('Rating *',
+                        choices=[('1', 'Bad: 1-star'), ('2', 'Poor: 2-star'), ('3', 'Fair: 3-star'),
+                                 ('4', 'Good: 4-star'),
+                                 ('5', 'Excellent: 5-star')])
     comments = TextAreaField('Comments *', [Length(min=1, message='Please enter your review.'),
                                             Length(max=500, message='Comments cannot be longer than 500 characters.')])
     has_review = BooleanField('Add Review', default=True)
@@ -129,7 +128,7 @@ class PlaceForm(FlaskForm):
             ))
 
         """Let review form know it should use place email"""
-        self.review.use_place_email.value = "n"
+        self.review.use_place_email.value = "y"
 
     def validate_name(self, name):
         """Custom validator to make sure name is unique"""
