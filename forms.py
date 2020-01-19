@@ -47,12 +47,14 @@ class RequiredIf(DataRequired):
 class AddressForm(FlaskForm):
     """Address Form"""
 
-    address_line_1 = StringField('Street Address *', [Length(min=1, message="Street Address is Required.")])
+    address_line_1 = StringField('Street Address *',
+                                 [RequiredIf(has_address=True), Length(min=1, message="Street Address is Required.")])
     address_line_2 = StringField('Address line 2', [Optional()])
-    city = StringField('City *', [Length(min=1)])
-    state = StringField('State/Province/Region *', [Length(min=1)])
+    city = StringField('City *', [RequiredIf(has_address=True), Length(min=1)])
+    state = StringField('State/Province/Region *', [RequiredIf(has_address=True), Length(min=1)])
     postal_code = StringField('Postal Code *', [])
-    country = SelectField('Country *', choices=[('none', 'Pick a Country.')], validators=[validate_option_not_none])
+    country = SelectField('Country *', choices=[('none', 'Pick a Country.')],
+                          validators=[RequiredIf(has_address=True), validate_option_not_none])
     has_address = BooleanField('Has Physical Address', default=True)
 
     def validate_postal_code(self, postal_code):
