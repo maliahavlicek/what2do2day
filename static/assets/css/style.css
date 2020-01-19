@@ -201,8 +201,8 @@ label.star {
 
 /* override input with star image, when checked with animation and green color */
 input.star:checked ~ label.star:before {
-    content: '\f005';
     color: #00d1b1;
+    font-weight: 900;
     transition: all .25s;
 }
 
@@ -210,11 +210,13 @@ input.star:checked ~ label.star:before {
 input.star-5:checked ~ label.star:before {
     color: #00d1b1;
     text-shadow: 0 0 10px #95eeeb;
+    font-weight: 900;
 }
 
 /* only 1 star special style for dimmer unhappy vibe*/
 input.star-1:checked ~ label.star:before {
     color: #46858d;
+    font-weight: 900;
 }
 
 /* star input hover state of rotation */
@@ -224,8 +226,15 @@ label.star:hover {
 
 /* star outline in black when not checked */
 label.star:before {
-    content: '\f006';
-    font-family: FontAwesome;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    content: '\f005';
+    font-family: "FontAwesome";
+    font-weight: 400;
+
 }
 
 /* toggle switch base style overrides */
@@ -335,6 +344,11 @@ input:checked + .slider:before {
 .has-error select, .has-error select:hover, .has-error select:focus
 {
     border: 1px solid #f14668;
+}
+.has-error input:hover, .has-error input:focus,
+.has-error textarea:hover, .has-error textarea:focus.error-msg,
+.has-error select:hover, .has-error select:focus{
+    box-shadow: 0 0 0 0.125em rgba(241,70,104,.25);
 }
 
 /* desktop and larger styles */

@@ -87,13 +87,6 @@ def add_place():
     return render_template('pages/places/add_place.html', activities=list_activities, form=form)
 
 
-def place_custom_validation(form):
-    # check place activity
-    if form.activity_place.value == "none":
-        form.activity_place.errors = ['Please make a selection.']
-    return form
-
-
 @app.errorhandler(CSRFError)
 def handle_csrf_error(e):
     return render_template('csrf_error.html', reason=e.description), 400
