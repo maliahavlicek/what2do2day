@@ -2,6 +2,7 @@ import re
 from flask_wtf import FlaskForm
 from wtforms import (StringField,
                      TextAreaField,
+                     HiddenField,
                      SubmitField,
                      DateField,
                      SelectField,
@@ -94,8 +95,8 @@ class PlaceForm(FlaskForm):
 
         for item in list(mongo.db.countries.find({}, {'country': 1})):
             self.address.country.choices.append((
-             str(item['_id']),
-             str(item['country']).capitalize()
+                str(item['_id']),
+                str(item['country']).capitalize()
             ))
 
     def validate_name(self, name):
