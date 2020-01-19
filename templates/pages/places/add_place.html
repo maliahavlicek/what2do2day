@@ -148,17 +148,7 @@
 
                 {% include '/pages/_partials/address.html' %}
 
-                <div class="field">
-                    <label class="label">Reviews</label>
-                    <div class="control">
-                        <input class="is-checkradio is-medium" id="has_review" name="has_review" type="checkbox"
-                               checked="checked">
-                        <label for="has_review">Add Review</label>
-                    </div>
-                </div>
-                <div id="review_block" class="has-background-white-bis embedded">
-                    {% include '/pages/_partials/review.html' %}
-                </div>
+                {% include '/pages/_partials/review.html' %}
 
                 <div class="field">
                     <label class="label">Events</label>
