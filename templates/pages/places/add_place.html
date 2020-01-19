@@ -3,24 +3,25 @@
 {% extends 'pages/base.html' %}
 {% block content %}
     {# hero/tile #}
-    <section class="hero is-primary">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Add Place
-                </h1>
+    {# PLACE FORM  #}
+    <form method="POST" action="{{ url_for('add_place') }}" enctype="multipart/form-data">
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        Add Place
+                    </h1>
+                </div>
             </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <h2 class="subtitle">
-                Thank you for adding to the community! We'll let you know if others contribute to your place.
-            </h2>
-        </div>
-        <div class="container">
-            {# PLACE FORM  #}
-            <form method="POST" action="{{ url_for('add_place') }}" enctype="multipart/form-data">
+        </section>
+        <section class="section">
+            <div class="container">
+                <h2 class="subtitle">
+                    Thank you for adding to the community! We'll let you know if others contribute to your place.
+                </h2>
+            </div>
+            <div class="container">
+
                 {#  prevent cross site scripting #}
                 {{ form.csrf_token }}
                 <div class="field {% if form.email.errors %}has-error{% endif %}">
@@ -173,18 +174,17 @@
                 <div class="field">
                     {{ enable_switch('place', True) }}
                 </div>
-                <div class="field has-addons">
-                    <p class="control">
-                        <button type="submit" class="button is-link is-large is-full-mobile is-one-third submit">
-                            <span class="icon is-small">
-                               <i class="fas fa-plus"></i>
-                            </span>
-                            <span>Add Place</span>
-                        </button>
-                    </p>
-                </div>
-            </form>
-        </div>
-
-    </section>
+            </div>
+        </section>
+        <section class="section is-submit-wrapper">
+            <div class="level-left">
+                <button type="submit" class="button is-dark is-medium is-inverted submit">
+                    <span class="icon is-small">
+                       <i class="fas fa-save"></i>
+                    </span>
+                    <span>Save Place</span>
+                </button>
+            </div>
+        </section>
+    </form>
 {% endblock %}

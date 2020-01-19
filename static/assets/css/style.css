@@ -79,11 +79,15 @@ a.button.is-link.home-btn-1, a.button.is-link.home-btn-2 {
 }
 
 /* submit button overrides */
-.button.is-primary.submit {
-    color: #222;
+.section.is-submit-wrapper {
+    background-color: #00d1b1;
+    color: #fff;
     font-weight: 900;
+    padding: 1rem 1.5rem;
+    margin-top: -2rem;
+    border-top: 1px solid #b5b5b5;
+    border-bottom: 1px solid #b5b5b5;
 }
-
 
 /* add space between buttons */
 a.button.is-link.home-btn-2 {
