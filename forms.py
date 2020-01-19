@@ -53,6 +53,7 @@ class AddressForm(FlaskForm):
     state = StringField('State/Province/Region *', [Length(min=1)])
     postal_code = StringField('Postal Code *', [])
     country = SelectField('Country *', choices=[('none', 'Pick a Country.')], validators=[validate_option_not_none])
+    has_address = BooleanField('Has Physical Address', default=True)
 
     def validate_postal_code(self, postal_code):
         """Postal Code Validation"""
@@ -82,7 +83,6 @@ class PlaceForm(FlaskForm):
     website = StringField('Website',
                           [Optional(), URL(message="Please enter a valid website. https://www.example.com.")])
     image_url = StringField('Image Url', [Optional(), URL(message="Please enter a valid url.")])
-    has_address = BooleanField('Has Physical Address', default=True, validators=[validate_address])
     address = FormField(AddressForm, 'Address')
 
     def __init__(self):

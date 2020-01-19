@@ -1,76 +1,88 @@
-<div class="field {% if form.address.address_line_1.errors %}has-error{% endif %}">
-    {{ form.address.address_line_1.label(class_="label") }}
+<div class="field">
+    <label class="label">Address of Place</label>
     <div class="control">
-        {{ form.address.address_line_1(class_="input", placeholder="Street Address, P.O. Box") }}
+        {{ form.address.has_address(class_="is-checkradio is-medium") }}
+        {{ form.address.has_address.label }}
     </div>
-    <p class="error-msg help is-danger">
-        {% if form.address.address_line_1.errors|length > 0 %}
-            {{ form.address.address_line_1.errors[0] }}
-        {% endif %}
-    </p>
 </div>
 
-<div class="field {% if form.address.address_line_2.errors %}has-error{% endif %}">
-    {{ form.address.address_line_2.label(class_="label") }}
-    <div class="control">
-        {{ form.address.address_line_2(class_="input", placeholder="Apartment, Suite, Unit, Building, Floor, etc.") }}
-    </div>
-    <p class="error-msg help is-danger">
-        {% if form.address.address_line_2.errors|length > 0 %}
-            {{ form.address.address_line_2.errors[0] }}
-        {% endif %}
-    </p>
-</div>
-<div class="columns">
-    <div class="field column {% if form.address.city.errors %}has-error{% endif %}">
-        {{ form.address.city.label(class_="label") }}
+{# hide the address block if submitted from toggled it off  #}
+<div id="address_block"
+     class="has-background-white-bis embedded">
+    <div class="field {% if form.address.address_line_1.errors %}has-error{% endif %}">
+        {{ form.address.address_line_1.label(class_="label") }}
         <div class="control">
-            {{ form.address.city(class_="input", placeholder="City") }}
+            {{ form.address.address_line_1(class_="input", placeholder="Street Address, P.O. Box") }}
         </div>
         <p class="error-msg help is-danger">
-            {% if form.address.city.errors|length > 0 %}
-                {{ form.address.city.errors[0] }}
+            {% if form.address.address_line_1.errors|length > 0 %}
+                {{ form.address.address_line_1.errors[0] }}
             {% endif %}
         </p>
     </div>
-    <div class="field column {% if form.address.state.errors %}has-error{% endif %}">
-        {{ form.address.state.label(class_="label") }}
+
+    <div class="field {% if form.address.address_line_2.errors %}has-error{% endif %}">
+        {{ form.address.address_line_2.label(class_="label") }}
         <div class="control">
-            {{ form.address.state(class_="input", placeholder="State") }}
+            {{ form.address.address_line_2(class_="input", placeholder="Apartment, Suite, Unit, Building, Floor, etc.") }}
         </div>
         <p class="error-msg help is-danger">
-            {% if form.address.state.errors|length > 0 %}
-                {{ form.address.state.errors[0] }}
+            {% if form.address.address_line_2.errors|length > 0 %}
+                {{ form.address.address_line_2.errors[0] }}
             {% endif %}
         </p>
     </div>
-</div>
-<div class="columns">
-    <div class="field column {% if form.address.postal_code.errors %}has-error{% endif %}">
-        {{ form.address.postal_code.label(class_="label") }}
-        <div class="control">
-            {{ form.address.postal_code(class_="input", placeholder="Postal Code") }}
-        </div>
-        <p class="error-msg help is-danger">
-            {% if form.address.postal_code.errors|length > 0 %}
-                {{ form.address.postal_code.errors[0] }}
-            {% endif %}
-        </p>
-    </div>
-    <div class="field column {% if form.address.country.errors %}has-error{% endif %}">
-        {{ form.address.country.label(class_='label') }}
-        <div class="control has-icons-left">
-            <div class="select">
-                {{ form.address.country }}
+    <div class="columns">
+        <div class="field column {% if form.address.city.errors %}has-error{% endif %}">
+            {{ form.address.city.label(class_="label") }}
+            <div class="control">
+                {{ form.address.city(class_="input", placeholder="City") }}
             </div>
-            <div class="icon is-small is-left has-text-primary">
-                <i class="fas fa-globe"></i>
-            </div>
+            <p class="error-msg help is-danger">
+                {% if form.address.city.errors|length > 0 %}
+                    {{ form.address.city.errors[0] }}
+                {% endif %}
+            </p>
         </div>
-        <p class="error-msg help is-danger">
-            {% if form.address.country.errors|length > 0 %}
-                {{ form.address.country.errors[0] }}
-            {% endif %}
-        </p>
+        <div class="field column {% if form.address.state.errors %}has-error{% endif %}">
+            {{ form.address.state.label(class_="label") }}
+            <div class="control">
+                {{ form.address.state(class_="input", placeholder="State") }}
+            </div>
+            <p class="error-msg help is-danger">
+                {% if form.address.state.errors|length > 0 %}
+                    {{ form.address.state.errors[0] }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="field column {% if form.address.postal_code.errors %}has-error{% endif %}">
+            {{ form.address.postal_code.label(class_="label") }}
+            <div class="control">
+                {{ form.address.postal_code(class_="input", placeholder="Postal Code") }}
+            </div>
+            <p class="error-msg help is-danger">
+                {% if form.address.postal_code.errors|length > 0 %}
+                    {{ form.address.postal_code.errors[0] }}
+                {% endif %}
+            </p>
+        </div>
+        <div class="field column {% if form.address.country.errors %}has-error{% endif %}">
+            {{ form.address.country.label(class_='label') }}
+            <div class="control has-icons-left">
+                <div class="select">
+                    {{ form.address.country }}
+                </div>
+                <div class="icon is-small is-left has-text-primary">
+                    <i class="fas fa-globe"></i>
+                </div>
+            </div>
+            <p class="error-msg help is-danger">
+                {% if form.address.country.errors|length > 0 %}
+                    {{ form.address.country.errors[0] }}
+                {% endif %}
+            </p>
+        </div>
     </div>
 </div>

@@ -145,19 +145,7 @@
                     </p>
                 </div>
 
-                <div class="field">
-                    <label class="label">Address of Place</label>
-                    <div class="control">
-                        {{ form.has_address(class_="is-checkradio is-medium") }}
-                        {{ form.has_address.label }}
-                    </div>
-                </div>
-
-                {# hide the address block if submitted from toggled it off  #}
-                <div id="address_block" {% if not form.has_address.data %}style="display:none;"{% endif %}
-                     class="has-background-white-bis embedded">
-                    {% include '/pages/_partials/address.html' %}
-                </div>
+                {% include '/pages/_partials/address.html' %}
 
                 <div class="field">
                     <label class="label">Reviews</label>

@@ -12,7 +12,8 @@ $(document).ready(function () {
     });
 
     // Check for click events on has address checkbox
-    $("#has_address").click(function () {
+    $("#address-has_address").click(function () {
+
         //toggle on/off address entry
         $('#address_block').toggle(250);
     });
