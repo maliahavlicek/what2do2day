@@ -14,7 +14,7 @@ from wtforms.validators import (DataRequired,
                                 URL,
                                 Optional)
 
-from templates.validators import validate_activity, validate_address
+from templates.validators import validate_option_not_none, validate_address
 
 
 class RequiredIf(DataRequired):
@@ -51,7 +51,7 @@ class AddressForm(FlaskForm):
     city = StringField('City *', [Length(min=1)])
     state = StringField('State/Province/Region *', [Length(min=1)])
     postal_code = StringField('Postal Code *', [])
-    country = SelectField('Country *', choices=[countries], validators=[])
+    country = SelectField('Country *', choices=[('none', 'Pick a Country.')], validators=[])
 
     def validate_postal_code(self, postal_code):
         """Postal Code Validation"""
@@ -76,7 +76,7 @@ class PlaceForm(FlaskForm):
         Length(min=1, message="Description is required"),
         Length(min=2, message='Your description is too short')
     ])
-    activity = SelectField(u'Activity *', choices=[('none', 'Choose Activity')], validators=[validate_activity])
+    activity = SelectField(u'Activity *', choices=[('none', 'Choose Activity')], validators=[validate_option_not_none])
     phone = StringField('Phone', [Optional()])
     website = StringField('Website',
                           [Optional(), URL(message="Please enter a valid website. https://www.example.com.")])

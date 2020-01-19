@@ -10,7 +10,7 @@ def validate_address(form, field):
         raise ValidationError("Address needs attention.")
 
 
-def validate_activity(form, field):
+def validate_option_not_none(form, field):
     """Make sure a real selection is made."""
-    if str(form.activity.data) == 'none':
-        raise ValidationError('Please select an activity.')
+    if str(field.data) == 'none':
+        raise ValidationError('Please select an option.')
