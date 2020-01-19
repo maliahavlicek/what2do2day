@@ -51,7 +51,7 @@ class AddressForm(FlaskForm):
     city = StringField('City *', [Length(min=1)])
     state = StringField('State/Province/Region *', [Length(min=1)])
     postal_code = StringField('Postal Code *', [])
-    country = SelectField('Country *', choices=[('none', 'Pick a Country.')], validators=[])
+    country = SelectField('Country *', choices=[('none', 'Pick a Country.')], validators=[validate_option_not_none])
 
     def validate_postal_code(self, postal_code):
         """Postal Code Validation"""
@@ -91,6 +91,12 @@ class PlaceForm(FlaskForm):
         from app import mongo
         for item in list(mongo.db.activities.find({}, {'name': 1})):
             self.activity.choices.append((str(item['_id']), item['name'].capitalize()))
+
+        for item in list(mongo.db.countries.find({}, {'country': 1})):
+            self.address.country.choices.append((
+             str(item['_id']),
+             str(item['country']).capitalize()
+            ))
 
     def validate_name(self, name):
         """Custom validator to make sure name is unique"""
