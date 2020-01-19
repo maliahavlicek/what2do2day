@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from forms import PlaceForm
+from forms import PlaceForm, ReviewForm, AddressForm
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from config import Config
 
@@ -74,6 +74,7 @@ def get_places():
 @app.route('/add_place', methods=['GET', 'POST'])
 def add_place():
     form = PlaceForm()
+
     if form.validate_on_submit():
         # all is good with the post based on PlaceForm wftForm validation
         return redirect(url_for('get_places'))

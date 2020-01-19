@@ -19,7 +19,7 @@ $(document).ready(function () {
     });
 
     // Check for click has review checkbox
-    $("#has_review").click(function () {
+    $("#review-has_review").click(function () {
         //toggle on/off review entry
         $('#review_block').toggle(250);
     });

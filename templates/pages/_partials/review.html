@@ -6,12 +6,14 @@
     </div>
 </div>
 
+{# hidden field to control if we collect author's email or not #}
+{{ form.review.use_place_email }}
 {# review block hide/shows based on review  #}
 <div id="review_block" class="has-background-white-bis embedded">
     <div class="columns">
        {# use author email collection if embedded in place form #}
-        <div class="column" {% if form.review.use_place_email =='y' %}style="display: none;"{% endif %}>
-            <div class="field {% if form.review.author %}has-error{% endif %}">
+        <div class="column" {% if form.review.use_place_email.value == "y" %}style="display: none;"{% endif %}>
+            <div class="field {% if form.review.author.errors %}has-error{% endif %}">
                 <div class="control">
                     {{ form.review.author.label(class_="label") }}
                     <div class="control">
@@ -27,7 +29,8 @@
             </div>
         </div>
         <div class="column">
-            <div class="field">
+            <div class="field {% if form.review.rating.errors %}has-error{% endif %}">
+                {{ form.review.rating.label(class_="label") }}
                 <div class="control">
                     {% include '/pages/_partials/rating.html' %}
                 </div>
