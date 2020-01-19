@@ -78,6 +78,13 @@ a.button.is-link.home-btn-1, a.button.is-link.home-btn-2 {
 
 }
 
+/* submit button overrides */
+.button.is-primary.submit {
+    color: #222;
+    font-weight: 900;
+}
+
+
 /* add space between buttons */
 a.button.is-link.home-btn-2 {
     margin-left: 100px;
@@ -295,6 +302,32 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
+/* error handling CSS */
+
+/* suppress error containers and styles if has-error is missing */
+.field .error-msg{
+    display: none;
+}
+
+/* show errors */
+.field.has-error .error-msg{
+    display: inline-flex;
+}
+
+/* outline inputs with red if errors */
+.has-error input, .has-error input:hover, .has-error input:focus,
+.has-error textarea, .has-error textarea:hover, .has-error textarea:focus.error-msg,
+.has-error select, .has-error select:hover, .has-error select:focus
+{
+    border: 1px solid #f14668;
+}
+.has-error input:hover, .has-error input:focus,
+.has-error textarea:hover, .has-error textarea:focus.error-msg,
+.has-error select:hover, .has-error select:focus{
+    box-shadow: 0 0 0 0.125em rgba(241,70,104,.25);
+}
+
+
 /* tablet styles */
 @media screen and (min-width: 769px) {
     /* override home page background image to larger size */
@@ -324,31 +357,6 @@ input:checked + .slider:before {
         margin-top: 20px;
         right: 20%;
     }
-}
-
-/* error handling CSS */
-
-/* suppress error containers and styles if has-error is missing */
-.field .error-msg{
-    display: none;
-}
-
-/* show errors */
-.field.has-error .error-msg{
-    display: inline-flex;
-}
-
-/* outline inputs with red if errors */
-.has-error input, .has-error input:hover, .has-error input:focus,
-.has-error textarea, .has-error textarea:hover, .has-error textarea:focus.error-msg,
-.has-error select, .has-error select:hover, .has-error select:focus
-{
-    border: 1px solid #f14668;
-}
-.has-error input:hover, .has-error input:focus,
-.has-error textarea:hover, .has-error textarea:focus.error-msg,
-.has-error select:hover, .has-error select:focus{
-    box-shadow: 0 0 0 0.125em rgba(241,70,104,.25);
 }
 
 /* desktop and larger styles */

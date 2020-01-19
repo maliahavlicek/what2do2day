@@ -1,4 +1,6 @@
 import re
+
+import pymongo
 from flask_wtf import FlaskForm
 from wtforms import (StringField,
                      TextAreaField,
@@ -88,17 +90,17 @@ class PlaceForm(FlaskForm):
     address = FormField(AddressForm, 'Address')
 
     def __init__(self):
-        """Initialize activity drop down with database entries"""
+        """Initialize activity drop down with database entries alphabetically"""
         super(PlaceForm, self).__init__()
 
         from app import mongo
-        for item in list(mongo.db.activities.find({}, {'name': 1})):
-            self.activity.choices.append((str(item['_id']), item['name'].capitalize()))
+        for item in list(mongo.db.activities.find({}, {"name": 1}).sort('name', pymongo.ASCENDING)):
+            self.activity.choices.append((str(item['_id']), item['name'].title()))
 
-        for item in list(mongo.db.countries.find({}, {'country': 1})):
+        for item in list(mongo.db.countries.find({}, {'country': 1}).sort('country', pymongo.ASCENDING)):
             self.address.country.choices.append((
                 str(item['_id']),
-                str(item['country']).capitalize()
+                item['country'].replace('&amp;', '&').title()
             ))
 
     def validate_name(self, name):
