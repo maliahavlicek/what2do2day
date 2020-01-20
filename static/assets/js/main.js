@@ -64,13 +64,12 @@ $(document).ready(function () {
         hour = 23;
     }
     let oneYear = getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000 * 365));
-    let calendars = bulmaCalendar.attach('#event_start_datetime', {
+    let calendars = bulmaCalendar.attach('#event-event_start_datetime', {
         isRange: true,
         labelFrom: 'Event Start',
         labelTo: 'Event End',
-        startDate: today + ' ' + hour + ':00',
         minDate: today + ' ' + hour + ':00',
-        maxDate: oneYear,
+        maxDate: oneYear + ' ' + hour + ':00',
         minuteSteps: 15,
     });
 
@@ -83,7 +82,7 @@ $(document).ready(function () {
     }
 
     // To access to bulmaCalendar instance of an element
-    let element1 = document.querySelector('#event_datetime_start');
+    let element1 = document.querySelector('#event-event_datetime_start');
     if (element1) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         element1.bulmaCalendar.on('select', function (datepicker) {

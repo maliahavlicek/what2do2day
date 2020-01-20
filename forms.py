@@ -98,8 +98,7 @@ class EventForm(FlaskForm):
     event_name = StringField('Name of Event *', [
         Length(min=1, message='Name of Event is required.')
     ])
-    start_date_time = DateTimeField('Event Start', format='%m/%d/%Y HH:mm')
-    end_date_time = DateTimeField('Event End', format='%m/%d/%Y HH:mm')
+    event_start_datetime = DateTimeField('Date & Time *', format='%m/%d/%Y HH:mm')
     activity = SelectField(u'Activity *', choices=[('none', 'Choose Activity')])
     details = TextAreaField('Details *', [
         Length(min=1, message="Details are required"),
