@@ -14,10 +14,8 @@ $(document).ready(function () {
     // make sure conditionally shown address block is hidden on page load
     if ($('#address-has_address').is(':checked')) {
         $('#address_block').show();
-        console.log('address is checked, show it');
     } else {
         $('#address_block').hide();
-        console.log('address NOT checked, hide it');
     }
 
     // Check for click events on has address checkbox
@@ -29,10 +27,8 @@ $(document).ready(function () {
     // make sure conditionally shown review block is hidden on page load
     if ($('#review-has_review').is(':checked')) {
         $('#review_block').show();
-        console.log('review is checked, show it');
     } else {
         $('#review_block').hide();
-        console.log('review NOT checked, hide it');
     }
 
     // Check for click has review checkbox
@@ -44,10 +40,8 @@ $(document).ready(function () {
     // make sure conditionally shown event block is hidden on page load
     if ($('#event-has_event').is(':checked')) {
         $('#event_block').show();
-        console.log('event is checked, show it');
     } else {
         $('#event_block').hide();
-        console.log('event NOT checked, hide it');
     }
 
     // Check for click has event checkbox
@@ -66,7 +60,23 @@ $(document).ready(function () {
     let tomorrow = getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000));
     let oneYear = getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000 * 365));
     let incomingDate = $('#event-event_start_datetime').val();
-    let calendars;
+
+
+    let calendars = bulmaCalendar.attach('#event-event_start_datetime', {
+        isRange: true,
+        dateFormat: 'MM/DD/YYYY',
+        timeFormat: 'HH:mm',
+        showHeader: false,
+        showTodayButton: false,
+        showClearButton: false,
+        validateLabel: "Select",
+        minuteSteps: 15,
+        labelFrom: 'Event Start',
+        labelTo: 'Event End',
+        minDate: today + ' ' + hour + ':00',
+        maxDate: oneYear + ' ' + hour + ':00',
+    });
+
     if (incomingDate) {
         // something wrong with bulma code and start date hours and minutes not populated
         // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
@@ -75,53 +85,18 @@ $(document).ready(function () {
         let incomingStartMinutes = incomingDate.substring(14, 16);
         let incomingStartDate = incomingDate.substring(0, 16);
 
-        console.log('having incoming date, trying to populate start hours and minutes');
-
-        calendars = bulmaCalendar.attach('#event-event_start_datetime', {
-            isRange: true,
-            dateFormat: 'MM/DD/YYYY',
-            timeFormat: 'HH:mm',
-            showHeader: false,
-            showTodayButton: false,
-            showClearButton: false,
-            validateLabel: "Select",
-            value: incomingDate,
-            minuteSteps: 15,
-            labelFrom: 'Event Start',
-            labelTo: 'Event End',
-
-        });
 
         $('input#event-event_start_datetime').val(incomingDate);
-        console.log ('incomingStartHours: ' + incomingStartHours);
         $('.datetimepicker-dummy-input.is-datetimepicker-range').val(incomingStartDate);
         $('.timepicker-start .timepicker-hours .timepicker-input-number').text(incomingStartHours);
         $('.datetimepicker-selection-start .datetimepicker-selection-hour').text(incomingStartHours + ':' + incomingStartMinutes);
-        console.log('incomingStartMinutes: ' + incomingStartMinutes);
         $('.timepicker-start .timepicker-minutes .timepicker-input-number').text(incomingStartMinutes);
-
-    } else {
-        calendars = bulmaCalendar.attach('#event-event_start_datetime', {
-            isRange: true,
-            dateFormat: 'MM/DD/YYYY',
-            timeFormat: 'HH:mm',
-            showHeader: false,
-            showTodayButton: false,
-            showClearButton: false,
-            validateLabel: "Select",
-            minuteSteps: 15,
-            labelFrom: 'Event Start',
-            labelTo: 'Event End',
-            minDate: today + ' ' + hour + ':00',
-            maxDate: oneYear + ' ' + hour + ':00',
-        });
     }
 
     // Loop on each calendar initialized
     for (let i = 0; i < calendars.length; i++) {
         // Add listener to date:selected event
         calendars[i].on('select', date => {
-            console.log(date);
         });
     }
 
@@ -130,10 +105,8 @@ $(document).ready(function () {
     if (element1) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         element1.bulmaCalendar.on('select', function (datepicker) {
-            console.log(datepicker.data.value());
         });
     }
-
 
 });
 

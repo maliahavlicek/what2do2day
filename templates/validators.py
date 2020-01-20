@@ -33,17 +33,12 @@ def validate_datetime(form, field):
             raise ValidationError("Please select an end date and time.")
         elif len(value) == 35:
             # have the right length now check for validity of parts
-            print('incoming value is: ' + value)
 
             # pull apart incoming value to it's pieces
             startDate = value[0:10]
             startTime = value[11:16]
             endDate = value[19:29]
             endTime = value[30:35]
-            print('startDate: ' + startDate + '!')
-            print('startTime: ' + startTime + '!')
-            print('endDate: ' + endDate + '!')
-            print('endTime: ' + endTime + '!')
 
             # check the format of startDate
             if not check_format(startDate, '%m/%d/%Y'):
@@ -64,20 +59,13 @@ def validate_datetime(form, field):
             # check that startDate is not in past
             datetime_start = datetime.strptime(startDate + ' ' + startTime, '%m/%d/%Y %H:%M')
             today = datetime.today()
-            print('datetime_start: ' + str(datetime_start))
-            print('today: ' + str(today))
             if today > datetime_start:
-                raise ValidationError("Start date is in past.")
+                raise ValidationError("Start Date is in past.")
 
             # check that endDate is after startDate
             datetime_end = datetime.strptime(endDate + ' ' + endTime, '%m/%d/%Y %H:%M')
-            print('datetime_end: ' + str(datetime_end))
             if datetime_start > datetime_end:
                 raise ValidationError("End Date is before Start Date.")
-
-
-
-
 
         else:
             raise ValidationError("Invalid Date Time.")
