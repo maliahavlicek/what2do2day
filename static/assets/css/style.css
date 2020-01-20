@@ -325,7 +325,9 @@ input:checked + .slider:before {
 /* outline inputs with red if errors */
 .has-error input, .has-error input:hover, .has-error input:focus,
 .has-error textarea, .has-error textarea:hover, .has-error textarea:focus.error-msg,
-.has-error select, .has-error select:hover, .has-error select:focus
+.has-error select, .has-error select:hover, .has-error select:focus,
+.has-error .datetimepicker-dummy, .has-error .datetimepicker-dummy:hover, .has-error .datetimepicker-dummy:focus,
+.has-error .datetimepicker-dummy-wrapper:hover, .has-error .datetimepicker-dummy-wrapper:focus
 {
     border: 1px solid #f14668;
 }
@@ -333,6 +335,12 @@ input:checked + .slider:before {
 .has-error textarea:hover, .has-error textarea:focus.error-msg,
 .has-error select:hover, .has-error select:focus{
     box-shadow: 0 0 0 0.125em rgba(241,70,104,.25);
+}
+.has-error .datetimepicker-dummy-wrapper{
+    border:none;
+}
+.has-error .datetimepicker-dummy:hover, .has-error .datetimepicker-dummy:focus{
+    box-shadow: none;
 }
 
 

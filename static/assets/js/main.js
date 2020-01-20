@@ -63,6 +63,7 @@ $(document).ready(function () {
     if(hour > 24){
         hour = 23;
     }
+    let tomorrow =  getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000 ));
     let oneYear = getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000 * 365));
     let calendars = bulmaCalendar.attach('#event-event_start_datetime', {
         isRange: true,
@@ -70,9 +71,12 @@ $(document).ready(function () {
         labelTo: 'Event End',
         minDate: today + ' ' + hour + ':00',
         maxDate: oneYear + ' ' + hour + ':00',
+        validateLabel: "Submit",
         minuteSteps: 15,
+        showHeader: false,
+        showTodayButton: false,
+        showClearButton: false
     });
-
     // Loop on each calendar initialized
     for (let i = 0; i < calendars.length; i++) {
         // Add listener to date:selected event

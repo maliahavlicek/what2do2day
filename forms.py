@@ -116,6 +116,12 @@ class EventForm(FlaskForm):
         if str(activity.data) == 'none' and self.has_event.data:
             raise ValidationError('Please select an option.')
 
+    def validate_event_start_datetime(self, event_start_datetime):
+
+        if not event_start_datetime.data or len(event_start_datetime.data) < 10:
+            raise ValidationError("Please select a date.")
+
+
 
 class PlaceForm(FlaskForm):
     """Place Form"""

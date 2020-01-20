@@ -34,30 +34,37 @@
                 {% endif %}
             </p>
         </div>
-        <div class="field column">
+        <div class="field column {% if form.event.event_start_datetime.errors %}has-error{% endif %}">
             {{ form.event.event_start_datetime.label(class_="label") }}
-            {{ form.event.event_start_datetime(class_="input", type="datetime") }}
+            <div class="control">
+                {{ form.event.event_start_datetime(class_="input", type="datetime") }}
+            </div>
+            <p class="error-msg help is-danger">
+                {% if form.event.event_start_datetime.errors|length > 0 %}
+                    {{ form.event.event_start_datetime.errors[0] }}
+                {% endif %}
+            </p>
         </div>
     </div>
 
     <div class="columns">
         <div class="column">
             <div class="field {% if form.event.activity.errors %}has-error{% endif %}">
-                    {{ form.event.activity.label(class_='label') }}
-                    <div class="control has-icons-left">
-                        <div class="select">
-                            {{ form.event.activity }}
-                        </div>
-                        <div class="icon is-small is-left has-text-primary">
-                            <i class="fas fa-cogs" aria-hidden="true"></i>
-                        </div>
+                {{ form.event.activity.label(class_='label') }}
+                <div class="control has-icons-left">
+                    <div class="select">
+                        {{ form.event.activity }}
                     </div>
-                    <p class="error-msg help is-danger">
-                        {% if form.event.activity.errors|length > 0 %}
-                            {{ form.event.activity.errors[0] }}
-                        {% endif %}
-                    </p>
+                    <div class="icon is-small is-left has-text-primary">
+                        <i class="fas fa-cogs" aria-hidden="true"></i>
+                    </div>
                 </div>
+                <p class="error-msg help is-danger">
+                    {% if form.event.activity.errors|length > 0 %}
+                        {{ form.event.activity.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
         </div>
         <div class="column">
             <div class="field">
