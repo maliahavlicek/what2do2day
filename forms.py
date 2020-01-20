@@ -9,7 +9,7 @@ from wtforms import (StringField,
                      ValidationError,
                      HiddenField,
                      RadioField,
-                     FormField, DateTimeField)
+                     FormField, DateTimeField, IntegerField)
 from wtforms.validators import (DataRequired,
                                 Email,
                                 Length,
@@ -94,7 +94,8 @@ class ReviewForm(FlaskForm):
 
 class EventForm(FlaskForm):
     has_event = BooleanField('Add Event', default=True)
-    name = StringField('Name of Event *', [
+
+    event_name = StringField('Name of Event *', [
         Length(min=1, message='Name of Event is required.')
     ])
     start_date_time = DateTimeField('Event Start', format='%m/%d/%Y HH:mm')
@@ -105,6 +106,8 @@ class EventForm(FlaskForm):
         Length(min=2, message='Your details section is too short'),
         Length(max=500, message='Details cannot be longer than 500 characters.')
     ])
+    min_age = IntegerField('Min Age', validators=[NumberRange(min=0, max=120, message='bla')])
+    max_age = IntegerField('Max Age', validators=[NumberRange(min=1, max=120, message='bla')])
     price_for_non_members = StringField('Price for non-members.', [Optional(),
                                                                    Length(min=1, message='Name of Event is required.')])
 
@@ -123,7 +126,7 @@ class PlaceForm(FlaskForm):
         Email(message='Not a valid email address.')
     ])
     name = StringField('Name of Place *', [
-        Length(min=1, message='Name of Places is required.')
+        Length(min=1, message='Name of Place is required.')
     ])
     description = TextAreaField('Description *', [
         Length(min=1, message="Description is required"),

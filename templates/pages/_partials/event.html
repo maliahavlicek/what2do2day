@@ -3,47 +3,75 @@
      to prepopulate values with. When updating, we'll display the switch element to share the event with
      the community.
 #}
-<div class="columns">
-    <div class="field column">
-        <label for="event_name" class="label">Name of Event</label>
-        <div class="control">
-            <input id="event_name" name="event_name" class="input" type="text"
-                   {% if event %}value="{{ event.name }}" {% endif %} placeholder="Event Name">
-        </div>
-    </div>
-    <div class="field column">
-        <label class="label" for="event_start_datetime" aria-label="Set Date and Time">Date & Time</label>
-        <input class="input" id="event_start_datetime" name="event_datetime" data-is-range="true" type="datetime">
+
+<div class="field">
+    <label class="label">Events</label>
+    <div class="control">
+        {{ form.event.has_event(class_="is-checkradio is-medium") }}
+        {{ form.event.has_event.label }}
     </div>
 </div>
 
-<div class="columns">
-    <div class="column">
-        <div class="field">
-            {{ activity_list('event', activities) }}
-        </div>
-        <div class="field">
-            <label for="non_member_price" class="label">Price for Non-members</label>
-            <div class="control">
-                <input id="non_member_price" name="non_member_price" class="input" type="text" placeholder="Free"
-                       {% if event %}value="{{ event.non_member_price }}"{% endif %}>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="field">
-            <div class="control">
-                <label for="event_details" class="label">Details</label>
-                <textarea id="event_details" name="event_details" class="textarea"
-                          placeholder="Enter Details" {% if event %}value="{{ event.details }}"{% endif %}></textarea>
-            </div>
-        </div>
-    </div>
-</div>
+{# event block hide/shows based on has_eveent  #}
+<div id="event_block"
+     class="has-background-white-bis embedded">
+    <div class="columns">
 
-{# show_enable determines if the user sees a event specific enablment or not #}
-{% if event %}
-    <div class="field">
-        {{ enable_switch('place', event.enabled) }}
+
+        <div class="field column {% if form.event.event_name.errors %}has-error{% endif %}">
+                    {{ form.event.event_name.label(class_="label") }}
+                    <div class="control has-icons-left has-icons-right">
+                        {{ form.event.event_name(class_="input", placeholder="Event Name") }}
+                        <span class="icon is-small is-left has-text-primary">
+                            <i class="fas fa-landmark"></i>
+                        </span>
+                        <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                    <p class="error-msg help is-danger">
+                        {% if form.event.event_name.errors|length > 0 %}
+                            {{ form.event.event_name.errors[0] }}
+                        {% endif %}
+                    </p>
+                </div>
+
+
+        <div class="field column">
+            <label class="label" for="event_start_datetime" aria-label="Set Date and Time">Date & Time</label>
+            <input class="input" id="event_start_datetime" name="event_datetime" data-is-range="true" type="datetime">
+        </div>
     </div>
-{% endif %}
+
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                {{ activity_list('event', activities) }}
+            </div>
+            <div class="field">
+                <label for="non_member_price" class="label">Price for Non-members</label>
+                <div class="control">
+                    <input id="non_member_price" name="non_member_price" class="input" type="text" placeholder="Free"
+                           {% if event %}value="{{ event.non_member_price }}"{% endif %}>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <div class="control">
+                    <label for="event_details" class="label">Details</label>
+                    <textarea id="event_details" name="event_details" class="textarea"
+                              placeholder="Enter Details"
+                              {% if event %}value="{{ event.details }}"{% endif %}></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# show_enable determines if the user sees a event specific enablment or not #}
+    {% if event %}
+        <div class="field">
+            {{ enable_switch('place', event.enabled) }}
+        </div>
+    {% endif %}
+</div>

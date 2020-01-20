@@ -151,20 +151,8 @@
 
                 {% include '/pages/_partials/review.html' %}
 
-                <div class="field">
-                    <label class="label">Events</label>
-                    <div class="control">
-                        <input class="is-checkradio is-medium" id="has_event" name="has_event" type="checkbox"
-                               checked="checked">
-                        <label for="has_event">Add Event</label>
-                    </div>
-                </div>
-                <div id="event_block" class="has-background-white-bis embedded">
-                    {% include '/pages/_partials/event.html' %}
-                </div>
-                <div class="field">
-                    {{ enable_switch('place', True) }}
-                </div>
+                {% include '/pages/_partials/event.html' %}
+
             </div>
         </section>
         <section class="section is-submit-wrapper">

@@ -41,8 +41,17 @@ $(document).ready(function () {
         $('#review_block').toggle(250);
     });
 
+    // make sure conditionally shown event block is hidden on page load
+    if ($('#event-has_event').is(':checked')) {
+        $('#event_block').show();
+        console.log('event is checked, show it');
+    } else {
+        $('#event_block').hide();
+        console.log('event NOT checked, hide it');
+    }
+
     // Check for click has event checkbox
-    $("#has_event").click(function () {
+    $("#event-has_event").click(function () {
         //toggle on/off revent entry
         $('#event_block').toggle(250);
     });
