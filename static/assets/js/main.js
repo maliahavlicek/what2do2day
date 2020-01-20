@@ -75,7 +75,9 @@ $(document).ready(function () {
         minuteSteps: 15,
         showHeader: false,
         showTodayButton: false,
-        showClearButton: false
+        showClearButton: false,
+        dateFormat: 'MM/DD/YYYY',
+        timeFormat: 'HH:mm'
     });
     // Loop on each calendar initialized
     for (let i = 0; i < calendars.length; i++) {
