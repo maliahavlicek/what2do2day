@@ -56,9 +56,8 @@ class AddressForm(FlaskForm):
     city = StringField('City *', [RequiredIf(has_address=True), Length(min=1)])
     state = StringField('State/Province/Region *', [RequiredIf(has_address=True), Length(min=1)])
     postal_code = StringField('Postal Code *', [Optional(), Length(min=1)])
-    country = SelectField('Country *', choices=[('none', 'Pick a Country.')],
-                          validators=[RequiredIf(has_address=True), validate_option_not_none])
-    has_address = BooleanField('Has Physical Address', default=True)
+    country = SelectField('Country *', choices=[('none', 'Pick a Country.')])
+    has_address = BooleanField('Has Physical Address', default='y')
 
     def validate_postal_code(self, postal_code):
         """Postal Code Validation"""
@@ -69,6 +68,12 @@ class AddressForm(FlaskForm):
             """Allow numbers with dashes only """
             if not re.match(r'(?i)^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$', postal_code.data):
                 raise ValidationError('Please enter a valid postal code.')
+
+    def validate_country(self, country):
+        """Country validation"""
+        # RequiredIf doesn't work for SelectField, must use own validation to detect this combination
+        if str(country.data) == 'none' and self.has_address.data:
+            raise ValidationError('Please select an option.')
 
 
 class ReviewForm(FlaskForm):
