@@ -59,26 +59,64 @@ $(document).ready(function () {
     // Initialize datetime
     let now = new Date();
     let today = getFormattedDate(now);
-    let hour = now.getHours()+1;
-    if(hour > 24){
+    let hour = now.getHours() + 1;
+    if (hour > 24) {
         hour = 23;
     }
-    let tomorrow =  getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000 ));
+    let tomorrow = getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000));
     let oneYear = getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000 * 365));
-    let calendars = bulmaCalendar.attach('#event-event_start_datetime', {
-        isRange: true,
-        labelFrom: 'Event Start',
-        labelTo: 'Event End',
-        minDate: today + ' ' + hour + ':00',
-        maxDate: oneYear + ' ' + hour + ':00',
-        validateLabel: "Submit",
-        minuteSteps: 15,
-        showHeader: false,
-        showTodayButton: false,
-        showClearButton: false,
-        dateFormat: 'MM/DD/YYYY',
-        timeFormat: 'HH:mm'
-    });
+    let incomingDate = $('#event-event_start_datetime').val();
+    let calendars;
+    if (incomingDate) {
+        // something wrong with bulma code and start date hours and minutes not populated
+        // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
+        // get the startDate hours and minutes
+        let incomingStartHours = incomingDate.substring(11, 13);
+        let incomingStartMinutes = incomingDate.substring(14, 16);
+        let incomingStartDate = incomingDate.substring(0, 16);
+
+        console.log('having incoming date, trying to populate start hours and minutes');
+
+        calendars = bulmaCalendar.attach('#event-event_start_datetime', {
+            isRange: true,
+            dateFormat: 'MM/DD/YYYY',
+            timeFormat: 'HH:mm',
+            showHeader: false,
+            showTodayButton: false,
+            showClearButton: false,
+            validateLabel: "Select",
+            value: incomingDate,
+            minuteSteps: 15,
+            labelFrom: 'Event Start',
+            labelTo: 'Event End',
+
+        });
+
+        $('input#event-event_start_datetime').val(incomingDate);
+        console.log ('incomingStartHours: ' + incomingStartHours);
+        $('.datetimepicker-dummy-input.is-datetimepicker-range').val(incomingStartDate);
+        $('.timepicker-start .timepicker-hours .timepicker-input-number').text(incomingStartHours);
+        $('.datetimepicker-selection-start .datetimepicker-selection-hour').text(incomingStartHours + ':' + incomingStartMinutes);
+        console.log('incomingStartMinutes: ' + incomingStartMinutes);
+        $('.timepicker-start .timepicker-minutes .timepicker-input-number').text(incomingStartMinutes);
+
+    } else {
+        calendars = bulmaCalendar.attach('#event-event_start_datetime', {
+            isRange: true,
+            dateFormat: 'MM/DD/YYYY',
+            timeFormat: 'HH:mm',
+            showHeader: false,
+            showTodayButton: false,
+            showClearButton: false,
+            validateLabel: "Select",
+            minuteSteps: 15,
+            labelFrom: 'Event Start',
+            labelTo: 'Event End',
+            minDate: today + ' ' + hour + ':00',
+            maxDate: oneYear + ' ' + hour + ':00',
+        });
+    }
+
     // Loop on each calendar initialized
     for (let i = 0; i < calendars.length; i++) {
         // Add listener to date:selected event

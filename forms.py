@@ -1,3 +1,4 @@
+import datetime
 import re
 
 import pymongo
@@ -17,7 +18,7 @@ from wtforms.validators import (DataRequired,
                                 Optional,
                                 NumberRange)
 
-from templates.validators import validate_option_not_none
+from templates.validators import validate_option_not_none, validate_datetime
 from wtforms.widgets import HiddenInput
 
 
@@ -98,7 +99,9 @@ class EventForm(FlaskForm):
     event_name = StringField('Name of Event *', [
         Length(min=1, message='Name of Event is required.')
     ])
-    event_start_datetime = DateTimeField('Date & Time *', format='%m/%d/%Y HH:mm')
+    # post from form is 01/29/2020 05:00 - 01/30/2020 23:59
+    event_start_datetime = StringField('Date & Time *',
+                                       [Length(min=1, message='Please select a date.'), validate_datetime])
     activity = SelectField(u'Activity *', choices=[('none', 'Choose Activity')])
     details = TextAreaField('Details *', [
         Length(min=1, message="Details are required"),
@@ -115,12 +118,6 @@ class EventForm(FlaskForm):
         # RequiredIf doesn't work for SelectField, must use own validation to detect this combination
         if str(activity.data) == 'none' and self.has_event.data:
             raise ValidationError('Please select an option.')
-
-    def validate_event_start_datetime(self, event_start_datetime):
-
-        if not event_start_datetime.data or len(event_start_datetime.data) < 10:
-            raise ValidationError("Please select a date.")
-
 
 
 class PlaceForm(FlaskForm):
