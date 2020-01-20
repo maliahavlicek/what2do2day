@@ -93,10 +93,26 @@ class ReviewForm(FlaskForm):
 
 
 class EventForm(FlaskForm):
+    has_event = BooleanField('Add Event', default=True)
     name = StringField('Name of Event *', [
         Length(min=1, message='Name of Event is required.')
     ])
-    start_date_time = DateTimeField('Start Date & Time *', format='%m/%d/%Y HH:mm')
+    start_date_time = DateTimeField('Event Start', format='%m/%d/%Y HH:mm')
+    end_date_time = DateTimeField('Event End', format='%m/%d/%Y HH:mm')
+    activity = SelectField(u'Activity *', choices=[('none', 'Choose Activity')])
+    details = TextAreaField('Details *', [
+        Length(min=1, message="Details are required"),
+        Length(min=2, message='Your details section is too short'),
+        Length(max=500, message='Details cannot be longer than 500 characters.')
+    ])
+    price_for_non_members = StringField('Price for non-members.', [Optional(),
+                                                                   Length(min=1, message='Name of Event is required.')])
+
+    def validate_activity(self, activity):
+        """activity validation"""
+        # RequiredIf doesn't work for SelectField, must use own validation to detect this combination
+        if str(activity.data) == 'none' and self.has_event.data:
+            raise ValidationError('Please select an option.')
 
 
 class PlaceForm(FlaskForm):
@@ -121,6 +137,7 @@ class PlaceForm(FlaskForm):
     image_url = StringField('Image Url', [Optional(), URL(message="Please enter a valid url.")])
     address = FormField(AddressForm, 'Address')
     review = FormField(ReviewForm, 'Review')
+    event = FormField(EventForm, 'Event')
 
     def __init__(self):
         """Initialize the Place Form"""
@@ -131,6 +148,7 @@ class PlaceForm(FlaskForm):
         """Populate activities list from db"""
         for item in list(mongo.db.activities.find({}, {"name": 1}).sort('name', pymongo.ASCENDING)):
             self.activity.choices.append((str(item['_id']), item['name'].title()))
+            self.event.activity.choices.append((str(item['_id']), item['name'].title()))
 
         """Populate country list from db"""
         for item in list(mongo.db.countries.find({}, {'country': 1}).sort('country', pymongo.ASCENDING)):
