@@ -17,6 +17,10 @@ body {
     margin-right: auto;
     background-color: #FFF
 }
+/* calendar adjustments */
+.datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
+    max-width: 70%;
+}
 
 /* overwrite fonts for h1 and navigation */
 h1, .navbar-brand a.navbar-item {

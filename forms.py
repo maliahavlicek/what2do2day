@@ -9,7 +9,7 @@ from wtforms import (StringField,
                      ValidationError,
                      HiddenField,
                      RadioField,
-                     FormField)
+                     FormField, DateTimeField)
 from wtforms.validators import (DataRequired,
                                 Email,
                                 Length,
@@ -90,6 +90,13 @@ class ReviewForm(FlaskForm):
                                             Length(max=500, message='Comments cannot be longer than 500 characters.')])
     has_review = BooleanField('Add Review', default=True)
     use_place_email = HiddenField(None, [DataRequired()], default="n")
+
+
+class EventForm(FlaskForm):
+    name = StringField('Name of Event *', [
+        Length(min=1, message='Name of Event is required.')
+    ])
+    start_date_time = DateTimeField('Start Date & Time *', format='%m/%d/%Y HH:mm')
 
 
 class PlaceForm(FlaskForm):

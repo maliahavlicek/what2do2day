@@ -12,14 +12,8 @@
         </div>
     </div>
     <div class="field column">
-        <label class="label" for="event_start_datetime" aria-label="Set Start date and time">Start Date & Time</label>
-        <input class="input" id="event_start_datetime" name="event_start_datetime" type="datetime"
-               {% if event %}value="{{ event.start_datetime }}" {% endif %}>
-    </div>
-    <div class="field column">
-        <label class="label" for="event_end_datetime" aria-label="Set End date and time">End Date & Time</label>
-        <input class="input" id="event_end_datetime" name="event_end_datetime" type="datetime"
-               {% if event %}value="{{ event.end_datetime }}" {% endif %}>
+        <label class="label" for="event_start_datetime" aria-label="Set Date and Time">Date & Time</label>
+        <input class="input" id="event_start_datetime" name="event_datetime" data-is-range="true" type="datetime">
     </div>
 </div>
 

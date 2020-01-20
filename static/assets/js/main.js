@@ -12,11 +12,10 @@ $(document).ready(function () {
     });
 
     // make sure conditionally shown address block is hidden on page load
-     if ($('#address-has_address').is(':checked')){
+    if ($('#address-has_address').is(':checked')) {
         $('#address_block').show();
         console.log('address is checked, show it');
-    }
-    else{
+    } else {
         $('#address_block').hide();
         console.log('address NOT checked, hide it');
     }
@@ -28,11 +27,10 @@ $(document).ready(function () {
     });
 
     // make sure conditionally shown review block is hidden on page load
-    if ($('#review-has_review').is(':checked')){
+    if ($('#review-has_review').is(':checked')) {
         $('#review_block').show();
         console.log('review is checked, show it');
-    }
-    else{
+    } else {
         $('#review_block').hide();
         console.log('review NOT checked, hide it');
     }
@@ -49,11 +47,26 @@ $(document).ready(function () {
         $('#event_block').toggle(250);
     });
 
-    // Initialize all input of type date
-    var calendars = bulmaCalendar.attach('[type="datetime"]');
+    // Initialize datetime
+    let now = new Date();
+    let today = getFormattedDate(now);
+    let hour = now.getHours()+1;
+    if(hour > 24){
+        hour = 23;
+    }
+    let oneYear = getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000 * 365));
+    let calendars = bulmaCalendar.attach('#event_start_datetime', {
+        isRange: true,
+        labelFrom: 'Event Start',
+        labelTo: 'Event End',
+        startDate: today + ' ' + hour + ':00',
+        minDate: today + ' ' + hour + ':00',
+        maxDate: oneYear,
+        minuteSteps: 15,
+    });
 
     // Loop on each calendar initialized
-    for(var i = 0; i < calendars.length; i++) {
+    for (let i = 0; i < calendars.length; i++) {
         // Add listener to date:selected event
         calendars[i].on('select', date => {
             console.log(date);
@@ -61,22 +74,26 @@ $(document).ready(function () {
     }
 
     // To access to bulmaCalendar instance of an element
-    var element = document.querySelector('#event_datetime_start');
-    if (element) {
+    let element1 = document.querySelector('#event_datetime_start');
+    if (element1) {
         // bulmaCalendar instance is available as element.bulmaCalendar
-        element.bulmaCalendar.on('select', function(datepicker) {
-            console.log(datepicker.data.value());
-        });
-    }
-
-    // To access to bulmaCalendar instance of an element
-    var element = document.querySelector('#event_datetime_end');
-    if (element) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        element.bulmaCalendar.on('select', function(datepicker) {
+        element1.bulmaCalendar.on('select', function (datepicker) {
             console.log(datepicker.data.value());
         });
     }
 
 
 });
+
+//from https://stackoverflow.com/questions/11591854/format-date-to-mm-dd-yyyy-in-javascript
+function getFormattedDate(date) {
+    let year = date.getFullYear();
+
+    let month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+
+    let day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+
+    return month + '/' + day + '/' + year;
+}
