@@ -43,12 +43,19 @@
         </div>
     </div>
 
-    <div class="field">
-        <div class="control">
-            <label for="comments" class="label">Comments</label>
-            <textarea id="comments" name="comments" class="textarea"
-                      placeholder="Enter Review"></textarea>
+    <div class="field {% if form.review.comments.errors %}has-error{% endif %}">
+        {{ form.review.comments.label(class_="label") }}
+        <div class="control has-icons-right">
+            {{ form.review.comments(class_="textarea", placeholder="Enter Review.") }}
+            <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
         </div>
+        <p class="error-msg help is-danger">
+            {% if form.review.comments.errors|length > 0 %}
+                {{ form.review.comments.errors[0] }}
+            {% endif %}
+        </p>
     </div>
 
     {% if review %}

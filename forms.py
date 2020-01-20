@@ -55,7 +55,7 @@ class AddressForm(FlaskForm):
     address_line_2 = StringField('Address line 2', [Optional()])
     city = StringField('City *', [RequiredIf(has_address=True), Length(min=1)])
     state = StringField('State/Province/Region *', [RequiredIf(has_address=True), Length(min=1)])
-    postal_code = StringField('Postal Code *', [Optional(), Length(min=1)])
+    postal_code = StringField('Postal Code', [Optional(), Length(min=1)])
     country = SelectField('Country *', choices=[('none', 'Pick a Country.')])
     has_address = BooleanField('Has Physical Address', default='y')
 
