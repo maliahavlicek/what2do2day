@@ -34,8 +34,6 @@
                 {% endif %}
             </p>
         </div>
-
-
         <div class="field column">
             {{ form.event.event_start_datetime.label(class_="label") }}
             {{ form.event.event_start_datetime(class_="input", type="datetime") }}
@@ -44,16 +42,22 @@
 
     <div class="columns">
         <div class="column">
-            <div class="field">
-                {{ activity_list('event', activities) }}
-            </div>
-            <div class="field">
-                <label for="non_member_price" class="label">Price for Non-members</label>
-                <div class="control">
-                    <input id="non_member_price" name="non_member_price" class="input" type="text" placeholder="Free"
-                           {% if event %}value="{{ event.non_member_price }}"{% endif %}>
+            <div class="field {% if form.event.activity.errors %}has-error{% endif %}">
+                    {{ form.event.activity.label(class_='label') }}
+                    <div class="control has-icons-left">
+                        <div class="select">
+                            {{ form.event.activity }}
+                        </div>
+                        <div class="icon is-small is-left has-text-primary">
+                            <i class="fas fa-cogs" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <p class="error-msg help is-danger">
+                        {% if form.event.activity.errors|length > 0 %}
+                            {{ form.event.activity.errors[0] }}
+                        {% endif %}
+                    </p>
                 </div>
-            </div>
         </div>
         <div class="column">
             <div class="field">
