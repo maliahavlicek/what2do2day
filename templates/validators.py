@@ -6,21 +6,14 @@ from wtforms import ValidationError
 def validate_address(form, field):
     """See if the address is required or not and if it is valid."""
     has_address_value = form.has_address.data
-    print("Value of the has_address checkbox: " + str(has_address_value))
     if has_address_value:
         print(form.address)
         raise ValidationError("Address needs attention.")
 
 
 def validate_rating(form, field):
-    print('VALIDATING RATING...')
-    print('has_review: %s', form.has_review.data)
-    print('rating : ' + str(form.rating.data))
-    if form.has_review.data:
-        print('has review is true...')
-        if str(form.rating.data) == 'none':
-            print('Raise rating exception')
-            raise ValidationError('Select a star rating......')
+    if form.has_review.data and str(form.rating.data) == 'none':
+        raise ValidationError('Select a star rating.')
 
 
 def validate_option_not_none(form, field):
