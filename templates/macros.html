@@ -21,12 +21,12 @@
 {%- endmacro %}
 
 {# macro to create disable/enable (don't share/share) switch element #}
-{% macro enable_switch (id='', prepopulate_value=False) -%}
-    <label for="share_{{ id }}" class="label">Share {{ id | capitalize }} with Community</label>
+{% macro enable_switch (id='', form=false) -%}
+    {{ form.label(class_="label") }}
     <div class="control">
         <label class="switch">
-            <input id="share_{{ id }}" name="share_{{ id }}" type="checkbox"
-                   {% if prepopulate_value %}checked{% endif %}>
+            <input id="{{ id }}" name="{{ id }}" type="checkbox"
+                   {% if form.data %}checked value="on"{% else %}value="off"{% endif %}>
             <span class="slider"></span>
         </label>
     </div>
@@ -49,3 +49,17 @@
         {% endif %}
     {% endif %}
 {%- endmacro %}
+
+{#  macro to create multi select with styling to options #}
+{#{%  macro multi_select_card (id='', form=false, option_class='') %}
+
+def __call__(self, field, **kwargs):
+    kwargs.setdefault('id', field.id)
+    if self.multiple:
+        kwargs['multiple'] = True
+    html = ['<select %s>' % html_params(name=field.name, **kwargs)]
+    for val, label, selected in field.iter_choices():
+        html.append(self.render_option(val, label, selected))
+    html.append('</select>')
+    return HTMLString(''.join(html))
+{% ~ endmacro %}#}

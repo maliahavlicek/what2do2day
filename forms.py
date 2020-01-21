@@ -157,6 +157,7 @@ class PlaceForm(FlaskForm):
     address = FormField(AddressForm, 'Address')
     review = FormField(ReviewForm, 'Review')
     event = FormField(EventForm, 'Event')
+    share_place = BooleanField('Share with Community', default=True)
 
     def __init__(self):
         """Initialize the Place Form"""

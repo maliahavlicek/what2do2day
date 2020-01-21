@@ -104,8 +104,8 @@
     <div class="field {% if form.event.age_limit.errors %}has-error{% endif %}">
         {{ form.event.age_limit.label(class_='label') }}
         <div class="control">
-            <div class="select is-multiple">
-                {{ form.event.age_limit(size="8") }}
+            <div class="select is-multiple ages">
+                {{ form.event.age_limit(class_="card age-card", size="8") }}
             </div>
         </div>
         <p class="error-msg help is-danger">
