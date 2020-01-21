@@ -48,6 +48,23 @@
 
     <div class="columns">
         <div class="column">
+            <div class="field {% if form.event.price_for_non_members.errors %}has-errors{% endif %}">
+                {{ form.event.price_for_non_members.label(class_="label") }}
+                <div class="control has-icons-left has-icons-right">
+                    {{ form.event.price_for_non_members(class_="input", placeholder="Free") }}
+                    <span class="icon is-small is-left has-text-primary">
+                            <i class="fas fa-comments-dollar"></i>
+                        </span>
+                    <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.event.price_for_non_members.errors|length > 0 %}
+                        {{ form.event.price_for_non_members.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
             <div class="field {% if form.event.activity.errors %}has-error{% endif %}">
                 {{ form.event.activity.label(class_='label') }}
                 <div class="control has-icons-left">
@@ -82,47 +99,42 @@
             </div>
         </div>
     </div>
-    <div class="columns">
 
-        <div class="column">
-            <div class="field {% if form.event.age_limit.errors %}has-error{% endif %}">
-                {{ form.event.age_limit.label(class_='label') }}
-                <div class="control has-icons-left">
-                    <div class="select is-multiple">
-                        {{ form.event.age_limit(size="8") }}
-                    </div>
-                    <div class="icon is-small is-left has-text-primary">
-                        <i class="fas fa-cogs" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <p class="error-msg help is-danger">
-                    {% if form.event.age_limit.errors|length > 0 %}
-                        {{ form.event.age_limit.errors[0] }}
-                    {% endif %}
-                </p>
+    {#  do a macro so this can be displayed as cards #}
+    <div class="field {% if form.event.age_limit.errors %}has-error{% endif %}">
+        {{ form.event.age_limit.label(class_='label') }}
+        <div class="control">
+            <div class="select is-multiple">
+                {{ form.event.age_limit(size="8") }}
             </div>
         </div>
-        <div class="column">
-            <div class="field {% if form.event.price_for_non_members.errors %}has-errors{% endif %}">
-                {{ form.event.price_for_non_members.label(class_="label") }}
-                <div class="control has-icons-left has-icons-right">
-                    {{ form.event.price_for_non_members(class_="input", placeholder="Free") }}
-                    <span class="icon is-small is-left has-text-primary">
-                            <i class="fas fa-comments-dollar"></i>
-                        </span>
-                    <span class="error-msg icon is-small is-right">
-                          <i class="fas fa-exclamation-triangle"></i>
-                        </span>
-                </div>
-                <p class="error-msg help is-danger">
-                    {% if form.event.price_for_non_members.errors|length > 0 %}
-                        {{ form.event.price_for_non_members.errors[0] }}
-                    {% endif %}
-                </p>
-
-            </div>
-        </div>
+        <p class="error-msg help is-danger">
+            {% if form.event.age_limit.errors|length > 0 %}
+                {{ form.event.age_limit.errors[0] }}
+            {% endif %}
+        </p>
     </div>
+    <section>
+        <div class="container">
+            {{ form.event.age_limit.label(class_='label') }}
+        </div>
+        <div class="container ages select is-multiple">
+            {% for item in form.event.age_limit.choices %}
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media-con">
+                            <img src="/static/assets/images/ages/{{ item[0] }}.png"
+                                 alt="image for {{ item[1] }} age group">
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4">{{ item[1] }}</p>
+                            <p class="subtitle is-6">Ages: {{ item[0] }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 
     {# show_enable determines if the user sees a event specific enablment or not #}
     {% if event %}

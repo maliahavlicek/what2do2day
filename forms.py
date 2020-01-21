@@ -124,7 +124,7 @@ class EventForm(FlaskForm):
                                                                ('21+', '21 and Older')
                                                                ], default='no-limit')
 
-    price_for_non_members = StringField('Price for non-members.', [Optional(),
+    price_for_non_members = StringField('Price for non-members', [Optional(),
                                                                    Length(min=1, message='Name of Event is required.')])
 
     def validate_activity(self, activity):

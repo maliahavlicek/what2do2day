@@ -313,6 +313,22 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
+/* age choices */
+.image.age-image{
+    height: 210px;
+    width: 100px;
+}
+.container.ages{
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+	grid-gap: 0.5em;
+}
+
+.container.ages .card{
+	height: max-content;
+}
+
+
 /* error handling CSS */
 
 /* suppress error containers and styles if has-error is missing */
