@@ -10,15 +10,14 @@ from wtforms import (StringField,
                      ValidationError,
                      HiddenField,
                      RadioField,
-                     FormField, DateTimeField, IntegerField)
+                     FormField, DateTimeField, IntegerField, SelectMultipleField)
 from wtforms.validators import (DataRequired,
                                 Email,
                                 Length,
                                 URL,
-                                Optional,
-                                NumberRange)
+                                Optional)
 
-from templates.validators import validate_option_not_none, validate_datetime
+from templates.validators import validate_option_not_none, validate_datetime, validate_rating
 from wtforms.widgets import HiddenInput
 
 
@@ -80,36 +79,51 @@ class AddressForm(FlaskForm):
 class ReviewForm(FlaskForm):
     """Review Form"""
 
+    has_review = BooleanField('Add Review', default=True)
     author = StringField('Author Email *',
-                         [RequiredIf(use_place_email=False), Length(min=1, message='Email is required.'),
+                         [Optional(), Length(min=1, message='Email is required.'),
                           Email(message='Not a valid email address.')])
     rating = RadioField('Rating *',
-                        choices=[('1', 'Bad: 1-star'), ('2', 'Poor: 2-star'), ('3', 'Fair: 3-star'),
+                        choices=[('none', 'none'), ('1', 'Bad: 1-star'), ('2', 'Poor: 2-star'), ('3', 'Fair: 3-star'),
                                  ('4', 'Good: 4-star'),
-                                 ('5', 'Excellent: 5-star')])
-    comments = TextAreaField('Comments *', [Length(min=1, message='Please enter your review.'),
-                                            Length(max=500, message='Comments cannot be longer than 500 characters.')])
-    has_review = BooleanField('Add Review', default=True)
+                                 ('5', 'Excellent: 5-star')], default='none', validators=[validate_rating])
+    comments = TextAreaField('Comments *',
+                             [RequiredIf(has_review=True), Length(min=1, message='Please enter your review.'),
+                              Length(max=500, message='Comments cannot be longer than 500 characters.')])
     use_place_email = HiddenField(None, [DataRequired()], default="n")
+
+    def validate_author(self, author):
+        if self.has_review.data and str(self.use_place_email.data) == 'n' and len(str(author.data)) < 0:
+            raise ValidationError(" you must enter an author")
 
 
 class EventForm(FlaskForm):
     has_event = BooleanField('Add Event', default=True)
 
-    event_name = StringField('Name of Event *', [
-        Length(min=1, message='Name of Event is required.')
-    ])
+    event_name = StringField('Name of Event *', [RequiredIf(has_event=True),
+                                                 Length(min=1, message='Name of Event is required.')
+                                                 ])
     # post from form is 01/29/2020 05:00 - 01/30/2020 23:59
     event_start_datetime = StringField('Date & Time *',
-                                       [Length(min=1, message='Please select a date.'), validate_datetime])
+                                       [RequiredIf(has_event=True), Length(min=1, message='Please select a date.'),
+                                        validate_datetime])
     activity = SelectField(u'Activity *', choices=[('none', 'Choose Activity')])
-    details = TextAreaField('Details *', [
-        Length(min=1, message="Details are required"),
-        Length(min=2, message='Your details section is too short'),
-        Length(max=500, message='Details cannot be longer than 500 characters.')
-    ])
-    min_age = IntegerField('Min Age', validators=[NumberRange(min=0, max=120, message='bla')])
-    max_age = IntegerField('Max Age', validators=[NumberRange(min=1, max=120, message='bla')])
+    details = TextAreaField('Details *', [RequiredIf(has_event=True),
+                                          Length(min=1, message="Details are required"),
+                                          Length(min=2, message='Your details section is too short'),
+                                          Length(max=500, message='Details cannot be longer than 500 characters.')
+                                          ])
+
+    age_limit = SelectMultipleField(u'Expected Ages', choices=[('no-limit', 'No Limit'),
+                                                               ('0-2', 'Infants'),
+                                                               ('3-5', 'Pre-Schoolers'),
+                                                               ('6-10', "Elementary Age"),
+                                                               ('11-13', 'Middle School'),
+                                                               ('14-18', 'High School'),
+                                                               ('19-20', 'Young Adult'),
+                                                               ('21+', '21 and Older')
+                                                               ], default='no-limit')
+
     price_for_non_members = StringField('Price for non-members.', [Optional(),
                                                                    Length(min=1, message='Name of Event is required.')])
 

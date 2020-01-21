@@ -12,6 +12,17 @@ def validate_address(form, field):
         raise ValidationError("Address needs attention.")
 
 
+def validate_rating(form, field):
+    print('VALIDATING RATING...')
+    print('has_review: %s', form.has_review.data)
+    print('rating : ' + str(form.rating.data))
+    if form.has_review.data:
+        print('has review is true...')
+        if str(form.rating.data) == 'none':
+            print('Raise rating exception')
+            raise ValidationError('Select a star rating......')
+
+
 def validate_option_not_none(form, field):
     """Make sure a real selection is made."""
     if str(field.data) == 'none':
@@ -60,7 +71,7 @@ def validate_datetime(form, field):
             datetime_start = datetime.strptime(startDate + ' ' + startTime, '%m/%d/%Y %H:%M')
             today = datetime.today()
             if today > datetime_start:
-                raise ValidationError("Start Date is in past.")
+                raise ValidationError("Start is in past.")
 
             # check that endDate is after startDate
             datetime_end = datetime.strptime(endDate + ' ' + endTime, '%m/%d/%Y %H:%M')

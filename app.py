@@ -79,6 +79,16 @@ def add_place():
         # all is good with the post based on PlaceForm wftForm validation
         return redirect(url_for('get_places'))
     else:
+        print('form.email: ' + str(form.email.errors))
+        print('form.name: ' + str(form.name.errors))
+        print('form.description: ' + str(form.description.errors))
+        print('form.activity: ' + str(form.activity.errors))
+        print('form.phone: ' + str(form.phone.errors))
+        print('form.website: ' + str(form.website.errors))
+        print('form.image_url: ' + str(form.image_url.errors))
+        print('form.address: ' + str(form.address.errors))
+        print('form.review: ' + str(form.review.errors))
+        print('form.event: ' + str(form.event.errors))
 
         try:
             list_activities = list(mongo.db.activities.find())

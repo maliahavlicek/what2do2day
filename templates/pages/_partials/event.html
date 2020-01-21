@@ -16,7 +16,6 @@
 <div id="event_block"
      class="has-background-white-bis embedded">
     <div class="columns">
-
         <div class="field column {% if form.event.event_name.errors %}has-error{% endif %}">
             {{ form.event.event_name.label(class_="label") }}
             <div class="control has-icons-left has-icons-right">
@@ -67,13 +66,60 @@
             </div>
         </div>
         <div class="column">
-            <div class="field">
-                <div class="control">
-                    <label for="event_details" class="label">Details</label>
-                    <textarea id="event_details" name="event_details" class="textarea"
-                              placeholder="Enter Details"
-                              {% if event %}value="{{ event.details }}"{% endif %}></textarea>
+            <div class="field {% if form.event.details.errors %}has-error{% endif %}">
+                {{ form.event.details.label(class_="label") }}
+                <div class="control has-icons-right">
+                    {{ form.event.details(class_="textarea", placeholder="Provide details about what to bring and where to meet.") }}
+                    <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
                 </div>
+                <p class="error-msg help is-danger">
+                    {% if form.event.details.errors|length > 0 %}
+                        {{ form.event.details.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+
+        <div class="column">
+            <div class="field {% if form.event.age_limit.errors %}has-error{% endif %}">
+                {{ form.event.age_limit.label(class_='label') }}
+                <div class="control has-icons-left">
+                    <div class="select is-multiple">
+                        {{ form.event.age_limit(size="8") }}
+                    </div>
+                    <div class="icon is-small is-left has-text-primary">
+                        <i class="fas fa-cogs" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.event.age_limit.errors|length > 0 %}
+                        {{ form.event.age_limit.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field {% if form.event.price_for_non_members.errors %}has-errors{% endif %}">
+                {{ form.event.price_for_non_members.label(class_="label") }}
+                <div class="control has-icons-left has-icons-right">
+                    {{ form.event.price_for_non_members(class_="input", placeholder="Free") }}
+                    <span class="icon is-small is-left has-text-primary">
+                            <i class="fas fa-comments-dollar"></i>
+                        </span>
+                    <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.event.price_for_non_members.errors|length > 0 %}
+                        {{ form.event.price_for_non_members.errors[0] }}
+                    {% endif %}
+                </p>
+
             </div>
         </div>
     </div>

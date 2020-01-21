@@ -199,6 +199,9 @@ div.stars {
     text-align: left;
 }
 
+/* hide placeholder selection one */
+.star.star-none{display: none;}
+
 /* suppress default radio button input for stars */
 input.star {
     display: none;
