@@ -121,7 +121,7 @@ class EventForm(FlaskForm):
                                                                ('11-13', 'Middle School'),
                                                                ('14-18', 'High School'),
                                                                ('19-20', 'Young Adult'),
-                                                               ('21+', '21 and Older')
+                                                               ('21-plus', '21 and Older')
                                                                ], default='no-limit')
 
     price_for_non_members = StringField('Price for non-members', [Optional(),
