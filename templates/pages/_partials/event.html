@@ -104,23 +104,10 @@
     <div class="field {% if form.event.age_limit.errors %}has-error{% endif %}">
         {{ form.event.age_limit.label(class_='label') }}
         <div class="control">
-            <div class="select is-multiple ages">
-                {{ form.event.age_limit(class_="card age-card", size="8") }}
-            </div>
-        </div>
-        <p class="error-msg help is-danger">
-            {% if form.event.age_limit.errors|length > 0 %}
-                {{ form.event.age_limit.errors[0] }}
-            {% endif %}
-        </p>
-    </div>
-    <section>
-        <div class="container">
-            {{ form.event.age_limit.label(class_='label') }}
-        </div>
-        <div class="container ages select is-multiple">
-            {% for item in form.event.age_limit.choices %}
-                <div class="card">
+            <div class="select is-multiple container ages">
+                {{ form.event.age_limit(class_="is-hidden controller-ages", size="8") }}
+                {% for item in form.event.age_limit.choices %}
+                <a class="card button is-primary {{ item[0] }}" data-choice='option[value={{item[0]}}]'>
                     <div class="card-content">
                         <div class="media-con">
                             <img src="/static/assets/images/ages/{{ item[0] }}.png"
@@ -131,10 +118,17 @@
                             <p class="subtitle is-6">Ages: {{ item[0] }}</p>
                         </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
+            </div>
         </div>
-    </section>
+        <p class="error-msg help is-danger">
+            {% if form.event.age_limit.errors|length > 0 %}
+                {{ form.event.age_limit.errors[0] }}
+            {% endif %}
+        </p>
+    </div>
+
 
     {# show_enable determines if the user sees a event specific enablment or not #}
     {% if event %}

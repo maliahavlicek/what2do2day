@@ -108,6 +108,30 @@ $(document).ready(function () {
         });
     }
 
+    /* if coming back and we have some age_limit selections, add the class */
+    $('#event-age_limit option:selected').each(function () {
+        let card_selector = ".card.button." + $(this).val();
+        let card = $(card_selector);
+        card.toggleClass('is-inverted', 10);
+    });
+
+    /* handlers for cards acting as mutli-choice selections */
+    $('.card.button').click(function () {
+        //toggle on/off selection class and select/deselect associated selection
+        $(this).toggleClass('is-inverted', 250);
+        let choice_selector = $(this).attr('data-choice');
+        let choice = $(choice_selector);
+        let is_selected = choice.prop("selected");
+        if (is_selected) {
+            choice.prop("selected", false);
+        } else {
+            choice.prop("selected", true);
+        }
+
+
+    });
+
+
 });
 
 //from https://stackoverflow.com/questions/11591854/format-date-to-mm-dd-yyyy-in-javascript
@@ -122,3 +146,4 @@ function getFormattedDate(date) {
 
     return month + '/' + day + '/' + year;
 }
+
