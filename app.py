@@ -2,6 +2,8 @@ import os
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from pymongo import WriteConcern
+
 from forms import PlaceForm, ReviewForm, AddressForm
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from config import Config
@@ -71,12 +73,33 @@ def get_places():
     return render_template('place/places.html', places=list_places)
 
 
+@app.route('/user/<email>', methods=['GET', 'POST'])
+def user(email):
+    """retrieve or create a user based on email"""
+    the_user = mongo.db.users.find_one({'email': email.lower()})
+    if the_user is None:
+        db = mongo.db.users.with_options(
+            # for production application, we'd want a majority(or 2) value and True for confirmation on writing the data
+            write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+        )
+        the_user_id = db.insert(
+            {'email': email.lower()}
+        )
+
+    else:
+        the_user_id = the_user['_id']
+    return the_user_id
+
+
 @app.route('/add_place', methods=['GET', 'POST'])
 def add_place():
     form = PlaceForm()
 
     if form.validate_on_submit():
         # all is good with the post based on PlaceForm wftForm validation
+        # first get user id
+        email = form.email.data.lower()
+        user_id = user(email)
 
         return redirect(url_for('get_places'))
     else:
@@ -96,12 +119,12 @@ def add_place():
 
 @app.errorhandler(Exception)
 def handle_db_error(e):
-    return render_template('error.html', reason=e.description)
+    return render_template('error.html', reason=e)
 
 
 @app.errorhandler(CSRFError)
 def handle_csrf_error(e):
-    return render_template('error.html', reason=e.description), 400
+    return render_template('error.html', reason=e), 400
 
 
 if __name__ == '__main__':

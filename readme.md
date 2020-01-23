@@ -442,3 +442,4 @@ In addition, if it is not obvious, you should also describe how to run your code
 - [home background](https://css-tricks.com/perfect-full-page-background-image/) image centering technique via CSS
 - [Kyle Marek-Spartz](https://kyle.marek-spartz.org/posts/2014-04-04-setting-wtforms-selection-fields-dynamically.html) - Setting WTForms Selection Fields Dynamically
 - [mcelhennyi](https://gist.github.com/devxoul/7638142) - Required If validation
+- [api_mongodb](https://api.mongodb.com/python/current/migrate-to-pymongo3.html) -  Help in overcoming and understanding write concerns for mongodb
