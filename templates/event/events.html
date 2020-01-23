@@ -1,42 +1,46 @@
-{% extends 'pages/base.html' %}
+{% extends 'base.html' %}
 {% block content %}
+    {# CSRF protection #}
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    </form>
     <section class="hero is-primary">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Places
+                    Events
                 </h1>
-                {% if places | length < 1 %}
+                {% if events | length < 1 %}
                     <div class="level-left">
                         <div class="level-item">
                             <p class="subtitle">
-                                Sorry, there are no places at this time.
+                                Sorry, there are no events at this time.
                             </p>
                         </div>
                         <div class="level-item">
                             <p class="control">
-                                <a class="button is-white" href="{{ url_for('add_place') }}">
+                                <a class="button is-white" href="{{ url_for('add_event') }}">
                                     <span class="icon">
-                                        <i class="fas fa-plus-square"></i>
+                                        <i class="fas fa-calendar-plus"></i>
                                     </span>
-                                    <span>Add Place</span>
+                                    <span>Add Event</span>
                                 </a>
                             </p>
                         </div>
                     </div>
-                {% elif places | length > 5 %}
+                {% elif events | length > 5 %}
                     <h2 class="subtitle">
                         <button class="button is-text">Filter</button>
-                        {{ places.filter }}
+                        {{ events.filter }}
                     </h2>
                 {% endif %}
             </div>
         </div>
     </section>
-    {% if places | length > 0 %}
-        <p>There are {{ places | length }} events </p>
-        {% for place in places %}
-            <p>place.name</p>
+    {% if events | length > 0 %}
+        <p>There are {{ events | length }} events </p>
+        {% for event in events %}
+            <p>event.name</p>
         {% endfor %}
 
     {% endif %}

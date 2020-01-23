@@ -21,7 +21,7 @@ def db_issue(e):
 @app.route('/home')
 def home():
     """ initial/default routing for app is the home page """
-    return render_template('pages/home.html')
+    return render_template('home.html')
 
 
 @app.route('/get_events')
@@ -32,7 +32,7 @@ def get_events():
         db_issue(e)
         list_events = []
 
-    return render_template('pages/events/events.html', events=list_events, filter='none')
+    return render_template('event/events.html', events=list_events, filter='none')
 
 
 @app.route('/filter_events', methods=['POST'])
@@ -42,7 +42,7 @@ def filter_events():
     except Exception as e:
         db_issue(e)
         list_events = []
-    return render_template('pages/events/events.html', events=list_events, filter='none')
+    return render_template('event/events.html', events=list_events, filter='none')
 
 
 @app.route('/add_event', methods=['GET', 'POST'])
@@ -58,7 +58,7 @@ def add_event():
         db_issue(e)
         list_places = []
 
-    return render_template('pages/events/add_event.html', places=list_places, filter=filters)
+    return render_template('event/add_event.html', places=list_places, filter=filters)
 
 
 @app.route('/get_places')
@@ -68,7 +68,7 @@ def get_places():
     except Exception as e:
         db_issue(e)
         list_places = []
-    return render_template('pages/places/places.html', places=list_places)
+    return render_template('place/places.html', places=list_places)
 
 
 @app.route('/add_place', methods=['GET', 'POST'])
@@ -77,6 +77,7 @@ def add_place():
 
     if form.validate_on_submit():
         # all is good with the post based on PlaceForm wftForm validation
+
         return redirect(url_for('get_places'))
     else:
         print('form.email: ' + str(form.email.errors))
@@ -90,18 +91,17 @@ def add_place():
         print('form.review: ' + str(form.review.errors))
         print('form.event: ' + str(form.event.errors))
 
-        try:
-            list_activities = list(mongo.db.activities.find())
-        except Exception as e:
-            db_issue(e)
-            list_activities = []
+        return render_template('place/add_place.html', form=form)
 
-        return render_template('pages/places/add_place.html', activities=list_activities, form=form)
+
+@app.errorhandler(Exception)
+def handle_db_error(e):
+    return render_template('error.html', reason=e.description)
 
 
 @app.errorhandler(CSRFError)
 def handle_csrf_error(e):
-    return render_template('csrf_error.html', reason=e.description), 400
+    return render_template('error.html', reason=e.description), 400
 
 
 if __name__ == '__main__':

@@ -1,7 +1,9 @@
+{% extends 'base.html' %}
+
 {% from "macros.html" import activity_list with context %}
 {% from "macros.html" import enable_switch with context %}
 {% from "macros.html" import star_form with context %}
-{% extends 'pages/base.html' %}
+
 {% block content %}
     {# hero/tile #}
     {# PLACE FORM  #}
@@ -147,15 +149,15 @@
                     </p>
                 </div>
 
-                {% include '/pages/_partials/address.html' %}
+                {% include '_partials/address.html' %}
 
-                {% include '/pages/_partials/review.html' %}
+                {% include '_partials/review.html' %}
 
-                {% include '/pages/_partials/event.html' %}
+                {% include '_partials/event.html' %}
 
-            <div class="field">
-                {{ enable_switch(id="share_place", form=form.share_place) }}
-        </div>
+                <div class="field">
+                    {{ enable_switch(id="share_place", form=form.share_place) }}
+                </div>
 
             </div>
 

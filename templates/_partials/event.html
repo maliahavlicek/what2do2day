@@ -21,7 +21,7 @@
             <div class="control has-icons-left has-icons-right">
                 {{ form.event.event_name(class_="input", placeholder="Event Name") }}
                 <span class="icon is-small is-left has-text-primary">
-                            <i class="fas fa-landmark"></i>
+                            <i class="fas fa-monument"></i>
                         </span>
                 <span class="error-msg icon is-small is-right">
                           <i class="fas fa-exclamation-triangle"></i>
@@ -103,23 +103,24 @@
     {#  do a macro so this can be displayed as cards #}
     <div class="field {% if form.event.age_limit.errors %}has-error{% endif %}">
         {{ form.event.age_limit.label(class_='label') }}
+        <p>Choosing No Limit overrides any other selections</p>
         <div class="control">
             <div class="select is-multiple container ages">
                 {{ form.event.age_limit(class_="is-hidden controller-ages", size="8") }}
                 {% for item in form.event.age_limit.choices %}
-                <a class="card button is-primary {{ item[0] }}" data-choice='option[value={{item[0]}}]'>
-                    <div class="card-content">
-                        <div class="media-con">
-                            <img src="/static/assets/images/ages/{{ item[0] }}.png"
-                                 alt="image for {{ item[1] }} age group">
+                    <a class="card button is-primary {{ item[0] }}" data-choice='option[value={{ item[0] }}]'>
+                        <div class="card-content">
+                            <div class="media-con">
+                                <img src="/static/assets/images/ages/{{ item[0] }}.png"
+                                     alt="image for {{ item[1] }} age group">
+                            </div>
+                            <div class="media-content">
+                                <p class="title is-4">{{ item[1] }}</p>
+                                <p class="subtitle is-6">Ages: {{ item[0] }}</p>
+                            </div>
                         </div>
-                        <div class="media-content">
-                            <p class="title is-4">{{ item[1] }}</p>
-                            <p class="subtitle is-6">Ages: {{ item[0] }}</p>
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
+                    </a>
+                {% endfor %}
             </div>
         </div>
         <p class="error-msg help is-danger">
