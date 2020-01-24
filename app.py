@@ -82,12 +82,28 @@ def place_unique(place):
         return the_place("_id")
 
 
-def add_place(place):
+def db_add_place(place):
     db = mongo.db.places.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
     )
     the_place_id = db.insert_one(place)
     return the_place_id
+
+
+def db_add_event(event):
+    db = mongo.db.events.with_options(
+        write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+    )
+    the_event_id = db.insert_one(event)
+    return the_event_id
+
+
+def db_add_review(review):
+    db = mongo.db.reviews.with_options(
+        write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+    )
+    the_review_id = db.insert_one(review)
+    return the_review_id
 
 
 def get_add_address_id(add):
@@ -126,12 +142,9 @@ def add_place():
 
     if form.validate_on_submit():
         # all is good with the post based on PlaceForm wftForm validation
-        place = {}
-        # unique entries for a place are the name and address
-        # place name
+        # unique entries for a place are the name and address, so build that first
 
-        place['name'] = form.name.data.strip().lower()
-
+        place = {'name': form.name.data.strip().lower()}
         has_address = form.address.data['has_address']
         address = {}
         if has_address:
@@ -146,36 +159,48 @@ def add_place():
             place['address'] = address_id
         else:
             place['address'] = ''
+
         # see if address and name is in db or not
         is_unique = place_unique(place)
         if is_unique is not None:
             return render_template('error.html', reason="Place already exists.", place_id=is_unique), 1200
 
-        # first get user id
+        # add rest of place to the dictionary
         email = form.email.data.strip().lower()
         place['user'] = get_add_user_id(email)
 
         # place description
         place['description'] = form.description.data.strip()
-
         place['phone'] = form.phone.data.strip()
         place['website'] = form.website.data.strip()
         place['image_url'] = form.image_url.data.strip()
         place['share_place'] = form.share_place.data
-
-
-
-        # now we can add the place
-        place_id = add_place(place)
-
-        # next get activity_id
         place['activity'] = form.activity.data
 
-        # next get review
+        # now we can add the place
+        place_id = db_add_place(place)
+        if place_id is None:
+            redirect(url_for(handle_db_error('Failed to add place')))
 
+        # next get review
         has_review = form.review.data['has_review']
+        if has_review:
+            review = {'place': place_id, 'user': get_add_user_id(email), 'rating': form.review.data['rating'],
+                      'comments': form.review.data['comments'].strip()}
+            review_id = db_add_review(review)
+            if review_id is None:
+                redirect(url_for(handle_db_error('Failed to add review')))
 
         has_event = form.event.data['has_event']
+        if has_event:
+            event = {'place': place_id, 'name': form.data.event['event_name'].strip().lower(),
+                     'date_time_range': form.event.data['event_start_datetime'], 'activity': form.event.data['activity'],
+                     'details': form.event['details'].strip(), 'age_limit': form.event.data['age_limit'],
+                     'price_for_non_members': form.event['price_form_non_members'].strip()
+                     }
+            event_id = db_add_event(event)
+            if event_id is None:
+                redirect(url_for(handle_db_error('Failed to add event')))
 
         return redirect(url_for('get_places'))
     else:
