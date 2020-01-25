@@ -41,7 +41,8 @@
             <div class="stars" id="{{ id }}">
                 {% for subfield in form.choices|reverse %}
                     <input class="star star-{{ subfield[0] }}" id="{{ id }}-{{ subfield[0]|int- 1 }}" type="radio"
-                           name="{{ id }}" value="{{ subfield[0] }}" {% if form.data == subfield[0] %} checked{% endif %}/>
+                           name="{{ id }}" value="{{ subfield[0] }}" {% if form.data == subfield[0] %}
+                           checked{% endif %}/>
                     <label class="star star-{{ subfield[0] }}" for="{{ id }}-{{ subfield[0]|int - 1 }}"
                            title="{{ subfield[1] }}"></label>
                 {% endfor %}
@@ -50,16 +51,93 @@
     {% endif %}
 {%- endmacro %}
 
-{#  macro to create multi select with styling to options #}
-{#{%  macro multi_select_card (id='', form=false, option_class='') %}
+{% macro address_collection (form=False) -%}
+    <div class="field">
+        <label class="label">{{ label }}</label>
+        <div class="control">
+            {{ form.has_address(class_="is-checkradio is-medium") }}
+            {{ form.has_address.label }}
+        </div>
+    </div>
 
-def __call__(self, field, **kwargs):
-    kwargs.setdefault('id', field.id)
-    if self.multiple:
-        kwargs['multiple'] = True
-    html = ['<select %s>' % html_params(name=field.name, **kwargs)]
-    for val, label, selected in field.iter_choices():
-        html.append(self.render_option(val, label, selected))
-    html.append('</select>')
-    return HTMLString(''.join(html))
-{% ~ endmacro %}#}
+    {# address block hide/shows based on has_address  #}
+    <div id="address_block"
+         class="has-background-white-bis embedded">
+        <div class="field {% if form.address_line_1.errors %}has-error{% endif %}">
+            {{ form.address_line_1.label(class_="label") }}
+            <div class="control">
+                {{ form.address_line_1(class_="input", placeholder="Street Address, P.O. Box") }}
+            </div>
+            <p class="error-msg help is-danger">
+                {% if form.address_line_1.errors|length > 0 %}
+                    {{ form.address_line_1.errors[0] }}
+                {% endif %}
+            </p>
+        </div>
+
+        <div class="field {% if form.address_line_2.errors %}has-error{% endif %}">
+            {{ form.address_line_2.label(class_="label") }}
+            <div class="control">
+                {{ form.address_line_2(class_="input", placeholder="Apartment, Suite, Unit, Building, Floor, etc.") }}
+            </div>
+            <p class="error-msg help is-danger">
+                {% if form.address_line_2.errors|length > 0 %}
+                    {{ form.address_line_2.errors[0] }}
+                {% endif %}
+            </p>
+        </div>
+        <div class="columns">
+            <div class="field column {% if form.city.errors %}has-error{% endif %}">
+                {{ form.city.label(class_="label") }}
+                <div class="control">
+                    {{ form.city(class_="input", placeholder="City") }}
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.city.errors|length > 0 %}
+                        {{ form.city.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="field column {% if form.state.errors %}has-error{% endif %}">
+                {{ form.state.label(class_="label") }}
+                <div class="control">
+                    {{ form.state(class_="input", placeholder="State") }}
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.state.errors|length > 0 %}
+                        {{ form.state.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="field column {% if form.postal_code.errors %}has-error{% endif %}">
+                {{ form.postal_code.label(class_="label") }}
+                <div class="control">
+                    {{ form.postal_code(class_="input", placeholder="Postal Code") }}
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.postal_code.errors|length > 0 %}
+                        {{ form.postal_code.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="field column {% if form.country.errors %}has-error{% endif %}">
+                {{ form.country.label(class_='label') }}
+                <div class="control has-icons-left">
+                    <div class="select">
+                        {{ form.country }}
+                    </div>
+                    <div class="icon is-small is-left has-text-primary">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.country.errors|length > 0 %}
+                        {{ form.country.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+{%- endmacro %}

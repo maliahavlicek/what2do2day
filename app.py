@@ -3,6 +3,7 @@ from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from pymongo import WriteConcern
+from datetime import datetime
 
 from forms import PlaceForm, ReviewForm, AddressForm
 from flask_wtf.csrf import CSRFProtect, CSRFError
@@ -184,7 +185,7 @@ def add_place():
         # next get review
         has_review = form.review.data['has_review']
         if has_review:
-            review = {'place': place_id, 'user': get_add_user_id(email), 'rating': form.review.data['rating'],
+            review = {'place': place_id, 'date': datetime.today(), 'user': get_add_user_id(email), 'rating': form.review.data['rating'],
                       'comments': form.review.data['comments'].strip()}
             review_id = db_add_review(review)
             if review_id is None:

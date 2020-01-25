@@ -3,6 +3,7 @@
 {% from "_partials/macros.html" import activity_list with context %}
 {% from "_partials/macros.html" import enable_switch with context %}
 {% from "_partials/macros.html" import star_form with context %}
+{% from "_partials/macros.html" import address_collection with context %}
 
 {% block content %}
     {# hero/tile #}
@@ -149,7 +150,7 @@
                     </p>
                 </div>
 
-                {% include '_partials/address.html' %}
+            {{ address_collection(form=form.address) }}
 
                 {% include '_partials/review.html' %}
 

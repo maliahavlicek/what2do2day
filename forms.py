@@ -107,6 +107,7 @@ class EventForm(FlaskForm):
     event_start_datetime = StringField('Date & Time *',
                                        [RequiredIf(has_event=True), Length(min=1, message='Please select a date.'),
                                         validate_datetime])
+    address = FormField(AddressForm, 'Address')
     activity = SelectField(u'Activity *', choices=[('none', 'Choose Activity')])
     details = TextAreaField('Details *', [RequiredIf(has_event=True),
                                           Length(min=1, message="Details are required"),
@@ -125,7 +126,7 @@ class EventForm(FlaskForm):
                                                                ], default='no-limit')
 
     price_for_non_members = StringField('Price for non-members', [Optional(),
-                                                                   Length(min=1, message='Name of Event is required.')])
+                                                                  Length(min=1, message='Name of Event is required.')])
 
     def validate_activity(self, activity):
         """activity validation"""

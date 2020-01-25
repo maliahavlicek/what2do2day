@@ -65,6 +65,9 @@
                     {% endif %}
                 </p>
             </div>
+        <div>
+            {{ address_collection(form=form.event.address) }}
+        </div>
             <div class="field {% if form.event.activity.errors %}has-error{% endif %}">
                 {{ form.event.activity.label(class_='label') }}
                 <div class="control has-icons-left">
