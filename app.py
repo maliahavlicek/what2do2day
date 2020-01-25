@@ -79,31 +79,31 @@ def place_unique(place):
     if the_place is None:
         return None
     else:
-        return the_place("_id")
+        return the_place['_id']
 
 
 def db_add_place(place):
     db = mongo.db.places.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
     )
-    the_place_id = db.insert_one(place)
-    return the_place_id
+    the_place = db.insert_one(place)
+    return the_place.inserted_id
 
 
 def db_add_event(event):
     db = mongo.db.events.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
     )
-    the_event_id = db.insert_one(event)
-    return the_event_id
+    the_event = db.insert_one(event)
+    return the_event.inserted_id
 
 
 def db_add_review(review):
     db = mongo.db.reviews.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
     )
-    the_review_id = db.insert_one(review)
-    return the_review_id
+    the_review = db.insert_one(review)
+    return the_review.inserted_id
 
 
 def get_add_address_id(add):
@@ -113,10 +113,10 @@ def get_add_address_id(add):
         db = mongo.db.addresses.with_options(
             write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
         )
-        the_address_id = db.insert_one(add)
+        the_address = db.insert_one(add)
+        return the_address.inserted_id
     else:
-        the_address_id = the_address['_id']
-    return the_address_id
+        return the_address['_id']
 
 
 def get_add_user_id(email):
@@ -127,13 +127,12 @@ def get_add_user_id(email):
             # for production application, we'd want a majority(or 2) value and True for confirmation on writing the data
             write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
         )
-        the_user_id = db.insert_one(
+        the_user = db.insert_one(
             {'email': email.lower()}
         )
-
+        return the_user.inserted_id
     else:
-        the_user_id = the_user['_id']
-    return the_user_id
+        return the_user['_id']
 
 
 @app.route('/add_place', methods=['GET', 'POST'])
@@ -194,7 +193,8 @@ def add_place():
         has_event = form.event.data['has_event']
         if has_event:
             event = {'place': place_id, 'name': form.data.event['event_name'].strip().lower(),
-                     'date_time_range': form.event.data['event_start_datetime'], 'activity': form.event.data['activity'],
+                     'date_time_range': form.event.data['event_start_datetime'],
+                     'activity': form.event.data['activity'],
                      'details': form.event['details'].strip(), 'age_limit': form.event.data['age_limit'],
                      'price_for_non_members': form.event['price_form_non_members'].strip()
                      }

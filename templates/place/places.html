@@ -34,9 +34,9 @@
         </div>
     </section>
     {% if places | length > 0 %}
-        <p>There are {{ places | length }} events </p>
+        <p>There are {{ places | length }} places </p>
         {% for place in places %}
-            <p>place.name</p>
+            <p>{{ place.name|title }}</p>
         {% endfor %}
 
     {% endif %}
