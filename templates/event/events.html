@@ -40,7 +40,7 @@
     {% if events | length > 0 %}
         <p>There are {{ events | length }} events </p>
         {% for event in events %}
-            <p>event.name</p>
+            <p>{{event.name | title}}</p>
         {% endfor %}
 
     {% endif %}

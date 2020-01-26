@@ -79,6 +79,23 @@
                     </p>
                 </div>
 
+            <div class="field">
+                    {% for item in icons %}
+                        <a class="card button is-primary iconpicker" title="icon for {{ item|icon_alt }}" data-choice='option[value={{ item }}]'>
+                        <div class="card-content">
+                            <div class="media-con">
+                                <img src="/static/assets/images/icons/{{ item }}"
+                                     alt="image for {{ item|icon_alt }} icon" height="60" width="60">
+                            </div>
+                            <div class="media-content">
+                                <h6>{{ item|icon_alt }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+
+            </div>
+
                 <div class="field {% if form.activity.errors %}has-error{% endif %}">
                     {{ form.activity.label(class_='label') }}
                     <div class="control has-icons-left">

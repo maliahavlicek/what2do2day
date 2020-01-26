@@ -1,7 +1,11 @@
 import os
+import re
+
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from os import listdir
+from os.path import isfile, join, splitext
 from pymongo import WriteConcern
 from datetime import datetime
 
@@ -185,7 +189,8 @@ def add_place():
         # next get review
         has_review = form.review.data['has_review']
         if has_review:
-            review = {'place': place_id, 'date': datetime.today(), 'user': get_add_user_id(email), 'rating': form.review.data['rating'],
+            review = {'place': place_id, 'date': datetime.today(), 'user': get_add_user_id(email),
+                      'rating': form.review.data['rating'],
                       'comments': form.review.data['comments'].strip()}
             review_id = db_add_review(review)
             if review_id is None:
@@ -231,7 +236,8 @@ def add_place():
         print('form.review: ' + str(form.review.errors))
         print('form.event: ' + str(form.event.errors))
 
-        return render_template('place/add_place.html', form=form)
+        icons = get_list_of_icons()
+        return render_template('place/add_place.html', form=form, icons=icons)
 
 
 @app.errorhandler(Exception)
@@ -242,6 +248,21 @@ def handle_db_error(e):
 @app.errorhandler(CSRFError)
 def handle_csrf_error(e):
     return render_template('error.html', reason=e), 400
+
+
+@app.template_filter()
+def icon_alt(icon_file_name):
+    """take an image name strip out file extension and numbers"""
+    clean_name = splitext(icon_file_name)[0]
+    clean_name = re.sub(r'[0-9]', '', clean_name)
+    clean_name = clean_name.replace('-', ' ')
+    return re.sub(' +',' ', clean_name)
+
+
+def get_list_of_icons():
+    icon_path = 'static/assets/images/icons'
+    icons = [f for f in listdir(icon_path) if isfile(join(icon_path, f))]
+    return icons
 
 
 if __name__ == '__main__':

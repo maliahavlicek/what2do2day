@@ -17,6 +17,7 @@ body {
     margin-right: auto;
     background-color: #FFF
 }
+
 /* calendar adjustments */
 .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
     max-width: 70%;
@@ -57,11 +58,11 @@ h1, .navbar-brand a.navbar-item {
 .hero-body {
     background: url(/static/assets/images/perry_the_platypus.png) no-repeat right bottom, url(/static/assets/images/fence.png) repeat-x bottom center;
     overflow: hidden;
-        background-size: auto 132px, auto 100%;
+    background-size: auto 132px, auto 100%;
 }
 
 /* homepage, no perry */
-.hero.home:after{
+.hero.home:after {
     background: none;
 }
 
@@ -200,7 +201,9 @@ div.stars {
 }
 
 /* hide placeholder selection one */
-.star.star-none{display: none;}
+.star.star-none {
+    display: none;
+}
 
 /* suppress default radio button input for stars */
 input.star {
@@ -314,27 +317,30 @@ input:checked + .slider:before {
 }
 
 /* age choices */
-.image.age-image{
+.image.age-image {
     height: 210px;
     width: 100px;
 }
-.container.ages{
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(250px,2fr));
-	grid-gap: 0.5em;
+
+.container.ages {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));
+    grid-gap: 0.5em;
 }
 
-.container.ages .card{
-	height: max-content;
+.container.ages .card {
+    height: max-content;
 }
-.card.button img{
+
+.card.button img {
     max-height: 130px;
 }
 
-.card.button{
+.card.button {
     border: 2px solid #00d1b1;
     transition: all .2s;
 }
+
 .card.button:before {
     content: '\f0c8';
     font-family: "FontAwesome";
@@ -348,30 +354,42 @@ input:checked + .slider:before {
     font-size: 32px;
 }
 
-.card.button.is-inverted:hover{
+.card.button.is-inverted:hover {
     border: 2px solid #00d1b1;
     opacity: 0.5;
 }
-.card.button:hover{
+
+.card.button:hover {
     border: 2px solid #2f2f2f;
     opacity: 0.5;
 }
 
-.card.button.is-inverted:before{
+.card.button.is-inverted:before {
     content: '\f14a';
     color: #00d1b1;
 }
 
+/* icon picerk */
+
+.card.button.iconpicker img {
+    max-height: 60px;
+    margin: 25px auto -20px;
+}
+
+a.card.button.is-primary.iconpicker {
+    margin: 20px;
+    height: 120px;
+}
 
 /* error handling CSS */
 
 /* suppress error containers and styles if has-error is missing */
-.field .error-msg{
+.field .error-msg {
     display: none;
 }
 
 /* show errors */
-.field.has-error .error-msg{
+.field.has-error .error-msg {
     display: inline-flex;
 }
 
@@ -380,19 +398,21 @@ input:checked + .slider:before {
 .has-error textarea, .has-error textarea:hover, .has-error textarea:focus.error-msg,
 .has-error select, .has-error select:hover, .has-error select:focus,
 .has-error .datetimepicker-dummy, .has-error .datetimepicker-dummy:hover, .has-error .datetimepicker-dummy:focus,
-.has-error .datetimepicker-dummy-wrapper:hover, .has-error .datetimepicker-dummy-wrapper:focus
-{
+.has-error .datetimepicker-dummy-wrapper:hover, .has-error .datetimepicker-dummy-wrapper:focus {
     border: 1px solid #f14668;
 }
+
 .has-error input:hover, .has-error input:focus,
 .has-error textarea:hover, .has-error textarea:focus.error-msg,
-.has-error select:hover, .has-error select:focus{
-    box-shadow: 0 0 0 0.125em rgba(241,70,104,.25);
+.has-error select:hover, .has-error select:focus {
+    box-shadow: 0 0 0 0.125em rgba(241, 70, 104, .25);
 }
-.has-error .datetimepicker-dummy-wrapper{
-    border:none;
+
+.has-error .datetimepicker-dummy-wrapper {
+    border: none;
 }
-.has-error .datetimepicker-dummy:hover, .has-error .datetimepicker-dummy:focus{
+
+.has-error .datetimepicker-dummy:hover, .has-error .datetimepicker-dummy:focus {
     box-shadow: none;
 }
 
