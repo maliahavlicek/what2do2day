@@ -13,15 +13,15 @@ $(document).ready(function () {
 
     // make sure conditionally shown address block is hidden on page load
     if ($('#address-has_address').is(':checked')) {
-        $('#address_block').show();
+        $('#address_address_block').show();
     } else {
-        $('#address_block').hide();
+        $('#address_address_block').hide();
     }
 
     // Check for click events on has address checkbox
     $("#address-has_address").click(function () {
         //toggle on/off address entry
-        $('#address_block').toggle(250);
+        $('#address_address_block').toggle(250);
     });
 
     // make sure conditionally shown review block is hidden on page load
@@ -48,6 +48,19 @@ $(document).ready(function () {
     $("#event-has_event").click(function () {
         //toggle on/off revent entry
         $('#event_block').toggle(250);
+    });
+
+     // make sure conditionally shown event address block is hidden on page load
+    if ($('#event-address-has_address').is(':checked')) {
+        $('#event-address_address_block').show();
+    } else {
+        $('#event-address_address_block').hide();
+    }
+
+    // Check for click has event checkbox
+    $("#event-address-has_address").click(function () {
+        //toggle on/off event address entry
+        $('#event-address_address_block').toggle(250);
     });
 
     // Initialize datetime

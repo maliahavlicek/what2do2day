@@ -51,9 +51,9 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro address_collection (form=False) -%}
+{% macro address_collection (form=False, label="Has Physical Address") -%}
     <div class="field">
-        <label class="label">{{ label }}</label>
+        <label class="label">Address</label>
         <div class="control">
             {{ form.has_address(class_="is-checkradio is-medium") }}
             {{ form.has_address.label }}
@@ -61,7 +61,7 @@
     </div>
 
     {# address block hide/shows based on has_address  #}
-    <div id="address_block"
+    <div id="{{ form.id }}_address_block"
          class="has-background-white-bis embedded">
         <div class="field {% if form.address_line_1.errors %}has-error{% endif %}">
             {{ form.address_line_1.label(class_="label") }}

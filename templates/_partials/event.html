@@ -66,7 +66,7 @@
                 </p>
             </div>
         <div>
-            {{ address_collection(form=form.event.address) }}
+            {{ address_collection(form=form.event.address, label="Different from Event Address") }}
         </div>
             <div class="field {% if form.event.activity.errors %}has-error{% endif %}">
                 {{ form.event.activity.label(class_='label') }}

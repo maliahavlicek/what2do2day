@@ -181,6 +181,9 @@ class PlaceForm(FlaskForm):
         """Let review form know it should use place email"""
         self.review.use_place_email.value = "y"
 
+        """Set label for event's has address field"""
+        # self.event.address.has_address.label = "Different from Place Address"
+
     def validate_name(self, name):
         """Custom validator to make sure name is unique"""
         from app import mongo
