@@ -111,7 +111,7 @@
             <div class="select is-multiple container ages">
                 {{ form.event.age_limit(class_="is-hidden controller-ages", size="8") }}
                 {% for item in form.event.age_limit.choices %}
-                    <a class="card button is-primary {{ item[0] }}" data-choice='option[value={{ item[0] }}]'>
+                    <a class="card button ages is-primary {{ item[0] }}" data-choice='option[value={{ item[0] }}]'>
                         <div class="card-content">
                             <div class="media-con">
                                 <img src="/static/assets/images/ages/{{ item[0] }}.png"

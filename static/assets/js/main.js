@@ -129,7 +129,7 @@ $(document).ready(function () {
     });
 
     /* handlers for cards acting as mutli-choice selections */
-    $('.card.button').click(function () {
+    $('.card.button.ages').click(function () {
         //toggle on/off selection class and select/deselect associated selection
         $(this).toggleClass('is-inverted', 250);
         let choice_selector = $(this).attr('data-choice');
@@ -139,6 +139,27 @@ $(document).ready(function () {
             choice.prop("selected", false);
         } else {
             choice.prop("selected", true);
+        }
+
+    });
+
+    /* handlers for cards acting as icon picker single-choice selections */
+    $('.card.button.iconpicker').click(function () {
+        //toggle on/off selection class and select/deselect associated selection
+        let option = $(this);
+        let is_selected = option.prop("selected");
+        if (is_selected) {
+            //do nothing it's already selected
+
+        } else {
+            //single choice so unselect all, then select the current one
+            $('.card.button.iconpicker.is-inverted').each(function () {
+                $(this).prop("selected", false);
+                $(this).toggleClass('is-inverted', 250);
+
+            });
+            option.prop("selected", true);
+            option.toggleClass('is-inverted', 250);
         }
 
 
