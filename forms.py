@@ -177,6 +177,10 @@ class PlaceForm(FlaskForm):
                 str(item['_id']),
                 item['country'].replace('&amp;', '&').title()
             ))
+            self.event.address.country.choices.append((
+                str(item['_id']),
+                item['country'].replace('&amp;', '&').title()
+            ))
 
         """Let review form know it should use place email"""
         self.review.use_place_email.value = "y"

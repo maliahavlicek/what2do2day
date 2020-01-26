@@ -193,11 +193,26 @@ def add_place():
 
         has_event = form.event.data['has_event']
         if has_event:
-            event = {'place': place_id, 'name': form.data.event['event_name'].strip().lower(),
+            has_address = form.event.address.data['has_address']
+            event_address = {}
+            if has_address:
+                event_address['address_line_1'] = form.event.address.data['address_line_1'].strip().lower()
+                if form.event.address.data['address_line_2']:
+                    event_address['address_line_2'] = form.event.address.data['address_line_2'].strip().lower()
+                event_address['city'] = form.event.address.data['city'].strip().lower()
+                if form.event.address.data['postal_code']:
+                    event_address['postal_code'] = form.event.address.data['postal_code'].strip().lower()
+                event_address['country'] = form.event.address.data['country']
+                address_id = get_add_address_id(event_address)
+                event_address_id = address_id
+            else:
+                event_address_id = ''
+            event = {'place': place_id, 'name': form.event.data['event_name'].strip().lower(),
                      'date_time_range': form.event.data['event_start_datetime'],
                      'activity': form.event.data['activity'],
-                     'details': form.event['details'].strip(), 'age_limit': form.event.data['age_limit'],
-                     'price_for_non_members': form.event['price_form_non_members'].strip()
+                     'details': form.event.data['details'].strip(), 'age_limit': form.event.data['age_limit'],
+                     'price_for_non_members': form.event.data['price_for_non_members'].strip(),
+                     'address': event_address_id
                      }
             event_id = db_add_event(event)
             if event_id is None:
