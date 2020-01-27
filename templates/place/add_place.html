@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{# PLACE FORM  #}
 {% from "_partials/macros.html" import activity_choice with context %}
 {% from "_partials/macros.html" import enable_switch with context %}
 {% from "_partials/macros.html" import star_form with context %}
@@ -7,7 +7,6 @@
 
 {% block content %}
     {# hero/tile #}
-    {# PLACE FORM  #}
     <form method="POST" action="{{ url_for('add_place') }}" enctype="multipart/form-data">
         <section class="hero is-primary">
             <div class="hero-body">
@@ -25,100 +24,114 @@
                 </h2>
             </div>
             <div class="container">
-
                 {#  prevent cross site scripting #}
                 {{ form.csrf_token }}
-                <div class="field {% if form.email.errors %}has-error{% endif %}">
-                    {{ form.email.label(class_="label") }}
-                    <div class="control has-icons-left has-icons-right">
-                        {{ form.email(class_="input", placeholder="your.email@you.com") }}
-                        <span class="icon is-small is-left has-text-primary">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="error-msg icon is-small is-right">
-                          <i class="fas fa-exclamation-triangle"></i>
-                        </span>
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="field {% if form.email.errors %}has-error{% endif %}">
+                            {# collect email as primary user/owner of place #}
+                            {{ form.email.label(class_="label") }}
+                            <div class="control has-icons-left has-icons-right">
+                                {{ form.email(class_="input", placeholder="your.email@you.com") }}
+                                <span class="icon is-small is-left has-text-primary">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <span class="error-msg icon is-small is-right">
+                                  <i class="fas fa-exclamation-triangle"></i>
+                                </span>
+                            </div>
+                            <p class="error-msg help is-danger">
+                                {% if form.email.errors|length > 0 %}
+                                    {{ form.email.errors[0] }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="field {% if form.name.errors %}has-error{% endif %}">
+                            {# collect name of place, part of primary key for object #}
+                            {{ form.name.label(class_="label") }}
+                            <div class="control has-icons-left has-icons-right">
+                                {{ form.name(class_="input", placeholder="Place Name") }}
+                                <span class="icon is-small is-left has-text-primary">
+                                    <i class="fas fa-landmark"></i>
+                                </span>
+                                <span class="error-msg icon is-small is-right">
+                                  <i class="fas fa-exclamation-triangle"></i>
+                                </span>
+                            </div>
+                            <p class="error-msg help is-danger">
+                                {% if form.name.errors|length > 0 %}
+                                    {{ form.name.errors[0] }}
+                                {% endif %}
+                            </p>
+                        </div>
                     </div>
-                    <p class="error-msg help is-danger">
-                        {% if form.email.errors|length > 0 %}
-                            {{ form.email.errors[0] }}
-                        {% endif %}
-                    </p>
+                    <div class="column">
+                        <div class="field {% if form.description.errors %}has-error{% endif %}">
+                            {# collect description of place #}
+                            {{ form.description.label(class_="label") }}
+                            <div class="control has-icons-right">
+                                {{ form.description(class_="textarea", placeholder="Provide a short description. What do you do or offer the community?") }}
+                                <span class="error-msg icon is-small is-right">
+                                  <i class="fas fa-exclamation-triangle"></i>
+                                </span>
+                            </div>
+                            <p class="error-msg help is-danger">
+                                {% if form.description.errors|length > 0 %}
+                                    {{ form.description.errors[0] }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="field {% if form.name.errors %}has-error{% endif %}">
-                    {{ form.name.label(class_="label") }}
-                    <div class="control has-icons-left has-icons-right">
-                        {{ form.name(class_="input", placeholder="Place Name") }}
-                        <span class="icon is-small is-left has-text-primary">
-                            <i class="fas fa-landmark"></i>
-                        </span>
-                        <span class="error-msg icon is-small is-right">
-                          <i class="fas fa-exclamation-triangle"></i>
-                        </span>
-                    </div>
-                    <p class="error-msg help is-danger">
-                        {% if form.name.errors|length > 0 %}
-                            {{ form.name.errors[0] }}
-                        {% endif %}
-                    </p>
-                </div>
+                {# macro to collect address of place, part of primary key for object #}
+                {{ address_collection(form=form.address, label="Has Physical Address") }}
 
-                <div class="field {% if form.description.errors %}has-error{% endif %}">
-                    {{ form.description.label(class_="label") }}
-                    <div class="control has-icons-right">
-                        {{ form.description(class_="textarea", placeholder="Provide a short description. What do you do or offer the community?") }}
-                        <span class="error-msg icon is-small is-right">
-                          <i class="fas fa-exclamation-triangle"></i>
-                        </span>
-                    </div>
-                    <p class="error-msg help is-danger">
-                        {% if form.description.errors|length > 0 %}
-                            {{ form.description.errors[0] }}
-                        {% endif %}
-                    </p>
-                </div>
-
-            {# macro for actiity_choice #}
-            {{ activity_choice(activity_input=form.activity_name, hidden_input_for_icon=form.activity_icon) }}
-
-                <div class="field {% if form.phone.errors %}has-error{% endif %}">
-                    {{ form.phone.label(class_="label") }}
-                    <div class="control has-icons-left has-icons-right">
-                        {{ form.phone(class_="input", placeholder="Phone") }}
-                        <span class="icon is-small is-left has-text-primary">
+                {# macro for actiity_choice type and icon collection #}
+                {{ activity_choice(activity_input=form.activity_name, hidden_input_for_icon=form.activity_icon) }}
+                <div class="columns">
+                    <div class="field column {% if form.phone.errors %}has-error{% endif %}">
+                        {# collect phone number of place #}
+                        {{ form.phone.label(class_="label") }}
+                        <div class="control has-icons-left has-icons-right">
+                            {{ form.phone(class_="input", placeholder="Phone") }}
+                            <span class="icon is-small is-left has-text-primary">
                             <i class="fas fa-phone"></i>
                         </span>
-                        <span class="error-msg icon is-small is-right">
+                            <span class="error-msg icon is-small is-right">
                           <i class="fas fa-exclamation-triangle"></i>
                         </span>
+                        </div>
+                        <p class="error-msg help is-danger">
+                            {% if form.phone.errors|length > 0 %}
+                                {{ form.phone.errors[0] }}
+                            {% endif %}
+                        </p>
                     </div>
-                    <p class="error-msg help is-danger">
-                        {% if form.phone.errors|length > 0 %}
-                            {{ form.phone.errors[0] }}
-                        {% endif %}
-                    </p>
-                </div>
 
-                <div class="field {% if form.website.errors %}has-error{% endif %}">
-                    {{ form.website.label(class_="label") }}
-                    <div class="control has-icons-left has-icons-right">
-                        {{ form.website(class_="input", placeholder="Website") }}
-                        <span class="icon is-small is-left has-text-primary">
+                    <div class="field column {% if form.website.errors %}has-error{% endif %}">
+                        {# collect website number of place #}
+                        {{ form.website.label(class_="label") }}
+                        <div class="control has-icons-left has-icons-right">
+                            {{ form.website(class_="input", placeholder="Website") }}
+                            <span class="icon is-small is-left has-text-primary">
                             <i class="fas fa-globe-europe"></i>
                         </span>
-                        <span class="error-msg icon is-small is-right">
+                            <span class="error-msg icon is-small is-right">
                           <i class="fas fa-exclamation-triangle"></i>
                         </span>
+                        </div>
+                        <p class="error-msg help is-danger">
+                            {% if form.website.errors|length > 0 %}
+                                {{ form.website.errors[0] }}
+                            {% endif %}
+                        </p>
                     </div>
-                    <p class="error-msg help is-danger">
-                        {% if form.website.errors|length > 0 %}
-                            {{ form.website.errors[0] }}
-                        {% endif %}
-                    </p>
                 </div>
 
                 <div class="field {% if form.image_url.errors %}has-error{% endif %}">
+                    {# collect image of place #}
                     {{ form.image_url.label(class_="label") }}
                     <div class="control has-icons-left has-icons-right">
                         {{ form.image_url(class_="input", placeholder="Image URL") }}
@@ -136,19 +149,20 @@
                     </p>
                 </div>
 
-                {{ address_collection(form=form.address, label="Has Physical Address") }}
-
+                {# collect initial review of place #}
                 {% include '_partials/review.html' %}
 
+                {# collect initial event of place #}
                 {% include '_partials/event.html' %}
 
+                {# share or hide place from community #}
                 <div class="field">
                     {{ enable_switch(id="share_place", form=form.share_place) }}
                 </div>
 
             </div>
-
         </section>
+        {# submit place form to save in database #}
         <section class="section is-submit-wrapper">
             <div class="level-left">
                 <button type="submit" class="button is-dark is-medium is-inverted submit">
