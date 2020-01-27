@@ -3,6 +3,7 @@
      to prepopulate values with. When updating, we'll display the switch element to share the event with
      the community.
 #}
+{% from "_partials/macros.html" import activity_choice with context %}
 
 <div class="field">
     <label class="label">Events</label>
@@ -65,25 +66,12 @@
                     {% endif %}
                 </p>
             </div>
-        <div>
-            {{ address_collection(form=form.event.address, label="Different from Event Address") }}
-        </div>
-            <div class="field {% if form.event.activity.errors %}has-error{% endif %}">
-                {{ form.event.activity.label(class_='label') }}
-                <div class="control has-icons-left">
-                    <div class="select">
-                        {{ form.event.activity }}
-                    </div>
-                    <div class="icon is-small is-left has-text-primary">
-                        <i class="fas fa-cogs" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <p class="error-msg help is-danger">
-                    {% if form.event.activity.errors|length > 0 %}
-                        {{ form.event.activity.errors[0] }}
-                    {% endif %}
-                </p>
+            <div>
+                {{ address_collection(form=form.event.address, label="Different from Event Address") }}
             </div>
+
+
+
         </div>
         <div class="column">
             <div class="field {% if form.event.details.errors %}has-error{% endif %}">
@@ -102,6 +90,9 @@
             </div>
         </div>
     </div>
+
+{# macro for actiity_choice #}
+            {{ activity_choice(activity_input=form.event.activity_name, hidden_input_for_icon=form.event.activity_icon) }}
 
     {#  do a macro so this can be displayed as cards #}
     <div class="field {% if form.event.age_limit.errors %}has-error{% endif %}">

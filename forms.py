@@ -108,7 +108,10 @@ class EventForm(FlaskForm):
                                        [RequiredIf(has_event=True), Length(min=1, message='Please select a date.'),
                                         validate_datetime])
     address = FormField(AddressForm, 'Address')
-    activity = SelectField(u'Activity *', choices=[('none', 'Choose Activity')])
+
+    activity_name = StringField('Activity Type', [
+        Length(min=1, message="Please enter the activity type.")])
+    activity_icon = HiddenField(None, [DataRequired()], default="n")
     details = TextAreaField('Details *', [RequiredIf(has_event=True),
                                           Length(min=1, message="Details are required"),
                                           Length(min=2, message='Your details section is too short'),
@@ -127,6 +130,11 @@ class EventForm(FlaskForm):
 
     price_for_non_members = StringField('Price for non-members', [Optional(),
                                                                   Length(min=1, message='Name of Event is required.')])
+
+    def validate_activity_icon(self, activity_icon):
+        """Custom validation to make sure an activity icon was picked"""
+        if activity_icon.data == 'n':
+            raise ValidationError("Select an icon.")
 
 
 class PlaceForm(FlaskForm):

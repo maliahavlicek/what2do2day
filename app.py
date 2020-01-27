@@ -149,7 +149,7 @@ def add_place():
         return push_place_to_db(form)
     elif (not form.event.data['has_event'] and form.event.errors and not form.email.errors and not form.name.errors
           and not form.description.errors and not form.activity_name.errors and not form.activity_icon.errors
-          and not form.phone.errors  and not form.website.errors and not form.image_url.errors
+          and not form.phone.errors and not form.website.errors and not form.image_url.errors
           and not form.address.errors and not form.review.errors):
         # if all but event are valid, and event is toggled off, suppress errors and push the place to the db
         return push_place_to_db(form)
@@ -265,7 +265,8 @@ def push_place_to_db(form):
             event_address_id = ''
         event = {'place': place_id, 'name': form.event.data['event_name'].strip().lower(),
                  'date_time_range': form.event.data['event_start_datetime'],
-                 'activity': form.event.data['activity'],
+                 'activity_name': form.event.activity_name.data.strip().lower(),
+                 'activity_icon': form.event.activity_icon.data,
                  'details': form.event.data['details'].strip(), 'age_limit': form.event.data['age_limit'],
                  'price_for_non_members': form.event.data['price_for_non_members'].strip(),
                  'address': event_address_id
