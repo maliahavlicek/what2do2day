@@ -161,8 +161,19 @@ $(document).ready(function () {
             option.prop("selected", true);
             option.toggleClass('is-inverted', 250);
         }
+    });
 
+    // make sure conditionally shown alt activity picker block is hidden on page load
+    if ($('#alt_activity').is(':checked')) {
+        $('#place_activity_pick').show();
+    } else {
+        $('#place_activity_pick').hide();
+    }
 
+    // Check for click events on has address checkbox
+    $("#alt_activity").click(function () {
+        //toggle on/off address entry
+        $('#place_activity_pick').toggle(250);
     });
 
 

@@ -151,6 +151,11 @@ class PlaceForm(FlaskForm):
         Length(max=500, message='Descriptions cannot be longer than 500 characters.')
     ])
     activity = SelectField(u'Activity *', choices=[('none', 'Choose Activity')], validators=[validate_option_not_none])
+    alt_activity = BooleanField('Create a New Activity', default=False)
+    alt_activity_name = StringField('New Activity Type', [
+        RequiredIf(alt_activity=True),
+        Length(min=1, message="Please enter a name for the new activity.")])
+    alt_activity_icon = HiddenField(None, [DataRequired()], default="n")
     phone = StringField('Phone', [Optional()])
     website = StringField('Website',
                           [Optional(), URL(message="Please enter a valid website. https://www.example.com.")])
