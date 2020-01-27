@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% from "_partials/macros.html" import activity_list with context %}
+{% from "_partials/macros.html" import activity_choice with context %}
 {% from "_partials/macros.html" import enable_switch with context %}
 {% from "_partials/macros.html" import star_form with context %}
 {% from "_partials/macros.html" import address_collection with context %}
@@ -78,80 +78,9 @@
                         {% endif %}
                     </p>
                 </div>
-                <div class="columns">
 
-                    <div class="field column {% if form.activity.errors %}has-error{% endif %}">
-                        {{ form.activity.label(class_='label') }}
-                        <div class="control has-icons-left">
-                            <div class="select">
-                                {{ form.activity }}
-                            </div>
-                            <div class="icon is-small is-left has-text-primary">
-                                <i class="fas fa-cogs" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                        <p class="error-msg help is-danger">
-                            {% if form.activity.errors|length > 0 %}
-                                {{ form.activity.errors[0] }}
-                            {% endif %}
-                        </p>
-                    </div>
-                    <div class="is-divider is-primary is-divider-vertical column" data-content="OR"></div>
-                    <div class="field column fake-label">
-                        <div class="control">
-                            {{ form.alt_activity(class_="is-checkradio is-medium") }}
-                            {{ form.alt_activity.label }}
-                        </div>
-                    </div>
-                </div>
-
-                <div id="place_activity_pick" class="embedded">
-                    <div class="section cards">
-                        <div class="container">
-                            <div class="field {% if form.alt_activity_name.errors %}has-error{% endif %}">
-                                {{ form.alt_activity_name.label(class_="label") }}
-                                <div class="control has-icons-left has-icons-right">
-                                    {{ form.name(class_="input", placeholder="Activity Name") }}
-                                    <span class="icon is-small is-left has-text-primary">
-                                            <i class="fas fa-cogs"></i>
-                                        </span>
-                                    <span class="error-msg icon is-small is-right">
-                                          <i class="fas fa-exclamation-triangle"></i>
-                                        </span>
-                                </div>
-                                <p class="error-msg help is-danger">
-                                    {% if form.alt_activity_name.errors|length > 0 %}
-                                        {{ form.alt_activity_name.errors[0] }}
-                                    {% endif %}
-                                </p>
-                            </div>
-                            <div class="label">
-                                Pick an Icon
-                            </div>
-                            <div class="columns is-multiline embedded limited-exposure">
-                                {# hidden field to hold picked icont #}
-                                {{ form.alt_activity_icon }}
-                                {% for item in icons %}
-                                    <div class="column">
-                                        <a class="card button is-primary iconpicker"
-                                           title="icon for {{ item|icon_alt }}"
-                                           data-value="{{ item }}">
-                                            <div class="card-content">
-                                                <div class="media-con">
-                                                    <img src="/static/assets/images/icons/{{ item }}"
-                                                         alt="image for {{ item|icon_alt }} icon" height="60"
-                                                         width="60">
-                                                </div>
-                                                <div class="content">{{ item|icon_alt }}</div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            {# macro for actiity_choice #}
+            {{ activity_choice(activity_input=form.activity_name, hidden_input_for_icon=form.activity_icon) }}
 
                 <div class="field {% if form.phone.errors %}has-error{% endif %}">
                     {{ form.phone.label(class_="label") }}

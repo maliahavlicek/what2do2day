@@ -1,26 +1,59 @@
 {# macro to create activies select element #}
-{% macro activity_list (id='', acts=[], prepoulate_value=False) -%}
-    <label for="activity_{{ id }}" class="label">Activity</label>
-    <div class="control has-icons-left">
-        <div class="select">
-            <select aria-label="Choose activity associated with {{ id }}" id="activity_{{ id }}"
-                    name="activity_{{ id }}">
-                <option value="none" {% if not prepoulate_value %}selected{% endif %}>Choose Activity</option>
-                {% for act in acts %}
-                    <option value="{{ act.name }}"
-                            {% if prepoulate_value and prepoulate_value == act.name %}selected{% endif %}>
-                        {{ act.name }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="icon is-small is-left has-text-primary">
-            <i class="fas fa-cogs"></i>
-        </div>
-    </div>
-    <div class="is-divider" data-content="OR"></div>
-    <p>Create a New Category</p>
+{% macro activity_choice (activity_input=False, hidden_input_for_icon=False) -%}
+    {% if activity_input and hidden_input_for_icon %}
+        <div class="section cards iconpicker">
+            <div class="container">
+                <div class="field {% if activity_input.errors %}has-error{% endif %}">
+                    {{ activity_input.label(class_="label") }}
+                    <div class="control has-icons-left has-icons-right">
+                        {{ activity_input(class_="input", placeholder="Activity Type") }}
+                        <span class="icon is-small is-left has-text-primary">
+                            <i class="fas fa-cogs"></i>
+                        </span>
+                        <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                    <p class="error-msg help is-danger">
+                        {% if activity_input.errors|length > 0 %}
+                            {{ activity_input.errors[0] }}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="field {% if hidden_input_for_icon.errors %}has-error{% endif %}">
+                    <div class="label">
+                        Pick an Activity Icon
+                    </div>
 
+                    <p class="error-msg help is-danger">
+                        {% if hidden_input_for_icon.errors|length > 0 %}
+                            {{ hidden_input_for_icon.errors[0] }}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="columns is-multiline embedded limited-exposure">
+                    {# hidden field to hold picked icont #}
+                    {{ hidden_input_for_icon }}
+                    {% for item in icons %}
+                        <div class="column">
+                            <a class="card button is-primary iconpicker {{ hidden_input_for_icon.id }}"
+                               title="icon for {{ item|icon_alt }}"
+                               data-value="{{ item }}" data-input="{{ hidden_input_for_icon.id }}">
+                                <div class="card-content">
+                                    <div class="media-con">
+                                        <img src="/static/assets/images/icons/{{ item }}"
+                                             alt="image for {{ item|icon_alt }} icon" height="60"
+                                             width="60">
+                                    </div>
+                                    <div class="content">{{ item|icon_alt }}</div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {%- endmacro %}
 
 {# macro to create disable/enable (don't share/share) switch element #}

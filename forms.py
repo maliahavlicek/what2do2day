@@ -150,12 +150,9 @@ class PlaceForm(FlaskForm):
         Length(min=2, message='Your description is too short'),
         Length(max=500, message='Descriptions cannot be longer than 500 characters.')
     ])
-    activity = SelectField(u'Activity *', choices=[('none', 'Choose Activity')], validators=[validate_option_not_none])
-    alt_activity = BooleanField('Create a New Activity', default=False)
-    alt_activity_name = StringField('New Activity Type', [
-        RequiredIf(alt_activity=True),
-        Length(min=1, message="Please enter a name for the new activity.")])
-    alt_activity_icon = HiddenField(None, [DataRequired()], default="n")
+    activity_name = StringField('Activity Type', [
+        Length(min=1, message="Please enter the activity type.")])
+    activity_icon = HiddenField(None, [DataRequired()], default="n")
     phone = StringField('Phone', [Optional()])
     website = StringField('Website',
                           [Optional(), URL(message="Please enter a valid website. https://www.example.com.")])
@@ -171,11 +168,6 @@ class PlaceForm(FlaskForm):
 
         from app import mongo
 
-        """Populate activities list from db"""
-        for item in list(mongo.db.activities.find({}, {"name": 1}).sort('name', pymongo.ASCENDING)):
-            self.activity.choices.append((str(item['_id']), item['name'].title()))
-            self.event.activity.choices.append((str(item['_id']), item['name'].title()))
-
         """Populate country list from db"""
         for item in list(mongo.db.countries.find({}, {'country': 1}).sort('country', pymongo.ASCENDING)):
             self.address.country.choices.append((
@@ -190,8 +182,10 @@ class PlaceForm(FlaskForm):
         """Let review form know it should use place email"""
         self.review.use_place_email.value = "y"
 
-        """Set label for event's has address field"""
-        # self.event.address.has_address.label = "Different from Place Address"
+    def validate_activity_icon(self, activity_icon):
+        """Custom validation to make sure an activity icon was picked"""
+        if activity_icon.data == 'n':
+            raise ValidationError("Select an icon.")
 
     def validate_name(self, name):
         """Custom validator to make sure name is unique"""

@@ -50,7 +50,7 @@ $(document).ready(function () {
         $('#event_block').toggle(250);
     });
 
-     // make sure conditionally shown event address block is hidden on page load
+    // make sure conditionally shown event address block is hidden on page load
     if ($('#event-address-has_address').is(':checked')) {
         $('#event-address_address_block').show();
     } else {
@@ -148,16 +148,22 @@ $(document).ready(function () {
         //toggle on/off selection class and select/deselect associated selection
         let option = $(this);
         let is_selected = option.prop("selected");
+        let input_id = $(this).data('input');
+        let value_holder = $('#' + input_id);
         if (is_selected) {
-            //do nothing it's already selected
+            $(this).prop("selected", false);
+            $(this).toggleClass('is-inverted', 250);
+            value_holder.val('n')
 
         } else {
-            //single choice so unselect all, then select the current one
+            //single choice so unselect the one with the inverted class, then select the current one
             $('.card.button.iconpicker.is-inverted').each(function () {
                 $(this).prop("selected", false);
                 $(this).toggleClass('is-inverted', 250);
 
             });
+            let icon_file = option.data('value');
+            value_holder.val(icon_file);
             option.prop("selected", true);
             option.toggleClass('is-inverted', 250);
         }

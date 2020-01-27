@@ -179,7 +179,8 @@ def add_place():
         place['website'] = form.website.data.strip()
         place['image_url'] = form.image_url.data.strip()
         place['share_place'] = form.share_place.data
-        place['activity'] = form.activity.data
+        place['activity_name'] = form.activity_name.data.strip().lower()
+        place['activity_icon'] = form.activity_icon.data
 
         # now we can add the place
         place_id = db_add_place(place)
@@ -228,7 +229,8 @@ def add_place():
         print('form.email: ' + str(form.email.errors))
         print('form.name: ' + str(form.name.errors))
         print('form.description: ' + str(form.description.errors))
-        print('form.activity: ' + str(form.activity.errors))
+        print('form.activity_name: ' + str(form.activity_name.errors))
+        print('form.activity_icon: ' + str(form.activity_icon.errors))
         print('form.phone: ' + str(form.phone.errors))
         print('form.website: ' + str(form.website.errors))
         print('form.image_url: ' + str(form.image_url.errors))
