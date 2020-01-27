@@ -169,19 +169,13 @@ $(document).ready(function () {
         }
     });
 
-    // make sure conditionally shown alt activity picker block is hidden on page load
-    if ($('#alt_activity').is(':checked')) {
-        $('#place_activity_pick').show();
-    } else {
-        $('#place_activity_pick').hide();
+    // make sure if activity_icon is something other than 'n', you preselect the right icon
+    let selected_icon = $('#activity_icon').val();
+    if (selected_icon !== 'n') {
+        let iconpicker = $('.card.button.iconpicker[data-value="' + selected_icon + '"]');
+        iconpicker.prop("selected", true);
+        iconpicker.toggleClass('is-inverted', 250);
     }
-
-    // Check for click events on has address checkbox
-    $("#alt_activity").click(function () {
-        //toggle on/off address entry
-        $('#place_activity_pick').toggle(250);
-    });
-
 
 });
 

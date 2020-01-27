@@ -128,12 +128,6 @@ class EventForm(FlaskForm):
     price_for_non_members = StringField('Price for non-members', [Optional(),
                                                                   Length(min=1, message='Name of Event is required.')])
 
-    def validate_activity(self, activity):
-        """activity validation"""
-        # RequiredIf doesn't work for SelectField, must use own validation to detect this combination
-        if str(activity.data) == 'none' and self.has_event.data:
-            raise ValidationError('Please select an option.')
-
 
 class PlaceForm(FlaskForm):
     """Place Form"""

@@ -146,85 +146,13 @@ def add_place():
 
     if form.validate_on_submit():
         # all is good with the post based on PlaceForm wftForm validation
-        # unique entries for a place are the name and address, so build that first
-
-        place = {'name': form.name.data.strip().lower()}
-        has_address = form.address.data['has_address']
-        address = {}
-        if has_address:
-            address['address_line_1'] = form.address.data['address_line_1'].strip().lower()
-            if form.address.data['address_line_2']:
-                address['address_line_2'] = form.address.data['address_line_2'].strip().lower()
-            address['city'] = form.address.data['city'].strip().lower()
-            if form.address.data['postal_code']:
-                address['postal_code'] = form.address.data['postal_code'].strip().lower()
-            address['country'] = form.address.data['country']
-            address_id = get_add_address_id(address)
-            place['address'] = address_id
-        else:
-            place['address'] = ''
-
-        # see if address and name is in db or not
-        is_unique = place_unique(place)
-        if is_unique is not None:
-            return render_template('error.html', reason="Place already exists.", place_id=is_unique), 1200
-
-        # add rest of place to the dictionary
-        email = form.email.data.strip().lower()
-        place['user'] = get_add_user_id(email)
-
-        # place description
-        place['description'] = form.description.data.strip()
-        place['phone'] = form.phone.data.strip()
-        place['website'] = form.website.data.strip()
-        place['image_url'] = form.image_url.data.strip()
-        place['share_place'] = form.share_place.data
-        place['activity_name'] = form.activity_name.data.strip().lower()
-        place['activity_icon'] = form.activity_icon.data
-
-        # now we can add the place
-        place_id = db_add_place(place)
-        if place_id is None:
-            redirect(url_for(handle_db_error('Failed to add place')))
-
-        # next get review
-        has_review = form.review.data['has_review']
-        if has_review:
-            review = {'place': place_id, 'date': datetime.today(), 'user': get_add_user_id(email),
-                      'rating': form.review.data['rating'],
-                      'comments': form.review.data['comments'].strip()}
-            review_id = db_add_review(review)
-            if review_id is None:
-                redirect(url_for(handle_db_error('Failed to add review')))
-
-        has_event = form.event.data['has_event']
-        if has_event:
-            has_address = form.event.address.data['has_address']
-            event_address = {}
-            if has_address:
-                event_address['address_line_1'] = form.event.address.data['address_line_1'].strip().lower()
-                if form.event.address.data['address_line_2']:
-                    event_address['address_line_2'] = form.event.address.data['address_line_2'].strip().lower()
-                event_address['city'] = form.event.address.data['city'].strip().lower()
-                if form.event.address.data['postal_code']:
-                    event_address['postal_code'] = form.event.address.data['postal_code'].strip().lower()
-                event_address['country'] = form.event.address.data['country']
-                address_id = get_add_address_id(event_address)
-                event_address_id = address_id
-            else:
-                event_address_id = ''
-            event = {'place': place_id, 'name': form.event.data['event_name'].strip().lower(),
-                     'date_time_range': form.event.data['event_start_datetime'],
-                     'activity': form.event.data['activity'],
-                     'details': form.event.data['details'].strip(), 'age_limit': form.event.data['age_limit'],
-                     'price_for_non_members': form.event.data['price_for_non_members'].strip(),
-                     'address': event_address_id
-                     }
-            event_id = db_add_event(event)
-            if event_id is None:
-                redirect(url_for(handle_db_error('Failed to add event')))
-
-        return redirect(url_for('get_places'))
+        return push_place_to_db(form)
+    elif (not form.event.data['has_event'] and form.event.errors and not form.email.errors and not form.name.errors
+          and not form.description.errors and not form.activity_name.errors and not form.activity_icon.errors
+          and not form.phone.errors  and not form.website.errors and not form.image_url.errors
+          and not form.address.errors and not form.review.errors):
+        # if all but event are valid, and event is toggled off, suppress errors and push the place to the db
+        return push_place_to_db(form)
     else:
         print('form.email: ' + str(form.email.errors))
         print('form.name: ' + str(form.name.errors))
@@ -258,13 +186,95 @@ def icon_alt(icon_file_name):
     clean_name = splitext(icon_file_name)[0]
     clean_name = re.sub(r'[0-9]', '', clean_name)
     clean_name = clean_name.replace('-', ' ')
-    return re.sub(' +',' ', clean_name)
+    return re.sub(' +', ' ', clean_name)
 
 
 def get_list_of_icons():
     icon_path = 'static/assets/images/icons'
     icons = [f for f in listdir(icon_path) if isfile(join(icon_path, f))]
     return icons
+
+
+def push_place_to_db(form):
+    # unique entries for a place are the name and address, so build that first
+
+    place = {'name': form.name.data.strip().lower()}
+    has_address = form.address.data['has_address']
+    address = {}
+    if has_address:
+        address['address_line_1'] = form.address.data['address_line_1'].strip().lower()
+        if form.address.data['address_line_2']:
+            address['address_line_2'] = form.address.data['address_line_2'].strip().lower()
+        address['city'] = form.address.data['city'].strip().lower()
+        if form.address.data['postal_code']:
+            address['postal_code'] = form.address.data['postal_code'].strip().lower()
+        address['country'] = form.address.data['country']
+        address_id = get_add_address_id(address)
+        place['address'] = address_id
+    else:
+        place['address'] = ''
+
+    # see if address and name is in db or not
+    is_unique = place_unique(place)
+    if is_unique is not None:
+        return render_template('error.html', reason="Place already exists.", place_id=is_unique), 1200
+
+    # add rest of place to the dictionary
+    email = form.email.data.strip().lower()
+    place['user'] = get_add_user_id(email)
+
+    # place description
+    place['description'] = form.description.data.strip()
+    place['phone'] = form.phone.data.strip()
+    place['website'] = form.website.data.strip()
+    place['image_url'] = form.image_url.data.strip()
+    place['share_place'] = form.share_place.data
+    place['activity_name'] = form.activity_name.data.strip().lower()
+    place['activity_icon'] = form.activity_icon.data
+
+    # now we can add the place
+    place_id = db_add_place(place)
+    if place_id is None:
+        return redirect(url_for(handle_db_error('Failed to add place')))
+
+    # next get review
+    has_review = form.review.data['has_review']
+    if has_review:
+        review = {'place': place_id, 'date': datetime.today(), 'user': get_add_user_id(email),
+                  'rating': form.review.data['rating'],
+                  'comments': form.review.data['comments'].strip()}
+        review_id = db_add_review(review)
+        if review_id is None:
+            return redirect(url_for(handle_db_error('Failed to add review')))
+
+    has_event = form.event.data['has_event']
+    if has_event:
+        has_address = form.event.address.data['has_address']
+        event_address = {}
+        if has_address:
+            event_address['address_line_1'] = form.event.address.data['address_line_1'].strip().lower()
+            if form.event.address.data['address_line_2']:
+                event_address['address_line_2'] = form.event.address.data['address_line_2'].strip().lower()
+            event_address['city'] = form.event.address.data['city'].strip().lower()
+            if form.event.address.data['postal_code']:
+                event_address['postal_code'] = form.event.address.data['postal_code'].strip().lower()
+            event_address['country'] = form.event.address.data['country']
+            address_id = get_add_address_id(event_address)
+            event_address_id = address_id
+        else:
+            event_address_id = ''
+        event = {'place': place_id, 'name': form.event.data['event_name'].strip().lower(),
+                 'date_time_range': form.event.data['event_start_datetime'],
+                 'activity': form.event.data['activity'],
+                 'details': form.event.data['details'].strip(), 'age_limit': form.event.data['age_limit'],
+                 'price_for_non_members': form.event.data['price_for_non_members'].strip(),
+                 'address': event_address_id
+                 }
+        event_id = db_add_event(event)
+        if event_id is None:
+            return redirect(url_for(handle_db_error('Failed to add event')))
+
+    return redirect(url_for('get_places'))
 
 
 if __name__ == '__main__':
