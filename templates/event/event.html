@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">
+                {{ event['place_details'][0]['name']| title }}
+            </p>
+        </header>
+        <div class="card-content">
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-48x48">
+                        <img src="/static/assets/images/icons/{{ event.activity_icon }}" alt="image for {{ event.activity_icon|icon_alt }} icon" height="36"
+                                             width="36">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    {{ event}}
+                    <p class="title is-4">{{event.name}}</p>
+                </div>
+            </div>
+
+            <div class="content">
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

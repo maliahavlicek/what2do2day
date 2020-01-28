@@ -39,8 +39,9 @@
     </section>
     {% if events | length > 0 %}
         <p>There are {{ events | length }} events </p>
+        <hr>
         {% for event in events %}
-            <p>{{event.name | title}}</p>
+            {% include 'event/event.html' %}
         {% endfor %}
 
     {% endif %}

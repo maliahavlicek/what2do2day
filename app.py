@@ -34,7 +34,23 @@ def home():
 @app.route('/get_events')
 def get_events():
     try:
-        list_events = list(mongo.db.events.find())
+        # {
+        #   from: 'places',
+        #   localField: 'place',
+        #   foreignField: '_id',
+        #   as: 'place_details'
+        # }
+        pipeline = [
+
+            {
+                "$lookup": {
+                    'from': 'places',
+                    'localField': 'place',
+                    'foreignField': '_id',
+                    'as': 'place_details'
+                }
+            },]
+        list_events = list(mongo.db.events.aggregate(pipeline))
     except Exception as e:
         db_issue(e)
         list_events = []
