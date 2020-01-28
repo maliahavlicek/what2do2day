@@ -54,7 +54,9 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 ### Strategy
 Before launching any website, business partners want to know how they can earn money and if there is a need or demand for the project. Defining business goals of a project from the standpoint of an external user as well as site owners helps you evaluate possible return on investment.
 
-Upon reading the suggested projects for the Data Centric Milestone Project, I came up with 2 ideas:
+Upon reading the suggested projects for the Data Centric Milestone Project, I came up with
+<details>
+<summary>2 Ideas: </summary>
 
 1.Texting Translator:
 > External Goals
@@ -119,7 +121,9 @@ __What2Do2Day__
 | Social Need is high            |                                                    |
 
  What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the Nextdoor app.  What2Do2Day is more intriguing and likely to keep users coming back to the site. As a developer, the What2Do2Day app will provide greater value in the long term towards my coding skills due to it's complexity.
+</details>
 
+***
 ### Scope
 The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that skips over authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user profiles and management of users will not be included initially. 
 
@@ -191,7 +195,7 @@ While Open Sans matched the curvy flowing fonts which I was trying to achieve wi
 I wanted easily recognizable activities as icons that users could use to associate to events and places on my website rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
 By having icons that are compatible with the colors I plan on using throughout my site, I am hoping to achieve a calm yet cheerful website. 
 
-<img src="static/assets/images/icons/002-football-field.svg" width="50" height ="50"/>
+<img src="static/assets/images/icons/002-football-field.svg" width="50" height ="50" alt="football field icon"/>
 
 #### Design Elements
 The formal wire-frame process identified the need for:
