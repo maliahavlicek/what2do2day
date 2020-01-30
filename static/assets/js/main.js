@@ -194,7 +194,7 @@ $(document).ready(function () {
     let rootEl = document.documentElement;
     let $modals = getAll('.modal');
     /* if overlay is clicked or close button is clicked close modals */
-    let $modalCloses = getAll('.modal-background, .modal-close, .modal-close-2');
+    let $modalCloses = getAll('.modal-background, .modal-close, .modal-close-2, .delete');
     if ($modalCloses.length > 0) {
         $modalCloses.forEach(function ($el) {
             $el.addEventListener('click', function () {

@@ -52,88 +52,86 @@
             {% endif %}
             {% include 'event/event.html' %}
         {% endfor %}
-
     {% endif %}
 
     {# modal for count me in form #}
     <div class="modal {% if show_modal and not show_modal['status'] %}is-active{% endif %}" id="modal-count-me-in">
         <div class="modal-background"></div>
-        <div class="box">
-            <div class="modal-content modal-entry">
-                <div class="box">
-                    <form method="POST" action="{{ url_for('get_events') }}" enctype="multipart/form-data">
-                        {#  prevent cross site scripting #}
-                        {{ form.csrf_token }}
-                        <section class="section">
-                            <div class="container">
-                                <div class="field {% if form.email.errors %}has-error{% endif %}">
-                                    {# hidden field to hold picked event id #}
-                                    {{ form.attend_event_id }}
-                                    {{ form.email.label(class_="label") }}
-                                    <div class="control has-icons-left has-icons-right">
-                                        {{ form.email(class_="input", placeholder="your.email@you.com") }}
-                                        <span class="icon is-small is-left has-text-primary">
-                                            <i class="fas fa-envelope"></i>
-                                        </span>
-                                        <span class="error-msg icon is-small is-right">
-                                          <i class="fas fa-exclamation-triangle"></i>
-                                        </span>
-                                    </div>
-                                    <p class="error-msg help is-danger">
-                                        {% if form.email.errors|length > 0 %}
-                                            {{ form.email.errors[0] }}
-                                        {% endif %}
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        {# submit join event form to save in database and refresh page with success or error messaging #}
-                        <section class="section is-submit-wrapper">
-                            <div class="level-left">
-                                <button type="submit" class="button is-dark is-medium is-inverted submit">
-                                        <span class="icon is-small">
-                                           <i class="fas fa-calendar-check"></i>
-                                        </span>
-                                    <span>Send Invite</span>
-                                </button>
-                            </div>
-                        </section>
-                    </form>
-                </div>
-            </div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Count Me In</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <form method="POST" action="{{ url_for('get_events') }}" enctype="multipart/form-data">
+                <section class="modal-card-body">
+                    {#  prevent cross site scripting #}
+                    {{ form.csrf_token }}
+
+                    <div class="field {% if form.email.errors %}has-error{% endif %}">
+                        {# hidden field to hold picked event id #}
+                        {{ form.attend_event_id }}
+                        {{ form.email.label(class_="label") }}
+                        <div class="control has-icons-left has-icons-right">
+                            {{ form.email(class_="input", placeholder="your.email@you.com") }}
+                            <span class="icon is-small is-left has-text-primary">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                            <span class="error-msg icon is-small is-right">
+                                      <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                        </div>
+                        <p class="error-msg help is-danger">
+                            {% if form.email.errors|length > 0 %}
+                                {{ form.email.errors[0] }}
+                            {% endif %}
+                        </p>
+                    </div>
+                </section>
+
+                {# submit join event form to save in database and refresh page with success or error messaging #}
+                <footer class="modal-card-foot">
+                    <div class="level-left">
+                        <button type="submit" class="button is-primary action submit">
+                                <span class="icon is-small">
+                                   <i class="fas fa-calendar-check"></i>
+                                </span>
+                            <span class="action">Send Invite</span>
+                        </button>
+                    </div>
+                </footer>
+            </form>
         </div>
-        <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    {# modal for count me in submission results #}
-    <div class="modal {% if show_modal and show_modal['status'] %}is-active{% endif %}" id="modal-count-me-in-submitted">
-        <div class="modal-background"></div>
-        <div class="box">
-            <div class="modal-content modal-entry">
-                <div class="box">
-                    <section class="section">
-                        <div class="container">
-                            <div class="modal-content">
-                                {{ show_modal['message'] }}
-                            </div>
-                        </div>
-                    </section>
 
-                    {# submit join event form to save in database and refresh page with success or error messaging #}
-                    <section class="section is-submit-wrapper">
-                        <div class="level-left">
-                            <a class=" button is-dark is-medium is-inverted modal-close-2">
-                                        <span class="icon is-small">
-                                            <i class="fas fa-check-circle"></i>
-                                        </span>
-                                <span>OK</span>
-                            </a>
-                        </div>
-                    </section>
+    {# modal for count me in submission results #}
+    <div class="modal {% if show_modal and show_modal['status'] %}is-active{% endif %}"
+         id="modal-count-me-in-submitted">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Count Me In</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="container">
+                    <div class="field">
+                        {{ show_modal['message'] }}
+                    </div>
                 </div>
-            </div>
+            </section>
+            {# button to acknowledge message and close modal #}
+            <footer class="modal-card-foot">
+                <div class="level-left">
+                    <a class=" button is-primary action modal-close-2">
+                                <span class="icon is-small">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                        <span class="action">OK</span>
+                    </a>
+                </div>
+            </footer>
         </div>
-        <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
 
