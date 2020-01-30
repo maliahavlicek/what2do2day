@@ -429,21 +429,29 @@ In addition, if it is not obvious, you should also describe how to run your code
 [toggle switch](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch)
 
 ### Content
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
+- [Avanti Music](https://advantimusic.org) description and imagery
 
 ### Media
-- The photos used in this site were obtained from ...
+The photos used in this site were obtained from:
 
-- [age icons](https://images.app.goo.gl/aed22uFkaURNm9we6) - https://images.app.goo.gl/aed22uFkaURNm9we6
-0 [more age icons](https://images.app.goo.gl/kUcThrqJ6hLJHsBk9) - https://images.app.goo.gl/kUcThrqJ6hLJHsBk9
+- [Aage icons](https://images.app.goo.gl/aed22uFkaURNm9we6) - baby, preschoolers, middle schoolers, high schoolers
+- [More Age iIcons](https://images.app.goo.gl/kUcThrqJ6hLJHsBk9) - elementary, young adult, 21+
+- [Activity Icons](https://www.flaticon.com/packs/outdoor-activities-32) made by Freepik and hosted at www.flaticon.com
+- [Perry the Platypus](https://images.app.goo.gl/AbcvfgihqBk83TCu6) - secret agent platypus image used on list pages
+- [Phineas and Ferb](https://images.app.goo.gl/upEMCarxtGChgSh5A) - used as background image on home page
+- [grass](https://images.app.goo.gl/be322rrT66jYjYmq9) - cropped out a section of a backyard png, to have grass to underline title hero objects on pages
 
 
 ### Acknowledgements
-
-- I received inspiration for this project from X
-- [uniwebsidad.com](https://uniwebsidad.com/libros/explore-flask/chapter-8) - how to make macros and include them from an external file. Also how to make custom filters
-- [speech bubbles](https://auralinna.blog/post/2017/how-to-make-a-css-speech-bubble-with-borders-and-drop-shadow) on the home page were adopted from this post by Tero Auralinna.
-- [home background](https://css-tricks.com/perfect-full-page-background-image/) image centering technique via CSS
+The wonderful results of the google search engine helped me tremendously in completing this project.
+- [uniwebsidad.com](https://uniwebsidad.com/libros/explore-flask/chapter-8) - Provides documentation on more advanced features of flask
+  - macros and include them from an external file 
+  - how to make custom filters
+- [speech bubbles](https://auralinna.blog/post/2017/how-to-make-a-css-speech-bubble-with-borders-and-drop-shadow) The home page dialog bubbles were adopted from this post by Tero Auralinna.
+- [CSS tricks](https://css-tricks.com) has an assortment of helpful ways to use CSS to accomplish tasks. 
+  - [image centering]((https://css-tricks.com/perfect-full-page-background-image/)) how to center the home page background image across device sizes
+  -  [styling scrollbars](https://css-tricks.com/the-current-state-of-styling-scrollbars/) to conserve vertical space, I put the icon choices into a scrolling area, but wanted to show the scrollbars in an intuitive manner rather than relying on inconsistent default browser styles
 - [Kyle Marek-Spartz](https://kyle.marek-spartz.org/posts/2014-04-04-setting-wtforms-selection-fields-dynamically.html) - Setting WTForms Selection Fields Dynamically
-- [mcelhennyi](https://gist.github.com/devxoul/7638142) - Required If validation
-- [api_mongodb](https://api.mongodb.com/python/current/migrate-to-pymongo3.html) -  Help in overcoming and understanding write concerns for mongodb
+- [mcelhennyi](https://gist.github.com/devxoul/7638142) - Required If validation used in address, event, and review form entries
+- [api_mongodb](https://api.mongodb.com/python/current/migrate-to-pymongo3.html) -  Help in overcoming and understanding write concern errors I encountered with mongodb
+- [mongo reference](https://docs.mongodb.com/manual/reference/) - Learning how to manipulate dates, strings, perform lookups, sorting, and merges on data
