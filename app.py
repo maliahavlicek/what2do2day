@@ -49,7 +49,7 @@ def get_events():
                     'foreignField': '_id',
                     'as': 'place_details'
                 }
-            },]
+            }, ]
         list_events = list(mongo.db.events.aggregate(pipeline))
     except Exception as e:
         db_issue(e)
@@ -92,6 +92,15 @@ def get_places():
         db_issue(e)
         list_places = []
     return render_template('place/places.html', places=list_places)
+
+
+def event_unique(event):
+    """try to retrieve event from db via name, date, and place"""
+    the_event = mongo.db.events.find_one('place')
+    if the_event is None:
+        return None
+    else:
+        return the_event['_id']
 
 
 def place_unique(place):
@@ -154,6 +163,23 @@ def get_add_user_id(email):
         return the_user.inserted_id
     else:
         return the_user['_id']
+
+
+def get_add_activity_id(name, icon):
+    """retrieve or create an activity based on name and icon"""
+    the_activity = mongo.db.activities.find_one({'name': name.lower(), 'icon': icon})
+    if the_activity is None:
+        db = mongo.db.activities.with_options(
+            # for production application, we'd want a majority(or 2) value and True for confirmation on writing the data
+            write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+        )
+        the_activity = db.insert_one(
+            {'name': name.lower(),
+             'icon': icon}
+        )
+        return the_activity.inserted_id
+    else:
+        return the_activity['_id']
 
 
 @app.route('/add_place', methods=['GET', 'POST'])
@@ -245,8 +271,10 @@ def push_place_to_db(form):
     place['website'] = form.website.data.strip()
     place['image_url'] = form.image_url.data.strip()
     place['share_place'] = form.share_place.data
-    place['activity_name'] = form.activity_name.data.strip().lower()
-    place['activity_icon'] = form.activity_icon.data
+
+    # see if activity is in db or not
+    activity_id = get_add_activity_id(form.activity_name.data.strip().lower(), form.activity_icon.data)
+    place['activity'] = activity_id
 
     # now we can add the place
     place_id = db_add_place(place)
@@ -265,6 +293,18 @@ def push_place_to_db(form):
 
     has_event = form.event.data['has_event']
     if has_event:
+
+        # create event object to the point of unique data [place_id, name, date_time_range]
+        event = {'place': place_id, 'name': form.event.data['event_name'].strip().lower(),
+                 'date_time_range': form.event.data['event_start_datetime']
+                 }
+
+        # see if event is in database or not
+        is_unique = event_unique(event)
+        if is_unique is not None:
+            return render_template('error.html', reason="Event already exists.", event_id=is_unique), 1300
+
+        # event is unique so format rest of form entries and load to db
         has_address = form.event.address.data['has_address']
         event_address = {}
         if has_address:
@@ -279,14 +319,16 @@ def push_place_to_db(form):
             event_address_id = address_id
         else:
             event_address_id = ''
-        event = {'place': place_id, 'name': form.event.data['event_name'].strip().lower(),
-                 'date_time_range': form.event.data['event_start_datetime'],
-                 'activity_name': form.event.activity_name.data.strip().lower(),
-                 'activity_icon': form.event.activity_icon.data,
-                 'details': form.event.data['details'].strip(), 'age_limit': form.event.data['age_limit'],
-                 'price_for_non_members': form.event.data['price_for_non_members'].strip(),
-                 'address': event_address_id
-                 }
+
+        # see if event's activity is in db or not
+        event_activity_id = get_add_activity_id(form.event.activity_name.data.strip().lower(),
+                                                form.event.activity_icon.data)
+        event['activity'] = event_activity_id
+        event['details'] = form.event.data['details'].strip()
+        event['age_limit'] = form.event.data['age_limit']
+        event['price_for_non_members'] = form.event.data['price_for_non_members'].strip()
+        event['address']: event_address_id
+
         event_id = db_add_event(event)
         if event_id is None:
             return redirect(url_for(handle_db_error('Failed to add event')))
