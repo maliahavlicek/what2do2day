@@ -329,18 +329,22 @@ def add_attendee(form):
     """Count me in form was posted, process it"""
     attendee = get_add_user_id(form.email.data)
     status = "OK"
+    message = "Great!. You should be getting an email shortly with the invite."
+    show_modal = True
 
     # see if id is already in list of attendees for the given event
     event_id = ObjectId(form.attend_event_id.data)
     the_event = mongo.db.events.find_one({"_id": event_id})
 
     if the_event is None:
-        status = "Event not in database"
+        status = "ERROR"
+        message = "Oops. I'm sorry, but the Event is no longer active and I am unable to add you to it."
     else:
         already_attending = attendee in the_event['attendees']
 
         if already_attending:
-            status = "user is already attending"
+            status = "WARNING"
+            message = "Opps. It looks like you are already attending this event."
         else:
             # add attendee to the list
             db = mongo.db.events.with_options(
@@ -351,12 +355,16 @@ def add_attendee(form):
                 {"$push": {"attendees": attendee}}
             )
             if added_attendee is None:
-                status = "Issue updating with  new attendee"
-
-    print("IN add_attendee. Status is: ", status)
+                status = "ERROR"
+                message = "Opps, it looks like we may have lost a bit of data due to network lag time, can you try again?"
+    modal = {
+        'status': status,
+        'message': message,
+        'show': show_modal
+    }
 
     list_events = retrieve_events_from_db()
-    return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=True)
+    return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=modal)
 
 
 def push_place_to_db(form):

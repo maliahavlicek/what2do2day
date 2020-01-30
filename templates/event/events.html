@@ -55,8 +55,8 @@
 
     {% endif %}
 
-    {# modal for count me in #}
-    <div class="modal {% if show_modal %}is-active{% endif %}" id="modal-count-me-in">
+    {# modal for count me in form #}
+    <div class="modal {% if show_modal and not show_modal['status'] %}is-active{% endif %}" id="modal-count-me-in">
         <div class="modal-background"></div>
         <div class="box">
             <div class="modal-content modal-entry">
@@ -73,11 +73,11 @@
                                     <div class="control has-icons-left has-icons-right">
                                         {{ form.email(class_="input", placeholder="your.email@you.com") }}
                                         <span class="icon is-small is-left has-text-primary">
-                                    <i class="fas fa-envelope"></i>
-                                </span>
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
                                         <span class="error-msg icon is-small is-right">
-                                  <i class="fas fa-exclamation-triangle"></i>
-                                </span>
+                                          <i class="fas fa-exclamation-triangle"></i>
+                                        </span>
                                     </div>
                                     <p class="error-msg help is-danger">
                                         {% if form.email.errors|length > 0 %}
@@ -87,7 +87,6 @@
                                 </div>
                             </div>
                         </section>
-
                         {# submit join event form to save in database and refresh page with success or error messaging #}
                         <section class="section is-submit-wrapper">
                             <div class="level-left">
@@ -98,16 +97,40 @@
                                     <span>Send Invite</span>
                                 </button>
                             </div>
-
                         </section>
                     </form>
                 </div>
             </div>
-            <div class="modal-content modal-success">
-                Great, you've been added to the event.
-            </div>
-            <div class="modal-content modal-error">
-                Opps. It looks like you were already attending this event.
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    {# modal for count me in submission results #}
+    <div class="modal {% if show_modal and show_modal['status'] %}is-active{% endif %}" id="modal-count-me-in-submitted">
+        <div class="modal-background"></div>
+        <div class="box">
+            <div class="modal-content modal-entry">
+                <div class="box">
+                    <section class="section">
+                        <div class="container">
+                            <div class="modal-content">
+                                {{ show_modal['message'] }}
+                            </div>
+                        </div>
+                    </section>
+
+                    {# submit join event form to save in database and refresh page with success or error messaging #}
+                    <section class="section is-submit-wrapper">
+                        <div class="level-left">
+                            <a class=" button is-dark is-medium is-inverted modal-close-2">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-check-circle"></i>
+                                        </span>
+                                <span>OK</span>
+                            </a>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
         <button class="modal-close is-large" aria-label="close"></button>
