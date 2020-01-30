@@ -1,5 +1,6 @@
 <div class="container">
     <div class="card is-primary">
+        {# give credit to place hosting event #}
         <header class="card-header">
             <p class="card-header-title">
                 {{ event['place-name'] | title }}
@@ -7,6 +8,7 @@
         </header>
         <div class="card-content">
             <div class="media">
+                {# activity icon #}
                 <div class="media-left">
                     <figure class="image is-48x48">
                         <img src="/static/assets/images/icons/{{ event['activity-icon'] }}"
@@ -15,10 +17,11 @@
                     </figure>
                 </div>
                 <div class="media-content">
+                    {# title of event #}
                     <p class="title is-4">{{ event['event_name']|title }}</p>
-
                     <div class="media">
                         <div class="media-left is-6">
+                            {# display when, where, what, ages and cost of event #}
                             <p><span class="is-bold">When: </span>{{ event['date_time_range'] }} </p>
                             {% if event.address %}
                                 <p><span class="is-bold">Where: </span>{{ event['address'] }} </p>
@@ -30,27 +33,50 @@
                                     {% endfor %}
                                 </p>
                             {% endif %}
-                            <p><span class="is-bold">Cost: </span>
-                                {% if event['price_for_non_members'] %}{{ event['price_for_non_members'] }}{% else %}
-                                    Free{% endif %}</p>
+                            <p>
+                                <span class="is-bold">Cost: </span>
+                                {% if event['price_for_non_members'] %}
+                                    {{ event['price_for_non_members'] }}
+                                {% else %}
+                                    Free
+                                {% endif %}
+                            </p>
                         </div>
+
                         <div class="media-content is-6 has-text-centered">
-                            <a class="button is-primary action" href="{{ url_for('add_event') }}">
+                            {# attendance limit #}
+                            <p>Attendance Limit: {{ event['max_attendees'] }}</p>
+                            {# count me in button, disabled if max attendess met #}
+                            <a class="button is-primary action {% if event['max_attendees'] == event['attendees']|length %} is-disabled{% endif %}"
+                               data-target="modal-{{ event['event_id'] }}" aria-haspopup="true">
                                 <span class="icon">
                                     <i class="fas fa-calendar-plus"></i>
                                 </span>
                                 <span class="action">Count Me In</span>
                             </a>
                             <div>
+                                {# attendee count messaging #}
                                 <p>
                                     <i class="fas fa-users"></i>
-                                    {% if event['attendees'] %}
-                                        {{ event['attendess']|length }} people plan
+                                    {% if event['attendees']|length > 1 %}
+                                        {{ event['attendees']|length }} people plan
                                     {% else %}
                                         1 person plans
                                     {% endif %}
                                     on going
                                 </p>
+                                {# event almost booked warning #}
+                                {% if event['max_attendees'] != event['attendees']|length and event['max_attendees'] - event['attendees']|length < 10 %}
+                                    <p class="has-text-primary">
+                                        Only {{ event['max_attendees'] - event['attendees']|length }} spots left!
+                                    </p>
+                                {% endif %}
+                                {#  event booked messaging #}
+                                {% if event['max_attendees'] == event['attendees']|length %}
+                                    <p class="has-text-danger">
+                                        Sorry, no spots left.
+                                    </p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -58,4 +84,28 @@
             </div>
         </div>
     </div>
+</div>
+{# modal for count me in #}
+<div class="modal" id="modal-{{ event['event_id'] }}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        enter email
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+{# modal for count me in success #}
+<div class="modal" id="modal-success{{ event['event_id'] }}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        Great, you've been added to the event.
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+{# modal for count me in error #}
+<div class="modal" id="modal-error{ event['event_id'] }}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        Opps. It looks like you were already attending this event.
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
 </div>

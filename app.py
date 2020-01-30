@@ -54,11 +54,14 @@ def get_events():
                     },
                     'place_id': "$place",
                     'event_name': "$name",
+                    'event_id': "$_id",
                     'activity_id': '$activity',
                     'date_time_range': '$date_time_range',
                     'details': '$details',
                     'age_limit': '$age_limit',
-                    'price_for_non_members': '$price_for_non_members'
+                    'price_for_non_members': '$price_for_non_members',
+                    'attendees': '$attendees',
+                    'max_attendees': '$max_attendees'
                 }
             },
             {
