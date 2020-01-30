@@ -34,26 +34,98 @@ def home():
 @app.route('/get_events')
 def get_events():
     try:
-        # {
-        #   from: 'places',
-        #   localField: 'place',
-        #   foreignField: '_id',
-        #   as: 'place_details'
-        # }
-        pipeline = [
-
+        # join the activities and places to the events database and flatten it down so we don't have to dig for values
+        list_events = list(mongo.db.events.aggregate([
+            {
+                "$project": {
+                    'start_date': {
+                        "$dateFromString": {
+                            'dateString': {
+                                "$substr": ["$date_time_range", 0, 10]
+                            },
+                            'format': "%m/%d/%Y"}
+                    },
+                    'end_date': {
+                        "$dateFromString": {
+                            'dateString': {
+                                "$substr": ["$date_time_range", 19, 10]
+                            },
+                            'format': "%m/%d/%Y"}
+                    },
+                    'place_id': "$place",
+                    'event_name': "$name",
+                    'activity_id': '$activity',
+                    'date_time_range': '$date_time_range',
+                    'details': '$details',
+                    'age_limit': '$age_limit',
+                    'price_for_non_members': '$price_for_non_members'
+                }
+            },
+            {
+                "$sort": {'start_date': 1}
+            },
             {
                 "$lookup": {
                     'from': 'places',
-                    'localField': 'place',
+                    'localField': 'place_id',
                     'foreignField': '_id',
-                    'as': 'place_details'
+                    'as': 'place_details',
+
                 }
-            }, ]
-        list_events = list(mongo.db.events.aggregate(pipeline))
+            },
+            {
+                "$lookup": {
+                    'from': 'activities',
+                    'localField': 'activity_id',
+                    'foreignField': '_id',
+                    'as': 'event_activity'
+                }
+            },
+            {
+                "$replaceRoot": {
+                    'newRoot': {
+                        "$mergeObjects":
+                            [{"$let": {
+                                "vars": {"v": {"$arrayElemAt": ["$place_details", 0]}},
+                                "in": {"$arrayToObject": {
+                                    "$map": {
+                                        "input": {"$objectToArray": "$$v"},
+                                        "as": "val",
+                                        "in": {
+                                            "k": {"$concat": ["place", "-", "$$val.k"]},
+                                            "v": "$$val.v"
+                                        }}
+                                }}
+                            }}, "$$ROOT"]
+                    }
+                }
+            },
+            {
+                "$replaceRoot": {
+                    'newRoot': {
+                        "$mergeObjects":
+                            [{"$let": {
+                                "vars": {"v": {"$arrayElemAt": ["$event_activity", 0]}},
+                                "in": {"$arrayToObject": {
+                                    "$map": {
+                                        "input": {"$objectToArray": "$$v"},
+                                        "as": "val",
+                                        "in": {
+                                            "k": {"$concat": ["activity", "-", "$$val.k"]},
+                                            "v": "$$val.v"
+                                        }}
+                                }}
+                            }}, "$$ROOT"]
+                    }
+                }
+            },
+            {
+                "$project": {"start_date": 0}
+            },
+
+        ]))
     except Exception as e:
-        db_issue(e)
-        list_events = []
+        return render_template('error.html', reason=e)
 
     return render_template('event/events.html', events=list_events, filter='none')
 

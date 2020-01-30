@@ -9,13 +9,13 @@
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-48x48">
-                        <img src="/static/assets/images/icons/{{ event.activity_icon }}"
-                             alt="image for {{ event.activity_icon|icon_alt }} icon" height="36"
+                         <img src="/static/assets/images/icons/{{ event.icon }}"
+                             alt="image for {{ event.icon|icon_alt }} icon" height="36"
                              width="36">
                     </figure>
                 </div>
                 <div class="media-content">
-                    <p class="title is-4">{{ event.name|title }}</p>
+                    <p class="title is-4">{{ event.event_name|title }}</p>
                     <p><span class="is-bold">When: </span>{{ event.date_time_range }} </p>
                     {% if event.address %}
                         <p><span class="is-bold">Where: </span>{{ event.address }} </p>
@@ -28,7 +28,7 @@
                         </p>
                     {% endif %}
                     <p><span class="is-bold">Cost: </span>
-                    {% if event.price_for_non_members %}{{ price_for_non_members }}{% else %}Free{% endif %}</p>
+                    {% if event.price_for_non_members %}{{ event.price_for_non_members }}{% else %}Free{% endif %}</p>
 
 
                     {{ event }}
