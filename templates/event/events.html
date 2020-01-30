@@ -44,7 +44,8 @@
                     <!-- Left side -->
                     <div class="level-left">
                         <div class="level-item">
-                            <p class="title"><i class="far fa-calendar-alt"></i> {{ event['start_date'].strftime('%Y-%m-%d') }}</p>
+                            <p class="title"><i
+                                    class="far fa-calendar-alt"></i> {{ event['start_date'].strftime('%Y-%m-%d') }}</p>
                         </div>
                     </div>
                 </nav>
@@ -53,5 +54,64 @@
         {% endfor %}
 
     {% endif %}
+
+    {# modal for count me in #}
+    <div class="modal" id="modal-count-me-in">
+        <div class="modal-background"></div>
+        <div class="box">
+            <div class="modal-content modal-entry">
+                <div class="box">
+                    <form method="POST" action="{{ url_for('get_events') }}" enctype="multipart/form-data">
+                        {#  prevent cross site scripting #}
+                        {{ form.csrf_token }}
+                        <section class="section">
+                            <div class="container">
+                                <div class="field {% if form.email.errors %}has-error{% endif %}">
+                                    {# hidden field to hold picked event id #}
+                                    {{ form.attend_event_id }}
+                                    {{ form.email.label(class_="label") }}
+                                    <div class="control has-icons-left has-icons-right">
+                                        {{ form.email(class_="input", placeholder="your.email@you.com") }}
+                                        <span class="icon is-small is-left has-text-primary">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                        <span class="error-msg icon is-small is-right">
+                                  <i class="fas fa-exclamation-triangle"></i>
+                                </span>
+                                    </div>
+                                    <p class="error-msg help is-danger">
+                                        {% if form.email.errors|length > 0 %}
+                                            {{ form.email.errors[0] }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        {# submit join event form to save in database and refresh page with success or error messaging #}
+                        <section class="section is-submit-wrapper">
+                            <div class="level-left">
+                                <button type="submit" class="button is-dark is-medium is-inverted submit">
+                                        <span class="icon is-small">
+                                           <i class="fas fa-calendar-check"></i>
+                                        </span>
+                                    <span>Send Invite</span>
+                                </button>
+                            </div>
+
+                        </section>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-content modal-success">
+                Great, you've been added to the event.
+            </div>
+            <div class="modal-content modal-error">
+                Opps. It looks like you were already attending this event.
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
 
 {% endblock %}

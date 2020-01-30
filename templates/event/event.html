@@ -47,8 +47,8 @@
                             {# attendance limit #}
                             <p>Attendance Limit: {{ event['max_attendees'] }}</p>
                             {# count me in button, disabled if max attendess met #}
-                            <a class="button is-primary action {% if event['max_attendees'] == event['attendees']|length %} is-disabled{% endif %}"
-                               data-target="modal-{{ event['event_id'] }}" aria-haspopup="true">
+                            <a class="button is-primary action event-modal {% if event['max_attendees'] == event['attendees']|length %} is-disabled{% endif %}"
+                               data-target="{{ event['event_id'] }}" aria-haspopup="true">
                                 <span class="icon">
                                     <i class="fas fa-calendar-plus"></i>
                                 </span>
@@ -84,28 +84,4 @@
             </div>
         </div>
     </div>
-</div>
-{# modal for count me in #}
-<div class="modal" id="modal-{{ event['event_id'] }}">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-        enter email
-    </div>
-    <button class="modal-close is-large" aria-label="close"></button>
-</div>
-{# modal for count me in success #}
-<div class="modal" id="modal-success{{ event['event_id'] }}">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-        Great, you've been added to the event.
-    </div>
-    <button class="modal-close is-large" aria-label="close"></button>
-</div>
-{# modal for count me in error #}
-<div class="modal" id="modal-error{ event['event_id'] }}">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-        Opps. It looks like you were already attending this event.
-    </div>
-    <button class="modal-close is-large" aria-label="close"></button>
 </div>

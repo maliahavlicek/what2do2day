@@ -9,7 +9,7 @@ from os.path import isfile, join, splitext
 from pymongo import WriteConcern
 from datetime import datetime
 
-from forms import PlaceForm, ReviewForm, AddressForm
+from forms import PlaceForm, ReviewForm, AddressForm, CountMeInForm
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from config import Config
 
@@ -31,103 +31,113 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/get_events')
-def get_events():
-    try:
-        # join the activities and places to the events database and flatten it down so we don't have to dig for values
-        list_events = list(mongo.db.events.aggregate([
-            {
-                "$project": {
-                    'start_date': {
-                        "$dateFromString": {
-                            'dateString': {
-                                "$substr": ["$date_time_range", 0, 10]
-                            },
-                            'format': "%m/%d/%Y"}
-                    },
-                    'end_date': {
-                        "$dateFromString": {
-                            'dateString': {
-                                "$substr": ["$date_time_range", 19, 10]
-                            },
-                            'format': "%m/%d/%Y"}
-                    },
-                    'place_id': "$place",
-                    'event_name': "$name",
-                    'event_id': "$_id",
-                    'activity_id': '$activity',
-                    'date_time_range': '$date_time_range',
-                    'details': '$details',
-                    'age_limit': '$age_limit',
-                    'price_for_non_members': '$price_for_non_members',
-                    'attendees': '$attendees',
-                    'max_attendees': '$max_attendees'
-                }
-            },
-            {
-                "$sort": {'start_date': 1}
-            },
-            {
-                "$lookup": {
-                    'from': 'places',
-                    'localField': 'place_id',
-                    'foreignField': '_id',
-                    'as': 'place_details',
+def retrieve_events_from_db():
+    # join the activities and places to the events database and flatten it down so we don't have to dig for values
+    list_events = list(mongo.db.events.aggregate([
+        {
+            "$project": {
+                'start_date': {
+                    "$dateFromString": {
+                        'dateString': {
+                            "$substr": ["$date_time_range", 0, 10]
+                        },
+                        'format': "%m/%d/%Y"}
+                },
+                'end_date': {
+                    "$dateFromString": {
+                        'dateString': {
+                            "$substr": ["$date_time_range", 19, 10]
+                        },
+                        'format': "%m/%d/%Y"}
+                },
+                'place_id': "$place",
+                'event_name': "$name",
+                'event_id': "$_id",
+                'activity_id': '$activity',
+                'date_time_range': '$date_time_range',
+                'details': '$details',
+                'age_limit': '$age_limit',
+                'price_for_non_members': '$price_for_non_members',
+                'attendees': '$attendees',
+                'max_attendees': '$max_attendees'
+            }
+        },
+        {
+            "$sort": {'start_date': 1}
+        },
+        {
+            "$lookup": {
+                'from': 'places',
+                'localField': 'place_id',
+                'foreignField': '_id',
+                'as': 'place_details',
 
-                }
-            },
-            {
-                "$lookup": {
-                    'from': 'activities',
-                    'localField': 'activity_id',
-                    'foreignField': '_id',
-                    'as': 'event_activity'
-                }
-            },
-            {
-                "$replaceRoot": {
-                    'newRoot': {
-                        "$mergeObjects":
-                            [{"$let": {
-                                "vars": {"v": {"$arrayElemAt": ["$place_details", 0]}},
-                                "in": {"$arrayToObject": {
-                                    "$map": {
-                                        "input": {"$objectToArray": "$$v"},
-                                        "as": "val",
-                                        "in": {
-                                            "k": {"$concat": ["place", "-", "$$val.k"]},
-                                            "v": "$$val.v"
-                                        }}
-                                }}
-                            }}, "$$ROOT"]
-                    }
-                }
-            },
-            {
-                "$replaceRoot": {
-                    'newRoot': {
-                        "$mergeObjects":
-                            [{"$let": {
-                                "vars": {"v": {"$arrayElemAt": ["$event_activity", 0]}},
-                                "in": {"$arrayToObject": {
-                                    "$map": {
-                                        "input": {"$objectToArray": "$$v"},
-                                        "as": "val",
-                                        "in": {
-                                            "k": {"$concat": ["activity", "-", "$$val.k"]},
-                                            "v": "$$val.v"
-                                        }}
-                                }}
-                            }}, "$$ROOT"]
-                    }
+            }
+        },
+        {
+            "$lookup": {
+                'from': 'activities',
+                'localField': 'activity_id',
+                'foreignField': '_id',
+                'as': 'event_activity'
+            }
+        },
+        {
+            "$replaceRoot": {
+                'newRoot': {
+                    "$mergeObjects":
+                        [{"$let": {
+                            "vars": {"v": {"$arrayElemAt": ["$place_details", 0]}},
+                            "in": {"$arrayToObject": {
+                                "$map": {
+                                    "input": {"$objectToArray": "$$v"},
+                                    "as": "val",
+                                    "in": {
+                                        "k": {"$concat": ["place", "-", "$$val.k"]},
+                                        "v": "$$val.v"
+                                    }}
+                            }}
+                        }}, "$$ROOT"]
                 }
             }
+        },
+        {
+            "$replaceRoot": {
+                'newRoot': {
+                    "$mergeObjects":
+                        [{"$let": {
+                            "vars": {"v": {"$arrayElemAt": ["$event_activity", 0]}},
+                            "in": {"$arrayToObject": {
+                                "$map": {
+                                    "input": {"$objectToArray": "$$v"},
+                                    "as": "val",
+                                    "in": {
+                                        "k": {"$concat": ["activity", "-", "$$val.k"]},
+                                        "v": "$$val.v"
+                                    }}
+                            }}
+                        }}, "$$ROOT"]
+                }
+            }
+        }
 
-        ]))
-    except Exception as e:
-        return render_template('error.html', reason=e)
+    ]))
+    return list_events
 
-    return render_template('event/events.html', events=list_events, filter='none')
+
+@app.route('/get_events', methods=['GET', 'POST'])
+def get_events():
+    form = CountMeInForm()
+    if form.validate_on_submit():
+        # all is good with the post based on CountMeInForm wftForm validation
+        return add_attendee(form)
+    else:
+        try:
+            list_events=retrieve_events_from_db()
+        except Exception as e:
+            return render_template('error.html', reason=e)
+
+        return render_template('event/events.html', form=form, events=list_events, filter='none')
 
 
 @app.route('/filter_events', methods=['POST'])
@@ -307,6 +317,11 @@ def get_list_of_icons():
     icon_path = 'static/assets/images/icons'
     icons = [f for f in listdir(icon_path) if isfile(join(icon_path, f))]
     return icons
+
+
+def add_attendee(form):
+    list_events = retrieve_events_from_db()
+    return render_template('event/events.html', form=form, events=list_events, filter='none')
 
 
 def push_place_to_db(form):

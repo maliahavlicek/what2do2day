@@ -177,6 +177,46 @@ $(document).ready(function () {
         iconpicker.toggleClass('is-inverted', 250);
     }
 
+    /* handlers for event-modals */
+    $('.button.action.event-modal').click(function () {
+        // need to put event id into hidden input of form
+        let event_id = $(this).data('target');
+        let event_id_holder = $('#attend_event_id');
+        event_id_holder.val(event_id);
+
+        // show the modal
+        let modal = $('#modal-count-me-in');
+        modal.toggleClass('is-active', 10);
+
+    });
+
+    /*  modals handling */
+    let rootEl = document.documentElement;
+    let $modals = getAll('.modal');
+    /* if overlay is clicked or close button is clicked close modals */
+    let $modalCloses = getAll('.modal-background, .modal-close');
+    if ($modalCloses.length > 0) {
+        $modalCloses.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+                closeModals();
+            });
+        });
+    }
+
+    /* closing modal function */
+    function closeModals() {
+        rootEl.classList.remove('is-clipped');
+        $modals.forEach(function ($el) {
+            $el.classList.remove('is-active');
+        });
+    }
+
+    /* get all from a list of selectors */
+    function getAll(selector) {
+        return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
+    }
+
+
 });
 
 //from https://stackoverflow.com/questions/11591854/format-date-to-mm-dd-yyyy-in-javascript

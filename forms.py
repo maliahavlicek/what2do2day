@@ -140,6 +140,16 @@ class EventForm(FlaskForm):
             raise ValidationError("Select an icon.")
 
 
+class CountMeInForm(FlaskForm):
+    """Count Me In Form"""
+
+    email = StringField('Email *', [
+        Length(min=1, message='Email is required.'),
+        Email(message='Not a valid email address.')
+    ])
+    attend_event_id = HiddenField(None, [DataRequired()], default="n")
+
+
 class PlaceForm(FlaskForm):
     """Place Form"""
 
