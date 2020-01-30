@@ -128,16 +128,20 @@ def retrieve_events_from_db():
 @app.route('/get_events', methods=['GET', 'POST'])
 def get_events():
     form = CountMeInForm()
+    show_modal = False
     if form.validate_on_submit():
         # all is good with the post based on CountMeInForm wftForm validation
         return add_attendee(form)
+
     else:
         try:
-            list_events=retrieve_events_from_db()
+            list_events = retrieve_events_from_db()
         except Exception as e:
             return render_template('error.html', reason=e)
+        if form.email.errors:
+            show_modal = True
 
-        return render_template('event/events.html', form=form, events=list_events, filter='none')
+        return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal)
 
 
 @app.route('/filter_events', methods=['POST'])
@@ -233,6 +237,8 @@ def get_add_address_id(add):
 
 def get_add_user_id(email):
     """retrieve or create a user based on email"""
+
+    print("IN get_add_user_id. email: ", email)
     the_user = mongo.db.users.find_one({'email': email.lower()})
     if the_user is None:
         db = mongo.db.users.with_options(
@@ -320,8 +326,37 @@ def get_list_of_icons():
 
 
 def add_attendee(form):
+    """Count me in form was posted, process it"""
+    attendee = get_add_user_id(form.email.data)
+    status = "OK"
+
+    # see if id is already in list of attendees for the given event
+    event_id = ObjectId(form.attend_event_id.data)
+    the_event = mongo.db.events.find_one({"_id": event_id})
+
+    if the_event is None:
+        status = "Event not in database"
+    else:
+        already_attending = attendee in the_event['attendees']
+
+        if already_attending:
+            status = "user is already attending"
+        else:
+            # add attendee to the list
+            db = mongo.db.events.with_options(
+                write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+            )
+            added_attendee = db.update_one(
+                {"_id": ObjectId(event_id)},
+                {"$push": {"attendees": attendee}}
+            )
+            if added_attendee is None:
+                status = "Issue updating with  new attendee"
+
+    print("IN add_attendee. Status is: ", status)
+
     list_events = retrieve_events_from_db()
-    return render_template('event/events.html', form=form, events=list_events, filter='none')
+    return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=True)
 
 
 def push_place_to_db(form):

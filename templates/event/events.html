@@ -39,13 +39,13 @@
     </section>
     {% if events | length > 0 %}
         {% for event in events %}
-            {% if loop.index == 1 or loop.index > 1 and event['start_date'] != events[loop.index-2]['start_date'] %}
+            {% if loop.index == 1 or loop.index > 1 and event['start_date'] != events[loop.index - 2]['start_date'] %}
                 <nav class="level is-primary">
-                    <!-- Left side -->
                     <div class="level-left">
                         <div class="level-item">
-                            <p class="title"><i
-                                    class="far fa-calendar-alt"></i> {{ event['start_date'].strftime('%Y-%m-%d') }}</p>
+                            <p class="title">
+                                <i class="far fa-calendar-alt"></i> {{ event['start_date'].strftime('%Y-%m-%d') }}
+                            </p>
                         </div>
                     </div>
                 </nav>
@@ -56,7 +56,7 @@
     {% endif %}
 
     {# modal for count me in #}
-    <div class="modal" id="modal-count-me-in">
+    <div class="modal {% if show_modal %}is-active{% endif %}" id="modal-count-me-in">
         <div class="modal-background"></div>
         <div class="box">
             <div class="modal-content modal-entry">
