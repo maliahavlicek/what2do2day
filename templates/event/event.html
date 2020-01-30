@@ -34,8 +34,18 @@
                                 {% if event['price_for_non_members'] %}{{ event['price_for_non_members'] }}{% else %}
                                     Free{% endif %}</p>
                         </div>
-                        <div class="media-content is-6">
-                            <p><span class="is-bold">Details</span>{{ event['details'] }}</p>
+                        <div class="media-content is-6 has-text-centered">
+                            <button class="button is-primary action">
+                                <span class="icon">
+                                    <i class="far fa-calendar-plus"></i>
+                                </span>
+                                <span class="action">Count Me In</span>
+                            </button>
+                            <div>
+                                <p><i class="fas fa-users"></i>
+                                    {% if event['users'] %}{{ event['users']|length + 1 }} people plan{% else %} 1
+                                        person plans{% endif %} on going</p>
+                            </div>
                         </div>
                     </div>
                 </div>
