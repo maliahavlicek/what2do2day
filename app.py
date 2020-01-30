@@ -396,7 +396,9 @@ def push_place_to_db(form):
         event['details'] = form.event.data['details'].strip()
         event['age_limit'] = form.event.data['age_limit']
         event['price_for_non_members'] = form.event.data['price_for_non_members'].strip()
-        event['address']: event_address_id
+        event['address'] = event_address_id
+        event['max_attendees'] = form.event.data['max_attendees']
+        event['attendees'] = [get_add_user_id(email)]
 
         event_id = db_add_event(event)
         if event_id is None:

@@ -38,11 +38,8 @@
         </div>
     </section>
     {% if events | length > 0 %}
-
-        <p>There are {{ events | length }} events </p>
-
         {% for event in events %}
-            {% if loop.index == 1 or ( event['start_date'] != events[loop.index-1]['start_date']) %}
+            {% if loop.index == 1 or loop.index > 1 and event['start_date'] != events[loop.index-2]['start_date'] %}
                 <nav class="level is-primary">
                     <!-- Left side -->
                     <div class="level-left">

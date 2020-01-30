@@ -441,6 +441,7 @@ nav.level.is-primary {
 
 .card.is-primary {
     box-shadow: 0 0.5em 1em -0.125em #00d1b247, 0 0 0 1px #00d1b2;
+    margin: 0 25px 25px;
 }
 
 /* scrollbar styles */
