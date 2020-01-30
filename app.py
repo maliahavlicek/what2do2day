@@ -118,10 +118,7 @@ def get_events():
                             }}, "$$ROOT"]
                     }
                 }
-            },
-            {
-                "$project": {"start_date": 0}
-            },
+            }
 
         ]))
     except Exception as e:

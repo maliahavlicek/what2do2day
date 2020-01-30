@@ -38,9 +38,20 @@
         </div>
     </section>
     {% if events | length > 0 %}
+
         <p>There are {{ events | length }} events </p>
-        <hr>
+
         {% for event in events %}
+            {% if loop.index == 1 or ( event['start_date'] != events[loop.index-1]['start_date']) %}
+                <nav class="level is-primary">
+                    <!-- Left side -->
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p class="title">{{ event['start_date'].strftime('%Y-%m-%d') }}</p>
+                        </div>
+                    </div>
+                </nav>
+            {% endif %}
             {% include 'event/event.html' %}
         {% endfor %}
 
