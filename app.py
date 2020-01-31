@@ -59,7 +59,8 @@ def retrieve_events_from_db():
                 'age_limit': '$age_limit',
                 'price_for_non_members': '$price_for_non_members',
                 'attendees': '$attendees',
-                'max_attendees': '$max_attendees'
+                'max_attendees': '$max_attendees',
+                'address_id': '$address'
             }
         },
         {
@@ -80,6 +81,14 @@ def retrieve_events_from_db():
                 'localField': 'activity_id',
                 'foreignField': '_id',
                 'as': 'event_activity'
+            }
+        },
+        {
+            "$lookup": {
+                'from': 'addresses',
+                'localField': 'address_id',
+                'foreignField': '_id',
+                'as': 'event_address'
             }
         },
         {
@@ -113,6 +122,25 @@ def retrieve_events_from_db():
                                     "as": "val",
                                     "in": {
                                         "k": {"$concat": ["activity", "-", "$$val.k"]},
+                                        "v": "$$val.v"
+                                    }}
+                            }}
+                        }}, "$$ROOT"]
+                }
+            }
+        },
+        {
+            "$replaceRoot": {
+                'newRoot': {
+                    "$mergeObjects":
+                        [{"$let": {
+                            "vars": {"v": {"$arrayElemAt": ["$event_address", 0]}},
+                            "in": {"$arrayToObject": {
+                                "$map": {
+                                    "input": {"$objectToArray": "$$v"},
+                                    "as": "val",
+                                    "in": {
+                                        "k": {"$concat": ["address", "-", "$$val.k"]},
                                         "v": "$$val.v"
                                     }}
                             }}
@@ -320,6 +348,11 @@ def icon_alt(icon_file_name):
 
 
 @app.template_filter()
+def address(add):
+   return add
+
+
+@app.template_filter()
 def mini_event(event):
     min_event = {
         'activity_name': event['activity-name'],
@@ -334,8 +367,14 @@ def mini_event(event):
         'age_limit': event['age_limit'],
         'price_for_non_members': event['price_for_non_members'],
         'max_attendees': event['max_attendees'],
-        'attendees': len(event['attendees'])
-    }
+        'attendees': len(event['attendees']),
+        'address': {
+            'address_line_1': event['address-address_line_1'],
+            'address_line_2': event['address - address_line_2'],
+            'city': event['address-city'],
+            'postal_code': event['address-postal_code']
+            }
+        }
 
     return json.htmlsafe_dumps(min_event)
 
