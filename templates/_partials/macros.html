@@ -198,3 +198,15 @@
         </div>
     </div>
 {%- endmacro %}
+
+{% macro display_address(add) -%}
+    <span>{{ add['address-line-1'] }}</span>
+    {% if address-line-2|length > 0 %}
+        <span>{{ add['address-line-2'] }}</span>
+    {% endif %}
+     <span>{{ add['address-city'] }}, {{ add['address-state'] }}  </span>
+
+    {% if address-postal_code|length > 0 %}
+        <span>{{ add['address-postal_code'] }}</span>
+    {% endif %}
+{%- endmacro %}

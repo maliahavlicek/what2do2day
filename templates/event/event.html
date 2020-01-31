@@ -24,7 +24,7 @@
                             {# display when, where, what, ages and cost of event #}
                             <p><span class="is-bold">When: </span>{{ event['date_time_range'] }} </p>
                             {% if event.address %}
-                                <p><span class="is-bold">Where: </span>{{ event['address'] }} </p>
+                                <p><span class="is-bold">Where: </span>{{ event['address-line-1'] }} </p>
                             {% endif %}
                             {% if event.age_limit %}
                                 <p><span class="is-bold">Ages: </span>

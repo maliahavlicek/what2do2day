@@ -369,12 +369,30 @@ def mini_event(event):
         'max_attendees': event['max_attendees'],
         'attendees': len(event['attendees']),
         'address': {
-            'address_line_1': event['address-address_line_1'],
-            'address_line_2': event['address - address_line_2'],
-            'city': event['address-city'],
-            'postal_code': event['address-postal_code']
+            'address_line_1': '',
+            'address_line_2': '',
+            'city': '',
+            'state': '',
+            'postal_code': '',
+            'country': ''
             }
         }
+
+    if 'address-address_line_1' in event.keys():
+        min_event['address']['address_line_1']= event['address-address_line_1']
+    if 'address-address_line_2' in event.keys():
+        min_event['address.address_line_2'] = event['address-address_line_2']
+    if 'address-city' in event.keys():
+        min_event['address']['city'] = event['address-city']
+    if 'address-state' in event.keys():
+        min_event['address']['city'] = event['address-city']
+    if 'address-postal_code' in event.keys():
+        min_event['address']['postal_code'] = event['address-postal_code']
+    if 'address-country' in event.keys():
+        country_id = event['address-country']
+        country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
+        if country is not None:
+            min_event['address']['country'] = country['country']
 
     return json.htmlsafe_dumps(min_event)
 
@@ -440,6 +458,7 @@ def push_place_to_db(form):
         address['city'] = form.address.data['city'].strip().lower()
         if form.address.data['postal_code']:
             address['postal_code'] = form.address.data['postal_code'].strip().lower()
+        address['state'] = form.address.data['state'].strip().lower()
         address['country'] = form.address.data['country']
         address_id = get_add_address_id(address)
         place['address'] = address_id
