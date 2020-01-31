@@ -1,7 +1,7 @@
 import os
 import re
 
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, json
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from os import listdir
@@ -317,6 +317,27 @@ def icon_alt(icon_file_name):
     clean_name = re.sub(r'[0-9]', '', clean_name)
     clean_name = clean_name.replace('-', ' ')
     return re.sub(' +', ' ', clean_name)
+
+
+@app.template_filter()
+def mini_event(event):
+    min_event = {
+        'activity_name': event['activity-name'],
+        'activity_icon': event['activity-icon'],
+        'place_name': event['place-name'],
+        'place_description': event['place-description'],
+        'start_date': event['start_date'],
+        'end_date': event['end_date'],
+        'event_name': event['event_name'],
+        'date_time_range': event['date_time_range'],
+        'details': event['details'],
+        'age_limit': event['age_limit'],
+        'price_for_non_members': event['price_for_non_members'],
+        'max_attendees': event['max_attendees'],
+        'attendees': len(event['attendees'])
+    }
+
+    return json.htmlsafe_dumps(min_event)
 
 
 def get_list_of_icons():

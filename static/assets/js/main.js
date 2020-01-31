@@ -184,6 +184,10 @@ $(document).ready(function () {
         let event_id_holder = $('#attend_event_id');
         event_id_holder.val(event_id);
 
+        //fill in the modal data
+        let event_info = $(this).data('form');
+        populate_event_modal(event_info);
+
         // show the modal
         let modal = $('#modal-count-me-in');
         modal.toggleClass('is-active', 10);
@@ -232,3 +236,48 @@ function getFormattedDate(date) {
     return month + '/' + day + '/' + year;
 }
 
+//populate the event modal
+function populate_event_modal(event) {
+    $('#event-modal-title').text(event.event_name);
+    let icon_elem = $('#event-icon');
+    icon_elem.empty();
+    let inner_html = '<img src="/static/assets/images/icons/' + event.activity_icon + '" alt="image for '
+        + event.activity_name + '" height="36" width="36">';
+    icon_elem.append(inner_html);
+
+    let left = $('#event-modal-left');
+    inner_html = '<div class="columns"><div class="is-bold column">When: </div><div class="column">' + event.date_time_range + '</div></div>';
+    if (event.address) {
+        inner_html += '<div class="columns"><div class="is-bold column">Where: </div><div class="column">' + event.address + '</div></div>';
+    }
+
+    if (event.age_limit) {
+        inner_html += '<div class="columns"><div class="is-bold column">Ages: </div><div class="column">';
+        for (let i = 0; i < event.age_limit.length; i++) {
+            inner_html += event.age_limit[i];
+            if (i != event.age_limit.length) {
+                inner_html += ', ';
+            }
+        }
+        inner_html += '</div></div>'
+    }
+    inner_html += '<div class="columns"><div class="is-bold column">Details: </div><div class="column">';
+    inner_html += event.details + '</div></div>';
+
+    inner_html += '<div class="columns"><div class="is-bold column">Cost: </div><div class="column">';
+    if (event.price_for_non_members) {
+        inner_html += event.price_for_non_members;
+    } else {
+        inner_html += 'Free';
+    }
+    inner_html += '</div></div>';
+    inner_html += '<div class="columns"><div class="column is-bold"><i class="fas fa-users"></i></div><div class="column">';
+    if (event.attendees > 1) {
+        inner_html += event.attendees.toString() + ' people plan ';
+    } else {
+        inner_html += '1 person plans';
+    }
+    inner_html += 'on going</div></div>';
+    left.empty().append(inner_html);
+
+}

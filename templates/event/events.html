@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
+{% from "_partials/macros.html" import event_layer with context %}
 {% block content %}
-    {# CSRF protection #}
-    <form method="post">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    </form>
     <section class="hero is-primary">
         <div class="hero-body">
             <div class="container">
@@ -67,6 +64,10 @@
                     {#  prevent cross site scripting #}
                     {{ form.csrf_token }}
 
+
+                {# macro for actiity_choice type and icon collection #}
+                {{ event_layer() }}
+
                     <div class="field {% if form.email.errors %}has-error{% endif %}">
                         {# hidden field to hold picked event id #}
                         {{ form.attend_event_id }}
@@ -103,7 +104,6 @@
         </div>
     </div>
 
-
     {# modal for count me in submission results #}
     <div class="modal {% if show_modal and show_modal['status'] %}is-active{% endif %}"
          id="modal-count-me-in-submitted">
@@ -124,15 +124,13 @@
             <footer class="modal-card-foot">
                 <div class="level-left">
                     <a class=" button is-primary action modal-close-2">
-                                <span class="icon is-small">
-                                    <i class="fas fa-check-circle"></i>
-                                </span>
+                        <span class="icon is-small">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
                         <span class="action">OK</span>
                     </a>
                 </div>
             </footer>
         </div>
     </div>
-
-
 {% endblock %}
