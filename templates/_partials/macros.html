@@ -178,12 +178,12 @@
     </div>
 {%- endmacro %}
 
-{% macro event_layer() -%}
+{% macro event_layer(modal_event=False) -%}
     <div class="media-content">
         {# title of event #}
         <p class="title is-4">
             <span id="event-icon" class="is-48x48"></span>
-            <span id="event-modal-title" class="is-capitalized">event title</span>
+            <span id="event-modal-title" class="is-capitalized">{{modal_event.name}}</span>
         </p>
         <div class="media">
             <div id="event-modal-left" class="media-left is-6">

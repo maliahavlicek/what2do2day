@@ -162,14 +162,17 @@ def get_events():
         return add_attendee(form)
 
     else:
+        event = False
         try:
             list_events = retrieve_events_from_db()
         except Exception as e:
             return render_template('error.html', reason=e)
         if form.email.errors:
             show_modal = True
+            event = mongo.db.events.find_one({"_id": ObjectId(form.attend_event_id.data)})
 
-        return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal)
+        return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal,
+                               modal_event=event)
 
 
 @app.route('/filter_events', methods=['POST'])
@@ -349,7 +352,7 @@ def icon_alt(icon_file_name):
 
 @app.template_filter()
 def address(add):
-   return add
+    return add
 
 
 @app.template_filter()
@@ -375,11 +378,11 @@ def mini_event(event):
             'state': '',
             'postal_code': '',
             'country': ''
-            }
         }
+    }
 
     if 'address-address_line_1' in event.keys():
-        min_event['address']['address_line_1']= event['address-address_line_1']
+        min_event['address']['address_line_1'] = event['address-address_line_1']
     if 'address-address_line_2' in event.keys():
         min_event['address.address_line_2'] = event['address-address_line_2']
     if 'address-city' in event.keys():

@@ -389,8 +389,13 @@ In the long term once this concept proves viable, authentication would be enable
 
 ### Unit Testing
 Constant integration testing was preformed to ensure no console/javascript. Beyond that, validation testing, cross browser testing and accessibility testing were manually performed. 
-### Validation Testing
 To ensure core functionality and features were delivered and working a series of [test cases](/documentation/manual_unit_tests.md) were executed.
+### Validation Testing
+Used the following validation websites to test the code:
+- [CSS Validator](https://jigsaw.w3.org/css-validator/) Note, any error associated with root: color variables were ignored. Vendor extension warnings were also ignored.
+- [HTML Validator](https://validator.w3.org/)
+- [JSON Validator](https://jsonlint.com/) Note: warnings were ignored.
+- [JavaScript Validator](http://beautifytools.com/javascript-validator.php) Note any errors for let, variables set in other .js files, and constants were ignored.
 
 ### Regression Testing
 
