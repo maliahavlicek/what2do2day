@@ -63,15 +63,13 @@
                 <section class="modal-card-body">
                     {#  prevent cross site scripting #}
                     {{ form.csrf_token }}
-
-
-                {# macro for actiity_choice type and icon collection #}
-                <p>YO! event layer macro!</p>
-                {{ event_layer(modal_event) }}
+                    {# macro for actiity_choice type and icon collection #}
+                    {{ event_layer(form_data=form.attend_event_form.data|upwrap_json) }}
 
                     <div class="field {% if form.email.errors %}has-error{% endif %}">
                         {# hidden field to hold picked event id #}
                         {{ form.attend_event_id }}
+                        {{ form.attend_event_form }}
                         {{ form.email.label(class_="label") }}
                         <div class="control has-icons-left has-icons-right">
                             {{ form.email(class_="input", placeholder="your.email@you.com") }}

@@ -183,6 +183,9 @@ $(document).ready(function () {
         let event_id = $(this).data('target');
         let event_id_holder = $('#attend_event_id');
         event_id_holder.val(event_id);
+        let from_info_holder = $('#attend_event_form');
+        let event_form = $(this).data('form');
+        from_info_holder.val(JSON.stringify(event_form));
 
         //fill in the modal data
         let event_info = $(this).data('form');
@@ -238,46 +241,67 @@ function getFormattedDate(date) {
 
 //populate the event modal
 function populate_event_modal(event) {
+    // title
     $('#event-modal-title').text(event.event_name);
+
+    //icon
     let icon_elem = $('#event-icon');
     icon_elem.empty();
     let inner_html = '<img src="/static/assets/images/icons/' + event.activity_icon + '" alt="image for '
         + event.activity_name + '" height="36" width="36">';
     icon_elem.append(inner_html);
 
-    let left = $('#event-modal-left');
-    inner_html = '<div class="columns"><div class="is-bold column">When: </div><div class="column">' + event.date_time_range + '</div></div>';
-    if (event.address) {
-        inner_html += '<div class="columns"><div class="is-bold column">Where: </div><div class="column">' + event.address + '</div></div>';
-    }
+    //date_time_range
+    let date = $('#event-date-time-range');
+    date.text(event.date_time_range);
 
-    if (event.age_limit) {
-        inner_html += '<div class="columns"><div class="is-bold column">Ages: </div><div class="column">';
-        for (let i = 0; i < event.age_limit.length; i++) {
-            inner_html += event.age_limit[i];
-            if (i != event.age_limit.length) {
-                inner_html += ', ';
-            }
+    //address
+    if (event.address.address_line_1 !== '') {
+        $('#event-address').show();
+        let address_parts = event.address.address_line_1;
+        if (event.address.address_line_2 !== '') {
+            address_parts += '<br>' + event.address.address_line_2;
         }
-        inner_html += '</div></div>'
+        address_parts += event.address.city + ", " + event.address.state;
+        if (event.address.postal_code !== '') {
+            address_parts += '<br>' + event.address.postal_code + ' ' + event.address.country;
+        } else {
+            address_parts += '<br>' + event.address.country;
+        }
+        $('#event-address-parts').empty().append(address_parts);
+    } else {
+        $('#event-address-parts').empty();
+        $('#event-address').hide();
     }
-    inner_html += '<div class="columns"><div class="is-bold column">Details: </div><div class="column">';
-    inner_html += event.details + '</div></div>';
 
-    inner_html += '<div class="columns"><div class="is-bold column">Cost: </div><div class="column">';
+    // age limits
+    let ages = '';
+    for (let i = 0; i < event.age_limit.length; i++) {
+        ages += event.age_limit[i];
+        if (i !== event.age_limit.length - 1) {
+            ages += ', ';
+        }
+    }
+    $('#event-ages').empty().append(ages);
+
+    // details
+    $('#event-details').empty().append(event.details);
+
+    // cost
     if (event.price_for_non_members) {
-        inner_html += event.price_for_non_members;
+        $('#event-cost').empty().append(event.price_for_non_members);
     } else {
-        inner_html += 'Free';
+        $('#event-cost').empty().append('Free');
     }
-    inner_html += '</div></div>';
-    inner_html += '<div class="columns"><div class="column is-bold"><i class="fas fa-users"></i></div><div class="column">';
+
+    //attendees;
+    let attendance = '';
     if (event.attendees > 1) {
-        inner_html += event.attendees.toString() + ' people plan ';
+        attendance += event.attendees.toString() + ' people plan ';
     } else {
-        inner_html += '1 person plans';
+        attendance += '1 person plans';
     }
-    inner_html += 'on going</div></div>';
-    left.empty().append(inner_html);
+    attendance += 'on going';
+    $('#event-attendance').empty().append(attendance);
 
 }

@@ -76,7 +76,7 @@
         {% if form.choices|length > 0 %}
             <div class="stars" id="{{ id }}">
                 {% for subfield in form.choices|reverse %}
-                    <input class="star star-{{ subfield[0] }}" id="{{ id }}-{{ subfield[0]|int- 1 }}" type="radio"
+                    <input class="star star-{{ subfield[0] }}" id="{{ id }}-{{ subfield[0]|int - 1 }}" type="radio"
                            name="{{ id }}" value="{{ subfield[0] }}" {% if form.data == subfield[0] %}
                            checked{% endif %}/>
                     <label class="star star-{{ subfield[0] }}" for="{{ id }}-{{ subfield[0]|int - 1 }}"
@@ -178,17 +178,45 @@
     </div>
 {%- endmacro %}
 
-{% macro event_layer(modal_event=False) -%}
+{% macro event_layer(form_data) -%}
+
     <div class="media-content">
-        {# title of event #}
         <p class="title is-4">
-            <span id="event-icon" class="is-48x48"></span>
-            <span id="event-modal-title" class="is-capitalized">{{modal_event.name}}</span>
+            <span id="event-icon" class="is-48x48">
+                <img src="/static/assets/images/icons/{{ form_data['activity_icon'] }}"
+                     alt="image for {{ form_data['activity_icon']|icon_alt }} icon" height="36"
+                     width="36">
+            </span>
+            <span id="event-modal-title" class="is-capitalized">{{ form_data['event_name']|title }}</span>
         </p>
         <div class="media">
-            <div id="event-modal-left" class="media-left is-6">
-                {# display when, where, what, ages and cost of event #}
-                THis is the recap junk
+            <div class="media-left is-6">
+                <div class="columns">
+                    <div class="is-bold column">When:</div>
+                    <div class="column" id="event-date-time-range">{{ form_data['date_time_range'] }}</div>
+                </div>
+                <div class="columns" id="event-address" >
+                    <div class="is-bold column">Where:</div>
+                    <div class="column" id="event-address-parts">default address parts</div>
+                </div>
+                <div class="columns">
+                    <div class="is-bold column">Ages:</div>
+                    <div class="column" id="event-ages">default 11-13, 14-18, 19-20, 21-plus,</div>
+                </div>
+                <div class="columns">
+                    <div class="is-bold column">Details:</div>
+                    <div class="column" id="event-details">We leave at 7:15 after breaking into no rider left behind groups. We'll ride up
+                        to Daniel's park and enjoy the downhill return.
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="is-bold column">Cost:</div>
+                    <div class="column" id="event-cost">Free</div>
+                </div>
+                <div class="columns">
+                    <div class="column is-bold"><i class="fas fa-users" aria-hidden="true"></i></div>
+                    <div class="column" id="event-attendance">7 people plan on going</div>
+                </div>
             </div>
             <div id="event-modal-right" class="media-content">
                 this is the map stuff and see details lik
@@ -197,6 +225,7 @@
 
         </div>
     </div>
+
 {%- endmacro %}
 
 {% macro display_address(add) -%}
@@ -204,7 +233,7 @@
     {% if address-line-2|length > 0 %}
         <span>{{ add['address-line-2'] }}</span>
     {% endif %}
-     <span>{{ add['address-city'] }}, {{ add['address-state'] }}  </span>
+    <span>{{ add['address-city'] }}, {{ add['address-state'] }}  </span>
 
     {% if address-postal_code|length > 0 %}
         <span>{{ add['address-postal_code'] }}</span>

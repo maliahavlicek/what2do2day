@@ -1,5 +1,6 @@
 import os
 import re
+import ast
 
 from flask import Flask, render_template, redirect, request, url_for, json
 from flask_pymongo import PyMongo
@@ -121,7 +122,7 @@ def retrieve_events_from_db():
                                     "input": {"$objectToArray": "$$v"},
                                     "as": "val",
                                     "in": {
-                                        "k": {"$concat": ["activity", "-", "$$val.k"]},
+                                        "k": {"$concat": ["activity", "_", "$$val.k"]},
                                         "v": "$$val.v"
                                     }}
                             }}
@@ -162,17 +163,15 @@ def get_events():
         return add_attendee(form)
 
     else:
-        event = False
+        event = {}
         try:
             list_events = retrieve_events_from_db()
         except Exception as e:
             return render_template('error.html', reason=e)
         if form.email.errors:
             show_modal = True
-            event = mongo.db.events.find_one({"_id": ObjectId(form.attend_event_id.data)})
 
-        return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal,
-                               modal_event=event)
+        return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal)
 
 
 @app.route('/filter_events', methods=['POST'])
@@ -213,7 +212,7 @@ def get_places():
 
 def event_unique(event):
     """try to retrieve event from db via name, date, and place"""
-    the_event = mongo.db.events.find_one('place')
+    the_event = mongo.db.events.find_one(event)
     if the_event is None:
         return None
     else:
@@ -356,10 +355,16 @@ def address(add):
 
 
 @app.template_filter()
+def upwrap_json(item):
+    unwrapped = ast.literal_eval(item)
+    return unwrapped
+
+
+@app.template_filter()
 def mini_event(event):
     min_event = {
-        'activity_name': event['activity-name'],
-        'activity_icon': event['activity-icon'],
+        'activity_name': event['activity_name'],
+        'activity_icon': event['activity_icon'],
         'place_name': event['place-name'],
         'place_description': event['place-description'],
         'start_date': event['start_date'],

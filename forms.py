@@ -1,6 +1,6 @@
 import datetime
 import re
-
+import json
 import pymongo
 from flask_wtf import FlaskForm
 from wtforms import (StringField,
@@ -143,11 +143,36 @@ class EventForm(FlaskForm):
 class CountMeInForm(FlaskForm):
     """Count Me In Form"""
 
+    even_placeholder = {'activity_name': '',
+        'activity_icon': '',
+        'place_name': '',
+        'place_description': '',
+        'start_date': '',
+        'end_date': '',
+        'event_name': '',
+        'date_time_range': '',
+        'details': '',
+        'age_limit': '',
+        'price_for_non_members': '',
+        'max_attendees': '',
+        'attendees': 0,
+        'address': {
+            'address_line_1': '',
+            'address_line_2': '',
+            'city': '',
+            'state': '',
+            'postal_code': '',
+            'country': ''
+        }
+    }
+
+
     email = StringField('Email *', [
         Length(min=1, message='Email is required.'),
         Email(message='Not a valid email address.')
     ])
     attend_event_id = HiddenField(None, [DataRequired()], default="n")
+    attend_event_form = HiddenField(None, [DataRequired()], default=json.dumps(even_placeholder))
 
 
 class PlaceForm(FlaskForm):
