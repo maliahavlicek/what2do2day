@@ -197,7 +197,7 @@
                 </div>
                 <div class="columns" id="event-address">
                     <div class="is-bold column">Where:</div>
-                    <div class="column" id="event-address-parts">
+                    <div class="column is-capitalized" id="event-address-parts">
 
                     </div>
                 </div>
@@ -253,14 +253,14 @@
 {%- endmacro %}
 
 {% macro display_address(add) -%}
-    <span>{{ add['address_line_1'] }}</span>
+    {{ add['address_line_1'] }}
     {% if add['address_line_2']|length > 0 %}
-        <br><span>{{ add['address_line_2'] }}</span>
+        <br>{{ add['address_line_2'] }}
     {% endif %}
-    <br><span>{{ add['city'] }}, {{ add['state'] }}  </span>
+    <br>{{ add['city'] }}, {{ add['state'] }}
     {% if add['postal_code']|length > 0 %}
-        <br><span>{{ add['postal_code'] }} {{ add['country'] }}</span>
+        <br>{{ add['postal_code'] }} {{ add['country'] }}
     {% else %}
-        <br><span>{{ add['country'] }}</span>
+        <br>{{ add['country'] }}
     {% endif %}
 {%- endmacro %}

@@ -393,7 +393,7 @@ def mini_event(event):
     if 'address-city' in event.keys():
         min_event['event_address']['city'] = event['address-city']
     if 'address-state' in event.keys():
-        min_event['event_address']['city'] = event['address-city']
+        min_event['event_address']['state'] = event['address-state']
     if 'address-postal_code' in event.keys():
         min_event['event_address']['postal_code'] = event['address-postal_code']
     if 'address-country' in event.keys():
