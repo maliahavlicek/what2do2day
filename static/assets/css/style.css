@@ -424,25 +424,30 @@ nav.level.is-primary {
     background: #b5b5b5;
     padding: 15px;
 }
-.button.action{
+
+.button.action {
     min-width: 230px;
     margin: 10px 0;
     color: #222;
     font-family: "Patrick Hand SC", Arial, sans-serif;
     font-weight: 700;
-    padding:0;
+    padding: 0;
 }
-.modal-card{
+
+.modal-card {
     width: calc(100vw - 100px);
     overflow-y: auto;
 }
-.modal-card-body .is-half{
+
+.modal-card-body .is-half {
     width: 50%;
     margin-bottom: 30px;
 }
-.modal-card-foot .button.action{
+
+.modal-card-foot .button.action {
     margin: 0;
 }
+
 span#event-modal-title {
     vertical-align: middle;
     margin-top: -15px;
@@ -450,37 +455,48 @@ span#event-modal-title {
     position: relative;
     margin-left: 10px;
 }
+
 .is-bold.column {
     font-weight: 700;
     max-width: 90px;
 }
 
-.button.action span.action{
+.button.action span.action {
     font-size: 1.5rem;
 }
 
 /* event list page */
-.list-events nav.level{
+.list-events nav.level {
     margin: 0;
 }
-.card.is-primary .card-header, .modal-card .modal-card-head{
+.image.is-38x38{
+    height: 38px;
+    width: 38px;
+}
+.card.is-primary .card-header, .modal-card .modal-card-head {
     font-family: "Patrick Hand SC", Arial, sans-serif;
     font-weight: 700;
     font-size: 1.8rem;
     background: #00d1b1;
 }
 
-.list-events .card-header{
+.list-events .card-header {
     padding: 10px;
     line-height: 1.8rem;
 }
-.list-events .card-header .containers{
+
+.list-events .card-header .containers {
     display: flex;
     align-items: center;
     margin-left: 15px;
 }
 
-.card.is-primary {
+.containers .title.is-5{
+    font-family: Raleway;
+    margin-top: 7px;
+}
+
+.list-events .card.is-primary {
     border: 1px solid #00d1b2;
     border-right: none;
     margin: 3px 0 25px 75px;

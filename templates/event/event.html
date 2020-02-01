@@ -5,10 +5,10 @@
         <header class="card-header">
             {# activity icon #}
             <div class="containers">
-                <figure class="image is-48x48">
+                <figure class="image is-38x38">
                     <img src="/static/assets/images/icons/{{ event['activity_icon'] }}"
-                         alt="image for {{ event['activity_icon']|icon_alt }} icon" height="36"
-                         width="36">
+                         alt="image for {{ event['activity_icon']|icon_alt }} icon" height="34"
+                         width="34">
                 </figure>
                 {# title of event #}
                 <div class="title is-3">&nbsp;&nbsp;{{ event['event_name']|title }}</div>
@@ -26,7 +26,7 @@
                 <div class="media-left is-half">
                     {# display when, where, what, ages and cost of event #}
                     <p>
-                        <span class="is-bold">When: </span>{{ event['date_time_range'] }}
+                        <span class="is-bold">When: </span>{{ event['date_time_range']|time_only }}
                     </p>
                     {% if event['event_address'] and event['event_address'] != '' %}
                         <p class="is-capitalized">

@@ -359,8 +359,37 @@ def icon_alt(icon_file_name):
 
 
 @app.template_filter()
-def address(add):
-    return add
+def time_only(date_time_range):
+    start_date = date_time_range[0:10]
+    start_time = date_time_range[11:16]
+    end_date = date_time_range[19:29]
+    end_time = date_time_range[30:35]
+    if end_date == start_date:
+        time_str = datetime.strptime(start_time, "%H:%M").strftime("%-I:%M %p") + " to "
+        time_str += datetime.strptime(end_time, "%H:%M").strftime("%-I:%M %p")
+    else:
+        time_str = date_time_range
+    return time_str
+
+@app.template_filter()
+def date_range(date_time_range):
+    if date_time_range != '':
+        start_date = date_time_range[0:10]
+        start_time = date_time_range[11:16]
+        end_date = date_time_range[19:29]
+        end_time = date_time_range[30:35]
+
+        if start_date == end_date:
+            time_str = start_date + ": <br>"
+            time_str += datetime.strptime(start_time, "%H:%M").strftime("%-I:%M %p") + " to "
+            time_str += datetime.strptime(end_time, "%H:%M").strftime("%-I:%M %p")
+        else:
+            time_str = start_date + " " + datetime.strptime(start_time, "%H:%M").strftime("%-I:%M %p")
+            time_str += "<br>&nbsp;&nbsp;&nbsp;to<br>"
+            time_str += end_date + " " + datetime.strptime(end_time, "%H:%M").strftime("%-I:%M %p")
+    else:
+        time_str = date_time_range
+    return time_str
 
 
 @app.template_filter()

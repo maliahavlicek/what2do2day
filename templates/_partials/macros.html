@@ -193,12 +193,17 @@
             <div class="media-left is-half">
                 <div class="columns">
                     <div class="is-bold column">When:</div>
-                    <div class="column" id="event-date-time-range">{{ form_data['date_time_range'] }}</div>
+                    <div class="column" id="event-date-time-range">{{ form_data['date_time_range'] | date_range |safe }}</div>
                 </div>
-                <div class="columns" id="event-address">
+                <div class="columns {% if form_data['event_address']!='' or form_data['address'] !='' %} is-hidden{% endif %}"
+                     id="event-address">
                     <div class="is-bold column">Where:</div>
                     <div class="column is-capitalized" id="event-address-parts">
-                        {{ display_address(add=form_data['address']) }}
+                        {% if form_data['event_address'] %}
+                            {{ display_address(add=form_data['event_address']) }}
+                        {% else %}
+                            {{ display_address(add=form_data['address']) }}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="columns">
@@ -246,17 +251,21 @@
                 this is the map stuff and see details lik
             </div>
 
-
         </div>
     </div>
 
 {%- endmacro %}
 
+{% macro address_tooltip(add) -%}
+    {% if add['address_line_2']|length > 0 %}{{ add['address_line_2'] }}, {% endif %}
+    {{ add['city'] }}, {{ add['state'] }},
+    {{ add['postal_code'] }} {{ add['country'] }}
+{%- endmacro  %}
+
 {% macro display_address(add, tooltip=False) -%}
     {% if tooltip %}
         <a class="is-text has-tooltip-multiline has-tooltip-bottom is-capitalized"
-           data-tooltip="
-                   {% if add['address_line_2']|length > 0 %}{{ add['address_line_2'] }},{% endif %}{{ add['city'] }}, {{ add['state'] }}, {{ add['postal_code'] }} {{ add['country'] }}">{{ add['address_line_1']|title }}</a>
+           data-tooltip="{{ address_tooltip(add=add) }}">{{ add['address_line_1']|title }}</a>
     {% else %}
         {{ add['address_line_1'] }}
         {% if add['address_line_2']|length > 0 %}
@@ -270,3 +279,4 @@
         {% endif %}
     {% endif %}
 {%- endmacro %}
+
