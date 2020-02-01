@@ -458,17 +458,32 @@ span#event-modal-title {
 .button.action span.action{
     font-size: 1.5rem;
 }
-.card.is-primary .card-header,  .modal-card .modal-card-head{
 
+/* event list page */
+.list-events nav.level{
+    margin: 0;
+}
+.card.is-primary .card-header, .modal-card .modal-card-head{
     font-family: "Patrick Hand SC", Arial, sans-serif;
     font-weight: 700;
     font-size: 1.8rem;
     background: #00d1b1;
 }
 
+.list-events .card-header{
+    padding: 10px;
+    line-height: 1.8rem;
+}
+.list-events .card-header .containers{
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
 .card.is-primary {
     box-shadow: 0 0.5em 1em -0.125em #00d1b247, 0 0 0 1px #00d1b2;
-    margin: 0 25px 25px;
+    margin: 0 0 25px 75px;
+    clip-path: inset(-1rem 0 -1rem -1rem)
 }
 
 /* scrollbar styles */

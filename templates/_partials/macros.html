@@ -197,13 +197,13 @@
                 </div>
                 <div class="columns" id="event-address">
                     <div class="is-bold column">Where:</div>
-                    <div class="column" id="event-address-parts">
+                    <div class="column is-capitalized" id="event-address-parts">
                          {{ display_address(add=form_data['address']) }}
                     </div>
                 </div>
                 <div class="columns">
                     <div class="is-bold column">Ages:</div>
-                    <div class="column" id="event-ages">
+                    <div class="column is-capitalized" id="event-ages">
                         {% if form_data['age_limit'] %}
                             {% for age in form_data['age_limit'] %}
                                 {{ age }}{% if loop.index != loop.length %}, {% endif %}
