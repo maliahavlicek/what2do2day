@@ -1,3 +1,4 @@
+{% from "_partials/macros.html" import display_address with context %}
 <div class="container">
     <div class="card is-primary">
         {# give credit to place hosting event #}
@@ -20,14 +21,20 @@
                     {# title of event #}
                     <p class="title is-4">{{ event['event_name']|title }}</p>
                     <div class="media">
-                        <div class="media-left is-6">
+                        <div class="media-left is-half">
                             {# display when, where, what, ages and cost of event #}
-                            <p><span class="is-bold">When: </span>{{ event['date_time_range'] }} </p>
-                            {% if event.address %}
-                                <p><span class="is-bold">Where: </span>{{ event['address-line-1'] }} </p>
+                            <p>
+                                <span class="is-bold">When: </span>{{ event['date_time_range'] }}
+                            </p>
+                            {% if event['event_address'] and event['event_address'] != ''%}
+                                <p>
+                                    <span class="is-bold">Where: </span>
+                                    {{ display_address(add=event['event_address'][0]) }}
+                                </p>
                             {% endif %}
                             {% if event.age_limit %}
-                                <p><span class="is-bold">Ages: </span>
+                                <p>
+                                    <span class="is-bold">Ages: </span>
                                     {% for age in event['age_limit'] %}
                                         {{ age }}{% if loop.index != loop.length %}, {% endif %}
                                     {% endfor %}
@@ -43,7 +50,7 @@
                             </p>
                         </div>
 
-                        <div class="media-content is-6 has-text-centered">
+                        <div class="media-content is-half has-text-centered">
                             {# attendance limit #}
                             <p>Attendance Limit: {{ event['max_attendees'] }}</p>
                             {# count me in button, disabled if max attendess met #}

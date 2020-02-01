@@ -376,7 +376,7 @@ def mini_event(event):
         'price_for_non_members': event['price_for_non_members'],
         'max_attendees': event['max_attendees'],
         'attendees': len(event['attendees']),
-        'address': {
+        'event_address': {
             'address_line_1': '',
             'address_line_2': '',
             'city': '',
@@ -387,20 +387,20 @@ def mini_event(event):
     }
 
     if 'address-address_line_1' in event.keys():
-        min_event['address']['address_line_1'] = event['address-address_line_1']
+        min_event['event_address']['address_line_1'] = event['address-address_line_1']
     if 'address-address_line_2' in event.keys():
-        min_event['address.address_line_2'] = event['address-address_line_2']
+        min_event['event_address']['address_line_2'] = event['address-address_line_2']
     if 'address-city' in event.keys():
-        min_event['address']['city'] = event['address-city']
+        min_event['event_address']['city'] = event['address-city']
     if 'address-state' in event.keys():
-        min_event['address']['city'] = event['address-city']
+        min_event['event_address']['city'] = event['address-city']
     if 'address-postal_code' in event.keys():
-        min_event['address']['postal_code'] = event['address-postal_code']
+        min_event['event_address']['postal_code'] = event['address-postal_code']
     if 'address-country' in event.keys():
         country_id = event['address-country']
         country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
         if country is not None:
-            min_event['address']['country'] = country['country']
+            min_event['event_address']['country'] = country['country']
 
     return json.htmlsafe_dumps(min_event)
 

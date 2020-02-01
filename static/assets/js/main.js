@@ -256,17 +256,17 @@ function populate_event_modal(event) {
     date.text(event.date_time_range);
 
     //address
-    if (event.address.address_line_1 !== '') {
+    if (event.event_address.address_line_1 !== '') {
         $('#event-address').show();
-        let address_parts = event.address.address_line_1;
-        if (event.address.address_line_2 !== '') {
-            address_parts += '<br>' + event.address.address_line_2;
+        let address_parts = event.event_address.address_line_1;
+        if (event.event_address.address_line_2 !== '') {
+            address_parts += '<br>' + event.event_address.address_line_2;
         }
-        address_parts += event.address.city + ", " + event.address.state;
-        if (event.address.postal_code !== '') {
-            address_parts += '<br>' + event.address.postal_code + ' ' + event.address.country;
+        address_parts += '<br>' + event.event_address.city + ", " + event.event_address.state;
+        if (event.event_address.postal_code !== '') {
+            address_parts += '<br>' + event.event_address.postal_code + ' ' + event.event_address.country;
         } else {
-            address_parts += '<br>' + event.address.country;
+            address_parts += '<br>' + event.event_address.country;
         }
         $('#event-address-parts').empty().append(address_parts);
     } else {

@@ -432,11 +432,23 @@ nav.level.is-primary {
     font-weight: 700;
     padding:0;
 }
-#event-modal-left, #event-modal-right{
+.modal-card{
+    width: calc(100vw - 100px);
+    overflow-y: auto;
+}
+.modal-card-body .is-half{
     width: 50%;
+    margin-bottom: 30px;
 }
 .modal-card-foot .button.action{
     margin: 0;
+}
+span#event-modal-title {
+    vertical-align: middle;
+    margin-top: -15px;
+    display: inline-block;
+    position: relative;
+    margin-left: 10px;
 }
 .is-bold.column {
     font-weight: 700;

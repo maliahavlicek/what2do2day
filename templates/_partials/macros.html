@@ -190,35 +190,59 @@
             <span id="event-modal-title" class="is-capitalized">{{ form_data['event_name']|title }}</span>
         </p>
         <div class="media">
-            <div class="media-left is-6">
+            <div class="media-left is-half">
                 <div class="columns">
                     <div class="is-bold column">When:</div>
                     <div class="column" id="event-date-time-range">{{ form_data['date_time_range'] }}</div>
                 </div>
-                <div class="columns" id="event-address" >
+                <div class="columns" id="event-address">
                     <div class="is-bold column">Where:</div>
-                    <div class="column" id="event-address-parts">default address parts</div>
+                    <div class="column" id="event-address-parts">
+
+                    </div>
                 </div>
                 <div class="columns">
                     <div class="is-bold column">Ages:</div>
-                    <div class="column" id="event-ages">default 11-13, 14-18, 19-20, 21-plus,</div>
+                    <div class="column" id="event-ages">
+                        {% if form_data['age_limit'] %}
+                            {% for age in form_data['age_limit'] %}
+                                {{ age }}{% if loop.index != loop.length %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="columns">
                     <div class="is-bold column">Details:</div>
-                    <div class="column" id="event-details">We leave at 7:15 after breaking into no rider left behind groups. We'll ride up
-                        to Daniel's park and enjoy the downhill return.
+                    <div class="column" id="event-details">
+                        {{ form_data['details'] }}
                     </div>
                 </div>
                 <div class="columns">
                     <div class="is-bold column">Cost:</div>
-                    <div class="column" id="event-cost">Free</div>
+                    <div class="column" id="event-cost">
+                        {% if form_data['price_for_non_members'] %}
+                            {{ form_data['price_for_non_members'] }}
+                        {% else %}
+                            Free
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="columns">
                     <div class="column is-bold"><i class="fas fa-users" aria-hidden="true"></i></div>
-                    <div class="column" id="event-attendance">7 people plan on going</div>
+                    <div class="column" id="event-attendance">
+                        <p>
+                            {{ form_data['attendees'] }}
+                            {% if form_data['attendees'] > 1 %}
+                                people plan
+                            {% else %}
+                                person plans
+                            {% endif %}
+                            on going
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div id="event-modal-right" class="media-content">
+            <div id="event-modal-right" class="media-content is-half">
                 this is the map stuff and see details lik
             </div>
 
@@ -229,13 +253,14 @@
 {%- endmacro %}
 
 {% macro display_address(add) -%}
-    <span>{{ add['address-line-1'] }}</span>
-    {% if address-line-2|length > 0 %}
-        <span>{{ add['address-line-2'] }}</span>
+    <span>{{ add['address_line_1'] }}</span>
+    {% if add['address_line_2']|length > 0 %}
+        <br><span>{{ add['address_line_2'] }}</span>
     {% endif %}
-    <span>{{ add['address-city'] }}, {{ add['address-state'] }}  </span>
-
-    {% if address-postal_code|length > 0 %}
-        <span>{{ add['address-postal_code'] }}</span>
+    <br><span>{{ add['city'] }}, {{ add['state'] }}  </span>
+    {% if add['postal_code']|length > 0 %}
+        <br><span>{{ add['postal_code'] }} {{ add['country'] }}</span>
+    {% else %}
+        <br><span>{{ add['country'] }}</span>
     {% endif %}
 {%- endmacro %}

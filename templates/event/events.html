@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% from "_partials/macros.html" import event_layer with context %}
+{% from "_partials/macros.html" import display_address with context %}
 {% block content %}
     <section class="hero is-primary">
         <div class="hero-body">
@@ -70,15 +71,19 @@
                         {# hidden field to hold picked event id #}
                         {{ form.attend_event_id }}
                         {{ form.attend_event_form }}
+
+                        <p class="title is-5">
+                            By providing us your email, we'll be able to reserve your spot and let you know if the event is updated.
+                        </p>
                         {{ form.email.label(class_="label") }}
                         <div class="control has-icons-left has-icons-right">
                             {{ form.email(class_="input", placeholder="your.email@you.com") }}
                             <span class="icon is-small is-left has-text-primary">
-                                        <i class="fas fa-envelope"></i>
-                                    </span>
+                                <i class="fas fa-envelope"></i>
+                            </span>
                             <span class="error-msg icon is-small is-right">
-                                      <i class="fas fa-exclamation-triangle"></i>
-                                    </span>
+                              <i class="fas fa-exclamation-triangle"></i>
+                            </span>
                         </div>
                         <p class="error-msg help is-danger">
                             {% if form.email.errors|length > 0 %}
