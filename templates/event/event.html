@@ -31,7 +31,7 @@
                     {% if event['event_address'] and event['event_address'] != '' %}
                         <p class="is-capitalized">
                             <span class="is-bold">Where: </span>
-                            {{ display_address(add=event['event_address'][0]) }}
+                            {{ display_address(add=event['event_address'][0], tooltip=True) }}
                         </p>
                     {% endif %}
                     {% if event.age_limit %}

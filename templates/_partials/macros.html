@@ -198,7 +198,7 @@
                 <div class="columns" id="event-address">
                     <div class="is-bold column">Where:</div>
                     <div class="column is-capitalized" id="event-address-parts">
-                         {{ display_address(add=form_data['address']) }}
+                        {{ display_address(add=form_data['address']) }}
                     </div>
                 </div>
                 <div class="columns">
@@ -252,15 +252,21 @@
 
 {%- endmacro %}
 
-{% macro display_address(add) -%}
-    {{ add['address_line_1'] }}
-    {% if add['address_line_2']|length > 0 %}
-        <br>{{ add['address_line_2'] }}
-    {% endif %}
-    <br>{{ add['city'] }}, {{ add['state'] }}
-    {% if add['postal_code']|length > 0 %}
-        <br>{{ add['postal_code'] }} {{ add['country'] }}
+{% macro display_address(add, tooltip=False) -%}
+    {% if tooltip %}
+        <a class="is-text has-tooltip-multiline has-tooltip-bottom is-capitalized"
+           data-tooltip="
+                   {% if add['address_line_2']|length > 0 %}{{ add['address_line_2'] }},{% endif %}{{ add['city'] }}, {{ add['state'] }}, {{ add['postal_code'] }} {{ add['country'] }}">{{ add['address_line_1']|title }}</a>
     {% else %}
-        <br>{{ add['country'] }}
+        {{ add['address_line_1'] }}
+        {% if add['address_line_2']|length > 0 %}
+            <br>{{ add['address_line_2'] }}
+        {% endif %}
+        <br>{{ add['city'] }}, {{ add['state'] }}
+        {% if add['postal_code']|length > 0 %}
+            <br>{{ add['postal_code'] }} {{ add['country'] }}
+        {% else %}
+            <br>{{ add['country'] }}
+        {% endif %}
     {% endif %}
 {%- endmacro %}

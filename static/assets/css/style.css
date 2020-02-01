@@ -481,9 +481,11 @@ span#event-modal-title {
 }
 
 .card.is-primary {
-    box-shadow: 0 0.5em 1em -0.125em #00d1b247, 0 0 0 1px #00d1b2;
-    margin: 0 0 25px 75px;
-    clip-path: inset(-1rem 0 -1rem -1rem)
+    border: 1px solid #00d1b2;
+    border-right: none;
+    margin: 3px 0 25px 75px;
+    clip-path: inset(0 0 -1rem -1rem);
+    box-shadow: none;
 }
 
 /* scrollbar styles */
