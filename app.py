@@ -148,9 +148,18 @@ def retrieve_events_from_db():
                         }}, "$$ROOT"]
                 }
             }
-        }
-
+        },
     ]))
+
+    for event in list_events:
+        if 'address-country' in event.keys():
+            country_id = event['address-country']
+            country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
+            if country is not None:
+                event['address-country'] = country['country']
+                if 'event_address' in event.keys():
+                    event['event_address'][0]['country'] = country['country']
+
     return list_events
 
 
@@ -397,10 +406,7 @@ def mini_event(event):
     if 'address-postal_code' in event.keys():
         min_event['event_address']['postal_code'] = event['address-postal_code']
     if 'address-country' in event.keys():
-        country_id = event['address-country']
-        country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
-        if country is not None:
-            min_event['event_address']['country'] = country['country']
+        min_event['event_address']['country'] = event['address-country']
 
     return json.htmlsafe_dumps(min_event)
 
