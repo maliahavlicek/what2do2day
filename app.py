@@ -169,24 +169,33 @@ def retrieve_events_from_db():
     return list_events
 
 
-@app.route('/get_events', methods=['GET', 'POST'])
-def get_events():
-    form = CountMeInForm()
+@app.route('/get_events/', defaults={'event_id': None}, methods=['GET', 'POST'])
+@app.route('/get_events/<event_id>', methods=['GET', 'POST'])
+def get_events(event_id):
     show_modal = False
+    event = False
+    form = CountMeInForm()
+    # TODO look at event_id, retrieve it from DB and add it
+
     if form.validate_on_submit():
         # all is good with the post based on CountMeInForm wftForm validation
         return add_attendee(form)
 
     else:
-        event = {}
         try:
             list_events = retrieve_events_from_db()
         except Exception as e:
             return render_template('error.html', reason=e)
         if form.email.errors:
             show_modal = True
+        if event_id is not None:
+            the_event = mongo.db.events.find_one({'_id': ObjectId(event_id)})
+            if the_event is not None:
+                show_modal = True
+                event = mini_event(the_event)
 
-        return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal, google_key=google_key)
+        return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal,
+                               google_key=google_key, layer_event=event)
 
 
 @app.route('/filter_events', methods=['POST'])
@@ -410,13 +419,13 @@ def upwrap_json(item):
 @app.template_filter()
 def mini_event(event):
     min_event = {
-        'activity_name': event['activity_name'],
-        'activity_icon': event['activity_icon'],
-        'place_name': event['place-name'],
-        'place_description': event['place-description'],
-        'start_date': event['start_date'],
-        'end_date': event['end_date'],
-        'event_name': event['event_name'],
+        'activity_name': '',
+        'activity_icon': '',
+        'place_name': '',
+        'place_description': '',
+        'start_date': '',
+        'end_date': '',
+        'event_name': event['name'],
         'date_time_range': event['date_time_range'],
         'details': event['details'],
         'age_limit': event['age_limit'],
