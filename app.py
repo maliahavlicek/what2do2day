@@ -2,13 +2,15 @@ import os
 import re
 import ast
 
-from flask import Flask, render_template, redirect, request, url_for, json
+from flask import Flask, render_template, redirect, request, url_for, json, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from os import listdir
 from os.path import isfile, join, splitext
 from pymongo import WriteConcern
 from datetime import datetime
+import requests
+import time
 
 from forms import PlaceForm, ReviewForm, AddressForm, CountMeInForm
 from flask_wtf.csrf import CSRFProtect, CSRFError
@@ -19,6 +21,10 @@ app.config.from_object('config.Config')
 
 csrf = CSRFProtect(app)
 mongo = PyMongo(app)
+
+google_key = app.config['GOOGLE_MAP_KEY']
+search_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+details_url = "https://maps.googleapis.com/maps/api/place/details/json"
 
 
 def db_issue(e):
@@ -180,7 +186,7 @@ def get_events():
         if form.email.errors:
             show_modal = True
 
-        return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal)
+        return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal, google_key=google_key)
 
 
 @app.route('/filter_events', methods=['POST'])
@@ -265,6 +271,8 @@ def get_add_address_id(add):
     """retrieve or create an address based on add"""
     the_address = mongo.db.addresses.find_one(add)
     if the_address is None:
+        # get google lat and long
+        add = google_get_goecords(add)
         db = mongo.db.addresses.with_options(
             write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
         )
@@ -371,6 +379,7 @@ def time_only(date_time_range):
         time_str = date_time_range
     return time_str
 
+
 @app.template_filter()
 def date_range(date_time_range):
     if date_time_range != '':
@@ -420,7 +429,10 @@ def mini_event(event):
             'city': '',
             'state': '',
             'postal_code': '',
-            'country': ''
+            'country': '',
+            'lat': 0,
+            'lng': 0,
+
         }
     }
 
@@ -436,6 +448,10 @@ def mini_event(event):
         min_event['event_address']['postal_code'] = event['address-postal_code']
     if 'address-country' in event.keys():
         min_event['event_address']['country'] = event['address-country']
+    if 'address-lat' in event.keys():
+        min_event['event_address']['lat'] = event['address-lat']
+    if 'address-lng' in event.keys():
+        min_event['event_address']['lng'] = event['address-lng']
 
     return json.htmlsafe_dumps(min_event)
 
@@ -488,6 +504,37 @@ def add_attendee(form):
     return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=modal)
 
 
+def google_get_goecords(address):
+    # get coords for mapping
+    add = address['address_line_1']
+    if 'address_line_2' in address.keys():
+        add += ", " + address['address_line_1']
+    add += ", " + address['city']
+    add += ", " + address['state']
+    if 'postal_code' in address.keys():
+        add += " " + address['postal_code']
+    country_id = address['country']
+    country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
+    if country is not None:
+        add += " " + country['country']
+    try:
+
+        search_payload = {"key": google_key, "query": add}
+        search_req = requests.get(search_url, params=search_payload)
+
+        search_json = search_req.json()
+        time.sleep(.3)
+        address['lat'] = search_json["results"][0]["geometry"]["location"]["lat"]
+        address['lng'] = search_json["results"][0]["geometry"]["location"]["lng"]
+        address['one_line'] = add
+        address['google_place_id'] = search_json["results"][0]["place_id"]
+
+    except Exception as e:
+        print("Did not get search results. ", e)
+
+    return address
+
+
 def push_place_to_db(form):
     # unique entries for a place are the name and address, so build that first
 
@@ -498,10 +545,12 @@ def push_place_to_db(form):
         address['address_line_1'] = form.address.data['address_line_1'].strip().lower()
         if form.address.data['address_line_2']:
             address['address_line_2'] = form.address.data['address_line_2'].strip().lower()
+
         address['city'] = form.address.data['city'].strip().lower()
+        address['state'] = form.address.data['state'].strip().lower()
         if form.address.data['postal_code']:
             address['postal_code'] = form.address.data['postal_code'].strip().lower()
-        address['state'] = form.address.data['state'].strip().lower()
+
         address['country'] = form.address.data['country']
         address_id = get_add_address_id(address)
         place['address'] = address_id
@@ -564,6 +613,7 @@ def push_place_to_db(form):
             if form.event.address.data['address_line_2']:
                 event_address['address_line_2'] = form.event.address.data['address_line_2'].strip().lower()
             event_address['city'] = form.event.address.data['city'].strip().lower()
+            event_address['state'] = form.event.address.data['state'].strip().lower()
             if form.event.address.data['postal_code']:
                 event_address['postal_code'] = form.event.address.data['postal_code'].strip().lower()
             event_address['country'] = form.event.address.data['country']

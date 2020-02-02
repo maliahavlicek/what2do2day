@@ -76,10 +76,10 @@
         {% if form.choices|length > 0 %}
             <div class="stars" id="{{ id }}">
                 {% for subfield in form.choices|reverse %}
-                    <input class="star star-{{ subfield[0] }}" id="{{ id }}-{{ subfield[0]|int - 1 }}" type="radio"
+                    <input class="star star-{{ subfield[0] }}" id="{{ id }}-{{ subfield[0]|int-1 }}" type="radio"
                            name="{{ id }}" value="{{ subfield[0] }}" {% if form.data == subfield[0] %}
                            checked{% endif %}/>
-                    <label class="star star-{{ subfield[0] }}" for="{{ id }}-{{ subfield[0]|int - 1 }}"
+                    <label class="star star-{{ subfield[0] }}" for="{{ id }}-{{ subfield[0]|int-1 }}"
                            title="{{ subfield[1] }}"></label>
                 {% endfor %}
             </div>
@@ -178,7 +178,7 @@
     </div>
 {%- endmacro %}
 
-{% macro event_layer(form_data) -%}
+{% macro event_layer(form_data, google_key) -%}
 
     <div class="media-content">
         <p class="title is-4">
@@ -193,9 +193,10 @@
             <div class="media-left is-half">
                 <div class="columns">
                     <div class="is-bold column">When:</div>
-                    <div class="column" id="event-date-time-range">{{ form_data['date_time_range'] | date_range |safe }}</div>
+                    <div class="column"
+                         id="event-date-time-range">{{ form_data['date_time_range'] | date_range |safe }}</div>
                 </div>
-                <div class="columns {% if form_data['event_address']!='' or form_data['address'] !='' %} is-hidden{% endif %}"
+                <div class="columns {% if not form_data['event_address']!='' or form_data['event_address'] !='' %} is-hidden{% endif %}"
                      id="event-address">
                     <div class="is-bold column">Where:</div>
                     <div class="column is-capitalized" id="event-address-parts">
@@ -248,7 +249,26 @@
                 </div>
             </div>
             <div id="event-modal-right" class="media-content is-half">
-                this is the map stuff and see details lik
+                <div id="map">
+                    {% if not form_data['event_address']!='' or form_data['event_address'] !='' %}
+                        <iframe width="auto" height="250" frameborder="0" style="border:0"
+                                src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q=2030+e+county +ine+rd&center=39.5652291,-104.9617716&maptype=satellite&zoom=18"></iframe>
+                    {% else %}
+                        <iframe width="auto" height="250" frameborder="0" style="border:0"
+                                src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ form_data['event_address']['address_line_1'] }}&center={{ form_data['event_address']['lat'] }},{{ form_data['event_address']['lng'] }}&maptype=satellite&zoom=18"></iframe>
+                    {% endif %}
+                </div>
+                <div id="place-description">
+                    {% if not form_data['event_address']!='' or form_data['event_address'] !='' %}
+                        <div class="is-bold">About Us</div>
+                        <p>
+                            {{ form_data['place_description'] }}
+                        </p>
+                    {% else %}
+                        <a class="is-text has-tooltip-multiline has-tooltip-bottom"
+                           data-tooltip="{{ form_data['place_description'] }}">About Us</a>
+                    {% endif %}
+                </div>
             </div>
 
         </div>
@@ -260,7 +280,7 @@
     {% if add['address_line_2']|length > 0 %}{{ add['address_line_2'] }}, {% endif %}
     {{ add['city'] }}, {{ add['state'] }},
     {{ add['postal_code'] }} {{ add['country'] }}
-{%- endmacro  %}
+{%- endmacro %}
 
 {% macro display_address(add, tooltip=False) -%}
     {% if tooltip %}

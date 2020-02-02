@@ -131,7 +131,7 @@ class EventForm(FlaskForm):
 
     price_for_non_members = StringField('Price for non-members', [Optional(),
                                                                   Length(min=1, message='Name of Event is required.')])
-    max_attendees = IntegerField('Maximum Number of Attendees', [Optional(), NumberRange(min=1, max=1000,
+    max_attendees = IntegerField('Maximum Number of Attendees', [NumberRange(min=1, max=1000,
                                                                                          message="You must allow at least 1 to 1,000 people to attend the event.")])
 
     def validate_activity_icon(self, activity_icon):

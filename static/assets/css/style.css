@@ -465,14 +465,33 @@ span#event-modal-title {
     font-size: 1.5rem;
 }
 
+/* map */
+#map {
+    width: 75%;
+    height: 300px;
+}
+.is-bold{
+    font-weight: 700;
+}
+
 /* event list page */
 .list-events nav.level {
     margin: 0;
 }
-.image.is-38x38{
+
+.list-events .media .is-one-third {
+    width: 33%;
+}
+
+.list-events .media .is-two-thirds {
+    width: 66%;
+}
+
+.image.is-38x38 {
     height: 38px;
     width: 38px;
 }
+
 .card.is-primary .card-header, .modal-card .modal-card-head {
     font-family: "Patrick Hand SC", Arial, sans-serif;
     font-weight: 700;
@@ -491,7 +510,7 @@ span#event-modal-title {
     margin-left: 15px;
 }
 
-.containers .title.is-5{
+.containers .title.is-5 {
     font-family: Raleway;
     margin-top: 7px;
 }

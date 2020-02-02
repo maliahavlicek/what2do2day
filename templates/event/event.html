@@ -1,3 +1,4 @@
+{# This template is used on the get_events page. It houses the HTML for each event row in the table #}
 {% from "_partials/macros.html" import display_address with context %}
 <div class="container">
     <div class="card is-primary">
@@ -23,7 +24,7 @@
         <div class="card-content">
 
             <div class="media">
-                <div class="media-left is-half">
+                <div class="media-left is-two-thirds">
                     {# display when, where, what, ages and cost of event #}
                     <p>
                         <span class="is-bold">When: </span>{{ event['date_time_range']|time_only }}
@@ -52,7 +53,7 @@
                     </p>
                 </div>
 
-                <div class="media-content is-half has-text-centered">
+                <div class="media-content is-one-third">
                     {# attendance limit #}
                     <p>Attendance Limit: {{ event['max_attendees'] }}</p>
                     {# count me in button, disabled if max attendess met #}

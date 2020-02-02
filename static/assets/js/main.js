@@ -253,27 +253,25 @@ function populate_event_modal(event) {
 
     //date_time_range
     let date = $('#event-date-time-range');
-    let start_date= new Date(event.date_time_range.substr(0,16));
-    let end_date = new Date(event.date_time_range.substr(19,35));
-    let start_hour =  start_date.getHours() > 12 ? start_date.getHours() - 12 : start_date.getHours();
-    let start_min =  start_date.getMinutes() < 10 ? "0" + start_date.getMinutes() : start_date.getMinutes();
+    let start_date = new Date(event.date_time_range.substr(0, 16));
+    let end_date = new Date(event.date_time_range.substr(19, 35));
+    let start_hour = start_date.getHours() > 12 ? start_date.getHours() - 12 : start_date.getHours();
+    let start_min = start_date.getMinutes() < 10 ? "0" + start_date.getMinutes() : start_date.getMinutes();
     let start_am_pm = start_date.getHours() >= 12 ? "PM" : "AM";
-    let d_start_date =  start_date.getMonth() + "/" + start_date.getDate() + "/" + start_date.getFullYear();
-    let end_hour =  end_date.getHours() > 12 ? end_date.getHours() - 12 : end_date.getHours();
-    let end_min =  end_date.getMinutes() < 10 ? "0" + end_date.getMinutes() : end_date.getMinutes();
+    let d_start_date = start_date.getMonth() + "/" + start_date.getDate() + "/" + start_date.getFullYear();
+    let end_hour = end_date.getHours() > 12 ? end_date.getHours() - 12 : end_date.getHours();
+    let end_min = end_date.getMinutes() < 10 ? "0" + end_date.getMinutes() : end_date.getMinutes();
     let end_am_pm = end_date.getHours() >= 12 ? "PM" : "AM";
-    let d_end_date =  end_date.getMonth() + "/" + end_date.getDate() + "/" + end_date.getFullYear();
+    let d_end_date = end_date.getMonth() + "/" + end_date.getDate() + "/" + end_date.getFullYear();
 
-    if(d_end_date === d_start_date) {
-        let time_str = d_start_date+ ': <br>' + start_hour + ":" + start_min + " " + start_am_pm;
+    if (d_end_date === d_start_date) {
+        let time_str = d_start_date + ': <br>' + start_hour + ":" + start_min + " " + start_am_pm;
         time_str += " to " + end_hour + ":" + end_min + " " + end_am_pm;
         date.empty().append(time_str);
-    }
-    else {
+    } else {
         let time_str = start_date;
         date.empty().append(time_str);
     }
-
 
 
     //address
@@ -325,4 +323,15 @@ function populate_event_modal(event) {
     attendance += 'on going';
     $('#event-attendance').empty().append(attendance);
 
+    //place-description
+    let place_description = '';
+    if (event.event_address.address_line_1 !== '') {
+        place_description = '<a class="is-text has-tooltip-multiline has-tooltip-bottom" data-tooltip="';
+        place_description += event.place_description + '">About Us</a>';
+    } else {
+        place_description = '<div class="is-bold">About Us</div><p>' + event.place_description + '</p>';
+    }
+    $('#place-description').empty().append(place_description);
+
 }
+
