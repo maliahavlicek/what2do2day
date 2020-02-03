@@ -82,6 +82,17 @@
                         {{ form.event.details.errors[0] }}
                     {% endif %}
                 </p>
+            </div>{# Max attendees #}
+            <div class="field {% if form.event.max_attendees.errors %}has-error{% endif %}">
+                {{ form.event.max_attendees.label(class_="label") }}
+                <div class="control">
+                    {{ form.event.max_attendees(class_="input", type="numbe") }}
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.event.max_attendees.errors|length > 0 %}
+                        {{ form.event.max_attendees.errors[0] }}
+                    {% endif %}
+                </p>
             </div>
         </div>
     </div>

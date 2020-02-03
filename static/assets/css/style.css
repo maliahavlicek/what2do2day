@@ -457,10 +457,21 @@ nav.level.is-primary {
     background: url(../images/success.png) center center no-repeat;
     background-size: cover;
 }
+.image-holder.fixit{
+    height: 414px;
+    width: 250px;
+    background: url(../images/fixit.png) center center no-repeat;
+    background-size: cover;
+
+ }
 
 .modal-card-body .is-half {
     width: 50%;
     margin-bottom: 30px;
+}
+#event-modal-right{
+    width: 33%;
+    margin-left: 10%;
 }
 
 .modal-card-foot .button.action {
@@ -545,13 +556,13 @@ span#event-modal-title {
 }
 
 /* scrollbar styles */
-.limited-exposure::-webkit-scrollbar-track {
+.limited-exposure::-webkit-scrollbar-track, .modal-card::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #c4efe8;
     border-radius: 4px;
 }
 
-.limited-exposure::-webkit-scrollbar {
+.limited-exposure::-webkit-scrollbar, .modal-card::-webkit-scrollbar {
     width: 20px;
     background-color: #c4efe8;
     border-radius: 4px;
@@ -560,7 +571,9 @@ span#event-modal-title {
 .limited-exposure::-webkit-scrollbar-thumb {
     background-color: #00d1b1;
 }
-
+.modal-card::-webkit-scrollbar-thumb {
+    background-color: #46858d;
+}
 /* error handling CSS */
 
 /* suppress error containers and styles if has-error is missing */

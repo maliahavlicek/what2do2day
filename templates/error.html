@@ -14,24 +14,26 @@
     </section>
     <section class="section">
         <div class="container">
-            <h2 class="subtitle">
-                Something went wrong.
-            </h2>
-            <p>Error message was: {{ reason }}</p>
-            <p> yikes</p>
-            <div class="level-left">
-                <div class="level-item">
-                    <p class="control">
+            <div class="columns is-centered">
+                <div class="column is-one-third">
 
-                        <a class="button is-primary" href="{{ url_for('home') }}">
+                <h2 class="subtitle is-2">
+                    Something went wrong...
+                </h2>
+                    <p>{{ reason }}</p>
+                    <a class="button is-primary" href="{{ url_for('home') }}">
                                 <span class="icon">
                                     <i class="fas fa-home"></i>
                                 </span>
-                            <span>Try Again</span>
-                        </a>
-                    </p>
+                        <span>Try Again</span>
+                    </a>
+                </div>
+                <div class="column is-one-third">
+                    <div class="image-holder fixit" aria-label="Image of Ferb holding tools."></div>
                 </div>
             </div>
+
+
         </div>
     </section>
 {% endblock %}

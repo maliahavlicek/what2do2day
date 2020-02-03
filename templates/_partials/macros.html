@@ -196,17 +196,6 @@
                     <div class="column"
                          id="event-date-time-range">{{ layer_event['date_time_range'] | date_range |safe }}</div>
                 </div>
-                <div class="columns {% if layer_event['event_address']!=''  %} is-hidden{% endif %}"
-                     id="event-address">
-                    <div class="is-bold column">Where:</div>
-                    <div class="column is-capitalized" id="event-address-parts">
-                        {% if layer_event['event_address'] %}
-                            {{ display_address(add=layer_event['event_address']) }}
-                        {% else %}
-                            {{ display_address(add=layer_event['address']) }}
-                        {% endif %}
-                    </div>
-                </div>
                 <div class="columns">
                     <div class="is-bold column">Ages:</div>
                     <div class="column is-capitalized" id="event-ages">
@@ -249,14 +238,15 @@
                 </div>
             </div>
             <div id="event-modal-right" class="media-content is-half">
+                <div class="is-bold {% if layer_event['event_address'] =='' %} is-hidden{% endif %}">Where:</div>
                 <div id="map">
                     {% if layer_event['event_address'] !='' %}
                         <iframe width="280" height="225" frameborder="0" style="border:0"
                                 src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ layer_event['event_address']['address_line_1'] }}&center={{ layer_event['event_address']['lat'] }},{{ layer_event['event_address']['lng'] }}&maptype=satellite&zoom=16"></iframe>
-                   {% endif %}
+                    {% endif %}
                 </div>
                 <div id="place-description">
-                    <p class="is-bold">Sponsored By: {{ layer_event['place_name']|title }}</p>
+                    <p><span class="is-bold">Sponsored By:</span> <span>{{ layer_event['place_name']|title }}</span></p>
                     {% if layer_event['event_address'] =='' %}
                         <div class="is-bold">About Us</div>
                         <p>
