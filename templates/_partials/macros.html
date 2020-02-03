@@ -251,12 +251,9 @@
             <div id="event-modal-right" class="media-content is-half">
                 <div id="map">
                     {% if layer_event['event_address'] !='' %}
-                        <iframe width="auto" height="250" frameborder="0" style="border:0"
-                                src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q=2030+e+county +ine+rd&center=39.5652291,-104.9617716&maptype=satellite&zoom=18"></iframe>
-                    {% else %}
-                        <iframe width="auto" height="250" frameborder="0" style="border:0"
+                        <iframe width="300" height="250" frameborder="0" style="border:0"
                                 src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ layer_event['event_address']['address_line_1'] }}&center={{ layer_event['event_address']['lat'] }},{{ layer_event['event_address']['lng'] }}&maptype=satellite&zoom=18"></iframe>
-                    {% endif %}
+                   {% endif %}
                 </div>
                 <div id="place-description">
                     {% if layer_event['event_address'] !='' %}

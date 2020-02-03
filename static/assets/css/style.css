@@ -467,8 +467,9 @@ span#event-modal-title {
 
 /* map */
 #map {
-    width: 75%;
-    height: 300px;
+    width: 300px;
+    height: 250px;
+    background:url(../images/giphy_load.gif) center center no-repeat;
 }
 .is-bold{
     font-weight: 700;
