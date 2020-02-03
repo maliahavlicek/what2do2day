@@ -58,7 +58,7 @@
                     <p>Attendance Limit: {{ event['max_attendees'] }}</p>
                     {# count me in button, disabled if max attendess met #}
                     <a class="button is-primary action event-modal {% if event['max_attendees'] == event['attendees']|length %} is-disabled{% endif %}"
-                       data-target="{{ event['event_id'] }}"
+                       data-target="{{ event['event_id'] }}" {% if event['max_attendees'] == event['attendees']|length %}disabled aria-disabled="true" {% endif %}
                        aria-haspopup="true">
                                 <span class="icon">
                                     <i class="fas fa-calendar-plus"></i>

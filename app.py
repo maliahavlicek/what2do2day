@@ -41,6 +41,7 @@ def home():
 def retrieve_events_from_db():
     # join the activities and places to the events database and flatten it down so we don't have to dig for values
     list_events = list(mongo.db.events.aggregate([
+        {"$match": {'share': True}},
         {
             "$project": {
                 'start_date': {
@@ -67,8 +68,10 @@ def retrieve_events_from_db():
                 'price_for_non_members': '$price_for_non_members',
                 'attendees': '$attendees',
                 'max_attendees': '$max_attendees',
-                'address_id': '$address'
+                'address_id': '$address',
+                'share': '$share'
             }
+
         },
         {
             "$sort": {'start_date': 1}
@@ -510,10 +513,14 @@ def add_attendee(form, event_id):
         message = "Oops. I'm sorry, but the Event is no longer active and I am unable to add you to it."
     else:
         already_attending = attendee in the_event['attendees']
+        max_attend = the_event['max_attendees']
 
         if already_attending:
             status = "WARNING"
             message = "Opps. It looks like you are already attending this event."
+        elif len(the_event['attendees']) >= max_attend:
+            status = "WARNING"
+            message = "Oh no, it looks like the event reached max capacity."
         else:
             # add attendee to the list
             db = mongo.db.events.with_options(
@@ -619,7 +626,8 @@ def push_place_to_db(form):
     if has_review:
         review = {'place': place_id, 'date': datetime.today(), 'user': get_add_user_id(email),
                   'rating': form.review.data['rating'],
-                  'comments': form.review.data['comments'].strip()}
+                  'comments': form.review.data['comments'].strip(),
+                  'share': form.share_place.data}
         review_id = db_add_review(review)
         if review_id is None:
             return redirect(url_for(handle_db_error('Failed to add review')))
@@ -664,6 +672,7 @@ def push_place_to_db(form):
         event['address'] = event_address_id
         event['max_attendees'] = form.event.data['max_attendees']
         event['attendees'] = [get_add_user_id(email)]
+        event['share'] = form.share_place.data
 
         event_id = db_add_event(event)
         if event_id is None:

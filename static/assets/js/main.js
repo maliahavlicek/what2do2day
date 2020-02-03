@@ -178,7 +178,7 @@ $(document).ready(function () {
     }
 
     /* handlers for event-modals */
-    $('.button.action.event-modal').click(function () {
+    $('.button.action.event-modal').not('.is-disabled').click(function () {
         // need to pass event id to get_events to trigger modal
         let event_id = $(this).data('target');
         window.location="/get_events/"+ event_id;
