@@ -436,22 +436,25 @@ nav.level.is-primary {
 
 .modal-card {
     width: calc(100vw - 100px);
+    max-width: 1024px;
     overflow-y: auto;
 }
-.user-error .modal-card, .user-success .modal-card{
+
+.user-error .modal-card, .user-success .modal-card {
     width: 300px;
 }
 
-.user-error .modal-card .image-holder{
+.user-error .modal-card .image-holder {
     height: 250px;
     width: 250px;
-    background:url(../images/oops.png) center center no-repeat;
+    background: url(../images/oops.png) center center no-repeat;
     background-size: cover;
 }
-.user-success .modal-card .image-holder{
+
+.user-success .modal-card .image-holder {
     height: 250px;
     width: 250px;
-    background:url(../images/success.png) center center no-repeat;
+    background: url(../images/success.png) center center no-repeat;
     background-size: cover;
 }
 
@@ -483,11 +486,12 @@ span#event-modal-title {
 
 /* map */
 #map {
-    width: 300px;
-    height: 250px;
-    background:url(../images/giphy_load.gif) center center no-repeat;
+    width: 280px;
+    height: 225px;
+    background: url(../images/giphy_load.gif) center center no-repeat;
 }
-.is-bold{
+
+.is-bold {
     font-weight: 700;
 }
 

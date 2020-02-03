@@ -1548,11 +1548,11 @@
 
 [data-tooltip]:not(.is-disabled).has-tooltip-multiline::before, [data-tooltip]:not(.is-loading).has-tooltip-multiline::before, [data-tooltip]:not([disabled]).has-tooltip-multiline::before {
     height: auto;
-    width: 15rem;
-    max-width: 15rem;
+    width: 28rem;
+    max-width: 320px;
     text-overflow: clip;
     white-space: normal;
-    word-break: keep-all
+    word-break: keep-all;
 }
 
 [data-tooltip]:not(.is-disabled).has-tooltip-white.has-tooltip-bottom::after, [data-tooltip]:not(.is-loading).has-tooltip-white.has-tooltip-bottom::after, [data-tooltip]:not([disabled]).has-tooltip-white.has-tooltip-bottom::after {

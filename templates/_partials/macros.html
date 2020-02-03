@@ -251,7 +251,7 @@
             <div id="event-modal-right" class="media-content is-half">
                 <div id="map">
                     {% if layer_event['event_address'] !='' %}
-                        <iframe width="300" height="250" frameborder="0" style="border:0"
+                        <iframe width="280" height="225" frameborder="0" style="border:0"
                                 src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ layer_event['event_address']['address_line_1'] }}&center={{ layer_event['event_address']['lat'] }},{{ layer_event['event_address']['lng'] }}&maptype=satellite&zoom=16"></iframe>
                    {% endif %}
                 </div>
