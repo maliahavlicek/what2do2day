@@ -377,7 +377,7 @@ def icon_alt(icon_file_name):
     clean_name = splitext(icon_file_name)[0]
     clean_name = re.sub(r'[0-9]', '', clean_name)
     clean_name = clean_name.replace('-', ' ')
-    return re.sub(' +', ' ', clean_name)
+    return re.sub(' +', ' ', clean_name).strip()
 
 
 @app.template_filter()
@@ -497,7 +497,16 @@ def mini_event(event):
 def get_list_of_icons():
     icon_path = 'static/assets/images/icons'
     icons = [f for f in listdir(icon_path) if isfile(join(icon_path, f))]
-    return icons
+    # need to sort by friendly name
+    friendlier = []
+    for f in icons:
+        friendlier.append({'file': f, 'alt': icon_alt(f)})
+
+    friendlier = sorted(friendlier, key = lambda i: i['alt'])
+
+    res = [sub['file'] for sub in friendlier]
+
+    return res
 
 
 def add_attendee(form, event_id):
