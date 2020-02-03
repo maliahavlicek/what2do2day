@@ -178,40 +178,40 @@
     </div>
 {%- endmacro %}
 
-{% macro event_layer(form_data, google_key) -%}
+{% macro event_layer(layer_event, google_key) -%}
 
     <div class="media-content">
         <p class="title is-4">
             <span id="event-icon" class="is-48x48">
-                <img src="/static/assets/images/icons/{{ form_data['activity_icon'] }}"
-                     alt="image for {{ form_data['activity_icon']|icon_alt }} icon" height="36"
+                <img src="/static/assets/images/icons/{{ layer_event['activity_icon'] }}"
+                     alt="image for {{ layer_event['activity_icon']|icon_alt }} icon" height="36"
                      width="36">
             </span>
-            <span id="event-modal-title" class="is-capitalized">{{ form_data['event_name']|title }}</span>
+            <span id="event-modal-title" class="is-capitalized">{{ layer_event['event_name']|title }}</span>
         </p>
         <div class="media">
             <div class="media-left is-half">
                 <div class="columns">
                     <div class="is-bold column">When:</div>
                     <div class="column"
-                         id="event-date-time-range">{{ form_data['date_time_range'] | date_range |safe }}</div>
+                         id="event-date-time-range">{{ layer_event['date_time_range'] | date_range |safe }}</div>
                 </div>
-                <div class="columns {% if not form_data['event_address']!='' or form_data['event_address'] !='' %} is-hidden{% endif %}"
+                <div class="columns {% if layer_event['event_address']!=''  %} is-hidden{% endif %}"
                      id="event-address">
                     <div class="is-bold column">Where:</div>
                     <div class="column is-capitalized" id="event-address-parts">
-                        {% if form_data['event_address'] %}
-                            {{ display_address(add=form_data['event_address']) }}
+                        {% if layer_event['event_address'] %}
+                            {{ display_address(add=layer_event['event_address']) }}
                         {% else %}
-                            {{ display_address(add=form_data['address']) }}
+                            {{ display_address(add=layer_event['address']) }}
                         {% endif %}
                     </div>
                 </div>
                 <div class="columns">
                     <div class="is-bold column">Ages:</div>
                     <div class="column is-capitalized" id="event-ages">
-                        {% if form_data['age_limit'] %}
-                            {% for age in form_data['age_limit'] %}
+                        {% if layer_event['age_limit'] %}
+                            {% for age in layer_event['age_limit'] %}
                                 {{ age }}{% if loop.index != loop.length %}, {% endif %}
                             {% endfor %}
                         {% endif %}
@@ -220,14 +220,14 @@
                 <div class="columns">
                     <div class="is-bold column">Details:</div>
                     <div class="column" id="event-details">
-                        {{ form_data['details'] }}
+                        {{ layer_event['details'] }}
                     </div>
                 </div>
                 <div class="columns">
                     <div class="is-bold column">Cost:</div>
                     <div class="column" id="event-cost">
-                        {% if form_data['price_for_non_members'] %}
-                            {{ form_data['price_for_non_members'] }}
+                        {% if layer_event['price_for_non_members'] %}
+                            {{ layer_event['price_for_non_members'] }}
                         {% else %}
                             Free
                         {% endif %}
@@ -237,8 +237,8 @@
                     <div class="column is-bold"><i class="fas fa-users" aria-hidden="true"></i></div>
                     <div class="column" id="event-attendance">
                         <p>
-                            {{ form_data['attendees'] }}
-                            {% if form_data['attendees'] > 1 %}
+                            {{ layer_event['attendees'] }}
+                            {% if layer_event['attendees'] > 1 %}
                                 people plan
                             {% else %}
                                 person plans
@@ -250,23 +250,21 @@
             </div>
             <div id="event-modal-right" class="media-content is-half">
                 <div id="map">
-                    {% if not form_data['event_address']!='' or form_data['event_address'] !='' %}
-                        <iframe width="auto" height="250" frameborder="0" style="border:0"
-                                src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q=2030+e+county +ine+rd&center=39.5652291,-104.9617716&maptype=satellite&zoom=18"></iframe>
-                    {% else %}
-                        <iframe width="auto" height="250" frameborder="0" style="border:0"
-                                src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ form_data['event_address']['address_line_1'] }}&center={{ form_data['event_address']['lat'] }},{{ form_data['event_address']['lng'] }}&maptype=satellite&zoom=18"></iframe>
-                    {% endif %}
+                    {% if layer_event['event_address'] !='' %}
+                        <iframe width="300" height="250" frameborder="0" style="border:0"
+                                src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ layer_event['event_address']['address_line_1'] }}&center={{ layer_event['event_address']['lat'] }},{{ layer_event['event_address']['lng'] }}&maptype=satellite&zoom=18"></iframe>
+                   {% endif %}
                 </div>
                 <div id="place-description">
-                    {% if not form_data['event_address']!='' or form_data['event_address'] !='' %}
+                    <p class="is-bold">Sponsored By: {{ layer_event['place_name']|title }}</p>
+                    {% if layer_event['event_address'] =='' %}
                         <div class="is-bold">About Us</div>
                         <p>
-                            {{ form_data['place_description'] }}
+                            {{ layer_event['place_description'] }}
                         </p>
                     {% else %}
                         <a class="is-text has-tooltip-multiline has-tooltip-bottom"
-                           data-tooltip="{{ form_data['place_description'] }}">About Us</a>
+                           data-tooltip="{{ layer_event['place_description'] }}">About Us</a>
                     {% endif %}
                 </div>
             </div>

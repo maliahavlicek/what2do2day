@@ -37,108 +37,110 @@
         </div>
     </section>
     <section class="list-events">
-    {% if events | length > 0 %}
-        {% for event in events %}
-            {% if loop.index == 1 or loop.index > 1 and event['start_date'] != events[loop.index - 2]['start_date'] %}
-                <nav class="level is-primary">
-                    <div class="level-left">
-                        <div class="level-item">
-                            <p class="title">
-                                <i class="far fa-calendar-alt"></i> {{ event['start_date'].strftime('%Y-%m-%d') }}
-                            </p>
+        {% if events | length > 0 %}
+            {% for event in events %}
+                {% if loop.index == 1 or loop.index > 1 and event['start_date'] != events[loop.index - 2]['start_date'] %}
+                    <nav class="level is-primary">
+                        <div class="level-left">
+                            <div class="level-item">
+                                <p class="title">
+                                    <i class="far fa-calendar-alt"></i> {{ event['start_date'].strftime('%Y-%m-%d') }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </nav>
-            {% endif %}
-            {% include 'event/event.html' %}
-        {% endfor %}
-    {% endif %}
+                    </nav>
+                {% endif %}
+                {% include 'event/event.html' %}
+            {% endfor %}
+        {% endif %}
     </section>
 
     {# modal for count me in form #}
-    <div class="modal {% if show_modal and not show_modal['status'] %}is-active{% endif %}" id="modal-count-me-in">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Count Me In</p>
-                <button class="delete" aria-label="close"></button>
-            </header>
-            <form method="POST" action="{{ url_for('get_events') }}" enctype="multipart/form-data">
-                <section class="modal-card-body">
-                    {#  prevent cross site scripting #}
-                    {{ form.csrf_token }}
-                    {# macro for actiity_choice type and icon collection #}
-                    {{ event_layer(form_data=form.attend_event_form.data|upwrap_json, google_key=google_key) }}
+    {% if show_modal and not show_modal['status']%}
+        <div class="modal is-active" id="modal-count-me-in">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Count Me In</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <form method="POST" action="{{ url_for('get_events', event_id=layer_event['_id']) }}" enctype="multipart/form-data">
+                    <section class="modal-card-body">
+                        {#  prevent cross site scripting #}
+                        {{ form.csrf_token }}
+                        {# macro for actiity_choice type and icon collection #}
+                        {{ event_layer(layer_event=layer_event, google_key=google_key) }}
 
-                    <div class="field {% if form.email.errors %}has-error{% endif %}">
-                        {# hidden field to hold picked event id #}
-                        {{ form.attend_event_id }}
-                        {{ form.attend_event_form }}
+                        <div class="field {% if form.email.errors %}has-error{% endif %}">
+                            {# hidden field to hold picked event id #}
 
-                        <p class="title is-5">
-                            By providing us your email, we'll be able to reserve your spot and let you know if the event is updated.
-                        </p>
-                        {{ form.email.label(class_="label") }}
-                        <div class="control has-icons-left has-icons-right">
-                            {{ form.email(class_="input", placeholder="your.email@you.com") }}
-                            <span class="icon is-small is-left has-text-primary">
+                            <p class="title is-5">
+                                By providing us your email, we'll be able to reserve your spot and let you know if the
+                                event is updated.
+                            </p>
+                            {{ form.email.label(class_="label") }}
+                            <div class="control has-icons-left has-icons-right">
+                                {{ form.email(class_="input", placeholder="your.email@you.com") }}
+                                <span class="icon is-small is-left has-text-primary">
                                 <i class="fas fa-envelope"></i>
                             </span>
-                            <span class="error-msg icon is-small is-right">
+                                <span class="error-msg icon is-small is-right">
                               <i class="fas fa-exclamation-triangle"></i>
                             </span>
+                            </div>
+                            <p class="error-msg help is-danger">
+                                {% if form.email.errors|length > 0 %}
+                                    {{ form.email.errors[0] }}
+                                {% endif %}
+                            </p>
                         </div>
-                        <p class="error-msg help is-danger">
-                            {% if form.email.errors|length > 0 %}
-                                {{ form.email.errors[0] }}
-                            {% endif %}
-                        </p>
-                    </div>
-                </section>
+                    </section>
 
-                {# submit join event form to save in database and refresh page with success or error messaging #}
-                <footer class="modal-card-foot">
-                    <div class="level-left">
-                        <button type="submit" class="button is-primary action submit">
+                    {# submit join event form to save in database and refresh page with success or error messaging #}
+                    <footer class="modal-card-foot">
+                        <div class="level-left">
+                            <button type="submit" class="button is-primary action submit">
                                 <span class="icon is-small">
                                    <i class="fas fa-calendar-check"></i>
                                 </span>
-                            <span class="action">Send Invite</span>
-                        </button>
-                    </div>
-                </footer>
-            </form>
+                                <span class="action">Send Invite</span>
+                            </button>
+                        </div>
+                    </footer>
+                </form>
+            </div>
         </div>
-    </div>
-
-    {# modal for count me in submission results #}
-    <div class="modal {% if show_modal and show_modal['status'] %}is-active{% endif %}"
-         id="modal-count-me-in-submitted">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Count Me In</p>
-                <button class="delete" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body">
-                <div class="container">
-                    <div class="field">
-                        {{ show_modal['message'] }}
+    {% endif %}
+    {% if show_modal and show_modal['status'] %}
+        {# modal for count me in submission results #}
+        <div class="modal is-active"
+             id="modal-count-me-in-submitted">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Count Me In</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="container">
+                        <div class="field">
+                            {{ show_modal['message'] }}
+                        </div>
                     </div>
-                </div>
-            </section>
-            {# button to acknowledge message and close modal #}
-            <footer class="modal-card-foot">
-                <div class="level-left">
-                    <a class=" button is-primary action modal-close-2">
+                </section>
+                {# button to acknowledge message and close modal #}
+                <footer class="modal-card-foot">
+                    <div class="level-left">
+                        <a class=" button is-primary action modal-close-2">
                         <span class="icon is-small">
                             <i class="fas fa-check-circle"></i>
                         </span>
-                        <span class="action">OK</span>
-                    </a>
-                </div>
-            </footer>
+                            <span class="action">OK</span>
+                        </a>
+                    </div>
+                </footer>
+            </div>
         </div>
-    </div>
+    {% endif %}
 
 {% endblock %}

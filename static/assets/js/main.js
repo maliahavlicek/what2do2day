@@ -179,21 +179,9 @@ $(document).ready(function () {
 
     /* handlers for event-modals */
     $('.button.action.event-modal').click(function () {
-        // need to put event id into hidden input of form
+        // need to pass event id to get_events to trigger modal
         let event_id = $(this).data('target');
-        let event_id_holder = $('#attend_event_id');
-        event_id_holder.val(event_id);
-        let from_info_holder = $('#attend_event_form');
-        let event_form = $(this).data('form');
-        from_info_holder.val(JSON.stringify(event_form));
-
-        //fill in the modal data
-        let event_info = $(this).data('form');
-        populate_event_modal(event_info);
-
-        // show the modal
-        let modal = $('#modal-count-me-in');
-        modal.toggleClass('is-active', 10);
+        window.location="/get_events/"+ event_id;
 
     });
 
@@ -237,101 +225,5 @@ function getFormattedDate(date) {
     day = day.length > 1 ? day : '0' + day;
 
     return month + '/' + day + '/' + year;
-}
-
-//populate the event modal
-function populate_event_modal(event) {
-    // title
-    $('#event-modal-title').text(event.event_name);
-
-    //icon
-    let icon_elem = $('#event-icon');
-    icon_elem.empty();
-    let inner_html = '<img src="/static/assets/images/icons/' + event.activity_icon + '" alt="image for '
-        + event.activity_name + '" height="36" width="36">';
-    icon_elem.append(inner_html);
-
-    //date_time_range
-    let date = $('#event-date-time-range');
-    let start_date = new Date(event.date_time_range.substr(0, 16));
-    let end_date = new Date(event.date_time_range.substr(19, 35));
-    let start_hour = start_date.getHours() > 12 ? start_date.getHours() - 12 : start_date.getHours();
-    let start_min = start_date.getMinutes() < 10 ? "0" + start_date.getMinutes() : start_date.getMinutes();
-    let start_am_pm = start_date.getHours() >= 12 ? "PM" : "AM";
-    let d_start_date = start_date.getMonth() + "/" + start_date.getDate() + "/" + start_date.getFullYear();
-    let end_hour = end_date.getHours() > 12 ? end_date.getHours() - 12 : end_date.getHours();
-    let end_min = end_date.getMinutes() < 10 ? "0" + end_date.getMinutes() : end_date.getMinutes();
-    let end_am_pm = end_date.getHours() >= 12 ? "PM" : "AM";
-    let d_end_date = end_date.getMonth() + "/" + end_date.getDate() + "/" + end_date.getFullYear();
-
-    if (d_end_date === d_start_date) {
-        let time_str = d_start_date + ': <br>' + start_hour + ":" + start_min + " " + start_am_pm;
-        time_str += " to " + end_hour + ":" + end_min + " " + end_am_pm;
-        date.empty().append(time_str);
-    } else {
-        let time_str = start_date;
-        date.empty().append(time_str);
-    }
-
-
-    //address
-    if (event.event_address.address_line_1 !== '') {
-        $('#event-address').show();
-        let address_parts = event.event_address.address_line_1;
-        if (event.event_address.address_line_2 !== '') {
-            address_parts += '<br>' + event.event_address.address_line_2;
-        }
-        address_parts += '<br>' + event.event_address.city + ", " + event.event_address.state;
-        if (event.event_address.postal_code !== '') {
-            address_parts += '<br>' + event.event_address.postal_code + ' ' + event.event_address.country;
-        } else {
-            address_parts += '<br>' + event.event_address.country;
-        }
-        $('#event-address-parts').empty().append(address_parts);
-    } else {
-        $('#event-address-parts').empty();
-        $('#event-address').hide();
-    }
-
-    // age limits
-    let ages = '';
-    for (let i = 0; i < event.age_limit.length; i++) {
-        ages += event.age_limit[i];
-        if (i !== event.age_limit.length - 1) {
-            ages += ', ';
-        }
-    }
-    $('#event-ages').empty().append(ages);
-
-    // details
-    $('#event-details').empty().append(event.details);
-
-    // cost
-    if (event.price_for_non_members) {
-        $('#event-cost').empty().append(event.price_for_non_members);
-    } else {
-        $('#event-cost').empty().append('Free');
-    }
-
-    //attendees;
-    let attendance = '';
-    if (event.attendees > 1) {
-        attendance += event.attendees.toString() + ' people plan ';
-    } else {
-        attendance += '1 person plans';
-    }
-    attendance += 'on going';
-    $('#event-attendance').empty().append(attendance);
-
-    //place-description
-    let place_description = '';
-    if (event.event_address.address_line_1 !== '') {
-        place_description = '<a class="is-text has-tooltip-multiline has-tooltip-bottom" data-tooltip="';
-        place_description += event.place_description + '">About Us</a>';
-    } else {
-        place_description = '<div class="is-bold">About Us</div><p>' + event.place_description + '</p>';
-    }
-    $('#place-description').empty().append(place_description);
-
 }
 
