@@ -445,24 +445,47 @@ def mini_event(event):
         }
     }
 
-    if 'address-address_line_1' in event.keys():
-        min_event['event_address']['address_line_1'] = event['address-address_line_1']
-    if 'address-address_line_2' in event.keys():
-        min_event['event_address']['address_line_2'] = event['address-address_line_2']
-    if 'address-city' in event.keys():
-        min_event['event_address']['city'] = event['address-city']
-    if 'address-state' in event.keys():
-        min_event['event_address']['state'] = event['address-state']
-    if 'address-postal_code' in event.keys():
-        min_event['event_address']['postal_code'] = event['address-postal_code']
-    if 'address-country' in event.keys():
-        min_event['event_address']['country'] = event['address-country']
-    if 'address-lat' in event.keys():
-        min_event['event_address']['lat'] = event['address-lat']
-    if 'address-lng' in event.keys():
-        min_event['event_address']['lng'] = event['address-lng']
+    # address
+    the_address = mongo.db.addresses.find_one(event['address'])
+    if the_address is not None:
+        if 'address_line_1' in the_address.keys():
+            min_event['event_address']['address_line_1'] = the_address['address_line_1']
+        if 'address_line_2' in the_address.keys():
+            min_event['event_address']['address_line_2'] = the_address['address_line_2']
+        if 'city' in the_address.keys():
+            min_event['event_address']['city'] = the_address['city']
+        if 'state' in the_address.keys():
+            min_event['event_address']['state'] = the_address['state']
+        if 'postal_code' in the_address.keys():
+            min_event['event_address']['postal_code'] = the_address['postal_code']
+        if 'country' in the_address.keys():
+            min_event['event_address']['country'] = the_address['country']
+        if 'lat' in the_address.keys():
+            min_event['event_address']['lat'] = the_address['lat']
+        if 'lng' in the_address.keys():
+            min_event['event_address']['lng'] = the_address['lng']
 
-    return json.htmlsafe_dumps(min_event)
+    # activity
+    the_activity = mongo.db.activities.find_one(event['activity'])
+    if the_activity is not None:
+        if 'icon' in the_activity.keys():
+            min_event['activity_icon'] = the_activity['icon']
+        if 'name' in the_activity.keys():
+            min_event['activity_name'] = the_activity['name']
+
+    # place
+    the_place = mongo.db.places.find_one(event['place'])
+    if the_place is not None:
+        if 'name' in the_place.keys():
+            min_event['place_name'] =  the_place['name']
+        if 'description' in the_place.keys():
+            min_event['place_description'] = the_place['description']
+
+    # dates
+    min_event['start_date']: event['date_time_range'][0:10]
+    min_event['end_date']: event['date_time_range'][19:29]
+
+    return min_event
 
 
 def get_list_of_icons():

@@ -69,7 +69,7 @@
                         {#  prevent cross site scripting #}
                         {{ form.csrf_token }}
                         {# macro for actiity_choice type and icon collection #}
-                        {{ event_layer(form_data=layer_event, google_key=google_key) }}
+                        {{ event_layer(layer_event=layer_event, google_key=google_key) }}
 
                         <div class="field {% if form.email.errors %}has-error{% endif %}">
                             {# hidden field to hold picked event id #}
