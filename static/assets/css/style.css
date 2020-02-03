@@ -438,6 +438,22 @@ nav.level.is-primary {
     width: calc(100vw - 100px);
     overflow-y: auto;
 }
+.user-error .modal-card, .user-success .modal-card{
+    width: 300px;
+}
+
+.user-error .modal-card .image-holder{
+    height: 250px;
+    width: 250px;
+    background:url(../images/oops.png) center center no-repeat;
+    background-size: cover;
+}
+.user-success .modal-card .image-holder{
+    height: 250px;
+    width: 250px;
+    background:url(../images/success.png) center center no-repeat;
+    background-size: cover;
+}
 
 .modal-card-body .is-half {
     width: 50%;

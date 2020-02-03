@@ -56,7 +56,7 @@
     </section>
 
     {# modal for count me in form #}
-    {% if show_modal and not show_modal['status']%}
+    {% if show_modal and not show_modal['status'] %}
         <div class="modal is-active" id="modal-count-me-in">
             <div class="modal-background"></div>
             <div class="modal-card">
@@ -64,7 +64,8 @@
                     <p class="modal-card-title">Count Me In</p>
                     <button class="delete" aria-label="close"></button>
                 </header>
-                <form method="POST" action="{{ url_for('get_events', event_id=layer_event['_id']) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ url_for('get_events', event_id=layer_event['_id']) }}"
+                      enctype="multipart/form-data">
                     <section class="modal-card-body">
                         {#  prevent cross site scripting #}
                         {{ form.csrf_token }}
@@ -113,7 +114,7 @@
     {% endif %}
     {% if show_modal and show_modal['status'] %}
         {# modal for count me in submission results #}
-        <div class="modal is-active"
+        <div class="modal is-active {% if show_modal['status'] == 'OK' %}user-success{% else %}user-error{% endif %}"
              id="modal-count-me-in-submitted">
             <div class="modal-background"></div>
             <div class="modal-card">
@@ -123,10 +124,17 @@
                 </header>
                 <section class="modal-card-body">
                     <div class="container">
-                        <div class="field">
-                            {{ show_modal['message'] }}
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                    {{ show_modal['message'] }}
+                                </div>
+                                <div class="column">
+                                    <div class="image-holder"
+                                         aria-label="image of {% if show_modal['status']=='OK' %} Phineas and Ferb celebrating success.{% else %}Image of Dr. Doofenshmirtz looking bewildered.{% endif %}"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                 </section>
                 {# button to acknowledge message and close modal #}
                 <footer class="modal-card-foot">
