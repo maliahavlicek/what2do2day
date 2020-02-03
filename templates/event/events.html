@@ -56,15 +56,15 @@
     </section>
 
     {# modal for count me in form #}
-    {% if show_modal %}
-        <div class="modal {% if show_modal and not show_modal['status'] %}is-active{% endif %}" id="modal-count-me-in">
+    {% if show_modal and not show_modal['status']%}
+        <div class="modal is-active" id="modal-count-me-in">
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Count Me In</p>
                     <button class="delete" aria-label="close"></button>
                 </header>
-                <form method="POST" action="{{ url_for('get_events') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ url_for('get_events', event_id=layer_event['_id']) }}" enctype="multipart/form-data">
                     <section class="modal-card-body">
                         {#  prevent cross site scripting #}
                         {{ form.csrf_token }}
@@ -73,8 +73,6 @@
 
                         <div class="field {% if form.email.errors %}has-error{% endif %}">
                             {# hidden field to hold picked event id #}
-                            {{ form.attend_event_id }}
-                            {{ form.attend_event_form }}
 
                             <p class="title is-5">
                                 By providing us your email, we'll be able to reserve your spot and let you know if the
@@ -115,7 +113,7 @@
     {% endif %}
     {% if show_modal and show_modal['status'] %}
         {# modal for count me in submission results #}
-        <div class="modal {% if show_modal and show_modal['status'] %}is-active{% endif %}"
+        <div class="modal is-active"
              id="modal-count-me-in-submitted">
             <div class="modal-background"></div>
             <div class="modal-card">

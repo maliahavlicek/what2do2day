@@ -256,7 +256,8 @@
                    {% endif %}
                 </div>
                 <div id="place-description">
-                    {% if layer_event['event_address'] !='' %}
+                    <p class="is-bold">Sponsored By: {{ layer_event['place_name']|title }}</p>
+                    {% if layer_event['event_address'] =='' %}
                         <div class="is-bold">About Us</div>
                         <p>
                             {{ layer_event['place_description'] }}

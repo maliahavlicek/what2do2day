@@ -179,7 +179,7 @@ def get_events(event_id):
 
     if form.validate_on_submit():
         # all is good with the post based on CountMeInForm wftForm validation
-        return add_attendee(form)
+        return add_attendee(form, event_id)
 
     else:
         try:
@@ -419,6 +419,7 @@ def upwrap_json(item):
 @app.template_filter()
 def mini_event(event):
     min_event = {
+        '_id': str(event['_id']),
         'activity_name': '',
         'activity_icon': '',
         'place_name': '',
@@ -494,7 +495,7 @@ def get_list_of_icons():
     return icons
 
 
-def add_attendee(form):
+def add_attendee(form, event_id):
     """Count me in form was posted, process it"""
     attendee = get_add_user_id(form.email.data)
     status = "OK"
@@ -502,8 +503,7 @@ def add_attendee(form):
     show_modal = True
 
     # see if id is already in list of attendees for the given event
-    event_id = ObjectId(form.attend_event_id.data)
-    the_event = mongo.db.events.find_one({"_id": event_id})
+    the_event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
 
     if the_event is None:
         status = "ERROR"
