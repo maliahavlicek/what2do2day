@@ -100,7 +100,7 @@
                     {# submit join event form to save in database and refresh page with success or error messaging #}
                     <footer class="modal-card-foot">
                         <div class="level-left">
-                            <button type="submit" {% if layer_event['attendees'] < layer_event['max_attendees'] %}disabled  aria-disabled="true" {% endif %}class="button is-primary action {% if layer_event['attendees'] < layer_event['max_attendees'] %}submit{% endif %}">
+                            <button type="submit" class="button is-primary action submit">
                                 <span class="icon is-small">
                                    <i class="fas fa-calendar-check"></i>
                                 </span>

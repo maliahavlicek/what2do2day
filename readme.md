@@ -339,7 +339,7 @@ In the long term once this concept proves viable, authentication would be enable
 1. Pull metrics & manage dashboard graphics
 1. Manage users & permissions/role groups
 1. Password reset 
-### More Sophisticated Attendance Tracking ###
+#### More Sophisticated Attendance Tracking ###
 1. Allow users to enter how many in their group are attending an event min 1, max dynamic to max attendees allows - those already attending
 1. Aggregate attendance count based on each attendee count instead of 1 to 1 ratio currently implemented
 1. Real-Time attendance count - add backend wait time loops and javascript to show attendance adjustments made by other users instead of on checking attendance limit on submit only
@@ -347,6 +347,8 @@ In the long term once this concept proves viable, authentication would be enable
 1. GoogleAds - ad placement, offline conversions, automatic bidding
 1. GoogleMaps Sitepoint - get directions from current location
 1. GoogleMaps Geolocation - share location with other members, narrow results of events and places by proximity
+#### Switch to Relational Database
+1. mongo DB is not the correct data base, it was chosen because it has a free tier, but the aggregation to force joins is awkward and inefficient. As the dataset grows this will cripple the application's efficiency.
 
 
 ## Technologies Used

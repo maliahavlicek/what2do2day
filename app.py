@@ -38,127 +38,129 @@ def home():
     return render_template('home.html')
 
 
-def retrieve_events_from_db():
+def retrieve_events_from_db(update):
     # join the activities and places to the events database and flatten it down so we don't have to dig for values
-    list_events = list(mongo.db.events.aggregate([
-        {"$match": {'share': True}},
-        {
-            "$project": {
-                'start_date': {
-                    "$dateFromString": {
-                        'dateString': {
-                            "$substr": ["$date_time_range", 0, 10]
-                        },
-                        'format': "%m/%d/%Y"}
-                },
-                'end_date': {
-                    "$dateFromString": {
-                        'dateString': {
-                            "$substr": ["$date_time_range", 19, 10]
-                        },
-                        'format': "%m/%d/%Y"}
-                },
-                'place_id': "$place",
-                'event_name': "$name",
-                'event_id': "$_id",
-                'activity_id': '$activity',
-                'date_time_range': '$date_time_range',
-                'details': '$details',
-                'age_limit': '$age_limit',
-                'price_for_non_members': '$price_for_non_members',
-                'attendees': '$attendees',
-                'max_attendees': '$max_attendees',
-                'address_id': '$address',
-                'share': '$share'
-            }
 
-        },
-        {
-            "$sort": {'start_date': 1}
-        },
-        {
-            "$lookup": {
-                'from': 'places',
-                'localField': 'place_id',
-                'foreignField': '_id',
-                'as': 'place_details',
+    query = []
+    # when updating, we see all events, for normal view, ony show those that are shared
+    if not update:
+        query.append(
+            {"$match": {'share': True}})
 
-            }
-        },
-        {
-            "$lookup": {
-                'from': 'activities',
-                'localField': 'activity_id',
-                'foreignField': '_id',
-                'as': 'event_activity'
-            }
-        },
-        {
-            "$lookup": {
-                'from': 'addresses',
-                'localField': 'address_id',
-                'foreignField': '_id',
-                'as': 'event_address'
-            }
-        },
-        {
-            "$replaceRoot": {
-                'newRoot': {
-                    "$mergeObjects":
-                        [{"$let": {
-                            "vars": {"v": {"$arrayElemAt": ["$place_details", 0]}},
-                            "in": {"$arrayToObject": {
-                                "$map": {
-                                    "input": {"$objectToArray": "$$v"},
-                                    "as": "val",
-                                    "in": {
-                                        "k": {"$concat": ["place", "-", "$$val.k"]},
-                                        "v": "$$val.v"
-                                    }}
-                            }}
-                        }}, "$$ROOT"]
-                }
-            }
-        },
-        {
-            "$replaceRoot": {
-                'newRoot': {
-                    "$mergeObjects":
-                        [{"$let": {
-                            "vars": {"v": {"$arrayElemAt": ["$event_activity", 0]}},
-                            "in": {"$arrayToObject": {
-                                "$map": {
-                                    "input": {"$objectToArray": "$$v"},
-                                    "as": "val",
-                                    "in": {
-                                        "k": {"$concat": ["activity", "_", "$$val.k"]},
-                                        "v": "$$val.v"
-                                    }}
-                            }}
-                        }}, "$$ROOT"]
-                }
-            }
-        },
-        {
-            "$replaceRoot": {
-                'newRoot': {
-                    "$mergeObjects":
-                        [{"$let": {
-                            "vars": {"v": {"$arrayElemAt": ["$event_address", 0]}},
-                            "in": {"$arrayToObject": {
-                                "$map": {
-                                    "input": {"$objectToArray": "$$v"},
-                                    "as": "val",
-                                    "in": {
-                                        "k": {"$concat": ["address", "-", "$$val.k"]},
-                                        "v": "$$val.v"
-                                    }}
-                            }}
-                        }}, "$$ROOT"]
-                }
-            }
-        },
-    ]))
+    query.append({
+        "$project": {
+            'start_date': {
+                "$dateFromString": {
+                    'dateString': {
+                        "$substr": ["$date_time_range", 0, 10]
+                    },
+                    'format': "%m/%d/%Y"}
+            },
+            'end_date': {
+                "$dateFromString": {
+                    'dateString': {
+                        "$substr": ["$date_time_range", 19, 10]
+                    },
+                    'format': "%m/%d/%Y"}
+            },
+            'place_id': "$place",
+            'event_name': "$name",
+            'event_id': "$_id",
+            'activity_id': '$activity',
+            'date_time_range': '$date_time_range',
+            'details': '$details',
+            'age_limit': '$age_limit',
+            'price_for_non_members': '$price_for_non_members',
+            'attendees': '$attendees',
+            'max_attendees': '$max_attendees',
+            'address_id': '$address',
+            'share': '$share'
+        }})
+    # normal view suppress past events from view
+    if not update:
+        today=datetime.today()
+        query.append(
+            {"$match": {'start_date': {"$gte": today} }})
+    query.append({"$sort": {'start_date': 1}})
+    query.append({
+        "$lookup": {
+            'from': 'places',
+            'localField': 'place_id',
+            'foreignField': '_id',
+            'as': 'place_details',
+        }})
+    query.append({
+        "$lookup": {
+            'from': 'activities',
+            'localField': 'activity_id',
+            'foreignField': '_id',
+            'as': 'event_activity'
+        }})
+    query.append({
+        "$lookup": {
+            'from': 'addresses',
+            'localField': 'address_id',
+            'foreignField': '_id',
+            'as': 'event_address'
+        }})
+    query.append({
+        "$replaceRoot": {
+            'newRoot': {
+                "$mergeObjects":
+                    [{"$let": {
+                        "vars": {"v": {"$arrayElemAt": ["$place_details", 0]}},
+                        "in": {"$arrayToObject": {
+                            "$map": {
+                                "input": {"$objectToArray": "$$v"},
+                                "as": "val",
+                                "in": {
+                                    "k": {"$concat": ["place", "-", "$$val.k"]},
+                                    "v": "$$val.v"
+                                }}
+                        }}
+                    }}, "$$ROOT"]
+            }}})
+    query.append({
+        "$replaceRoot": {
+            'newRoot': {
+                "$mergeObjects":
+                    [{"$let": {
+                        "vars": {"v": {"$arrayElemAt": ["$event_activity", 0]}},
+                        "in": {"$arrayToObject": {
+                            "$map": {
+                                "input": {"$objectToArray": "$$v"},
+                                "as": "val",
+                                "in": {
+                                    "k": {"$concat": ["activity", "_", "$$val.k"]},
+                                    "v": "$$val.v"
+                                }}
+                        }}
+                    }}, "$$ROOT"]
+            }}})
+    query.append({
+        "$replaceRoot": {
+            'newRoot': {
+                "$mergeObjects":
+                    [{"$let": {
+                        "vars": {"v": {"$arrayElemAt": ["$event_address", 0]}},
+                        "in": {"$arrayToObject": {
+                            "$map": {
+                                "input": {"$objectToArray": "$$v"},
+                                "as": "val",
+                                "in": {
+                                    "k": {"$concat": ["address", "-", "$$val.k"]},
+                                    "v": "$$val.v"
+                                }}
+                        }}
+                    }}, "$$ROOT"]
+            }}})
+    # normal view suppress events with unshared places from view
+    if not update:
+        query.append({"$match": {'place-share_place': True}})
+
+    list_events = list(mongo.db.events.aggregate(
+        query
+    ))
 
     for event in list_events:
         if 'address-country' in event.keys():
@@ -186,7 +188,7 @@ def get_events(event_id):
 
     else:
         try:
-            list_events = retrieve_events_from_db()
+            list_events = retrieve_events_from_db(False)
         except Exception as e:
             return render_template('error.html', reason=e)
         if form.email.errors:
@@ -481,7 +483,7 @@ def mini_event(event):
     the_place = mongo.db.places.find_one(event['place'])
     if the_place is not None:
         if 'name' in the_place.keys():
-            min_event['place_name'] =  the_place['name']
+            min_event['place_name'] = the_place['name']
         if 'description' in the_place.keys():
             min_event['place_description'] = the_place['description']
 
@@ -539,7 +541,7 @@ def add_attendee(form, event_id):
         'show': show_modal
     }
 
-    list_events = retrieve_events_from_db()
+    list_events = retrieve_events_from_db(False)
     return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=modal)
 
 
