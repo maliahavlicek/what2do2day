@@ -79,9 +79,9 @@ def retrieve_events_from_db(update):
         }})
     # normal view suppress past events from view
     if not update:
-        today=datetime.today()
+        today = datetime.today()
         query.append(
-            {"$match": {'start_date': {"$gte": today} }})
+            {"$match": {'start_date': {"$gte": today}}})
     query.append({"$sort": {'start_date': 1}})
     query.append({
         "$lookup": {
@@ -175,6 +175,17 @@ def retrieve_events_from_db(update):
     return list_events
 
 
+def unique_activities(events):
+    activities = []
+    ids = {}
+    for event in events:
+        new_id = event['activity_id']
+        if new_id not in ids.keys():
+            ids[new_id] = new_id
+            activities.append({'icon': event['activity_icon'], 'name': event['activity_name']})
+    return activities
+
+
 @app.route('/get_events/', defaults={'event_id': None, 'filter_string': None}, methods=['GET', 'POST'])
 @app.route('/get_events/<string:event_id>/', defaults={'filter_string': None}, methods=['GET', 'POST'])
 @app.route('/get_events/<string:event_id>/<string:filter_string>', methods=['GET', 'POST'])
@@ -183,8 +194,6 @@ def get_events(event_id, filter_string):
     event = False
     form = CountMeInForm()
     filter_form = FilterEventsFrom()
-    activity_choices = list(mongo.db.activities.find({},{'_id': 0}))
-    filter_form.activity.choices = activity_choices
 
     # TODO look at event_id, retrieve it from DB and add it
 
@@ -200,6 +209,10 @@ def get_events(event_id, filter_string):
                 list_events = retrieve_events_from_db(False)
         except Exception as e:
             return render_template('error.html', reason=e)
+
+        activity_choices = unique_activities(list_events)
+        filter_form.activity.choices = activity_choices
+
         if form.email.errors:
             show_modal = True
         if event_id is not None and bson.objectid.ObjectId.is_valid(event_id):
@@ -208,8 +221,9 @@ def get_events(event_id, filter_string):
                 show_modal = True
                 event = mini_event(the_event)
 
-        return render_template('event/events.html', form=form, events=list_events, filter=filter_string, show_modal=show_modal,
-                               google_key=google_key, layer_event=event ,filter_form=filter_form )
+        return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
+                               show_modal=show_modal,
+                               google_key=google_key, layer_event=event, filter_form=filter_form)
 
 
 @app.route('/filter_events', methods=['POST'])
@@ -511,7 +525,7 @@ def get_list_of_icons():
     for f in icons:
         friendlier.append({'file': f, 'alt': icon_alt(f)})
 
-    friendlier = sorted(friendlier, key = lambda i: i['alt'])
+    friendlier = sorted(friendlier, key=lambda i: i['alt'])
 
     res = [sub['file'] for sub in friendlier]
 

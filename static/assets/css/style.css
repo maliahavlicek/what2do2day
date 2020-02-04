@@ -326,13 +326,13 @@ input:checked + .slider:before {
     width: 100px;
 }
 
-.container.ages {
+.container.ages, .container.activities {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));
     grid-gap: 0.5em;
 }
 
-.container.ages .card {
+.container.ages .card, .container.activities .card {
     height: max-content;
 }
 
@@ -403,7 +403,7 @@ a.card.button.is-primary.iconpicker {
     max-height: 250px;
     overflow-y: auto;
 }
-.limited-exposure.embedded.activities .container.ages .card{
+.limited-exposure.embedded.activities .container.activities .card{
      margin: 15px 0 0 15px;
 }
 .limited-exposure.embedded.activities .card.button img{

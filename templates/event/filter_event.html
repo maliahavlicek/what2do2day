@@ -20,10 +20,10 @@
                 <div class="limited-exposure embedded activities">
                     <div class="control">
                         {# more user friendly experience for selecting mutliples #}
-                        <div class="select is-multiple container ages">
+                        <div class="select is-multiple container activities">
                             {{ filter_form.activity(class_="is-hidden controller-ages", size="8") }}
                             {% for item in filter_form.activity.choices %}
-                                <a class="card button ages is-primary {{ item['icon'] }}" data-choice='option[value={{ item['icon'] }}]'>
+                                <a class="card button activities is-primary {{ item['icon'] }}" data-choice="{{ item['name'] }}:{{ item['icon'] }}">
                                     <div class="card-content">
                                         <div class="media-con">
                                             <img src="/static/assets/images/icons/{{ item['icon'] }}"

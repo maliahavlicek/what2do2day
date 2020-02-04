@@ -128,6 +128,21 @@ $(document).ready(function () {
         card.toggleClass('is-inverted', 10);
     });
 
+      /* handlers for cards acting as mutli-choice selections */
+    $('.card.button.activities').click(function () {
+        //toggle on/off selection class and select/deselect associated selection
+        $(this).toggleClass('is-inverted', 250);
+        let choice_selector = $(this).attr('data-choice');
+        let choice = $(choice_selector);
+        let is_selected = choice.prop("selected");
+        if (is_selected) {
+            choice.prop("selected", false);
+        } else {
+            choice.prop("selected", true);
+        }
+
+    });
+
     /* handlers for cards acting as mutli-choice selections */
     $('.card.button.ages').click(function () {
         //toggle on/off selection class and select/deselect associated selection
