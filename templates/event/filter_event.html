@@ -1,13 +1,16 @@
 {# This template is used on the get_events page. It houses the HTML for filtering events #}
-<div class="container {% if filter == 'none' %}is-hidden{% endif %}" id="modal-filter-events">
+<section class="accordions">
+    <article class="accordion {% if filter != 'none' %}is-active{% endif %}">
+        <div class="accordion-header">
+            <p>Filters: <span id="filtering" class="active-filters">None</span></p>
+            <button class="toggle" aria-label="toggle"></button>
+        </div>
+        <div class="accordion-body">
+        <div class="accordion-content">
+            <form method="POST"
+                  action="{{ url_for('get_events', event_id="none", filter_string=layer_event['_id']) }}"
+                  enctype="multipart/form-data">
 
-    <div class="card">
-        <header class="card-head">
-            <p class="card-title">Filter Events</p>
-        </header>
-        <form method="POST" action="{{ url_for('get_events', event_id="none", filter_string=layer_event['_id']) }}"
-              enctype="multipart/form-data">
-            <section class="card-body">
                 {#  prevent cross site scripting #}
                 {{ filter_form.csrf_token }}
 
@@ -16,27 +19,28 @@
                     {# macro for hidden inputs that go into form #}
                     {{ filter_form.activity.label(class_='label') }}
                     <p>Select the Activities your want to see</p>
-                <div class="limited-exposure embedded activities">
-                    <div class="control">
-                        {# more user friendly experience for selecting mutliples #}
-                        <div class="select is-multiple container activities">
-                            {{ filter_form.activity(class_="is-hidden controller-ages", size="8") }}
-                            {% for item in filter_form.activity.choices %}
-                                <a class="card button activities is-primary {{ item['icon'] }}" data-choice="{{ item['name'] }}:{{ item['icon'] }}">
-                                    <div class="card-content">
-                                        <div class="media-con">
-                                            <img src="/static/assets/images/icons/{{ item['icon'] }}"
-                                                 alt="image for {{ item['name'] }} activity choice">
+                    <div class="limited-exposure embedded activities">
+                        <div class="control">
+                            {# more user friendly experience for selecting mutliples #}
+                            <div class="select is-multiple container activities">
+                                {{ filter_form.activity(class_="is-hidden controller-ages", size="8") }}
+                                {% for item in filter_form.activity.choices %}
+                                    <a class="card button activities is-primary {{ item['icon'] }}"
+                                       data-choice="{{ item['name'] }}:{{ item['icon'] }}">
+                                        <div class="card-content">
+                                            <div class="media-con">
+                                                <img src="/static/assets/images/icons/{{ item['icon'] }}"
+                                                     alt="image for {{ item['name'] }} activity choice">
+                                            </div>
+                                            <div class="media-content">
+                                                <p class="subtitle is-5">{{ item['name'] }}</p>
+                                            </div>
                                         </div>
-                                        <div class="media-content">
-                                            <p class="subtitle is-5">{{ item['name'] }}</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            {% endfor %}
+                                    </a>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
                     <p class="error-msg help is-danger">
                         {% if filter_form.activity.errors|length > 0 %}
                             {{ filter_form.activity.errors[0] }}
@@ -69,21 +73,18 @@
                         {% endif %}
                     </p>
                 </div>
-
-
-            </section>
-
-            {# submit join event form to save in database and refresh page with success or error messaging #}
-            <footer class="modal-card-foot">
                 <div class="level-left">
                     <button type="submit" class="button is-primary action submit">
-                                <span class="icon is-small">
-                                   <i class="fas fa-filter"></i>
-                                </span>
+                        <span class="icon is-small">
+                           <i class="fas fa-filter"></i>
+                        </span>
                         <span class="action">Filter Events</span>
                     </button>
                 </div>
-            </footer>
-        </form>
-    </div>
-</div>
+            </form>
+        </div>
+    </article>
+</section>
+
+
+

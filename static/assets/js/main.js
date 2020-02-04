@@ -274,6 +274,9 @@ $(document).ready(function () {
         return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
     }
 
+    /* accordions */
+    let accordions = bulmaAccordion.attach();
+
 
 });
 

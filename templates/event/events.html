@@ -7,7 +7,7 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Events  <span class="is-4">Filters: {{ filter_string }}</span>
+                    Events
                 </h1>
                 {% if events | length < 1 %}
                     <div class="level-left">
@@ -36,13 +36,8 @@
             </div>
         </div>
     </section>
-    <section>
-
-
     {# include accordion for filtering #}
     {% include 'event/filter_event.html' %}
-
-    </section>
     <section class="list-events">
         {% if events | length > 0 %}
             {% for event in events %}
