@@ -286,6 +286,10 @@ label.star:before {
     transition: .4s;
 }
 
+/* filter icons */
+
+
+
 /* slider with animation between states */
 .slider:before {
     position: absolute;
@@ -399,6 +403,13 @@ a.card.button.is-primary.iconpicker {
     max-height: 250px;
     overflow-y: auto;
 }
+.limited-exposure.embedded.activities .container.ages .card{
+     margin: 15px 0 0 15px;
+}
+.limited-exposure.embedded.activities .card.button img{
+    max-width: 50px;
+}
+
 
 .limited-exposure.embedded {
     padding: 0 15px 15px 0;

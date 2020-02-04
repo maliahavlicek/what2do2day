@@ -143,17 +143,11 @@ class EventForm(FlaskForm):
 class FilterEventsFrom(FlaskForm):
     """Filter Events"""
 
-    activity = SelectMultipleField(u'Actvities', choices=[('all', 'All')], default='all')
-
-    age = IntegerField('Maximum Number of Attendees', [Optional(), NumberRange(min=1, max=120,
-                                                                               message="A valid age is 0 to 120")])
+    activity = SelectMultipleField(u'Actvities', coerce=int, default='all')
+    age = IntegerField('Age', [Optional(), NumberRange(min=1, max=120, message="A valid age is 0 to 120")])
     datetime_range = StringField('Date Range',
                                  [Optional(), Length(min=1, message='Please select a date.'),
                                   validate_datetime])
-
-    def set_choices(self):
-        from app import mongo
-        self.activity.choices = list(mongo.db.activities.find({'icon': 1, 'name': 1}))
 
 
 class CountMeInForm(FlaskForm):
@@ -211,10 +205,6 @@ class PlaceForm(FlaskForm):
 
         """Let review form know it should use place email"""
         self.review.use_place_email.value = "y"
-
-        """Filter Activity choices"""
-        for item in list(mongo.db.activities.find({}, {'name': 1})):
-            self.activity.choices.append((str(item['_id']), item['name'].capitalize()))
 
     def validate_activity_icon(self, activity_icon):
         """Custom validation to make sure an activity icon was picked"""

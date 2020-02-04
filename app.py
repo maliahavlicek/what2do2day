@@ -183,6 +183,8 @@ def get_events(event_id, filter_string):
     event = False
     form = CountMeInForm()
     filter_form = FilterEventsFrom()
+    activity_choices = list(mongo.db.activities.find({},{'_id': 0}))
+    filter_form.activity.choices = activity_choices
 
     # TODO look at event_id, retrieve it from DB and add it
 
