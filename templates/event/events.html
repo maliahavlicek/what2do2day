@@ -7,7 +7,7 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Events
+                    Events  <span class="is-4">Filters: {{ filter_string }}</span>
                 </h1>
                 {% if events | length < 1 %}
                     <div class="level-left">
@@ -54,6 +54,9 @@
             {% endfor %}
         {% endif %}
     </section>
+
+    {# include modal for filtering #}
+    {% include 'event/filter_event.html' %}
 
     {# modal for count me in form #}
     {% if show_modal and not show_modal['status'] %}

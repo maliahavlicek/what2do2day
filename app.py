@@ -176,8 +176,8 @@ def retrieve_events_from_db(update):
 
 
 @app.route('/get_events/', defaults={'event_id': None, 'filter_string': None}, methods=['GET', 'POST'])
-@app.route('/get_events/<event_id>/', defaults={'filter_string': None}, methods=['GET', 'POST'])
-@app.route('/get_events/<event_id>/<filter_string>', methods=['GET', 'POST'])
+@app.route('/get_events/<string:event_id>/', defaults={'filter_string': None}, methods=['GET', 'POST'])
+@app.route('/get_events/<string:event_id>/<string:filter_string>', methods=['GET', 'POST'])
 def get_events(event_id, filter_string):
     show_modal = False
     event = False
@@ -206,8 +206,8 @@ def get_events(event_id, filter_string):
                 show_modal = True
                 event = mini_event(the_event)
 
-        return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal,
-                               google_key=google_key, layer_event=event, filter_string=filter_string)
+        return render_template('event/events.html', form=form, events=list_events, filter=filter_string, show_modal=show_modal,
+                               google_key=google_key, layer_event=event ,filter_form=filter_form )
 
 
 @app.route('/filter_events', methods=['POST'])
