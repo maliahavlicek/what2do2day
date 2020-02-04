@@ -36,6 +36,13 @@
             </div>
         </div>
     </section>
+    <section>
+
+
+    {# include accordion for filtering #}
+    {% include 'event/filter_event.html' %}
+
+    </section>
     <section class="list-events">
         {% if events | length > 0 %}
             {% for event in events %}
@@ -54,10 +61,6 @@
             {% endfor %}
         {% endif %}
     </section>
-
-    {# include modal for filtering #}
-    {% include 'event/filter_event.html' %}
-
     {# modal for count me in form #}
     {% if show_modal and not show_modal['status'] %}
         <div class="modal is-active" id="modal-count-me-in">

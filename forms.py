@@ -143,12 +143,11 @@ class EventForm(FlaskForm):
 class FilterEventsFrom(FlaskForm):
     """Filter Events"""
 
-    activity = SelectMultipleField(u'Actvities', coerce=int, default='all')
+    activity = SelectMultipleField(u'Actvities', default='all')
     age = IntegerField('Age', [Optional(), NumberRange(min=1, max=120, message="A valid age is 0 to 120")])
-    datetime_range = StringField('Date Range',
+    filter_date_range = StringField('Date Range',
                                  [Optional(), Length(min=1, message='Please select a date.'),
                                   validate_datetime])
-
 
 class CountMeInForm(FlaskForm):
     """Count Me In Form"""

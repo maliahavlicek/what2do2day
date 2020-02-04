@@ -194,12 +194,15 @@ def get_events(event_id, filter_string):
     event = False
     form = CountMeInForm()
     filter_form = FilterEventsFrom()
+    if filter_string is None:
+        filter_string = 'none'
 
     # TODO look at event_id, retrieve it from DB and add it
 
     if form.validate_on_submit():
         # all is good with the post based on CountMeInForm wftForm validation
-        return add_attendee(form, event_id)
+
+        return add_attendee(form, ObjectId(event_id), filter_form, filter_string)
 
     else:
         try:
@@ -532,7 +535,7 @@ def get_list_of_icons():
     return res
 
 
-def add_attendee(form, event_id):
+def add_attendee(form, event_id, filter_form, filter_string):
     """Count me in form was posted, process it"""
     attendee = get_add_user_id(form.email.data)
     status = "OK"
@@ -548,6 +551,8 @@ def add_attendee(form, event_id):
     else:
         already_attending = attendee in the_event['attendees']
         max_attend = the_event['max_attendees']
+
+        event = mini_event(the_event)
 
         if already_attending:
             status = "WARNING"
@@ -567,14 +572,20 @@ def add_attendee(form, event_id):
             if added_attendee is None:
                 status = "ERROR"
                 message = "Opps, it looks like we may have lost a bit of data due to network lag time, can you try again?"
-    modal = {
-        'status': status,
-        'message': message,
-        'show': show_modal
-    }
+        modal = {
+            'status': status,
+            'message': message,
+            'show': show_modal
+        }
 
-    list_events = retrieve_events_from_db(False)
-    return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=modal)
+        event = mini_event(the_event)
+
+        list_events = retrieve_events_from_db(False)
+        activity_choices = unique_activities(list_events)
+        filter_form.activity.choices = activity_choices
+        # somehow filter_from activity choices are crap, when going back
+        return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
+                               show_modal=modal, google_key=google_key, layer_event=event, filter_form=filter_form)
 
 
 def google_get_goecords(address):

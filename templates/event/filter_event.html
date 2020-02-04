@@ -1,14 +1,13 @@
 {# This template is used on the get_events page. It houses the HTML for filtering events #}
-<div class="modal {% if filter_string !=None %}is-active{% endif %}" id="modal-filter-events">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-            <p class="modal-card-title">Filter Events</p>
-            <button class="delete" aria-label="close"></button>
+<div class="container {% if filter == 'none' %}is-hidden{% endif %}" id="modal-filter-events">
+
+    <div class="card">
+        <header class="card-head">
+            <p class="card-title">Filter Events</p>
         </header>
         <form method="POST" action="{{ url_for('get_events', event_id="none", filter_string=layer_event['_id']) }}"
               enctype="multipart/form-data">
-            <section class="modal-card-body">
+            <section class="card-body">
                 {#  prevent cross site scripting #}
                 {{ filter_form.csrf_token }}
 
@@ -46,14 +45,14 @@
                 </div>
 
                 {# start and end datetime range filter #}
-                <div class="field {% if filter_form.datetime_range.errors %}has-error{% endif %}">
-                    {{ filter_form.datetime_range.label(class_="label") }}
+                <div class="field {% if filter_form.filter_date_range.errors %}has-error{% endif %}">
+                    {{ filter_form.filter_date_range.label(class_="label") }}
                     <div class="control">
-                        {{ filter_form.datetime_range(class_="input", type="datetime") }}
+                        {{ filter_form.filter_date_range(class_="input", type="date") }}
                     </div>
                     <p class="error-msg help is-danger">
-                        {% if filter_form.datetime_range.errors|length > 0 %}
-                            {{ filter_form.datetime_range.errors[0] }}
+                        {% if filter_form.filter_date_range.errors|length > 0 %}
+                            {{ filter_form.filter_date_range.errors[0] }}
                         {% endif %}
                     </p>
                 </div>
@@ -62,7 +61,7 @@
                 <div class="field {% if filter_form.age.errors %}has-error{% endif %}">
                     {{ filter_form.age.label(class_="label") }}
                     <div class="control">
-                        {{ filter_form.age(class_="input", type="numbe") }}
+                        {{ filter_form.age(class_="input", type="number") }}
                     </div>
                     <p class="error-msg help is-danger">
                         {% if filter_form.age.errors|length > 0 %}

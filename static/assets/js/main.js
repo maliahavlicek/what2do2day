@@ -74,20 +74,17 @@ $(document).ready(function () {
     let oneYear = getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000 * 365));
     let incomingDate = $('#event-event_start_datetime').val();
 
-
     let calendars = bulmaCalendar.attach('#event-event_start_datetime', {
         isRange: true,
         dateFormat: 'MM/DD/YYYY',
-        timeFormat: 'HH:mm',
         showHeader: false,
         showTodayButton: false,
         showClearButton: false,
         validateLabel: "Select",
-        minuteSteps: 15,
-        labelFrom: 'Event Start',
-        labelTo: 'Event End',
-        minDate: today + ' ' + hour + ':00',
-        maxDate: oneYear + ' ' + hour + ':00',
+        labelFrom: 'Start',
+        labelTo: 'End',
+        minDate: today,
+        maxDate: oneYear,
     });
 
     if (incomingDate) {
@@ -97,7 +94,6 @@ $(document).ready(function () {
         let incomingStartHours = incomingDate.substring(11, 13);
         let incomingStartMinutes = incomingDate.substring(14, 16);
         let incomingStartDate = incomingDate.substring(0, 16);
-
 
         $('input#event-event_start_datetime').val(incomingDate);
         $('.datetimepicker-dummy-input.is-datetimepicker-range').val(incomingStartDate);
@@ -120,6 +116,58 @@ $(document).ready(function () {
         element1.bulmaCalendar.on('select', function (datepicker) {
         });
     }
+
+    /* filtering results by date */
+
+    let filterDate = $('#filter_date_range').val();
+
+    let filter_cal = bulmaCalendar.attach('#filter_date_range', {
+        isRange: true,
+        dateFormat: 'MM/DD/YYYY',
+        timeFormat: 'HH:mm',
+        showHeader: false,
+        showTodayButton: false,
+        showClearButton: false,
+        validateLabel: "Select",
+        minuteSteps: 15,
+        labelFrom: 'Event Start',
+        labelTo: 'Event End',
+        minDate: today + ' ' + hour + ':00',
+        maxDate: oneYear + ' ' + hour + ':00',
+    });
+
+    if (filterDate) {
+        // something wrong with bulma code and start date hours and minutes not populated
+        // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
+        // get the startDate hours and minutes
+        $('input#filter_date_range').val(filterDate);
+    }
+// Loop on each calendar initialized
+    for (let i = 0; i < filter_cal.length; i++) {
+        // Add listener to date:selected event
+        filter_cal[i].on('select', date => {
+        });
+    }
+
+    // To access to bulmaCalendar instance of an element
+    let element2 = document.querySelector('#filter_date_range');
+    if (element2) {
+        // bulmaCalendar instance is available as element.bulmaCalendar
+        element2.bulmaCalendar.on('select', function (datepicker) {
+        });
+    }
+
+
+
+
+
+      /* if coming back and we have some age_limit selections, add the class */
+    $('#activity option:selected').each(function () {
+        let card_selector = ".card.button." + $(this).val();
+        let card = $(card_selector);
+        card.toggleClass('is-inverted', 10);
+    });
+
 
     /* if coming back and we have some age_limit selections, add the class */
     $('#event-age_limit option:selected').each(function () {
