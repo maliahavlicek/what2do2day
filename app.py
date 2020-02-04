@@ -2,6 +2,7 @@ import os
 import re
 import ast
 
+import bson
 from flask import Flask, render_template, redirect, request, url_for, json, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -12,7 +13,7 @@ from datetime import datetime
 import requests
 import time
 
-from forms import PlaceForm, ReviewForm, AddressForm, CountMeInForm
+from forms import PlaceForm, ReviewForm, AddressForm, CountMeInForm, FilterEventsFrom
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from config import Config
 
@@ -174,12 +175,15 @@ def retrieve_events_from_db(update):
     return list_events
 
 
-@app.route('/get_events/', defaults={'event_id': None}, methods=['GET', 'POST'])
-@app.route('/get_events/<event_id>', methods=['GET', 'POST'])
-def get_events(event_id):
+@app.route('/get_events/', defaults={'event_id': None, 'filter_string': None}, methods=['GET', 'POST'])
+@app.route('/get_events/<event_id>/', defaults={'filter_string': None}, methods=['GET', 'POST'])
+@app.route('/get_events/<event_id>/<filter_string>', methods=['GET', 'POST'])
+def get_events(event_id, filter_string):
     show_modal = False
     event = False
     form = CountMeInForm()
+    filter_form = FilterEventsFrom()
+
     # TODO look at event_id, retrieve it from DB and add it
 
     if form.validate_on_submit():
@@ -188,19 +192,22 @@ def get_events(event_id):
 
     else:
         try:
-            list_events = retrieve_events_from_db(False)
+            if filter_string is not None:
+                list_events = retrieve_events_from_db(False)
+            else:
+                list_events = retrieve_events_from_db(False)
         except Exception as e:
             return render_template('error.html', reason=e)
         if form.email.errors:
             show_modal = True
-        if event_id is not None:
+        if event_id is not None and bson.objectid.ObjectId.is_valid(event_id):
             the_event = mongo.db.events.find_one({'_id': ObjectId(event_id)})
             if the_event is not None:
                 show_modal = True
                 event = mini_event(the_event)
 
         return render_template('event/events.html', form=form, events=list_events, filter='none', show_modal=show_modal,
-                               google_key=google_key, layer_event=event)
+                               google_key=google_key, layer_event=event, filter_string=filter_string)
 
 
 @app.route('/filter_events', methods=['POST'])

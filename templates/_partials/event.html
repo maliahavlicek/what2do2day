@@ -82,7 +82,8 @@
                         {{ form.event.details.errors[0] }}
                     {% endif %}
                 </p>
-            </div>{# Max attendees #}
+            </div>
+            {# Max attendees #}
             <div class="field {% if form.event.max_attendees.errors %}has-error{% endif %}">
                 {{ form.event.max_attendees.label(class_="label") }}
                 <div class="control">

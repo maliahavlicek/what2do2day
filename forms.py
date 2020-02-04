@@ -132,12 +132,28 @@ class EventForm(FlaskForm):
     price_for_non_members = StringField('Price for non-members', [Optional(),
                                                                   Length(min=1, message='Name of Event is required.')])
     max_attendees = IntegerField('Maximum Number of Attendees', [NumberRange(min=1, max=1000,
-                                                                                         message="You must allow at least 1 to 1,000 people to attend the event.")])
+                                                                             message="You must allow at least 1 to 1,000 people to attend the event.")])
 
     def validate_activity_icon(self, activity_icon):
         """Custom validation to make sure an activity icon was picked"""
         if activity_icon.data == 'n':
             raise ValidationError("Select an icon.")
+
+
+class FilterEventsFrom(FlaskForm):
+    """Filter Events"""
+
+    activity = SelectMultipleField(u'Actvities', choices=[('all', 'All')], default='all')
+
+    age = IntegerField('Maximum Number of Attendees', [Optional(), NumberRange(min=1, max=120,
+                                                                               message="A valid age is 0 to 120")])
+    datetime_range = StringField('Date Range',
+                                 [Optional(), Length(min=1, message='Please select a date.'),
+                                  validate_datetime])
+
+    def set_choices(self):
+        from app import mongo
+        self.activity.choices = list(mongo.db.activities.find({'icon': 1, 'name': 1}))
 
 
 class CountMeInForm(FlaskForm):
@@ -195,6 +211,10 @@ class PlaceForm(FlaskForm):
 
         """Let review form know it should use place email"""
         self.review.use_place_email.value = "y"
+
+        """Filter Activity choices"""
+        for item in list(mongo.db.activities.find({}, {'name': 1})):
+            self.activity.choices.append((str(item['_id']), item['name'].capitalize()))
 
     def validate_activity_icon(self, activity_icon):
         """Custom validation to make sure an activity icon was picked"""
