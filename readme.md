@@ -271,8 +271,9 @@ To streamline the development process without the complexity of user roles and p
 1. Rating Selector - star icon based radio button to record user ratings
 1. Overlays - way to disable main page while getting user input for filtering results, joining an event, following a place, add review
 1. Checkboxes - user friendly way to hide/show sections such as place address, place add event, place add review, event address
-1. Icon Selector - when feels a different activity is needed, they can pick from a list of icons to associate the activity to
-1. Accordion - collapse places' reviews and events, expand on click
+1. Icon Selector - allow users to customize activity by name and icon, for searching, they can pick from a list of icons/name pairs
+1. Age Selector - allow a multiple select field for ages, in adding/updating and filtering events
+1. Accordion - collapse places' reviews and events, expand on click, expand/collapse filters on event and places pages
 1. Pagination - when results for events or places pages exceed 10, paginate results
 #### Forms
 1. Add Place - validation for required fields and proper data, unique Name check
@@ -300,6 +301,8 @@ To streamline the development process without the complexity of user roles and p
 1. count events in system by activity type - bar chart
 1. count events page hits
 1. count places page hits
+1. count number of home page hits
+1. get numbers for joining event funnel: events page hits, join event click, send invite success, send invite user error, send invite exceed attendance error
  
 ### Features Left to Implement
 In the long term once this concept proves viable, authentication would be enabled and five sets of roles would accessing the site: 
