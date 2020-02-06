@@ -432,19 +432,24 @@ This site was developed using PyCharm's IDE. To keep records of different versio
 ### GitHub
 https://github.com/maliahavlicek/what2do2day
 
-####Requires
- - [Jinja](https://github.com/pallets/jinja) ```bash pip install -U Jinja2```
- - [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) ```pip install Flask-PyMongo```
+#### Requires
+ - [Jinja](https://github.com/pallets/jinja) 
+ ```$ pip install -U Jinja2```
+ - [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) 
+ ```$ pip install Flask-PyMongo```
  - MongoDB instance [downloaded and installed](https://docs.mongodb.com/manual/installation/)
- - MongoDB Atlas Cloud [URI connection string](https://docs.atlas.mongodb.com/driver-connection/) ```mongodb+srv://user_name:password@cluster-pielp.mongodb.net/db_name?retryWrites=true&w=majority?```
- - [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/install.html) ```pip install Flask-WTF```
+ - MongoDB Atlas Cloud [URI connection string](https://docs.atlas.mongodb.com/driver-connection/) 
+ ```mongodb+srv://user_name:password@cluster-pielp.mongodb.net/db_name?retryWrites=true&w=majority?```
+ - [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/install.html) 
+ ```$ pip install Flask-WTF```
  - A google api key [get here](https://developers.google.com/maps/documentation/javascript/get-api-key)
- - [flask-googlemaps](https://github.com/flask-extensions/Flask-GoogleMaps/blob/master/README.md) ```pip install flask-googlemaps```
+ - [flask-googlemaps](https://github.com/flask-extensions/Flask-GoogleMaps/blob/master/README.md) 
+ ```$ pip install flask-googlemaps```
 
-####Running Locally
-1. Get the code base from git hub by running this command in the terminal of your IDE: ```bash
-   git clone https://github.com/maliahavlicek/what2do2day.git
-   ```
+#### Running Locally
+1. Get the code base from git hub by running this command in the terminal of your IDE: 
+```$ git clone https://github.com/maliahavlicek/what2do2day.git```
+
 2. set environmental variables with your own values for: 
   -  MONGO_URI_WHAT2DO2DAY
   -  GOOGLE_MAP_KEY
@@ -463,13 +468,15 @@ or hard code the values in the config.py file:
     # google
     GOOGLE_MAP_KEY = environ.get("GOOGLE_MAP_KEY", 'YOUR_GOOGLE_MAPS_API_KEY')
 ```
-3. start your server by typing ```bash python app.py```
+3. start your server by typing 
+```$ python app.py```
 4. access your local version of the application at http://0.0.0.0:5000/home
 
 ### Heroku
 Heroku can be used to run this site in a cloud environment.
-1. Get the code base from git hub by running this command in the terminal of your IDE: ```bash
-   git clone https://github.com/maliahavlicek/what2do2day.git
+1. Get the code base from git hub by running this command in the terminal of your IDE: 
+```bash
+   $ git clone https://github.com/maliahavlicek/what2do2day.git
    ```
 1. Login to Heroku and set up a new app
 1. Under the **Settings** tab, click **Reveal Config Vars**
@@ -478,26 +485,28 @@ Heroku can be used to run this site in a cloud environment.
 >|:---------------------:	|:----------:	|
 >| IP                    	| 0.0.0.0    	|
 >| PORT                  	| 5000       	|
->| MONGO_URI_WHAT2DO2DAY 	| <YOUR KEY> 	|
->| SECRET_KEY            	| <YOUR KEY> 	|
->| WTF_CSRF_SECRET_KE    	| <YOUR KEY> 	|
->| GOOGLE_MAP_KEY        	| <YOUR KEY> 	|
+>| MONGO_URI_WHAT2DO2DAY 	| YOUR_KEY  	|
+>| SECRET_KEY            	| YOUR_KEY  	|
+>| WTF_CSRF_SECRET_KE    	| YOUR_KEY  	|
+>| GOOGLE_MAP_KEY        	| YOUR_KEY   	|
 
-4. Go back to your IDE's terminal window and connect to heroku ```bash heroku login``` and enter your credentials
+5. Go back to your IDE's terminal window and connect to heroku ```bash heroku login``` and enter your credentials
 5. Clone the heroku repository (exact command can be found on the Deployment tab for the app you just created in heroku) ```bash heroku git:clone -a 'your_app_name'```
-6. make a slight change to a file, say the readme.md file
-7. add the files, commit and push to heroku master:
+5. make a slight change to a file, say the readme.md file
+5. add the files, commit and push to heroku master:
 ```bash
-git add .
-git commit -am "initial heroku commit" 
-git push heroku master
+$ git add .
+$ git commit -am "initial heroku commit" 
+$ git push heroku master
 ```
-You should be able to access the application at your heroku  via the url 
+You should be able to access the application at your heroku via the url provided in the terminal window, or the open app button from your heroku app dashboard.
+Ex) https://what2do2day.herokuapp.com/
+
 ## Credits
-[Icons made by Freepik from www.flaticon.com](https://www.flaticon.com/packs/outdoor-activities-32)
-[tables in markdown](https://www.tablesgenerator.com/markdown_tables#)
-[star rating input](https://codepen.io/jexordexan/pen/yyYEJa)
-[toggle switch](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch)
+- [Icons made by Freepik from www.flaticon.com](https://www.flaticon.com/packs/outdoor-activities-32)
+- [tables in markdown](https://www.tablesgenerator.com/markdown_tables#)
+- [star rating input](https://codepen.io/jexordexan/pen/yyYEJa)
+- [toggle switch](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch)
 
 ### Content
 - [Avanti Music](https://advantimusic.org) description and imagery
