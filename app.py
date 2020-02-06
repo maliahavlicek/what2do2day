@@ -199,6 +199,15 @@ def get_events(event_id, filter_string):
 
     # TODO look at event_id, retrieve it from DB and add it
 
+    if filter_form.validate_on_submit():
+        # pull out any filtering
+        filtering = ""
+        if filter_form.activity.data:
+            for i, item in enumerate(filter_form.activity.data):
+                filtering += item
+                if i != len(filter_form.activity.data):
+                    filtering += ","
+
     if form.validate_on_submit():
         # all is good with the post based on CountMeInForm wftForm validation
 
