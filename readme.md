@@ -282,6 +282,7 @@ To streamline the development process without the complexity of user roles and p
 1. Add Review - validation for required fields
 1. Update Review - allow user to change rating, comments, and share to community settings
 1. Count Me In - validation for unique email in list of attendees, check for max attendees limit
+1. Follow Place - validation for unique email in list of followers
 #### Data Operations
 1. Aggregated Review - from enabled reviews of a given place, present an average rating for a place
 1. Count of followers - When a unique email is entered, add them to follower list
@@ -291,11 +292,14 @@ To streamline the development process without the complexity of user roles and p
 1. Google Calendar - when a user joins an event, send calendar invite, when event is updated, email joiner list
 1. Google Maps - show map of event location, show map of place location
 #### Metrics
-1. track follows by place and activity type
-1. track joins by event and activity type
-1. track searches by activity and age inputs
-1. track places in db by activity type
-1. track events in system by activity type
+1. track place follows by activity type and rating - bar chart for activity type, pie chart for rating
+1. track event joins by activity type and age - bar chart for activity type, pie chart for age
+1. track event searches by activity and age inputs - bar chart for activity type, pie chart for age
+1. track place searches by activity and review - bar chart for activity type, pie chart for rating
+1. count places in db by activity type - bar chart
+1. count events in system by activity type - bar chart
+1. count events page hits
+1. count places page hits
  
 ### Features Left to Implement
 In the long term once this concept proves viable, authentication would be enabled and five sets of roles would accessing the site: 
@@ -473,7 +477,8 @@ or hard code the values in the config.py file:
 4. access your local version of the application at http://0.0.0.0:5000/home
 
 ### Heroku
-Heroku can be used to run this site in a cloud environment.
+Heroku can be used to run this site in a cloud environment to allow visiblity to external users.
+#### Deployment To Shared Environment
 1. Get the code base from git hub by running this command in the terminal of your IDE: 
 ```bash
    $ git clone https://github.com/maliahavlicek/what2do2day.git
