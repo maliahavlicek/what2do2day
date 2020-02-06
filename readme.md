@@ -1,4 +1,6 @@
 # What2Do2Day
+URL: http://what2do2day.herokuapp.com/
+
 ## Author
 Malia Havlicek
 ## Project Overview
@@ -382,6 +384,8 @@ In the long term once this concept proves viable, authentication would be enable
 - [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
 - [icon generator](https://favicon.io/favicon-generator/) - free site to help in website icon generation
 - [regex101.com](https://regex101.com/) - used to help fine tune some regular expression based validation
+- [github](https://github.com/) - used for version control of project files
+- [heroku](https://www.heroku.com/) - runs the what2do2day application in the cloud
 ### APIs
 - [emailJS](https://emailjs.com) - Send user notices when place they are following is modified, has a new event, or has a new review posted. 
 - [Google Calendar API](https://developers.google.com/calendar/v3/reference/events) - Used to [create events](https://developers.google.com/calendar/create-events) for application, add attendees when users join an event, and send updates to joiners if event is modified
@@ -423,17 +427,72 @@ You should also mention in this section any interesting bugs or problems you dis
 If this section grows too long, you may want to split it off into a separate file and link to it from here.
 
 ## Deployment
+This site was developed using PyCharm's IDE. To keep records of different versions of all project files, git version control was used. This project is hosted using Heroku deployed from the master branch.
 
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
+### GitHub
+https://github.com/maliahavlicek/what2do2day
 
-In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
-- Different values for environment variables (Heroku Config Vars)?
-- Different configuration files?
-- Separate git branch?
+####Requires
+ - [Jinja](https://github.com/pallets/jinja) ```bash pip install -U Jinja2```
+ - [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) ```pip install Flask-PyMongo```
+ - MongoDB instance [downloaded and installed](https://docs.mongodb.com/manual/installation/)
+ - MongoDB Atlas Cloud [URI connection string](https://docs.atlas.mongodb.com/driver-connection/) ```mongodb+srv://user_name:password@cluster-pielp.mongodb.net/db_name?retryWrites=true&w=majority?```
+ - [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/install.html) ```pip install Flask-WTF```
+ - A google api key [get here](https://developers.google.com/maps/documentation/javascript/get-api-key)
+ - [flask-googlemaps](https://github.com/flask-extensions/Flask-GoogleMaps/blob/master/README.md) ```pip install flask-googlemaps```
 
-In addition, if it is not obvious, you should also describe how to run your code locally.
+####Running Locally
+1. Get the code base from git hub by running this command in the terminal of your IDE: ```bash
+   git clone https://github.com/maliahavlicek/what2do2day.git
+   ```
+2. set environmental variables with your own values for: 
+  -  MONGO_URI_WHAT2DO2DAY
+  -  GOOGLE_MAP_KEY
+  -  SECRET_KEY
+  -  WTF_CSRF_SECRET_KEY 
 
+or hard code the values in the config.py file:
+```python
+    # General Config
+    SECRET_KEY = environ.get('SECRET_KEY', 'YOUR_KEY')
+    WTF_CSRF_SECRET_KEY = environ.get('WTF_CSRF_SECRET_KEY', 'YOUR_KEY')
 
+    # mongodb connection
+    MONGO_URI = environ.get('MONGO_URI_WHAT2DO2DAY','YOUR_MONGO_URI_STRING')
+
+    # google
+    GOOGLE_MAP_KEY = environ.get("GOOGLE_MAP_KEY", 'YOUR_GOOGLE_MAPS_API_KEY')
+```
+3. start your server by typing ```bash python app.py```
+4. access your local version of the application at http://0.0.0.0:5000/home
+
+### Heroku
+Heroku can be used to run this site in a cloud environment.
+1. Get the code base from git hub by running this command in the terminal of your IDE: ```bash
+   git clone https://github.com/maliahavlicek/what2do2day.git
+   ```
+1. Login to Heroku and set up a new app
+1. Under the **Settings** tab, click **Reveal Config Vars**
+1. Set the following variables
+> |        Variable       	|   Setting  	|
+>|:---------------------:	|:----------:	|
+>| IP                    	| 0.0.0.0    	|
+>| PORT                  	| 5000       	|
+>| MONGO_URI_WHAT2DO2DAY 	| <YOUR KEY> 	|
+>| SECRET_KEY            	| <YOUR KEY> 	|
+>| WTF_CSRF_SECRET_KE    	| <YOUR KEY> 	|
+>| GOOGLE_MAP_KEY        	| <YOUR KEY> 	|
+
+4. Go back to your IDE's terminal window and connect to heroku ```bash heroku login``` and enter your credentials
+5. Clone the heroku repository (exact command can be found on the Deployment tab for the app you just created in heroku) ```bash heroku git:clone -a 'your_app_name'```
+6. make a slight change to a file, say the readme.md file
+7. add the files, commit and push to heroku master:
+```bash
+git add .
+git commit -am "initial heroku commit" 
+git push heroku master
+```
+You should be able to access the application at your heroku  via the url 
 ## Credits
 [Icons made by Freepik from www.flaticon.com](https://www.flaticon.com/packs/outdoor-activities-32)
 [tables in markdown](https://www.tablesgenerator.com/markdown_tables#)
