@@ -278,12 +278,15 @@ To streamline the development process without the complexity of user roles and p
 #### Forms
 1. Add Place - validation for required fields and proper data, unique Name check
 1. Update Place - validation for required fields and proper data, uniqueness check
+1. Follow Place - validation for unique email in list of followers
+1. Filter Place - allow user to filter places by rating and activity type
 1. Add Event - validation for required fields and proper data, unique Name and Date check
 1. Update Event - validation for required fields and proper data, uniqueness check
+1. Count Me In - validation for unique email in list of attendees, check for max attendees limit
+1. Filter Events - allow user to filter events by activity, date range and age
 1. Add Review - validation for required fields
 1. Update Review - allow user to change rating, comments, and share to community settings
-1. Count Me In - validation for unique email in list of attendees, check for max attendees limit
-1. Follow Place - validation for unique email in list of followers
+
 #### Data Operations
 1. Aggregated Review - from enabled reviews of a given place, present an average rating for a place
 1. Count of followers - When a unique email is entered, add them to follower list
