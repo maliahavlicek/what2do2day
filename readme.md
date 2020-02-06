@@ -460,11 +460,11 @@ https://github.com/maliahavlicek/what2do2day
 1. Get the code base from git hub by running this command in the terminal of your IDE: 
 ```$ git clone https://github.com/maliahavlicek/what2do2day.git```
 
-2. set environmental variables with your own values for: 
-  -  MONGO_URI_WHAT2DO2DAY
-  -  GOOGLE_MAP_KEY
-  -  SECRET_KEY
-  -  WTF_CSRF_SECRET_KEY 
+2. [set environmental variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html) with your own values for: 
+> - MONGO_URI_WHAT2DO2DAY
+> - GOOGLE_MAP_KEY
+> - SECRET_KEY
+> - WTF_CSRF_SECRET_KEY 
 
 or hard code the values in the config.py file:
 ```python
