@@ -158,10 +158,7 @@ $(document).ready(function () {
     }
 
 
-
-
-
-      /* if coming back and we have some age_limit selections, add the class */
+    /* if coming back and we have some age_limit selections, add the class */
     $('#activity option:selected').each(function () {
         let card_selector = ".card.button." + $(this).val();
         let card = $(card_selector);
@@ -176,7 +173,19 @@ $(document).ready(function () {
         card.toggleClass('is-inverted', 10);
     });
 
-      /* handlers for cards acting as mutli-choice selections */
+    /* if coming back, pre-select selections */
+    let filter_activity_selection = $('#activity_selection').val().split("~");
+    for (let i = 0; i < filter_activity_selection.length; i++) {
+        if (filter_activity_selection[i] !== "n") {
+            let card_selector = '.card.button.activities[data-choice="' + filter_activity_selection[i] +'"]';
+            let card = $(card_selector);
+            card.toggleClass('is-inverted', 10);
+        }
+    }
+
+
+
+    /* handlers for cards acting as mutli-choice selections */
     $('.card.button.activities').click(function () {
         //toggle on/off selection class and select/deselect associated selection
         $(this).toggleClass('is-inverted', 250);
@@ -189,6 +198,13 @@ $(document).ready(function () {
             choice.prop("selected", true);
         }
 
+        /* save off selections in hidden field */
+        let val_selections = "n";
+        $('.card.button.activities.is-inverted').each(function () {
+            val_selections+= "~"+($(this).attr('data-choice'));
+        });
+
+        $('#activity_selection').val(val_selections);
     });
 
     /* handlers for cards acting as mutli-choice selections */
@@ -244,7 +260,7 @@ $(document).ready(function () {
     $('.button.action.event-modal').not('.is-disabled').click(function () {
         // need to pass event id to get_events to trigger modal
         let event_id = $(this).data('target');
-        window.location="/get_events/"+ event_id;
+        window.location = "/get_events/" + event_id;
 
     });
 

@@ -39,7 +39,7 @@ def home():
     return render_template('home.html')
 
 
-def retrieve_events_from_db(update):
+def retrieve_events_from_db(update, filter_form=False):
     # join the activities and places to the events database and flatten it down so we don't have to dig for values
 
     query = []
@@ -194,31 +194,17 @@ def get_events(event_id, filter_string):
     event = False
     form = CountMeInForm()
     filter_form = FilterEventsFrom()
+
     if filter_string is None:
-        filter_string = 'none'
-
-    # TODO look at event_id, retrieve it from DB and add it
-
-    if filter_form.validate_on_submit():
-        # pull out any filtering
-        filtering = ""
-        if filter_form.activity.data:
-            for i, item in enumerate(filter_form.activity.data):
-                filtering += item
-                if i != len(filter_form.activity.data):
-                    filtering += ","
+        filter_string = 'None'
 
     if form.validate_on_submit():
         # all is good with the post based on CountMeInForm wftForm validation
-
         return add_attendee(form, ObjectId(event_id), filter_form, filter_string)
 
     else:
         try:
-            if filter_string is not None:
-                list_events = retrieve_events_from_db(False)
-            else:
-                list_events = retrieve_events_from_db(False)
+            list_events = retrieve_events_from_db(False, False)
         except Exception as e:
             return render_template('error.html', reason=e)
 
@@ -240,12 +226,43 @@ def get_events(event_id, filter_string):
 
 @app.route('/filter_events', methods=['POST'])
 def filter_events():
+    show_modal = False
+    event = False
+    form = CountMeInForm()
+    filter_form = FilterEventsFrom()
+
+    if filter_form.validate_on_submit():
+        # pull out any filtering
+        filtering = ""
+        if filter_form.activity_selection.data:
+            for i, item in enumerate(filter_form.activity_selection.data):
+                filtering += item
+                if i != len(filter_form.activity.data):
+                    filtering += ","
+        if filter_form.age.data:
+            if len(filtering) > 0:
+                filtering += ", "
+            filtering += "Age: " + str(filter_form.age.data)
+        if filter_form.filter_date_range.data:
+            if len(filtering) > 0:
+                filtering += ", "
+            filtering += "Date Range: " + str(filter_form.filter_date_range.data)
+
+        filter_string = filtering
+
+    else:
+        filter_string = "None"
+
     try:
-        list_events = list(mongo.db.events.find())
+        list_events = list(retrieve_events_from_db(False, filter_form))
+        activity_choices = unique_activities(list_events)
+        filter_form.activity.choices = activity_choices
     except Exception as e:
         db_issue(e)
         list_events = []
-    return render_template('event/events.html', events=list_events, filter='none')
+    return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
+                           show_modal=show_modal,
+                           google_key=google_key, layer_event=event, filter_form=filter_form)
 
 
 @app.route('/add_event', methods=['GET', 'POST'])
@@ -589,7 +606,7 @@ def add_attendee(form, event_id, filter_form, filter_string):
 
         event = mini_event(the_event)
 
-        list_events = retrieve_events_from_db(False)
+        list_events = retrieve_events_from_db(False, False)
         activity_choices = unique_activities(list_events)
         filter_form.activity.choices = activity_choices
         # somehow filter_from activity choices are crap, when going back

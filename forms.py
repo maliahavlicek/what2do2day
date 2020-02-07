@@ -18,7 +18,7 @@ from wtforms.validators import (DataRequired,
                                 Optional,
                                 NumberRange)
 
-from templates.validators import validate_option_not_none, validate_datetime, validate_rating
+from templates.validators import validate_option_not_none, validate_datetime, validate_rating, validate_daterange
 from wtforms.widgets import HiddenInput
 
 
@@ -147,7 +147,10 @@ class FilterEventsFrom(FlaskForm):
     age = IntegerField('Age', [Optional(), NumberRange(min=1, max=120, message="A valid age is 0 to 120")])
     filter_date_range = StringField('Date Range',
                                  [Optional(), Length(min=1, message='Please select a date.'),
-                                  validate_datetime])
+                                  validate_daterange])
+
+    activity_selection = HiddenField(None, [DataRequired()], default="n")
+
 
 class CountMeInForm(FlaskForm):
     """Count Me In Form"""

@@ -22,6 +22,58 @@ def validate_option_not_none(form, field):
         raise ValidationError('Please select an option.')
 
 
+def validate_daterange(form, field):
+    """event filtering daterange validation"""
+    if not field.data or len(field.data) != 23:
+        raise ValidationError("Please select a date range.")
+    else:
+        value = field.data
+        # Expecting: MM/DD/YYYY HH:MM - MM/DD/YYYY (startDate - endDate)
+        if len(value) != 23:
+            # have start date only
+            raise ValidationError("Please select a start and ending date")
+        else:
+            # have the right length now check for validity of parts
+
+            # pull apart incoming value to it's pieces
+            startDate = value[0:10]
+            endDate = value[14:24]
+
+            # check the format of startDate
+            is_date_valid(startDate)
+
+            # check format of endDate
+            is_date_valid(endDate)
+
+            # check that startDate is not in past
+            daterange_start = datetime.strptime(startDate, '%m/%d/%Y')
+            today = date.today()
+
+            if today > daterange_start.date():
+                raise ValidationError("Start is in past.")
+
+            # check that endDate is after startDate
+            daterange_end = datetime.strptime(endDate, '%m/%d/%Y')
+            if daterange_start > daterange_end:
+                raise ValidationError("End Date is before Start Date.")
+
+
+def is_date_valid(f_date):
+    # check the format of startDate
+    if not check_format(f_date, '%m/%d/%Y'):
+        raise ValidationError("Incorrect data format, should be MM/DD/YYYY.")
+    else:
+        pass
+
+
+def is_time_valid(f_time):
+    # check the format of startTime
+    if not check_format(f_time, '%H:%M'):
+        raise ValidationError("Incorrect time format, should be HH:MM.")
+    else:
+        pass
+
+
 def validate_datetime(form, field):
     """event date time validation"""
     if not field.data or len(field.data) < 10:
@@ -45,20 +97,16 @@ def validate_datetime(form, field):
             endTime = value[30:35]
 
             # check the format of startDate
-            if not check_format(startDate, '%m/%d/%Y'):
-                raise ValidationError("Incorrect data format, should be MM/DD/YYYY.")
+            is_date_valid(startDate)
 
             # check the format of startTime
-            if not check_format(startTime, '%H:%M'):
-                raise ValidationError("Incorrect time format, should be HH:MM.")
+            is_time_valid(startTime)
 
             # check the format of endDate
-            if not check_format(endDate, '%m/%d/%Y'):
-                raise ValidationError("Incorrect data format, should be MM/DD/YYYY.")
+            is_date_valid(endDate)
 
             # check the format of endTime
-            if not check_format(endTime, '%H:%M'):
-                raise ValidationError("Incorrect time format, should be HH:MM.")
+            is_time_valid(endTime)
 
             # check that startDate is not in past
             datetime_start = datetime.strptime(startDate + ' ' + startTime, '%m/%d/%Y %H:%M')

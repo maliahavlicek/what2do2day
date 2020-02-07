@@ -1,16 +1,16 @@
 {# This template is used on the get_events page. It houses the HTML for filtering events #}
 <section class="accordions">
-    <article class="accordion {% if filter != 'none' %}is-active{% endif %}">
+    <article
+            class="accordion {% if filter_form.errors and not filter_form.validate_on_submit() %}is-active{% endif %}">
         <div class="accordion-header">
-            <p>Filters: <span id="filtering" class="active-filters">None</span></p>
+            <p>Filters: <span id="filtering" class="active-filters">{{ filter }}</span></p>
             <button class="toggle" aria-label="toggle"></button>
         </div>
         <div class="accordion-body">
             <div class="accordion-content">
                 <form method="POST"
-                      action="{{ url_for('get_events', event_id='none', filter_string='yes') }}"
+                      action="{{ url_for('filter_events', filter_string='yes') }}"
                       enctype="multipart/form-data">
-
                     {#  prevent cross site scripting #}
                     {{ filter_form.csrf_token }}
 
@@ -36,7 +36,7 @@
                             <div class="control">
                                 {# more user friendly experience for selecting mutliples #}
                                 <div class="select is-multiple container activities">
-                                    {{ filter_form.activity(class_="is-hidden controller-ages", size="8") }}
+                                    {{ filter_form.activity(class_="is-hidden controller-ages", size="8", id="event_filter_activity_select") }}
                                     {% for item in filter_form.activity.choices %}
                                         <a class="card button activities is-primary {{ item['icon'] }}"
                                            data-choice="{{ item['name'] }}:{{ item['icon'] }}">
@@ -60,6 +60,8 @@
                             {% endif %}
                         </p>
                     </div>
+                    {# hidden field to hold picked iconss #}
+                    {{ filter_form.activity_selection }}
 
                     {# Age #}
                     <div class="field {% if filter_form.age.errors %}has-error{% endif %}">
@@ -68,7 +70,7 @@
                             {{ filter_form.age(class_="input", type="number") }}
                         </div>
                         <p class="error-msg help is-danger">
-                            {% if filter_form.age.errors|length > 0 %}
+                            {% if filter_form.age.errors %}
                                 {{ filter_form.age.errors[0] }}
                             {% endif %}
                         </p>
@@ -81,8 +83,10 @@
                             <span class="action">Filter Events</span>
                         </button>
                     </div>
+
                 </form>
             </div>
+
     </article>
 </section>
 
