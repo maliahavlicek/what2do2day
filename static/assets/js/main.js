@@ -140,7 +140,9 @@ $(document).ready(function () {
         // something wrong with bulma code and start date hours and minutes not populated
         // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
         // get the startDate hours and minutes
+        let incomingStartDate = filterDate.substring(0, 16);
         $('input#filter_date_range').val(filterDate);
+        $('.datetimepicker-dummy-input.is-datetimepicker-range').val(filterDate);
     }
 // Loop on each calendar initialized
     for (let i = 0; i < filter_cal.length; i++) {
@@ -174,12 +176,14 @@ $(document).ready(function () {
     });
 
     /* if coming back, pre-select selections */
-    let filter_activity_selection = $('#activity_selection').val().split("~");
-    for (let i = 0; i < filter_activity_selection.length; i++) {
-        if (filter_activity_selection[i] !== "n") {
-            let card_selector = '.card.button.activities[data-choice="' + filter_activity_selection[i] +'"]';
-            let card = $(card_selector);
-            card.toggleClass('is-inverted', 10);
+    if($('#activity_selection').length > 0) {
+        let filter_activity_selection = $('#activity_selection').val().split("~");
+        for (let i = 0; i < filter_activity_selection.length; i++) {
+            if (filter_activity_selection[i] !== "n") {
+                let card_selector = '.card.button.activities[data-choice="' + filter_activity_selection[i] + '"]';
+                let card = $(card_selector);
+                card.toggleClass('is-inverted', 10);
+            }
         }
     }
 
