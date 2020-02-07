@@ -118,10 +118,11 @@ $(document).ready(function () {
     }
 
     /* filtering results by date */
-
-    let filterDate = $('#filter_date_range').val();
+    let date_range_filter = $('#filter_date_range');
+    let filterDate = date_range_filter.val();
 
     let filter_cal = bulmaCalendar.attach('#filter_date_range', {
+        type: 'date',
         isRange: true,
         dateFormat: 'MM/DD/YYYY',
         timeFormat: 'HH:mm',
@@ -132,17 +133,18 @@ $(document).ready(function () {
         minuteSteps: 15,
         labelFrom: 'Event Start',
         labelTo: 'Event End',
-        minDate: today + ' ' + hour + ':00',
-        maxDate: oneYear + ' ' + hour + ':00',
+        minDate: today,
+        maxDate: oneYear,
     });
 
     if (filterDate) {
         // something wrong with bulma code and start date hours and minutes not populated
         // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
         // get the startDate hours and minutes
-        let incomingStartDate = filterDate.substring(0, 16);
+        let incomingStartDate = filterDate.substring(0, 10);
         $('input#filter_date_range').val(filterDate);
-        $('.datetimepicker-dummy-input.is-datetimepicker-range').val(filterDate);
+        $('.datetimepicker-dummy-input.is-datetimepicker-range').val(incomingStartDate);
+
     }
 // Loop on each calendar initialized
     for (let i = 0; i < filter_cal.length; i++) {

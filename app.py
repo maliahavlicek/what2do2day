@@ -235,14 +235,12 @@ def filter_events():
         # pull out any filtering
         filtering = ""
         if filter_form.activity_selection.data:
-            for i, item in enumerate(filter_form.activity_selection.data):
-                filtering += item
-                if i != len(filter_form.activity.data):
-                    filtering += ","
+            if filter_form.activity_selection.data != "n":
+                filtering += "Activities"
         if filter_form.age.data:
             if len(filtering) > 0:
                 filtering += ", "
-            filtering += "Age: " + str(filter_form.age.data)
+            filtering += "Age"
         if filter_form.filter_date_range.data:
             if len(filtering) > 0:
                 filtering += ", "

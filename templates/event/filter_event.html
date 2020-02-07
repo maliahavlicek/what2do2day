@@ -18,7 +18,7 @@
                     <div class="field {% if filter_form.filter_date_range.errors %}has-error{% endif %}">
                         {{ filter_form.filter_date_range.label(class_="label") }}
                         <div class="control">
-                            {{ filter_form.filter_date_range(class_="input", type="date" ) }}
+                            {{ filter_form.filter_date_range(class_="input", type="datetime") }}
                         </div>
                         <p class="error-msg help is-danger">
                             {% if filter_form.filter_date_range.errors|length > 0 %}
