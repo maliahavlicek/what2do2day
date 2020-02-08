@@ -44,9 +44,21 @@ def retrieve_events_from_db(update, filter_form=False):
 
     query = []
     activities = []
+    age_choices = {
+        'no-limit': [0, 120],
+        '0-2': [0, 2],
+        '3-5': [3, 5],
+        '6-10': [6, 10],
+        '11-13': [11, 15],
+        '14-18': [14, 18],
+        '19-20': [19, 20],
+        '21-plus': [21, 120]
+    }
+    ages = []
     filter_start_date = False
     filter_end_date = False
 
+    # check if any filtering is required
     if filter_form:
         # check for activities in the filter_form
         if filter_form.activity_selection.data != "n":
@@ -62,8 +74,14 @@ def retrieve_events_from_db(update, filter_form=False):
         if filter_form.filter_date_range.data != "":
             filter_start_date = datetime.strptime(filter_form.filter_date_range.data[0:10], '%m/%d/%Y')
             filter_end_date = datetime.strptime(filter_form.filter_date_range.data[14:24], '%m/%d/%Y')
+        if filter_form.age.data:
+            for age_limit, age_range in age_choices.items():
+                min = age_range[0]
+                max = age_range[1]
+                if filter_form.age.data >= min and filter_form.age.data <= max:
+                    ages.append(age_limit)
 
-    # when updating, we see all events, for normal view, ony show those that are shared
+        # when updating, we see all events, for normal view, ony show those that are shared
     if not update:
         query.append(
             {"$match": {'share': True}})
@@ -103,6 +121,9 @@ def retrieve_events_from_db(update, filter_form=False):
         query.append({
             "$match": {'start_date': {"$gte": filter_start_date, "$lte": filter_end_date}}
         })
+
+    if len(ages) > 0:
+        query.append({'$match': {'age_limit': {"$in": ages}}})
 
     # normal view suppress past events from view
     if not update:
