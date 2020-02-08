@@ -309,21 +309,69 @@ def edit_events(filter_string):
                            google_key=google_key, filter_form=filter_form, update=True)
 
 
+def push_event_to_db(form, event):
+    # create a cleaned up event object to the point of unique data [place_id, name, date_time_range]
+    new_event = {'place': event['place_id'], 'name': form.data['event_name'].strip().lower(),
+                 'date_time_range': form.data['event_start_datetime']
+                 }
+
+    # event is unique so format rest of form entries and load to db
+    has_address = form.address.data['has_address']
+    event_address = {}
+    if has_address:
+        event_address['address_line_1'] = form.address.data['address_line_1'].strip().lower()
+        if form.address.data['address_line_2']:
+            event_address['address_line_2'] = form.address.data['address_line_2'].strip().lower()
+        event_address['city'] = form.address.data['city'].strip().lower()
+        event_address['state'] = form.address.data['state'].strip().lower()
+        if form.address.data['postal_code']:
+            event_address['postal_code'] = form.address.data['postal_code'].strip().lower()
+        event_address['country'] = form.address.data['country']
+        address_id = get_add_address_id(event_address)
+        event_address_id = address_id
+    else:
+        event_address_id = ''
+
+    # see if event's activity is in db or not
+    event_activity_id = get_add_activity_id(form.activity_name.data.strip().lower(),
+                                            form.activity_icon.data)
+    new_event['activity'] = event_activity_id
+    new_event['details'] = form.data['details'].strip()
+    new_event['age_limit'] = form.data['age_limit']
+    new_event['price_for_non_members'] = form.data['price_for_non_members'].strip()
+    new_event['address'] = event_address_id
+    new_event['max_attendees'] = form.data['max_attendees']
+    new_event['attendees'] = event['attendees']
+    new_event['share'] = form.share.data
+
+    db = mongo.db.events.with_options(
+        write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+    )
+
+    the_event = db.update_one({"_id": event['_id']}, {"$set": new_event})
+    # need to route to edit events maybe show show Success message overlay vs error message overlay
+    return redirect(url_for('edit_events'))
+
+
 @app.route('/update_event/<string:event_id>/', methods=['GET', 'POST'])
 def update_event(event_id):
     form = EventForm()
     form.address.country.choices = country_choice_list()
     icons = get_list_of_icons()
+
     try:
         list_events = list(retrieve_events_from_db(True, False, event_id))
     except Exception as e:
         return render_template('error.html', reason=e)
 
+    if form.validate_on_submit():
+        return push_event_to_db(form, list_events[0])
+
     if list_events is not None:
         event = list_events[0]
         """populate event form"""
         form.has_event.data = True
-        form.event_name.data = event['event_name'].capitalize()
+        form.event_name.data = event['event_name'].title()
         form.event_start_datetime.data = event['date_time_range']
 
         form.address.address_line_1.data = event['address-address_line_1'].title()
@@ -506,8 +554,8 @@ def get_add_activity_id(name, icon):
 @app.route('/add_place', methods=['GET', 'POST'])
 def add_place():
     form = PlaceForm()
-    form.place.address.country.choices = country_choice_list()
-    form.place.event.address.country.choices = country_choice_list()
+    form.address.country.choices = country_choice_list()
+    form.event.address.country.choices = country_choice_list()
 
     if form.validate_on_submit():
         # all is good with the post based on PlaceForm wftForm validation

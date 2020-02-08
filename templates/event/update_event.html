@@ -5,7 +5,7 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Update Event {{ event_name }}
+                    Update Event
                 </h1>
                 {% if events | length < 1 %}
                     <h2 class="subtitle">
@@ -27,50 +27,63 @@
             </div>
         </div>
     </section>
-    <section class="list-events">
-        {% if events | length > 0 %}
-            {% for event in events %}
-                {# collect initial event of place #}
-                {# This template collects data for an event. It expects to be associated with a Place_id #}
-                {# has event checkbox, only shown on add place form #}
-                <div class="field is-hidden">
-                    <label class="label">Events</label>
-                    <div class="control">
-                        {{ form.has_event(class_="is-checkradio is-medium") }}
-                        {{ form.has_event.label }}
+    {% if events | length > 0 %}
+        {% for event in events %}
+            <form method="POST" action="{{ url_for('update_event', event_id=event['_id']) }}"
+                  enctype="multipart/form-data">
+                {{ form.csrf_token }}
+                <nav class="level is-primary">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p class="title">
+                                <i class="fas fa-edit"></i> Now Updating: {{ event['event_name'] | title }}
+                            </p>
+                        </div>
                     </div>
+                </nav>
+                <section class="section">
+                    <div class="container">
+                        <div class="list-events">
+                            {# collect initial event of place #}
+                            {# This template collects data for an event. It expects to be associated with a Place_id #}
+                            {# has event checkbox, only shown on add place form #}
+                            <div class="field is-hidden">
+                                <label class="label">Events</label>
+                                <div class="control">
+                                    {{ form.has_event(class_="is-checkradio is-medium") }}
+                                    {{ form.has_event.label }}
+                                </div>
+                            </div>
+                            <div class="container">
+                                {{ event_entry(form=form, event=event, update=True) }}
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <div class="section update is-submit-wrapper">
+                    <nav class="level">
+                        <div class="level-left">
+                            <button type="submit" class="button is-primary action submit">
+                            <span class="icon is-small">
+                               <i class="fas fa-share-square"></i>
+                            </span>
+                                <span class="action">Save Changes</span>
+                            </button>
+                        </div>
+                        <div class="level-right">
+                            <a class="button is-primary is-inverted action edit_event"
+                               href="{{ url_for('edit_events') }}">
+                            <span class="icon">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                                <span class="action">Cancel</span>
+                            </a>
+                        </div>
+                    </nav>
                 </div>
+            </form>
+        {% endfor %}
+    {% endif %}
 
-                {# event block hide/shows based on has_eveent  #}
-                <form method="POST" action="{{ url_for('update_event', event_id=event['_id']) }}"
-                      enctype="multipart/form-data">
-                    <div class="has-background-white-bis embedded">
-                        {{ event_entry(form=form, event=event, update=True) }}
-                    </div>
-
-                    <div class="level-left">
-                        <button type="submit" class="button is-primary action submit">
-                                <span class="icon is-small">
-                                   <i class="fas fa-share-square"></i>
-                                </span>
-                            <span class="action">Save Changes</span>
-                        </button>
-                    </div>
-                    <div class="level-left">
-                        <a class="button is-primary is-inverted action edit_event"
-                           href="{{ url_for('edit_events') }}">
-                                <span class="icon">
-                                    <i class="fas fa-trash"></i>
-                                </span>
-                            <span class="action">Cancel</span>
-                        </a>
-
-
-                    </div>
-
-                </form>
-
-            {% endfor %}
-        {% endif %}
-    </section>
 {% endblock %}

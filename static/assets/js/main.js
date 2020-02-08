@@ -162,7 +162,7 @@ $(document).ready(function () {
     }
 
 
-    /* if coming back and we have some age_limit selections, add the class */
+    /* if coming back and we have some activity selections, add the class */
     $('#activity option:selected').each(function () {
         let card_selector = ".card.button." + $(this).val();
         let card = $(card_selector);
@@ -176,6 +176,14 @@ $(document).ready(function () {
         let card = $(card_selector);
         card.toggleClass('is-inverted', 10);
     });
+
+    /* if coming back and we have some age_limit selections, add the class */
+    $('#age_limit option:selected').each(function () {
+        let card_selector = ".card.button." + $(this).val();
+        let card = $(card_selector);
+        card.toggleClass('is-inverted', 10);
+    });
+
 
     /* if coming back, pre-select selections */
     if ($('#activity_selection').length > 0) {
@@ -314,3 +322,6 @@ function getFormattedDate(date) {
 
     return month + '/' + day + '/' + year;
 }
+
+
+/* MAYbe try this to scroll activity selection into view from https://stackoverflow.com/questions/635706/how-to-scroll-to-an-element-inside-a-div */

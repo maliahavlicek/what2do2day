@@ -3,133 +3,133 @@
 {% from "_partials/macros.html" import enable_switch with context %}
 {% macro event_entry(form, event, update=False) -%}
 
-                    <div class="columns">
-                        <div class="column">
-                            <div class="field {% if form.event_name.errors %}has-error{% endif %}">
-                                {# event name collection#}
-                                {{ form.event_name.label(class_="label") }}
-                                <div class="control has-icons-left has-icons-right">
-                                    {{ form.event_name(class_="input", placeholder="Event Name") }}
-                                    <span class="icon is-small is-left has-text-primary">
+    <div class="columns">
+        <div class="column">
+            <div class="field {% if form.event_name.errors %}has-error{% endif %}">
+                {# event name collection#}
+                {{ form.event_name.label(class_="label") }}
+                <div class="control has-icons-left has-icons-right">
+                    {{ form.event_name(class_="input", placeholder="Event Name") }}
+                    <span class="icon is-small is-left has-text-primary">
                             <i class="fas fa-monument"></i>
                         </span>
-                                    <span class="error-msg icon is-small is-right">
+                    <span class="error-msg icon is-small is-right">
                           <i class="fas fa-exclamation-triangle"></i>
                         </span>
-                                </div>
-                                <p class="error-msg help is-danger">
-                                    {% if form.event_name.errors|length > 0 %}
-                                        {{ form.event_name.errors[0] }}
-                                    {% endif %}
-                                </p>
-                            </div>
-                            {# event price for non member collection#}
-                            <div class="field {% if form.price_for_non_members.errors %}has-errors{% endif %}">
-                                {{ form.price_for_non_members.label(class_="label") }}
-                                <div class="control has-icons-left has-icons-right">
-                                    {{ form.price_for_non_members(class_="input", placeholder="Free") }}
-                                    <span class="icon is-small is-left has-text-primary">
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.event_name.errors|length > 0 %}
+                        {{ form.event_name.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+            {# event price for non member collection#}
+            <div class="field {% if form.price_for_non_members.errors %}has-errors{% endif %}">
+                {{ form.price_for_non_members.label(class_="label") }}
+                <div class="control has-icons-left has-icons-right">
+                    {{ form.price_for_non_members(class_="input", placeholder="Free") }}
+                    <span class="icon is-small is-left has-text-primary">
                             <i class="fas fa-comments-dollar"></i>
                         </span>
-                                    <span class="error-msg icon is-small is-right">
+                    <span class="error-msg icon is-small is-right">
                           <i class="fas fa-exclamation-triangle"></i>
                         </span>
-                                </div>
-                                <p class="error-msg help is-danger">
-                                    {% if form.price_for_non_members.errors|length > 0 %}
-                                        {{ form.price_for_non_members.errors[0] }}
-                                    {% endif %}
-                                </p>
-                            </div>
-                            {# Event start and end datetime field collection #}
-                            <div class="field {% if form.event_start_datetime.errors %}has-error{% endif %}">
-                                {{ form.event_start_datetime.label(class_="label") }}
-                                <div class="control">
-                                    {{ form.event_start_datetime(class_="input", type="datetime") }}
-                                </div>
-                                <p class="error-msg help is-danger">
-                                    {% if form.event_start_datetime.errors|length > 0 %}
-                                        {{ form.event_start_datetime.errors[0] }}
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.price_for_non_members.errors|length > 0 %}
+                        {{ form.price_for_non_members.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+            {# Event start and end datetime field collection #}
+            <div class="field {% if form.event_start_datetime.errors %}has-error{% endif %}">
+                {{ form.event_start_datetime.label(class_="label") }}
+                <div class="control">
+                    {{ form.event_start_datetime(class_="input", type="datetime") }}
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.event_start_datetime.errors|length > 0 %}
+                        {{ form.event_start_datetime.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
 
-                        <div class="column">
-                            {# event details collection #}
-                            <div class="field {% if form.details.errors %}has-error{% endif %}">
-                                {{ form.details.label(class_="label") }}
-                                <div class="control has-icons-right">
-                                    {{ form.details(class_="textarea", placeholder="Provide details about what to bring and where to meet.") }}
-                                    <span class="error-msg icon is-small is-right">
+        <div class="column">
+            {# event details collection #}
+            <div class="field {% if form.details.errors %}has-error{% endif %}">
+                {{ form.details.label(class_="label") }}
+                <div class="control has-icons-right">
+                    {{ form.details(class_="textarea", placeholder="Provide details about what to bring and where to meet.") }}
+                    <span class="error-msg icon is-small is-right">
                           <i class="fas fa-exclamation-triangle"></i>
                         </span>
-                                </div>
-                                <p class="error-msg help is-danger">
-                                    {% if form.details.errors|length > 0 %}
-                                        {{ form.details.errors[0] }}
-                                    {% endif %}
-                                </p>
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.details.errors|length > 0 %}
+                        {{ form.details.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+            {# Max attendees #}
+            <div class="field {% if form.max_attendees.errors %}has-error{% endif %}">
+                {{ form.max_attendees.label(class_="label") }}
+                <div class="control">
+                    {{ form.max_attendees(class_="input", type="numbe") }}
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.max_attendees.errors|length > 0 %}
+                        {{ form.max_attendees.errors[0] }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {# macro for address of event #}
+    <div>
+        {{ address_collection(form=form.address, label="Event Address") }}
+    </div>
+
+    {# macro for actiity_choice #}
+    {{ activity_choice(activity_input=form.activity_name, hidden_input_for_icon=form.activity_icon) }}
+
+    {# ages mutliple choice #}
+    <div class="field {% if form.age_limit.errors %}has-error{% endif %}">
+        {# macro for hidden inputs that go into form #}
+        {{ form.age_limit.label(class_='label') }}
+        <p>Choosing No Limit overrides any other selections</p>
+        <div class="control embedded">
+            {# more user friendly experience for selecting ages #}
+            <div class="select is-multiple container ages">
+                {{ form.age_limit(class_="is-hidden controller-ages", size="8") }}
+                {% for item in form.age_limit.choices %}
+                    <a class="card button ages is-primary {{ item[0] }}"
+                       data-choice='option[value={{ item[0] }}]'>
+                        <div class="card-content">
+                            <div class="media-con">
+                                <img src="/static/assets/images/ages/{{ item[0] }}.png"
+                                     alt="image for {{ item[1] }} age group">
                             </div>
-                            {# Max attendees #}
-                            <div class="field {% if form.max_attendees.errors %}has-error{% endif %}">
-                                {{ form.max_attendees.label(class_="label") }}
-                                <div class="control">
-                                    {{ form.max_attendees(class_="input", type="numbe") }}
-                                </div>
-                                <p class="error-msg help is-danger">
-                                    {% if form.max_attendees.errors|length > 0 %}
-                                        {{ form.max_attendees.errors[0] }}
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {# macro for address of event #}
-                    <div>
-                        {{ address_collection(form=form.address, label="Event Address") }}
-                    </div>
-
-                    {# macro for actiity_choice #}
-                    {{ activity_choice(activity_input=form.activity_name, hidden_input_for_icon=form.activity_icon) }}
-
-                    {# ages mutliple choice #}
-                    <div class="field {% if form.age_limit.errors %}has-error{% endif %}">
-                        {# macro for hidden inputs that go into form #}
-                        {{ form.age_limit.label(class_='label') }}
-                        <p>Choosing No Limit overrides any other selections</p>
-                        <div class="control">
-                            {# more user friendly experience for selecting ages #}
-                            <div class="select is-multiple container ages">
-                                {{ form.age_limit(class_="is-hidden controller-ages", size="8") }}
-                                {% for item in form.age_limit.choices %}
-                                    <a class="card button ages is-primary {{ item[0] }}"
-                                       data-choice='option[value={{ item[0] }}]'>
-                                        <div class="card-content">
-                                            <div class="media-con">
-                                                <img src="/static/assets/images/ages/{{ item[0] }}.png"
-                                                     alt="image for {{ item[1] }} age group">
-                                            </div>
-                                            <div class="media-content">
-                                                <p class="title is-4">{{ item[1] }}</p>
-                                                <p class="subtitle is-6">Ages: {{ item[0] }}</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                {% endfor %}
+                            <div class="media-content">
+                                <p class="title is-4">{{ item[1] }}</p>
+                                <p class="subtitle is-6">Ages: {{ item[0] }}</p>
                             </div>
                         </div>
-                        <p class="error-msg help is-danger">
-                            {% if form.age_limit.errors|length > 0 %}
-                                {{ form.age_limit.errors[0] }}
-                            {% endif %}
-                        </p>
-                    </div>
-    
-                    {# show_enable determines if the user sees a event specific enablment or not #}
-                    <div class="field {% if not update %}is-hidden{% endif %}">
-                        {{ enable_switch(id=form.share.id, form=form.share) }}
-                    </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <p class="error-msg help is-danger">
+            {% if form.age_limit.errors|length > 0 %}
+                {{ form.age_limit.errors[0] }}
+            {% endif %}
+        </p>
+    </div>
+
+    {# show_enable determines if the user sees a event specific enablment or not #}
+    <div class="field {% if not update %}is-hidden{% endif %}">
+        {{ enable_switch(id=form.share.id, form=form.share) }}
+    </div>
 
 {%- endmacro %}
