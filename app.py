@@ -356,7 +356,7 @@ def push_event_to_db(form, event):
     else:
         status = "OK"
     # need to route to edit events maybe show show Success message overlay vs error message overlay
-    return redirect(url_for('edit_events', filter_string='none', update_status=status))
+    return redirect(url_for('edit_events', filter_string='None', update_status=status))
 
 
 @app.route('/update_event/<string:event_id>/', methods=['GET', 'POST'])
