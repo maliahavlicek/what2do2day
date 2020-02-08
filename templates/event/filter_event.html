@@ -7,12 +7,23 @@
             <button class="toggle" aria-label="toggle"></button>
         </div>
         <div class="accordion-body">
+
             <div class="accordion-content">
                 <form method="POST"
                       action="{{ url_for('filter_events', filter_string='yes') }}"
                       enctype="multipart/form-data">
                     {#  prevent cross site scripting #}
                     {{ filter_form.csrf_token }}
+
+                    {# reset filter form #}
+                    <div class="level-right">
+                        <a class="button is-primary is-inverted" id="reset-event-filter-form" href="/get_events?filter_string=cleared">
+                                    <span class="icon">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </span>
+                            <span>Show All</span>
+                        </a>
+                    </div>
 
                     {# start and end datetime range filter #}
                     <div class="field {% if filter_form.filter_date_range.errors %}has-error{% endif %}">

@@ -152,6 +152,7 @@ class FilterEventsFrom(FlaskForm):
     activity_selection = HiddenField(None, [DataRequired()], default="n")
 
 
+
 class CountMeInForm(FlaskForm):
     """Count Me In Form"""
 

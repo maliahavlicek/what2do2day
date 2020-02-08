@@ -43,10 +43,27 @@ def retrieve_events_from_db(update, filter_form=False):
     # join the activities and places to the events database and flatten it down so we don't have to dig for values
 
     query = []
+    activities = []
+
+    if filter_form:
+        if filter_form.activity_selection.data != "n":
+            for item in filter_form.activity_selection.data.split("~"):
+                if item != "n":
+                    activity = item.split(":")
+                    the_activity = mongo.db.activities.find_one({'name': activity[0].lower(), 'icon': activity[1]})
+                    if the_activity is not None:
+                        activities.append(the_activity['_id'])
+                    else:
+                        pass
+
+    if len(activities) > 0:
+        query.append({"$match": {'activity': {'$all': activities}}})
+
     # when updating, we see all events, for normal view, ony show those that are shared
     if not update:
         query.append(
             {"$match": {'share': True}})
+
 
     query.append({
         "$project": {

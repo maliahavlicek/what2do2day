@@ -178,7 +178,7 @@ $(document).ready(function () {
     });
 
     /* if coming back, pre-select selections */
-    if($('#activity_selection').length > 0) {
+    if ($('#activity_selection').length > 0) {
         let filter_activity_selection = $('#activity_selection').val().split("~");
         for (let i = 0; i < filter_activity_selection.length; i++) {
             if (filter_activity_selection[i] !== "n") {
@@ -188,7 +188,6 @@ $(document).ready(function () {
             }
         }
     }
-
 
 
     /* handlers for cards acting as mutli-choice selections */
@@ -207,7 +206,7 @@ $(document).ready(function () {
         /* save off selections in hidden field */
         let val_selections = "n";
         $('.card.button.activities.is-inverted').each(function () {
-            val_selections+= "~"+($(this).attr('data-choice'));
+            val_selections += "~" + ($(this).attr('data-choice'));
         });
 
         $('#activity_selection').val(val_selections);
@@ -314,4 +313,3 @@ function getFormattedDate(date) {
 
     return month + '/' + day + '/' + year;
 }
-
