@@ -133,6 +133,7 @@ class EventForm(FlaskForm):
                                                                   Length(min=1, message='Name of Event is required.')])
     max_attendees = IntegerField('Maximum Number of Attendees', [NumberRange(min=1, max=1000,
                                                                              message="You must allow at least 1 to 1,000 people to attend the event.")])
+    share = BooleanField('Share with Community', default=True)
 
     def validate_activity_icon(self, activity_icon):
         """Custom validation to make sure an activity icon was picked"""
@@ -150,7 +151,6 @@ class FilterEventsFrom(FlaskForm):
                                   validate_daterange])
 
     activity_selection = HiddenField(None, [DataRequired()], default="n")
-
 
 
 class CountMeInForm(FlaskForm):

@@ -13,7 +13,7 @@ from datetime import datetime
 import requests
 import time
 
-from forms import PlaceForm, ReviewForm, AddressForm, CountMeInForm, FilterEventsFrom
+from forms import PlaceForm, EventForm, ReviewForm, AddressForm, CountMeInForm, FilterEventsFrom
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from config import Config
 
@@ -39,7 +39,7 @@ def home():
     return render_template('home.html')
 
 
-def retrieve_events_from_db(update, filter_form=False):
+def retrieve_events_from_db(update, filter_form=False, event_id=False):
     # join the activities and places to the events database and flatten it down so we don't have to dig for values
 
     query = []
@@ -71,7 +71,7 @@ def retrieve_events_from_db(update, filter_form=False):
                         query.append({"$match": {'activity': {'$in': activities}}})
                     else:
                         pass
-        if filter_form.filter_date_range.data != "":
+        if filter_form.filter_date_range.data is not None and filter_form.filter_date_range != "":
             filter_start_date = datetime.strptime(filter_form.filter_date_range.data[0:10], '%m/%d/%Y')
             filter_end_date = datetime.strptime(filter_form.filter_date_range.data[14:24], '%m/%d/%Y')
         if filter_form.age.data:
@@ -81,10 +81,15 @@ def retrieve_events_from_db(update, filter_form=False):
                 if filter_form.age.data >= min and filter_form.age.data <= max:
                     ages.append(age_limit)
 
-        # when updating, we see all events, for normal view, ony show those that are shared
+    # when updating, we see all events, for normal view, ony show those that are shared
     if not update:
         query.append(
             {"$match": {'share': True}})
+
+    # check if an event id is coming in
+    if event_id:
+        query.append(
+            {"$match": {'_id': ObjectId(event_id)}})
 
     query.append({
         "$project": {
@@ -274,6 +279,34 @@ def get_events(event_id, filter_string):
         return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
                                show_modal=show_modal,
                                google_key=google_key, layer_event=event, filter_form=filter_form)
+
+
+@app.route('/edit_events/', defaults={'filter_string': None}, methods=['GET', 'POST'])
+@app.route('/edit_events/<string:filter_string>/', methods=['GET', 'POST'])
+def edit_events(filter_string):
+    if filter_string is None:
+        filter_string = 'None'
+
+    filter_form = FilterEventsFrom()
+
+    activity_choices = unique_activities("true")
+    filter_form.activity.choices = activity_choices
+
+    the_events = retrieve_events_from_db(True, filter_form)
+    return render_template('event/edit_events.html', events=the_events, filter=filter_string,
+                           google_key=google_key, filter_form=filter_form, update=True)
+
+
+@app.route('/update_event/<string:event_id>/', methods=['GET', 'POST'])
+def update_event(event_id):
+    form = EventForm()
+    icons = get_list_of_icons()
+    try:
+        list_events = retrieve_events_from_db(True, False, event_id)
+    except Exception as e:
+        return render_template('error.html', reason=e)
+
+    return render_template('event/update_event.html', events=list_events, form=form, update=True, icons=icons)
 
 
 @app.route('/filter_events', defaults={'update': 'false'}, methods=['POST'])

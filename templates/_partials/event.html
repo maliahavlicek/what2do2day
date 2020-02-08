@@ -139,10 +139,9 @@
     </div>
 
 
-    {# show_enable determines if the user sees a event specific enablment or not #}
-    {% if event %}
-        <div class="field">
-            {{ enable_switch('place', event.enabled) }}
+    {# show_enable determines if the user sees a event specific enablment or not, for adding, it's inherited from place #}
+        <div class="field is-hidden">
+            {{ enable_switch(id="event-share", form=form.share) }}
         </div>
-    {% endif %}
+
 </div>

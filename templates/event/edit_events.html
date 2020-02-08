@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% from "_partials/macros.html" import display_address with context %}
+{# This template houses the get_events list page. It houses the Count Me In modal and form #}
+{% block content %}
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Events - {{ events|length }}
+                </h1>
+                {% if events | length < 1 %}
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p class="subtitle">
+                                {% if  filter =="none" %}
+                                    Sorry, there are no events at this time.
+                                {% else %}
+                                    Opps, there are no results for those filter options.
+                                {% endif %}
+                            </p>
+                        </div>
+                        {% if  filter =="none" %}
+                            <div class="level-item">
+                                <p class="control">
+                                    <a class="button is-white" href="{{ url_for('add_event') }}">
+                                    <span class="icon">
+                                        <i class="fas fa-calendar-plus"></i>
+                                    </span>
+                                        <span>Add Event</span>
+                                    </a>
+                                </p>
+                            </div>
+                            {% else %}
+                            {# reset filter form #}
+                            <div class="level-right">
+                                <a class="button is-primary is-inverted" id="reset-event-filter-form" href="{{ url_for('edit_events') }}">
+                                    <span class="icon">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </span>
+                                    <span>Show All</span>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {# include accordion for filtering #}
+    {% include 'event/filter_event.html' %}
+    <section class="list-events">
+        {% if events | length > 0 %}
+            {% for event in events %}
+                {% if loop.index == 1 or loop.index > 1 and event['start_date'] != events[loop.index - 2]['start_date'] %}
+                    <nav class="level is-primary">
+                        <div class="level-left">
+                            <div class="level-item">
+                                <p class="title">
+                                    <i class="far fa-calendar-alt"></i> {{ event['start_date'].strftime('%Y-%m-%d') }}
+                                </p>
+                            </div>
+                        </div>
+                    </nav>
+                {% endif %}
+                {% include 'event/edit_event.html' %}
+            {% endfor %}
+        {% endif %}
+    </section>
+
+
+
+{% endblock %}

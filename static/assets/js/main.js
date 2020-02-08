@@ -269,6 +269,7 @@ $(document).ready(function () {
 
     });
 
+
     /*  modals handling */
     let rootEl = document.documentElement;
     let $modals = getAll('.modal');
