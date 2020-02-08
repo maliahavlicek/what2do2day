@@ -575,6 +575,14 @@ span#event-modal-title {
     box-shadow: none;
 }
 
+.list-events .card.is-primary.not-shared .card-content{
+    background-color: #feecf0;
+}
+
+i.not-shared{
+    color: #f14668;
+}
+
 /* scrollbar styles */
 .limited-exposure::-webkit-scrollbar-track, .modal-card::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);

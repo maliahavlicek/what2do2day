@@ -1,7 +1,7 @@
 {# This template is used on the get_events page. It houses the HTML for each event row in the table #}
 {% from "_partials/macros.html" import display_address with context %}
 <div class="container">
-    <div class="card is-primary">
+    <div class="card is-primary {% if not event['share'] %}not-shared{% endif %}">
         {# give credit to place hosting event #}
         <header class="card-header">
             {# activity icon #}
@@ -49,6 +49,15 @@
                             {{ event['price_for_non_members'] }}
                         {% else %}
                             Free
+                        {% endif %}
+                    </p>
+
+                    <p>
+                        <span class="is-bold">Shared: </span>
+                        {% if event['share'] %}
+                            <i class="fas fa-eye"></i> Yes
+                        {% else %}
+                            <i class="fas fa-eye-slash not-shared"></i> No
                         {% endif %}
                     </p>
                 </div>
