@@ -293,9 +293,10 @@ def get_events(event_id, filter_string):
                                google_key=google_key, layer_event=event, filter_form=filter_form)
 
 
-@app.route('/edit_events/', defaults={'filter_string': None}, methods=['GET', 'POST'])
-@app.route('/edit_events/<string:filter_string>/', methods=['GET', 'POST'])
-def edit_events(filter_string):
+@app.route('/edit_events/', defaults={'filter_string': None, 'update_status': None}, methods=['GET', 'POST'])
+@app.route('/edit_events/<string:filter_string>/', defaults={'update_status': None}, methods=['GET', 'POST'])
+@app.route('/edit_events/<string:filter_string>/<string:update_status>', methods=['GET', 'POST'])
+def edit_events(filter_string, update_status):
     if filter_string is None:
         filter_string = 'None'
 
@@ -306,7 +307,7 @@ def edit_events(filter_string):
 
     the_events = retrieve_events_from_db(True, filter_form)
     return render_template('event/edit_events.html', events=the_events, filter=filter_string,
-                           google_key=google_key, filter_form=filter_form, update=True)
+                           google_key=google_key, filter_form=filter_form, update=True, status=update_status)
 
 
 def push_event_to_db(form, event):
@@ -349,8 +350,13 @@ def push_event_to_db(form, event):
     )
 
     the_event = db.update_one({"_id": event['_id']}, {"$set": new_event})
+
+    if the_event is None:
+        status = "There was a database connectivity issue. Please try again."
+    else:
+        status = "OK"
     # need to route to edit events maybe show show Success message overlay vs error message overlay
-    return redirect(url_for('edit_events'))
+    return redirect(url_for('edit_events', filter_string='none', update_status=status))
 
 
 @app.route('/update_event/<string:event_id>/', methods=['GET', 'POST'])

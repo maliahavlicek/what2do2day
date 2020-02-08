@@ -30,10 +30,11 @@
                                     </a>
                                 </p>
                             </div>
-                            {% else %}
+                        {% else %}
                             {# reset filter form #}
                             <div class="level-right">
-                                <a class="button is-primary is-inverted" id="reset-event-filter-form" href="{{ url_for('edit_events') }}">
+                                <a class="button is-primary is-inverted" id="reset-event-filter-form"
+                                   href="{{ url_for('edit_events') }}">
                                     <span class="icon">
                                         <i class="fas fa-redo-alt"></i>
                                     </span>
@@ -66,6 +67,48 @@
             {% endfor %}
         {% endif %}
     </section>
+    {% if status %}
+        {# modal for update event submission results #}
+        <div class="modal is-active {% if status == 'OK' %}user-success{% else %}user-error{% endif %}"
+             id="modal-count-me-in-submitted">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Update Event</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="container">
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                    {% if status== "OK" %}
+                                        The event was successfully updated.
+                                    {% else %}
+                                        {{ status }}
+                                    {% endif %}
+                                </div>
+                                <div class="column">
+                                    <div class="image-holder"
+                                         aria-label="image of {% if status=='OK' %} Phineas and Ferb celebrating success.{% else %}Image of Dr. Doofenshmirtz looking bewildered.{% endif %}"></div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                {# button to acknowledge message and close modal #}
+                <footer class="modal-card-foot">
+                    <div class="level-left">
+                        <a class=" button is-primary action modal-close-2">
+                        <span class="icon is-small">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                            <span class="action">OK</span>
+                        </a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    {% endif %}
 
 
 
