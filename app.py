@@ -219,6 +219,7 @@ def retrieve_events_from_db(update, filter_form=False, event_id=False):
     for event in list_events:
         if 'address-country' in event.keys():
             country_id = event['address-country']
+            event['country_id'] = country_id
             country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
             if country is not None:
                 event['address-country'] = country['country']
@@ -300,11 +301,34 @@ def edit_events(filter_string):
 @app.route('/update_event/<string:event_id>/', methods=['GET', 'POST'])
 def update_event(event_id):
     form = EventForm()
+    event_address = AddressForm()
     icons = get_list_of_icons()
     try:
-        list_events = retrieve_events_from_db(True, False, event_id)
+        list_events = list(retrieve_events_from_db(True, False, event_id))
     except Exception as e:
         return render_template('error.html', reason=e)
+
+    if list_events is not None:
+        event = list_events[0]
+        """populate event form"""
+        form.has_event.data = True
+        form.event_name.data = event['event_name'].capitalize()
+        form.event_start_datetime.data = event['date_time_range']
+
+        form.address.address_line_1.data = event['address-address_line_1'].title()
+        form.address.address_line_2.data = event['address-address_line_2'].title()
+        form.address.city.data = event['address-city'].title()
+        form.address.state.data = event['address-state'].title()
+        form.address.postal_code.data = event['address-postal_code']
+        form.address.country.data = event['country_id']
+
+        form.activity_name.data = event['activity_name'].capitalize()
+        form.activity_icon.data = event['activity_icon']
+        form.details.data = event['details']
+        form.age_limit.data = event['age_limit']
+        form.price_for_non_members.data = event['price_for_non_members']
+        form.max_attendees.data = event['max_attendees']
+        form.share.data = event['share']
 
     return render_template('event/update_event.html', events=list_events, form=form, update=True, icons=icons)
 
@@ -583,7 +607,6 @@ def mini_event(event):
             'country': '',
             'lat': 0,
             'lng': 0,
-
         }
     }
 
