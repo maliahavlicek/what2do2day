@@ -44,8 +44,11 @@ def retrieve_events_from_db(update, filter_form=False):
 
     query = []
     activities = []
+    filter_start_date = False
+    filter_end_date = False
 
     if filter_form:
+        # check for activities in the filter_form
         if filter_form.activity_selection.data != "n":
             for item in filter_form.activity_selection.data.split("~"):
                 if item != "n":
@@ -53,17 +56,17 @@ def retrieve_events_from_db(update, filter_form=False):
                     the_activity = mongo.db.activities.find_one({'name': activity[0].lower(), 'icon': activity[1]})
                     if the_activity is not None:
                         activities.append(the_activity['_id'])
+                        query.append({"$match": {'activity': {'$all': activities}}})
                     else:
                         pass
-
-    if len(activities) > 0:
-        query.append({"$match": {'activity': {'$all': activities}}})
+        if filter_form.filter_date_range.data != "":
+            filter_start_date = datetime.strptime(filter_form.filter_date_range.data[0:10], '%m/%d/%Y')
+            filter_end_date = datetime.strptime(filter_form.filter_date_range.data[14:24], '%m/%d/%Y')
 
     # when updating, we see all events, for normal view, ony show those that are shared
     if not update:
         query.append(
             {"$match": {'share': True}})
-
 
     query.append({
         "$project": {
@@ -94,6 +97,13 @@ def retrieve_events_from_db(update, filter_form=False):
             'address_id': '$address',
             'share': '$share'
         }})
+
+    # check for a date range in the filter_form
+    if filter_end_date and filter_start_date:
+        query.append({
+            "$match": {'start_date': {"$gte": filter_start_date, "$lte": filter_end_date}}
+        })
+
     # normal view suppress past events from view
     if not update:
         today = datetime.today()
