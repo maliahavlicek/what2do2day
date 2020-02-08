@@ -3,6 +3,7 @@ import re
 import ast
 
 import bson
+import pymongo
 from flask import Flask, render_template, redirect, request, url_for, json, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -37,6 +38,16 @@ def db_issue(e):
 def home():
     """ initial/default routing for app is the home page """
     return render_template('home.html')
+
+
+def country_choice_list():
+    country_choices = [('none', 'Pick a Country.')]
+    for item in list(mongo.db.countries.find({}, {'country': 1}).sort('country', pymongo.ASCENDING)):
+        country_choices.append((
+            str(item['_id']),
+            item['country'].replace('&amp;', '&').title()
+        ))
+    return country_choices
 
 
 def retrieve_events_from_db(update, filter_form=False, event_id=False):
@@ -301,7 +312,7 @@ def edit_events(filter_string):
 @app.route('/update_event/<string:event_id>/', methods=['GET', 'POST'])
 def update_event(event_id):
     form = EventForm()
-    event_address = AddressForm()
+    form.address.country.choices = country_choice_list()
     icons = get_list_of_icons()
     try:
         list_events = list(retrieve_events_from_db(True, False, event_id))
@@ -320,9 +331,10 @@ def update_event(event_id):
         form.address.city.data = event['address-city'].title()
         form.address.state.data = event['address-state'].title()
         form.address.postal_code.data = event['address-postal_code']
+
         form.address.country.data = event['country_id']
 
-        form.activity_name.data = event['activity_name'].capitalize()
+        form.activity_name.data = event['activity_name']
         form.activity_icon.data = event['activity_icon']
         form.details.data = event['details']
         form.age_limit.data = event['age_limit']
@@ -494,6 +506,8 @@ def get_add_activity_id(name, icon):
 @app.route('/add_place', methods=['GET', 'POST'])
 def add_place():
     form = PlaceForm()
+    form.place.address.country.choices = country_choice_list()
+    form.place.event.address.country.choices = country_choice_list()
 
     if form.validate_on_submit():
         # all is good with the post based on PlaceForm wftForm validation

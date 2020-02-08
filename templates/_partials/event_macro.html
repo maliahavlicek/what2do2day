@@ -2,7 +2,7 @@
 {% from "_partials/macros.html" import address_collection with context %}
 {% from "_partials/macros.html" import enable_switch with context %}
 {% macro event_entry(form, event, update=False) -%}
-<p>you are in the event_entry macro</p>
+
                     <div class="columns">
                         <div class="column">
                             <div class="field {% if form.event_name.errors %}has-error{% endif %}">
@@ -126,8 +126,7 @@
                             {% endif %}
                         </p>
                     </div>
-
-
+    
                     {# show_enable determines if the user sees a event specific enablment or not #}
                     <div class="field {% if not update %}is-hidden{% endif %}">
                         {{ enable_switch(id=form.share.id, form=form.share) }}

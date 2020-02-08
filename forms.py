@@ -147,8 +147,8 @@ class FilterEventsFrom(FlaskForm):
     activity = SelectMultipleField(u'Actvities', default='all')
     age = IntegerField('Age', [Optional(), NumberRange(min=1, max=120, message="A valid age is 0 to 120")])
     filter_date_range = StringField('Date Range',
-                                 [Optional(), Length(min=1, message='Please select a date.'),
-                                  validate_daterange])
+                                    [Optional(), Length(min=1, message='Please select a date.'),
+                                     validate_daterange])
 
     activity_selection = HiddenField(None, [DataRequired()], default="n")
 
@@ -192,19 +192,6 @@ class PlaceForm(FlaskForm):
     def __init__(self):
         """Initialize the Place Form"""
         super(PlaceForm, self).__init__()
-
-        from app import mongo
-
-        """Populate country list from db"""
-        for item in list(mongo.db.countries.find({}, {'country': 1}).sort('country', pymongo.ASCENDING)):
-            self.address.country.choices.append((
-                str(item['_id']),
-                item['country'].replace('&amp;', '&').title()
-            ))
-            self.event.address.country.choices.append((
-                str(item['_id']),
-                item['country'].replace('&amp;', '&').title()
-            ))
 
         """Let review form know it should use place email"""
         self.review.use_place_email.value = "y"

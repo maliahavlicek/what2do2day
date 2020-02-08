@@ -42,9 +42,33 @@
                 </div>
 
                 {# event block hide/shows based on has_eveent  #}
-                <div {% if not update %}id="event_block"{% endif %} class="has-background-white-bis embedded">
-                {{ event_entry(form=form, event=event, update=True) }}
-                </div>
+                <form method="POST" action="{{ url_for('update_event', event_id=event['_id']) }}"
+                      enctype="multipart/form-data">
+                    <div class="has-background-white-bis embedded">
+                        {{ event_entry(form=form, event=event, update=True) }}
+                    </div>
+
+                    <div class="level-left">
+                        <button type="submit" class="button is-primary action submit">
+                                <span class="icon is-small">
+                                   <i class="fas fa-share-square"></i>
+                                </span>
+                            <span class="action">Save Changes</span>
+                        </button>
+                    </div>
+                    <div class="level-left">
+                        <a class="button is-primary is-inverted action edit_event"
+                           href="{{ url_for('edit_events') }}">
+                                <span class="icon">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            <span class="action">Cancel</span>
+                        </a>
+
+
+                    </div>
+
+                </form>
 
             {% endfor %}
         {% endif %}
