@@ -18,6 +18,11 @@ body {
     background-color: #FFF
 }
 
+/* accordion header */
+.accordions .accordion .accordion-header{
+    justify-content: space-between;
+}
+
 /* calendar adjustments */
 .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
     max-width: 70%;

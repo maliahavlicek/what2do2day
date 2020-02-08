@@ -56,7 +56,7 @@ def retrieve_events_from_db(update, filter_form=False):
                     the_activity = mongo.db.activities.find_one({'name': activity[0].lower(), 'icon': activity[1]})
                     if the_activity is not None:
                         activities.append(the_activity['_id'])
-                        query.append({"$match": {'activity': {'$all': activities}}})
+                        query.append({"$match": {'activity': {'$in': activities}}})
                     else:
                         pass
         if filter_form.filter_date_range.data != "":
@@ -202,9 +202,13 @@ def retrieve_events_from_db(update, filter_form=False):
     return list_events
 
 
-def unique_activities(events):
+def unique_activities(update):
     activities = []
     ids = {}
+    if update == "false":
+        events = retrieve_events_from_db(False)
+    else:
+        events = retrieve_events_from_db(True)
     for event in events:
         new_id = event['activity_id']
         if new_id not in ids.keys():
@@ -235,7 +239,7 @@ def get_events(event_id, filter_string):
         except Exception as e:
             return render_template('error.html', reason=e)
 
-        activity_choices = unique_activities(list_events)
+        activity_choices = unique_activities("false")
         filter_form.activity.choices = activity_choices
 
         if form.email.errors:
@@ -251,8 +255,9 @@ def get_events(event_id, filter_string):
                                google_key=google_key, layer_event=event, filter_form=filter_form)
 
 
-@app.route('/filter_events', methods=['POST'])
-def filter_events():
+@app.route('/filter_events', defaults={'update': 'false'}, methods=['POST'])
+@app.route('/filter_events/<string:update>/', methods=['POST'])
+def filter_events(update):
     show_modal = False
     event = False
     form = CountMeInForm()
@@ -280,7 +285,7 @@ def filter_events():
 
     try:
         list_events = list(retrieve_events_from_db(False, filter_form))
-        activity_choices = unique_activities(list_events)
+        activity_choices = unique_activities(update)
         filter_form.activity.choices = activity_choices
     except Exception as e:
         db_issue(e)
@@ -632,7 +637,7 @@ def add_attendee(form, event_id, filter_form, filter_string):
         event = mini_event(the_event)
 
         list_events = retrieve_events_from_db(False, False)
-        activity_choices = unique_activities(list_events)
+        activity_choices = unique_activities("false")
         filter_form.activity.choices = activity_choices
         # somehow filter_from activity choices are crap, when going back
         return render_template('event/events.html', form=form, events=list_events, filter=filter_string,

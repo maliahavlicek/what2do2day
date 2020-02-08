@@ -3,8 +3,15 @@
     <article
             class="accordion {% if filter_form.errors and not filter_form.validate_on_submit() %}is-active{% endif %}">
         <div class="accordion-header">
-            <p>Filters: <span id="filtering" class="active-filters">{{ filter }}</span></p>
-            <button class="toggle" aria-label="toggle"></button>
+            <p>Filters: <span id="filtering" class="active-filters">{{ filter }}</span>
+                <button class="toggle" aria-label="toggle"></button>
+            </p>
+            {% if filter != "None" %}<a class="level-right" href="/get_events">
+                                    <span class="icon">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </span>
+                <span>Clear Filters</span>
+            </a> {% endif %}
         </div>
         <div class="accordion-body">
 
@@ -14,16 +21,6 @@
                       enctype="multipart/form-data">
                     {#  prevent cross site scripting #}
                     {{ filter_form.csrf_token }}
-
-                    {# reset filter form #}
-                    <div class="level-right">
-                        <a class="button is-primary is-inverted" id="reset-event-filter-form" href="/get_events">
-                                    <span class="icon">
-                                        <i class="fas fa-redo-alt"></i>
-                                    </span>
-                            <span>Show All</span>
-                        </a>
-                    </div>
 
                     {# start and end datetime range filter #}
                     <div class="field {% if filter_form.filter_date_range.errors %}has-error{% endif %}">
