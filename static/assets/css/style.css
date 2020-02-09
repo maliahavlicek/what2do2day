@@ -582,7 +582,28 @@ span#event-modal-title {
 i.not-shared{
     color: #f14668;
 }
-
+/* footer */
+.footer{
+    display: flex;
+    flex-direction: column;
+    background-color: #4a4a4a;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #fff;
+    line-height: 1.25;
+    padding: .5em .75em;
+}
+.footer a{
+    color: #00ffd9fc;
+}
+.dist-even {
+    align-items: center;
+    display: flex;
+    line-height: 1.25;
+    padding: .5em .75em;
+    position: relative;
+    justify-content: space-between;
+}
 /* scrollbar styles */
 .limited-exposure::-webkit-scrollbar-track, .modal-card::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
