@@ -72,9 +72,30 @@ $(document).ready(function () {
     }
     let tomorrow = getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000));
     let oneYear = getFormattedDate(new Date(now.getTime() + 24 * 60 * 60 * 1000 * 365));
-    let incomingDate = $('#event-event_start_datetime').val();
 
-    let calendars = bulmaCalendar.attach('#event-event_start_datetime', {
+    let incomingDate = false;
+    let date_val = false;
+    let cal_selector = false;
+    if ($('#event-event_start_datetime').length > 0) {
+        cal_selector = '#event-event_start_datetime';
+        incomingDate = $(cal_selector);
+        date_val = incomingDate.val();
+    } else if ($('#event_start_datetime').length > 0) {
+        cal_selector = '#event_start_datetime';
+        incomingDate = $(cal_selector);
+        date_val = incomingDate.val();
+    }
+    let incomingStartHours = date_val.substring(11, 13);
+    let incomingStartMinutes = date_val.substring(14, 16);
+    let incomingStartDate = date_val.substring(0, 16);
+
+    let cal_start = today;
+    if (incomingStartDate < today) {
+        cal_start = incomingStartDate;
+    }
+
+    let calendars = bulmaCalendar.attach('[type="datetime"]', {
+        typ: 'datetime',
         isRange: true,
         dateFormat: 'MM/DD/YYYY',
         showHeader: false,
@@ -83,7 +104,7 @@ $(document).ready(function () {
         validateLabel: "Select",
         labelFrom: 'Start',
         labelTo: 'End',
-        minDate: today,
+        minDate: cal_start,
         maxDate: oneYear,
     });
 
@@ -91,11 +112,7 @@ $(document).ready(function () {
         // something wrong with bulma code and start date hours and minutes not populated
         // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
         // get the startDate hours and minutes
-        let incomingStartHours = incomingDate.substring(11, 13);
-        let incomingStartMinutes = incomingDate.substring(14, 16);
-        let incomingStartDate = incomingDate.substring(0, 16);
-
-        $('input#event-event_start_datetime').val(incomingDate);
+        incomingDate.val(date_val);
         $('.datetimepicker-dummy-input.is-datetimepicker-range').val(incomingStartDate);
         $('.timepicker-start .timepicker-hours .timepicker-input-number').text(incomingStartHours);
         $('.datetimepicker-selection-start .datetimepicker-selection-hour').text(incomingStartHours + ':' + incomingStartMinutes);
@@ -110,7 +127,7 @@ $(document).ready(function () {
     }
 
     // To access to bulmaCalendar instance of an element
-    let element1 = document.querySelector('#event-event_datetime_start');
+    let element1 = document.querySelector(cal_selector);
     if (element1) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         element1.bulmaCalendar.on('select', function (datepicker) {
@@ -306,7 +323,6 @@ $(document).ready(function () {
 
     /* accordions */
     let accordions = bulmaAccordion.attach();
-
 
 });
 

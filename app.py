@@ -373,7 +373,7 @@ def update_event(event_id):
     if form.validate_on_submit():
         return push_event_to_db(form, list_events[0])
 
-    if list_events is not None:
+    elif list_events is not None and len(form.errors) == 0:
         event = list_events[0]
         """populate event form"""
         form.has_event.data = True

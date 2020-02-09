@@ -23,11 +23,10 @@ body {
     display: block;
     flex-direction: unset;
     background-color: #4a4a4a;
-    border-radius: 4px;
     font-size: 1rem;
     color: #fff;
     line-height: 1.75;
-    padding: .5em .75em;
+    padding: .25em .75em;
 }
 
 .footer a {
@@ -35,7 +34,7 @@ body {
 }
 
 footer p {
-    margin: .5rem 0;
+    margin: .3rem 0;
 }
 
 .footer a i {
@@ -371,11 +370,19 @@ input:checked + .slider:before {
 .container.ages, .container.activities {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));
-    grid-gap: 0.5em;
+    grid-gap: 20px;
 }
 
 .container.ages .card, .container.activities .card {
     height: max-content;
+}
+.list-events .is-multiple.container .card.button.is-primary {
+    margin: 0;
+    padding: 0;
+    border-right: 1px solid rgb(0, 209, 178);
+}
+.list-events .card.button.is-primary.iconpicker{
+    border-right: 2px solid rgb(0, 209, 178);
 }
 
 .card.button img {
@@ -754,11 +761,6 @@ i.not-shared {
         display: flex;
         flex-direction: column;
         background-color: #4a4a4a;
-        border-radius: 4px;
-        font-size: 1rem;
-        color: #fff;
-        line-height: 1.25;
-        padding: .5em .75em;
     }
 
     .footer a i:last-of-type {
