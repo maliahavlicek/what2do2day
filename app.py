@@ -380,13 +380,15 @@ def update_event(event_id):
         form.event_name.data = event['event_name'].title()
         form.event_start_datetime.data = event['date_time_range']
 
-        form.address.address_line_1.data = event['address-address_line_1'].title()
-        form.address.address_line_2.data = event['address-address_line_2'].title()
-        form.address.city.data = event['address-city'].title()
-        form.address.state.data = event['address-state'].title()
-        form.address.postal_code.data = event['address-postal_code']
-
-        form.address.country.data = event['country_id']
+        if form.address.address_line_1.data is not None is not None and form.address.address_line_1.data is not None != "":
+            form.address.address_line_1.data = event['address-address_line_1'].title()
+            form.address.address_line_2.data = event['address-address_line_2'].title()
+            form.address.city.data = event['address-city'].title()
+            form.address.state.data = event['address-state'].title()
+            form.address.postal_code.data = event['address-postal_code']
+            form.address.country.data = event['country_id']
+        else:
+            form.address.has_address.data = False
 
         form.activity_name.data = event['activity_name']
         form.activity_icon.data = event['activity_icon']

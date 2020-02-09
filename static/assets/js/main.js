@@ -76,22 +76,21 @@ $(document).ready(function () {
     let incomingDate = false;
     let date_val = false;
     let cal_selector = false;
+    let cal_start = today;
     if ($('#event-event_start_datetime').length > 0) {
         cal_selector = '#event-event_start_datetime';
         incomingDate = $(cal_selector);
         date_val = incomingDate.val();
+        if (incomingStartDate < today) {
+            cal_start = incomingStartDate;
+        }
     } else if ($('#event_start_datetime').length > 0) {
         cal_selector = '#event_start_datetime';
         incomingDate = $(cal_selector);
         date_val = incomingDate.val();
-    }
-    let incomingStartHours = date_val.substring(11, 13);
-    let incomingStartMinutes = date_val.substring(14, 16);
-    let incomingStartDate = date_val.substring(0, 16);
-
-    let cal_start = today;
-    if (incomingStartDate < today) {
-        cal_start = incomingStartDate;
+        if (incomingStartDate < today) {
+            cal_start = incomingStartDate;
+        }
     }
 
     let calendars = bulmaCalendar.attach('[type="datetime"]', {
@@ -113,6 +112,10 @@ $(document).ready(function () {
         // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
         // get the startDate hours and minutes
         incomingDate.val(date_val);
+
+        let incomingStartHours = date_val.substring(11, 13);
+        let incomingStartMinutes = date_val.substring(14, 16);
+        let incomingStartDate = date_val.substring(0, 16);
         $('.datetimepicker-dummy-input.is-datetimepicker-range').val(incomingStartDate);
         $('.timepicker-start .timepicker-hours .timepicker-input-number').text(incomingStartHours);
         $('.datetimepicker-selection-start .datetimepicker-selection-hour').text(incomingStartHours + ':' + incomingStartMinutes);
