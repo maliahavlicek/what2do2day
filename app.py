@@ -401,10 +401,16 @@ def country_choice_list():
     return country_choices
 
 
-@app.route('/add_review/<string:place_id>/', methods=['POST'])
+@app.route('/add_review/<string:place_id>/', methods=['GET', 'POST'])
 def add_review(place_id):
     form = ReviewForm()
     form.use_place_email.data = "n"
+
+    the_place = mongo.db.places.find_one({'_id': ObjectId(place_id)})
+    if the_place is not None:
+        place_name = the_place['name']
+    else:
+        return render_template('error.html', reason="I couldn't find the place you were looking for.")
 
     if form.validate_on_submit():
         review = {'place': place_id, 'date': datetime.today(),
@@ -416,7 +422,7 @@ def add_review(place_id):
         review['user'] = get_add_user_id(email)
         review_id = db_add_review(review)
 
-    return render_template('review/add_review.html', form=form)
+    return render_template('review/add_review.html', id=place_id, name=place_name, form=form)
 
 
 @app.route('/filter_events', defaults={'update': 'false'}, methods=['POST'])

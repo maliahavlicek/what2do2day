@@ -1,0 +1,65 @@
+<div class="field is-hidden">
+    <label class="label">Reviews</label>
+    <div class="control">
+        {{ form.has_review(class_="is-checkradio is-medium") }}
+        {{ form.has_review.label }}
+    </div>
+</div>
+
+{# hidden field to control if we collect author's email or not #}
+{{ form.use_place_email }}
+{# review block hide/shows based on review  #}
+<div class="has-background-white-bis embedded">
+    <div class="columns">
+        {# use author email collection if embedded in place form #}
+        <div class="column" {% if form.use_place_email.value == "y" %}style="display: none;"{% endif %}>
+            <div class="field {% if form.author.errors %}has-error{% endif %}">
+                <div class="control">
+                    {{ form.author.label(class_="label") }}
+                    <div class="control">
+                        {{ form.author(class_="input", placeholder="your.email@you.com") }}
+
+                    </div>
+                    <p class="error-msg help is-danger">
+                        {% if form.author.errors|length > 0 %}
+                            {{ form.author.errors[0] }}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="field {% if form.rating.errors %}has-error{% endif %}">
+                <div class="control">
+                    {{ star_form(id="review-rating", form=form.rating, label="Rating *") }}
+                </div>
+                <p class="error-msg help is-danger">
+                    {% if form.rating.errors|length > 0 %}
+                        Click a star to indicate your rating.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field {% if form.comments.errors %}has-error{% endif %}">
+        {{ form.comments.label(class_="label") }}
+        <div class="control has-icons-right">
+            {{ form.comments(class_="textarea", placeholder="Enter Review.") }}
+            <span class="error-msg icon is-small is-right">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+        </div>
+        <p class="error-msg help is-danger">
+            {% if form.comments.errors|length > 0 %}
+                {{ form.comments.errors[0] }}
+            {% endif %}
+        </p>
+    </div>
+
+    {# show_enable determines if the user sees a event specific enablment or not #}
+    <div class="field">
+        {{ enable_switch(id=form.share.id, form=form.share) }}
+    </div>
+</div>

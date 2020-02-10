@@ -91,17 +91,18 @@
 
                     {% if place['address-_id'] and place['address-_id'] !="" %}
                         <div class="map" id="map_{{ place.place_id }}">
-                                <iframe width="250" height="200" frameborder="0" style="border:0"
-                                        src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ place['address-address_line_1'] }}&center={{ place['address-lat'] }},{{ place['address-lng'] }}&zoom=16"></iframe>
+                            <iframe width="250" height="200" frameborder="0" style="border:0"
+                                    src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ place['address-address_line_1'] }}&center={{ place['address-lat'] }},{{ place['address-lng'] }}&zoom=16"></iframe>
                         </div>
                     {% endif %}
                     {# Add review button #}
-                <p>Know this place?</p>
-                    <a class="button is-primary action">
-                                <span class="icon">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                        <span class="action">Add Review</span>
+                    <p>Know this place?</p>
+
+                    <a class="button is-primary action review-add" data-target="{{ place['place_id'] }}">
+                    <span class="icon">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="action">Add Review</span>
                     </a>
                 </div>
             </div>

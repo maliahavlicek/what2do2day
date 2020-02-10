@@ -92,6 +92,7 @@ class ReviewForm(FlaskForm):
                              [RequiredIf(has_review=True), Length(min=1, message='Please enter your review.'),
                               Length(max=500, message='Comments cannot be longer than 500 characters.')])
     use_place_email = HiddenField(None, [DataRequired()], default="n")
+    share = BooleanField('Share with Community', default=True)
 
     def validate_author(self, author):
         if self.has_review.data and str(self.use_place_email.data) == 'n' and len(str(author.data)) < 0:
