@@ -376,12 +376,14 @@ input:checked + .slider:before {
 .container.ages .card, .container.activities .card {
     height: max-content;
 }
+
 .list-events .is-multiple.container .card.button.is-primary {
     margin: 0;
     padding: 0;
     border-right: 1px solid rgb(0, 209, 178);
 }
-.list-events .card.button.is-primary.iconpicker{
+
+.list-events .card.button.is-primary.iconpicker {
     border-right: 2px solid rgb(0, 209, 178);
 }
 
@@ -566,6 +568,14 @@ span#event-modal-title {
     background: url(../images/giphy_load.gif) center center no-repeat;
 }
 
+.map {
+    width: 235px;
+    height: 200px;
+    background: url(../images/giphy_load.gif) center center no-repeat;
+    text-align: center;
+    margin: 0 auto;
+}
+
 .is-bold {
     font-weight: 700;
 }
@@ -596,7 +606,6 @@ span#event-modal-title {
 
 .list-events .container {
     margin: 0 0 auto auto;
-
 }
 
 .card.is-primary .card-header, .modal-card .modal-card-head {
@@ -606,6 +615,11 @@ span#event-modal-title {
     background: #00d1b1;
 }
 
+.places .card.is-primary .card-header{
+    border-top: solid 4px #363636;
+    border-bottom: solid 4px #363636;
+
+}
 .list-events .card-header {
     padding: 10px;
     line-height: 1.8rem;
@@ -615,6 +629,15 @@ span#event-modal-title {
     display: flex;
     align-items: center;
     margin-left: 15px;
+}
+
+.list-events .media .is-one-quarter {
+    width: 100%;
+    text-align: center;
+}
+
+.list-events .media .is-half {
+    width: 100%;
 }
 
 .containers .title.is-5 {
@@ -628,6 +651,11 @@ span#event-modal-title {
     margin: 3px 0 25px 0;
     clip-path: inset(0 0 -1rem -1rem);
     box-shadow: none;
+}
+
+.list-events.places .card.is-primary {
+    margin: 0;
+    border: none;
 }
 
 .list-events .card.is-primary.not-shared .card-content {
@@ -695,10 +723,14 @@ i.not-shared {
 }
 
 /* larger phones */
-@media screen and (min-width: 600px){
-     /* event list page */
+@media screen and (min-width: 600px) {
+    /* event list page */
     .list-events .media {
         display: flex;
+    }
+
+    .list-events.places .media {
+        display: block;
     }
 
     .list-events nav.level {
@@ -715,6 +747,7 @@ i.not-shared {
         width: 66%;
     }
 
+
     .list-events .container {
         margin: 0 0 auto auto;
         align-self: flex-end;
@@ -723,11 +756,19 @@ i.not-shared {
     .list-events .card.is-primary {
         margin: 3px 0 25px 0;
     }
+
+    .list-events.places .card.is-primary {
+        margin: 0;
+    }
 }
 
 
 /* tablet styles */
 @media screen and (min-width: 769px) {
+     .list-events.places .media {
+        display: flex;
+    }
+
     /* override home page background image to larger size */
     .hero-body.home {
         background: url(/static/assets/images/were_gonna_build_a_rollercoaster.jpg) no-repeat center center;
@@ -775,11 +816,26 @@ i.not-shared {
         position: relative;
         justify-content: space-between;
     }
+
     .button.action {
         min-width: 230px;
     }
-     .list-events .card.is-primary {
+
+    .list-events .card.is-primary {
         margin: 3px 0 25px 75px;
+    }
+
+    .list-events.places .card.is-primary {
+        margin: 0;
+    }
+
+    .list-events .media .is-one-quarter {
+        width: 25%;
+    }
+
+    .list-events .media .is-half {
+        width: 50%;
+        margin: 0 10px;
     }
 
 }

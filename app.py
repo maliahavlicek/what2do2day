@@ -464,7 +464,7 @@ def get_places():
     except Exception as e:
         db_issue(e)
         list_places = []
-    return render_template('place/places.html', places=list_places)
+    return render_template('place/places.html', places=list_places, google_key=google_key)
 
 
 def event_unique(event):
@@ -502,6 +502,7 @@ def db_add_event(event):
 
 
 def db_add_review(review):
+    """"need to make sure insert rating as an integer"""
     db = mongo.db.reviews.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
     )
@@ -622,6 +623,12 @@ def time_only(date_time_range):
     else:
         time_str = date_time_range
     return time_str
+
+
+@app.template_filter()
+def date_only(date):
+    start_date = datetime.strftime(date, '%m/%d/%Y')
+    return start_date
 
 
 @app.template_filter()
@@ -1059,9 +1066,9 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
 
         query.append({
             "$addFields": {
-                    "rating_average": {"$avg": "$reviews.rating"}
+                "rating_average": {"$avg": "$reviews.rating"}
 
-                }})
+            }})
 
         list_places = list(mongo.db.places.aggregate(query))
 
