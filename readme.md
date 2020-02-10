@@ -396,6 +396,8 @@ In the long term once this concept proves viable, authentication would be enable
 - [regex101.com](https://regex101.com/) - used to help fine tune some regular expression based validation
 - [github](https://github.com/) - used for version control of project files
 - [heroku](https://www.heroku.com/) - runs the what2do2day application in the cloud
+- [color contrast](https://webaim.org/resourceshttps://webaim.org/resources/contrastchecker//contrastchecker/) Tool was used to adjust colors on fonts flagged as needing a higher contrast ratio from google's lighthouse audit tool.
+- [lighthouse audit] Google's open source automated too to help improve the quality of your website. Specifically paid attention to Accessibility  and best practices aiming for scores above 80.
 ### APIs
 - [emailJS](https://emailjs.com) - Send user notices when place they are following is modified, has a new event, or has a new review posted. 
 - [Google Calendar API](https://developers.google.com/calendar/v3/reference/events) - Used to [create events](https://developers.google.com/calendar/create-events) for application, add attendees when users join an event, and send updates to joiners if event is modified

@@ -18,6 +18,14 @@ body {
     background-color: #FFF
 }
 
+/* accessibility fixes */
+.has-text-primary{
+     color: #007A68!important;
+ }
+.has-text-danger {
+    color: #AF0D2E!important;
+}
+
 /* footer */
 .footer {
     display: block;
