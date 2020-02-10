@@ -8,6 +8,7 @@ class Config:
     # General Config
     SECRET_KEY = environ.get('SECRET_KEY')
     WTF_CSRF_SECRET_KEY = environ.get('WTF_CSRF_SECRET_KEY')
+    PREFERRED_URL_SCHEME = 'https'
 
     # mongodb connection
     MONGO_URI = environ.get('MONGO_URI_WHAT2DO2DAY')

@@ -14,12 +14,13 @@ from datetime import datetime
 import requests
 import time
 
-from forms import PlaceForm, EventForm, ReviewForm, AddressForm, CountMeInForm, FilterEventsFrom
+from forms import PlaceForm, EventForm, ReviewForm, AddressForm, CountMeInForm, FilterEventsFrom, ReverseProxied
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from config import Config
 
-app = Flask(__name__, instance_relative_config=False)
+app = Flask(__name__, instance_relative_config=False )
 app.config.from_object('config.Config')
+app.wsgi_app = ReverseProxied(app.wsgi_app)
 
 csrf = CSRFProtect(app)
 mongo = PyMongo(app)
