@@ -616,8 +616,8 @@ span#event-modal-title {
 }
 
 .places .card.is-primary .card-header{
-    border-top: solid 4px #363636;
-    border-bottom: solid 4px #363636;
+    border-top: solid 4px #007765;
+    border-bottom: solid 4px #007765;
 
 }
 .list-events .card-header {

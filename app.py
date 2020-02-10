@@ -40,16 +40,6 @@ def home():
     return render_template('home.html')
 
 
-def country_choice_list():
-    country_choices = [('none', 'Pick a Country.')]
-    for item in list(mongo.db.countries.find({}, {'country': 1}).sort('country', pymongo.ASCENDING)):
-        country_choices.append((
-            str(item['_id']),
-            item['country'].replace('&amp;', '&').title()
-        ))
-    return country_choices
-
-
 def retrieve_events_from_db(update, filter_form=False, event_id=False):
     # join the activities and places to the events database and flatten it down so we don't have to dig for values
 
@@ -82,7 +72,7 @@ def retrieve_events_from_db(update, filter_form=False, event_id=False):
                         query.append({"$match": {'activity': {'$in': activities}}})
                     else:
                         pass
-        if filter_form.filter_date_range.data is not None and filter_form.filter_date_range != "":
+        if filter_form.filter_date_range.data is not None and filter_form.filter_date_range.data != "":
             filter_start_date = datetime.strptime(filter_form.filter_date_range.data[0:10], '%m/%d/%Y')
             filter_end_date = datetime.strptime(filter_form.filter_date_range.data[14:24], '%m/%d/%Y')
         if filter_form.age.data:
@@ -240,7 +230,7 @@ def retrieve_events_from_db(update, filter_form=False, event_id=False):
     return list_events
 
 
-def unique_activities(update):
+def unique_activities(update="false"):
     activities = []
     ids = {}
     if update == "false":
@@ -277,7 +267,7 @@ def get_events(event_id, filter_string):
         except Exception as e:
             return render_template('error.html', reason=e)
 
-        activity_choices = unique_activities("false")
+        activity_choices = unique_activities()
         filter_form.activity.choices = activity_choices
 
         if form.email.errors:
@@ -399,6 +389,34 @@ def update_event(event_id):
         form.share.data = event['share']
 
     return render_template('event/update_event.html', events=list_events, form=form, update=True, icons=icons)
+
+
+def country_choice_list():
+    country_choices = [('none', 'Pick a Country.')]
+    for item in list(mongo.db.countries.find({}, {'country': 1}).sort('country', pymongo.ASCENDING)):
+        country_choices.append((
+            str(item['_id']),
+            item['country'].replace('&amp;', '&').title()
+        ))
+    return country_choices
+
+
+@app.route('/add_review/<string:place_id>/', methods=['POST'])
+def add_review(place_id):
+    form = ReviewForm()
+    form.use_place_email.data = "n"
+
+    if form.validate_on_submit():
+        review = {'place': place_id, 'date': datetime.today(),
+                  'rating': form.review.data['rating'],
+                  'comments': form.review.data['comments'].strip(),
+                  'share': form.share_place.data}
+
+        email = form.email.data.strip().lower()
+        review['user'] = get_add_user_id(email)
+        review_id = db_add_review(review)
+
+    return render_template('review/add_review.html', form=form)
 
 
 @app.route('/filter_events', defaults={'update': 'false'}, methods=['POST'])

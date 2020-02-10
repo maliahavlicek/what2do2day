@@ -93,48 +93,51 @@ $(document).ready(function () {
         }
     }
 
-    let calendars = bulmaCalendar.attach('[type="datetime"]', {
-        typ: 'datetime',
-        isRange: true,
-        dateFormat: 'MM/DD/YYYY',
-        showHeader: false,
-        showTodayButton: false,
-        showClearButton: false,
-        validateLabel: "Select",
-        labelFrom: 'Start',
-        labelTo: 'End',
-        minDate: cal_start,
-        maxDate: oneYear,
-    });
+    if(cal_selector) {
 
-    if (incomingDate) {
-        // something wrong with bulma code and start date hours and minutes not populated
-        // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
-        // get the startDate hours and minutes
-        incomingDate.val(date_val);
-
-        let incomingStartHours = date_val.substring(11, 13);
-        let incomingStartMinutes = date_val.substring(14, 16);
-        let incomingStartDate = date_val.substring(0, 16);
-        $('.datetimepicker-dummy-input.is-datetimepicker-range').val(incomingStartDate);
-        $('.timepicker-start .timepicker-hours .timepicker-input-number').text(incomingStartHours);
-        $('.datetimepicker-selection-start .datetimepicker-selection-hour').text(incomingStartHours + ':' + incomingStartMinutes);
-        $('.timepicker-start .timepicker-minutes .timepicker-input-number').text(incomingStartMinutes);
-    }
-
-    // Loop on each calendar initialized
-    for (let i = 0; i < calendars.length; i++) {
-        // Add listener to date:selected event
-        calendars[i].on('select', date => {
+        let calendars = bulmaCalendar.attach(cal_selector, {
+            typ: 'datetime',
+            isRange: true,
+            dateFormat: 'MM/DD/YYYY',
+            showHeader: false,
+            showTodayButton: false,
+            showClearButton: false,
+            validateLabel: "Select",
+            labelFrom: 'Start',
+            labelTo: 'End',
+            minDate: cal_start,
+            maxDate: oneYear,
         });
-    }
 
-    // To access to bulmaCalendar instance of an element
-    let element1 = document.querySelector(cal_selector);
-    if (element1) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        element1.bulmaCalendar.on('select', function (datepicker) {
-        });
+        if (incomingDate) {
+            // something wrong with bulma code and start date hours and minutes not populated
+            // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
+            // get the startDate hours and minutes
+            incomingDate.val(date_val);
+
+            let incomingStartHours = date_val.substring(11, 13);
+            let incomingStartMinutes = date_val.substring(14, 16);
+            let incomingStartDate = date_val.substring(0, 16);
+            $('.datetimepicker-dummy-input.is-datetimepicker-range').val(incomingStartDate);
+            $('.timepicker-start .timepicker-hours .timepicker-input-number').text(incomingStartHours);
+            $('.datetimepicker-selection-start .datetimepicker-selection-hour').text(incomingStartHours + ':' + incomingStartMinutes);
+            $('.timepicker-start .timepicker-minutes .timepicker-input-number').text(incomingStartMinutes);
+        }
+
+        // Loop on each calendar initialized
+        for (let i = 0; i < calendars.length; i++) {
+            // Add listener to date:selected event
+            calendars[i].on('select', date => {
+            });
+        }
+
+        // To access to bulmaCalendar instance of an element
+        let element1 = document.querySelector(cal_selector);
+        if (element1) {
+            // bulmaCalendar instance is available as element.bulmaCalendar
+            element1.bulmaCalendar.on('select', function (datepicker) {
+            });
+        }
     }
 
     /* filtering results by date */
