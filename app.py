@@ -460,7 +460,7 @@ def add_event():
 @app.route('/get_places')
 def get_places():
     try:
-        list_places = list(mongo.db.places.find())
+        list_places = retrieve_places_from_db(False, filter_form=False, place_id=False)
     except Exception as e:
         db_issue(e)
         list_places = []
@@ -927,6 +927,155 @@ def push_place_to_db(form):
             return redirect(url_for(handle_db_error('Failed to add event')))
 
     return redirect(url_for('get_places'))
+
+
+def retrieve_places_from_db(update, filter_form=False, place_id=False):
+    # join the activities and address to the places database and flatten it down so we don't have to dig for values
+
+    query = []
+    activities = []
+    ratings = []
+
+    # check if any filtering is required
+    if filter_form:
+        # check for activities in the filter_form
+        if filter_form.activity_selection.data != "n":
+            for item in filter_form.activity_selection.data.split("~"):
+                if item != "n":
+                    activity = item.split(":")
+                    the_activity = mongo.db.activities.find_one({'name': activity[0].lower(), 'icon': activity[1]})
+                    if the_activity is not None:
+                        activities.append(the_activity['_id'])
+                        query.append({"$match": {'activity': {'$in': activities}}})
+                    else:
+                        pass
+        if filter_form.rating.data:
+            ratings.append(filter_form.rating.data)
+
+    # when updating, we see all places, for normal view, ony show those that are shared
+    if not update:
+        query.append(
+            {"$match": {'share_place': True}})
+    if not update:
+        query.append({
+            "$project": {
+                'place_name': "$name",
+                'place_id': "$_id",
+                'user_id': "$user",
+                'image': '$image_url',
+                'activity_id': '$activity',
+                'description': '$description',
+                'address_id': '$address',
+                'phone': '$phone',
+                'web': '$website',
+                'share': '$share_place'
+            }})
+        query.append({
+            "$lookup": {
+                'from': 'activities',
+                'localField': 'activity_id',
+                'foreignField': '_id',
+                'as': 'place_activity'
+            }})
+        query.append({
+            "$lookup": {
+                'from': 'addresses',
+                'localField': 'address_id',
+                'foreignField': '_id',
+                'as': 'place_address'
+            }})
+        query.append({
+            "$lookup": {
+                'from': 'events',
+                'localField': 'place_id',
+                'foreignField': 'place',
+                'as': 'events'
+            }})
+        query.append({
+            "$lookup": {
+                'from': 'reviews',
+                'localField': 'place_id',
+                'foreignField': 'place',
+                'as': 'reviews'
+            }})
+        query.append({
+            "$replaceRoot": {
+                'newRoot': {
+                    "$mergeObjects":
+                        [{"$let": {
+                            "vars": {"v": {"$arrayElemAt": ["$place_activity", 0]}},
+                            "in": {"$arrayToObject": {
+                                "$map": {
+                                    "input": {"$objectToArray": "$$v"},
+                                    "as": "val",
+                                    "in": {
+                                        "k": {"$concat": ["activity", "_", "$$val.k"]},
+                                        "v": "$$val.v"
+                                    }}
+                            }}
+                        }}, "$$ROOT"]
+                }}})
+        query.append({
+            "$replaceRoot": {
+                'newRoot': {
+                    "$mergeObjects":
+                        [{"$let": {
+                            "vars": {"v": {"$arrayElemAt": ["$place_address", 0]}},
+                            "in": {"$arrayToObject": {
+                                "$map": {
+                                    "input": {"$objectToArray": "$$v"},
+                                    "as": "val",
+                                    "in": {
+                                        "k": {"$concat": ["address", "-", "$$val.k"]},
+                                        "v": "$$val.v"
+                                    }}
+                            }}
+                        }}, "$$ROOT"]
+                }}})
+        # aggregate rating
+        # query.append({
+        #     "$addFields":
+        #         {
+        #             'avg_rating': {
+        #                 "$divide": [
+        #                     {
+        #                         "$reduce": {
+        #                             "input": "$reviews",
+        #                             "initialValue": 0,
+        #                             "in": {"$add": ["$$value", {"$toInt": "$$this.rating"}]}
+        #                         }
+        #                     },
+        #                     {
+        #                         "$cond": [
+        #                             {"$ne": [{"$size": "$ratings"}, 0]},
+        #                             {"$size": "$ratings"},
+        #                             1
+        #                         ]
+        #                     }
+        #                 ]
+        #             }
+        #         }
+        # })
+
+        query.append({
+            "$addFields": {
+                    "rating_average": {"$avg": "$reviews.rating"}
+
+                }})
+
+        list_places = list(mongo.db.places.aggregate(query))
+
+        for place in list_places:
+            if 'address-country' in place.keys():
+                country_id = place['address-country']
+                place['country_id'] = country_id
+                country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
+                if country is not None:
+                    place['address-country'] = country['country']
+                    if 'event_address' in place.keys():
+                        place['event_address'][0]['country'] = country['country']
+
+    return list_places
 
 
 if __name__ == '__main__':

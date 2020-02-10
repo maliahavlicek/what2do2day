@@ -4,7 +4,7 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Places <span class="is-inline-desktop"> & Organizations</span>
+                    Places <span class="is-inline-desktop"> & Organizations</span> - {{ places | length }}
                 </h1>
                 {% if places | length < 1 %}
                     <div class="level-left">
@@ -24,21 +24,15 @@
                             </p>
                         </div>
                     </div>
-                {% elif places | length > 5 %}
-                    <h2 class="subtitle">
-                        <button class="button is-text">Filter</button>
-                        {{ places.filter }}
-                    </h2>
                 {% endif %}
             </div>
         </div>
     </section>
-    {% if places | length > 0 %}
-        <p>There are {{ places | length }} places </p>
-        {% for place in places %}
-            <p>{{ place.name|title }}</p>
-        {% endfor %}
-
-    {% endif %}
-
+    <section class="list-events">
+        {% if places | length > 0 %}
+            {% for place in places %}
+                {% include 'place/place.html' %}
+            {% endfor %}
+        {% endif %}
+    </section>
 {% endblock %}

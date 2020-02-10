@@ -1,0 +1,40 @@
+{# This template is used on the get_events page. It houses the HTML for each event row in the table #}
+{% from "_partials/macros.html" import display_address with context %}
+<div class="container">
+    <div class="card is-primary">
+        {# give credit to place hosting event #}
+        <header class="card-header">
+            {# activity icon #}
+            <div class="containers">
+                <figure class="image is-38x38">
+                    <img src="/static/assets/images/icons/{{ place['activity_icon'] }}"
+                         alt="image for {{ place['activity_icon']|icon_alt }} icon" height="34"
+                         width="34">
+                </figure>
+                {# name of place #}
+                <div class="title is-3">&nbsp;&nbsp;{{ place.place_name|title }}</div>
+            </div>
+        </header>
+        <div class="card-content">
+
+            <div class="media">
+                <div class="media-left is-one-quarter">
+                    {% if place.image %}<img src="{{ place['image'] }}"
+                         alt="image for {{ place['image']|icon_alt }} icon" height="100"
+                         width="100">{% endif %}
+
+                    <p>{{ place.rating_average }}</p>
+                </div>
+
+                <div class="media-content is-one-half">
+                    {{place.description}}
+
+                </div>
+                <div class="media-content is-one-quarter">
+                    map
+                    add review
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
