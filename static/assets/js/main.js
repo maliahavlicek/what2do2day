@@ -81,19 +81,21 @@ $(document).ready(function () {
         cal_selector = '#event-event_start_datetime';
         incomingDate = $(cal_selector);
         date_val = incomingDate.val();
-        if (incomingStartDate < today) {
+        let incomingStartDate = date_val.substring(0, 16);
+        if (incomingStartDate !== "" && incomingStartDate < today) {
             cal_start = incomingStartDate;
         }
     } else if ($('#event_start_datetime').length > 0) {
         cal_selector = '#event_start_datetime';
         incomingDate = $(cal_selector);
         date_val = incomingDate.val();
-        if (incomingStartDate < today) {
+        let incomingStartDate = date_val.substring(0, 16);
+        if (incomingStartDate !== "" && incomingStartDate < today) {
             cal_start = incomingStartDate;
         }
     }
 
-    if(cal_selector) {
+    if (cal_selector) {
 
         let calendars = bulmaCalendar.attach(cal_selector, {
             typ: 'datetime',
