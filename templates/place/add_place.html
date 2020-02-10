@@ -84,9 +84,6 @@
                     </div>
                 </div>
 
-                {# macro to collect address of place, part of primary key for object #}
-                {{ address_collection(form=form.address, label="Has Physical Address") }}
-
                 {# macro for actiity_choice type and icon collection #}
                 {{ activity_choice(activity_input=form.activity_name, hidden_input_for_icon=form.activity_icon) }}
                 <div class="columns">
@@ -147,6 +144,9 @@
                         {% endif %}
                     </p>
                 </div>
+
+                {# macro to collect address of place, part of primary key for object #}
+                {{ address_collection(form=form.address, label="Has Physical Address") }}
 
                 {# collect initial review of place #}
                 {% include '_partials/review.html' %}
