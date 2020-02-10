@@ -98,11 +98,6 @@
         </div>
     </div>
 
-    {# macro for address of event #}
-    <div>
-        {{ address_collection(form=form.event.address, label="Different from Event Address") }}
-    </div>
-
     {# macro for actiity_choice #}
     {{ activity_choice(activity_input=form.event.activity_name, hidden_input_for_icon=form.event.activity_icon) }}
 
@@ -138,6 +133,10 @@
         </p>
     </div>
 
+    {# macro for address of event #}
+    <div>
+        {{ address_collection(form=form.event.address, label="Different from Event Address") }}
+    </div>
 
     {# show_enable determines if the user sees a event specific enablment or not, for adding, it's inherited from place #}
         <div class="field {% if not update %}is-hidden{% endif %}">
