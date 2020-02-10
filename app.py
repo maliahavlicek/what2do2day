@@ -1113,4 +1113,4 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
 if __name__ == '__main__':
     app.run(host=os.getenv("IP", "0.0.0.0"),
             port=int(os.getenv("PORT", "5000")),
-            debug=True)
+            debug=bool(os.getenv("DEBUG", False)))
