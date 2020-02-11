@@ -1,9 +1,9 @@
 <nav class="navbar is-transparent">
     <div class="navbar-brand">
         <span class="navbar-item">
-            <img src="{{ url_for('static', filename='favicon-32x32.png') }}" alt="Logo for What2Do2Day" width="28" height="28">
+            <img src="{{ url_for('static', filename='favicon-32x32.png', _external=True) }}" alt="Logo for What2Do2Day" width="28" height="28">
         </span>
-        <a class="navbar-item" href="{{ url_for('home') }}">
+        <a class="navbar-item" href="{{ url_for('home', _external=True) }}">
             What2Do2Day
         </a>
         <div class="navbar-burger burger" data-target="what2do2dayNav">
@@ -15,13 +15,13 @@
 
     <div id="what2do2dayNav" class="navbar-menu">
         <div class="navbar-end">
-            <a class="navbar-item" href="{{ url_for('home') }}">
+            <a class="navbar-item" href="{{ url_for('home', _external=True) }}">
                 Home
             </a>
-            <a class="navbar-item" href="{{ url_for('get_events') }}">
+            <a class="navbar-item" href="{{ url_for('get_events', _external=True) }}">
                 Events
             </a>
-            <a class="navbar-item" href="{{ url_for('get_places') }}">
+            <a class="navbar-item" href="{{ url_for('get_places', _external=True) }}">
                 Places
             </a>
             <div class="navbar-item has-dropdown is-hoverable">
@@ -29,13 +29,13 @@
                     Contribute
                 </span>
                 <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" href="{{ url_for('add_event') }}">
+                    <a class="navbar-item" href="{{ url_for('add_event', _external=True) }}">
                         Add Event
                     </a>
-                    <a class="navbar-item" href="{{ url_for('add_place') }}">
+                    <a class="navbar-item" href="{{ url_for('add_place', _external=True) }}">
                         Add Place
                     </a>
-                    <a class="navbar-item" href="{{ url_for('home') }}">
+                    <a class="navbar-item" href="{{ url_for('home', _external=True) }}">
                         Add Review
                     </a>
                 </div>
@@ -45,20 +45,20 @@
                     Update
                 </span>
                 <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" href="{{ url_for('edit_events') }}">
+                    <a class="navbar-item" href="{{ url_for('edit_events', _external=True) }}">
                         Update Event
                     </a>
-                    <a class="navbar-item" href="{{ url_for('home') }}">
+                    <a class="navbar-item" href="{{ url_for('home', _external=True) }}">
                         Update Place
                     </a>
-                    <a class="navbar-item" href="{{ url_for('home') }}">
+                    <a class="navbar-item" href="{{ url_for('home', _external=True) }}">
                         Update Review
                     </a>
 
                 </div>
             </div>
 
-            <a class="navbar-item" href="{{ url_for('home') }}">
+            <a class="navbar-item" href="{{ url_for('home', _external=True) }}">
                 Metrics
             </a>
         </div>

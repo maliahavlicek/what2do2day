@@ -18,7 +18,7 @@ from forms import PlaceForm, EventForm, ReviewForm, AddressForm, CountMeInForm, 
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from config import Config
 
-app = Flask(__name__, instance_relative_config=False )
+app = Flask(__name__, instance_relative_config=False)
 app.config.from_object('config.Config')
 app.wsgi_app = ReverseProxied(app.wsgi_app)
 
@@ -1030,6 +1030,14 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
                 'foreignField': 'place',
                 'as': 'reviews'
             }})
+
+        query.append({
+            "$lookup": {
+                'from': 'users',
+                'localField': 'reviews.user',
+                'foreignField': '_id',
+                'as': 'review_user'
+            }})
         query.append({
             "$replaceRoot": {
                 'newRoot': {
@@ -1064,35 +1072,9 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
                             }}
                         }}, "$$ROOT"]
                 }}})
-        # aggregate rating
-        # query.append({
-        #     "$addFields":
-        #         {
-        #             'avg_rating': {
-        #                 "$divide": [
-        #                     {
-        #                         "$reduce": {
-        #                             "input": "$reviews",
-        #                             "initialValue": 0,
-        #                             "in": {"$add": ["$$value", {"$toInt": "$$this.rating"}]}
-        #                         }
-        #                     },
-        #                     {
-        #                         "$cond": [
-        #                             {"$ne": [{"$size": "$ratings"}, 0]},
-        #                             {"$size": "$ratings"},
-        #                             1
-        #                         ]
-        #                     }
-        #                 ]
-        #             }
-        #         }
-        # })
-
         query.append({
             "$addFields": {
                 "rating_average": {"$avg": "$reviews.rating"}
-
             }})
 
         list_places = list(mongo.db.places.aggregate(query))

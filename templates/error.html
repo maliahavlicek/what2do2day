@@ -21,7 +21,7 @@
                     Something went wrong...
                 </h2>
                     <p>{{ reason }}</p>
-                    <a class="button is-primary" href="{{ url_for('home') }}">
+                    <a class="button is-primary" href="{{ url_for('home', _external=True) }}">
                                 <span class="icon">
                                     <i class="fas fa-home"></i>
                                 </span>

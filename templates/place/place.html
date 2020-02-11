@@ -1,5 +1,6 @@
 {# This template is used on the get_events page. It houses the HTML for each event row in the table #}
 {% from "_partials/macros.html" import display_address with context %}
+{% from "_partials/macros.html" import star_rating_display with context %}
 <div class="container">
     <div class="card is-primary">
         {# give credit to place hosting event #}
@@ -23,7 +24,7 @@
                                              alt="image for {{ place['image']|icon_alt }} icon" height="100"
                                              width="235">{% endif %}
 
-                    <p>{{ place.rating_average }}</p>
+                    <p>{{ star_rating_display(rating=place.rating_average, label=True) }}</p>
                 </div>
 
                 <div class="media-content is-half">
@@ -38,13 +39,13 @@
                                     <button class="toggle" aria-label="toggle"></button>
                                 </div>
                                 <div class="accordion-body">
-                                    <div class="accordion-content">
-                                        {% for review in place.reviews %}
-                                            <p>{{ review.date| date_only }} <span
-                                                    class="rating-{{ review.rating }}">{{ review.rating }}</span></p>
+                                    {% for review in place.reviews %}
+                                        <div class="accordion-content">
+                                            {{ star_rating_display(rating=review.rating) }}
+                                            <span class="review-date">{{ review.date| date_only }}</span>
                                             <p>{{ review.comments }}</p>
-                                        {% endfor %}
-                                    </div>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </article>
                         </section>
@@ -102,7 +103,7 @@
                     <span class="icon">
                         <i class="fas fa-plus"></i>
                     </span>
-                    <span class="action">Add Review</span>
+                        <span class="action">Add Review</span>
                     </a>
                 </div>
             </div>

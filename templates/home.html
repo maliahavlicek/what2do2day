@@ -19,12 +19,12 @@
         </div>
         <div class="buttons home columns">
             <div class="column is-half">
-                <a class="button is-link home-btn-1" href="{{ url_for('get_events') }}">
+                <a class="button is-link home-btn-1" href="{{ url_for('get_events', _external=True) }}">
                     <span>Discover Events</span>
                 </a>
             </div>
             <div class="column is-half">
-                <a class="button is-link home-btn-2" href="{{ url_for('get_places') }}">
+                <a class="button is-link home-btn-2" href="{{ url_for('get_places', _external=True) }}">
                     <span>Discover Places</span>
                 </a>
             </div>

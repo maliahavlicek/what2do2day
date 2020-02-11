@@ -82,7 +82,7 @@ class ReviewForm(FlaskForm):
 
     has_review = BooleanField('Add Review', default=True)
     author = StringField('Author Email *',
-                         [Optional(), Length(min=1, message='Email is required.'),
+                         [RequiredIf(use_place_email='n'), Length(min=1, message='Email is required.'),
                           Email(message='Not a valid email address.')])
     rating = RadioField('Rating *',
                         choices=[('none', 'none'), ('1', 'Bad: 1-star'), ('2', 'Poor: 2-star'), ('3', 'Fair: 3-star'),
@@ -195,7 +195,7 @@ class PlaceForm(FlaskForm):
         super(PlaceForm, self).__init__()
 
         """Let review form know it should use place email"""
-        self.review.use_place_email.value = "y"
+        self.review.use_place_email.data = "y"
 
     def validate_activity_icon(self, activity_icon):
         """Custom validation to make sure an activity icon was picked"""

@@ -17,7 +17,7 @@
 
             <div class="accordion-content">
                 <form method="POST"
-                      action="{{ url_for('filter_events', filter_string='yes') }}"
+                      action="{{ url_for('filter_events', filter_string='yes', _external=True) }}"
                       enctype="multipart/form-data">
                     {#  prevent cross site scripting #}
                     {{ filter_form.csrf_token }}

@@ -288,3 +288,16 @@
     {% endif %}
 {%- endmacro %}
 
+{% macro star_rating_display(rating, label=False) -%}
+    <div class="star_wrapper">
+        {% if rating %}
+            <div class="Stars" style="--rating: {{ rating }};"
+             aria-label="Rating of this product is {{ rating }} out of 5."></div>
+            {% if label %}
+                <div class="star-label">{{ rating }} out of 5</div>
+            {% endif %}
+        {% else %}
+            no ratings yet
+        {% endif %}
+    </div>
+{%- endmacro %}

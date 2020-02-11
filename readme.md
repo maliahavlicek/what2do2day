@@ -518,8 +518,9 @@ Ex) https://what2do2day.herokuapp.com/
 ## Credits
 - [Icons made by Freepik from www.flaticon.com](https://www.flaticon.com/packs/outdoor-activities-32)
 - [tables in markdown](https://www.tablesgenerator.com/markdown_tables#)
-- [star rating input](https://codepen.io/jexordexan/pen/yyYEJa)
+- [star rating input](https://codepen.io/jexordexan/pen/yyYEJa) - Thanks Jordan-Simonds
 - [toggle switch](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch)
+- [star rating display](https://codepen.io/FredGenkin/pen/eaXYGV) - Thanks Fred Genkin
 
 ### Content
 - [Avanti Music](https://advantimusic.org) description and imagery
