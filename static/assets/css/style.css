@@ -677,6 +677,10 @@ span#event-modal-title {
     background: #00d1b1;
 }
 
+/* flip order of columns every other row */
+.places .container:nth-child(even) .card-content .media{
+    flex-direction: row-reverse;
+}
 
 .places .container:nth-child(odd) {
     -webkit-animation: slide-right 0.5s forwards;

@@ -6,7 +6,7 @@ Malia Havlicek
 ## Project Overview
 This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. 
 
-Users can also see a list of all the places in the community that have ever hosted an event and read reviews about them. Users can add reviews about places to share their experiences and rate organizations. Places, Events, and Reviews can be added, deleted and updated from the site. If an activity doesn't quite fit into the list provided, users can add a new activity when creating an event or place. Small businesses, social groups, and communities would ideally be in charge of their organizations's data and events but in this beta phase, user authentication, roles and permissions are not implemented.
+Users can also view a list of all the places in the community that have ever hosted an event and read reviews about them. Users can add reviews about places to share their experiences and rate organizations. Places and Events can be created, read, soft deleted from the site, while reviews can only be created and read. Rather than forcing users to place activities into a predefined list, users freely associate places and events with  activities when creating an event or place based on a name and icon selection. Small businesses, social groups, and communities would ideally be in charge of their organizations's data and events but in this beta phase, user authentication, roles and permissions are not implemented, hence soft deletes and no updating of reviews.
 
 Site owners could enable affiliate linking from any organization associated with the site that results in a sale from the place's own website.  By adding a Google Click Identifier (GCLID) to a place's url when leaving What2Do2Day's site, offline conversions could be tracked and negotiated to a monetary value for the site owners. Site admins could also gather data based on search activity as well as Places and Events with heavy interaction and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places's page has natural side bars in desktop when users are looking at events and reviews, on mobile devices ad space could be inserted below filtering options and above the footer too.)
 
@@ -81,9 +81,9 @@ Upon reading the suggested projects for the Data Centric Milestone Project, I ca
 
 2.What2Do2Day:
 > External Goals
->  - Find something safe for your kids to do near home
->  - Find something that's interesting to me with others I know when mom and dad take away my electronics
->  - Bring Attention to your business or organization by being involved in the community
+>  - As a parent, find something safe for your kids to do near home that doesn't break the bank
+>  - As a kid, find something that's interests me to do with my friends when mom and dad take away my electronics
+>  - As a place or organization, bring attention to your business or group by being involved in the community
 > 
 > Site Owner's Goal
 >  - Earn money from affiliate links to businesses that post their places on site when links lead to online sales
@@ -93,7 +93,7 @@ Upon reading the suggested projects for the Data Centric Milestone Project, I ca
 >  - Create an app that allows users to upload details about places to do things with kids. Main objects are Places and Events tied to them
 >  - Allow users to write reviews about places and rate them
 >  - Allow users to follow a place so they know new events posted by that business
->  - Allow users to join an event so other members know how many people might show up
+>  - Allow users to join an event so other members know how many people might show up 
 >  - Create back end code to manage:
 >    - Reviews
 >    - Places
@@ -131,11 +131,11 @@ The concept of What2Do2Day can get extremely intertwined when looking at permiss
 
 Restricting results based on user's location would be ideal for a long term solution but it is not necessary for the MVP. Since I do not have experience with Google Maps's Nearby API, this bit of scope will be deferred until a polished core product is developed. Also not enough data will be loaded to make searching and geolocation viable initially.
 
-Creating, adding and updating functionality will only be accessible from menu options. This will allow the MVP to be built to serve the majority of long term users and keep the UX cleaner without an overwhelming amount of buttons. Admin proximity/ease of use functionality can be added later. 
+Creating, reading and updating deleting functionality will only be accessible from menu options. This will allow the MVP to be built to serve the majority of long term users and keep the UX cleaner without an overwhelming amount of buttons. Admin proximity/ease of use functionality can be added after such roles are clearly defined. 
 
-Consolidating Delete functionality into an enable/disable property reduces pages to develop. It also reduces the number of items in the menus and makes overall navigation easier.
+Consolidating Delete functionality into an share/don't property reduces pages to develop. It also reduces the number of items in the menus and makes overall navigation easier while protecting the data's integrity by avoiding jumps in auto generated id's.
 
-Business logic to track search requests, and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be included but graphical visualization will not be included in the MVP, only a list of the data collected. Likewise we need to know how many users are coming to the site and what percentage of them interact or do not interact with out buttons so we will attempt to track unique visits to our site.
+Business logic to track search requests, and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be included but graphical visualization will not be included in the MVP, only a list of the data collected. Likewise we need to know how many users are coming to the site and what percentage of them interact or do not interact with our buttons so we will attempt to track unique visits to our site and core functionality clicking attributes.
 
 ### Structure
 In order to have a better idea of the tables and the relationships between them I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise a rough Entity Relationship Diagram(ERD):
@@ -395,6 +395,7 @@ In the long term once this concept proves viable, authentication would be enable
 - [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/index.html)- extended form validation and global cross-site request forgery protection
 - [Pygal](http://www.pygal.org/en/stable/documentation/) - charting for metrics dashboard
 - [unittest](https://docs.python.org/3/library/unittest.html) - testing database CRUD functions, flask routing
+- [google sheets & drive](https://drive.google.com/drive/folders/1mYY4M0jXf6sPWesmP9Q-wFvjpgT1v8IU?usp=sharing) - Used to create testing documents and project plan (feature to do list) 
 ### Fonts
 - [FontAwesome]() - for icons associated with buttons and inputs
 - [Patrick Hand SC](https://fonts.google.com/specimen/Patrick+Hand+SC) - Google Font's Patrick Hand font was used for headers and home page dialog
@@ -565,3 +566,4 @@ The wonderful results of the google search engine helped me tremendously in comp
 - [mongo reference](https://docs.mongodb.com/manual/reference/) - Learning how to manipulate dates, strings, perform lookups, sorting, and merges on data
 - [javascript dates](https://www.aspsnippets.com/Articles/JavaScript-Display-Current-Time-in-12-hour-format-AM-PM-and-24-hour-format-with-Hours-Minutes-and-Seconds-hhmmss.aspx) to clean up date formatting in the initial count me in layer
 - [Pretty Printed](https://www.youtube.com/watch?v=kWncnBBxoJ4&feature=youtu.be)This video shows how to integrate google maps to a python flask application.
+- [aezel](https://stackoverflow.com/users/64266/aezell) for [posting](https://stackoverflow.com/users/64266/aezell) a good way to separate flask filters from app.py

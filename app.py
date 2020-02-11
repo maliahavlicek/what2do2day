@@ -1,28 +1,31 @@
 import os
-import re
-import ast
+from inspect import getmembers, isfunction
 
 import bson
 import pymongo
-from flask import Flask, render_template, redirect, request, url_for, json, jsonify
+from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from os import listdir
-from os.path import isfile, join, splitext
+from os.path import isfile, join
+import filters
 
-from jinja2 import filters
 from pymongo import WriteConcern
 from datetime import datetime, timedelta
 import requests
 import time
 
-from forms import PlaceForm, EventForm, ReviewForm, AddressForm, CountMeInForm, FilterEventsFrom, ReverseProxied
+from forms import PlaceForm, EventForm, ReviewForm, CountMeInForm, FilterEventsFrom, ReverseProxied
 from flask_wtf.csrf import CSRFProtect, CSRFError
-from config import Config
 
 app = Flask(__name__, instance_relative_config=False)
 app.config.from_object('config.Config')
 app.wsgi_app = ReverseProxied(app.wsgi_app)
+my_filters = {name: function
+              for name, function in getmembers(filters)
+              if isfunction(function)}
+
+app.jinja_env.filters.update(my_filters)
 
 csrf = CSRFProtect(app)
 mongo = PyMongo(app)
@@ -644,144 +647,6 @@ def handle_csrf_error(e):
     return render_template('error.html', reason=e), 400
 
 
-@app.template_filter()
-def icon_alt(icon_file_name):
-    """take an image name strip out file extension and numbers"""
-    clean_name = splitext(icon_file_name)[0]
-    clean_name = re.sub(r'[0-9]', '', clean_name)
-    clean_name = clean_name.replace('-', ' ')
-    return re.sub(' +', ' ', clean_name).strip()
-
-
-@app.template_filter()
-def myround(*args, **kw):
-    """from https://stackoverflow.com/questions/28458524/how-to-round-to-zero-decimals-if-there-is-no-decimal-value-with-jinja2"""
-    # Use the original round filter, to deal with the extra arguments
-    res = filters.do_round(*args, **kw)
-    # Test if the result is equivalent to an integer and
-    # return depending on it
-    ires = int(res)
-    return (res if res != ires else ires)
-
-@app.template_filter()
-def time_only(date_time_range):
-    start_date = date_time_range[0:10]
-    start_time = date_time_range[11:16]
-    end_date = date_time_range[19:29]
-    end_time = date_time_range[30:35]
-    if end_date == start_date:
-        time_str = datetime.strptime(start_time, "%H:%M").strftime("%-I:%M %p") + " to "
-        time_str += datetime.strptime(end_time, "%H:%M").strftime("%-I:%M %p")
-    else:
-        time_str = date_time_range
-    return time_str
-
-
-@app.template_filter()
-def date_only(date):
-    start_date = datetime.strftime(date, '%m/%d/%Y')
-    return start_date
-
-
-@app.template_filter()
-def date_range(date_time_range):
-    if date_time_range != '':
-        start_date = date_time_range[0:10]
-        start_time = date_time_range[11:16]
-        end_date = date_time_range[19:29]
-        end_time = date_time_range[30:35]
-
-        if start_date == end_date:
-            time_str = start_date + ": <br>"
-            time_str += datetime.strptime(start_time, "%H:%M").strftime("%-I:%M %p") + " to "
-            time_str += datetime.strptime(end_time, "%H:%M").strftime("%-I:%M %p")
-        else:
-            time_str = start_date + " " + datetime.strptime(start_time, "%H:%M").strftime("%-I:%M %p")
-            time_str += "<br>&nbsp;&nbsp;&nbsp;to<br>"
-            time_str += end_date + " " + datetime.strptime(end_time, "%H:%M").strftime("%-I:%M %p")
-    else:
-        time_str = date_time_range
-    return time_str
-
-
-@app.template_filter()
-def upwrap_json(item):
-    unwrapped = ast.literal_eval(item)
-    return unwrapped
-
-
-@app.template_filter()
-def mini_event(event):
-    min_event = {
-        '_id': str(event['_id']),
-        'activity_name': '',
-        'activity_icon': '',
-        'place_name': '',
-        'place_description': '',
-        'start_date': '',
-        'end_date': '',
-        'event_name': event['name'],
-        'date_time_range': event['date_time_range'],
-        'details': event['details'],
-        'age_limit': event['age_limit'],
-        'price_for_non_members': event['price_for_non_members'],
-        'max_attendees': event['max_attendees'],
-        'attendees': len(event['attendees']),
-        'event_address': {
-            'address_line_1': '',
-            'address_line_2': '',
-            'city': '',
-            'state': '',
-            'postal_code': '',
-            'country': '',
-            'lat': 0,
-            'lng': 0,
-        }
-    }
-
-    # address
-    the_address = mongo.db.addresses.find_one(event['address'])
-    if the_address is not None:
-        if 'address_line_1' in the_address.keys():
-            min_event['event_address']['address_line_1'] = the_address['address_line_1']
-        if 'address_line_2' in the_address.keys():
-            min_event['event_address']['address_line_2'] = the_address['address_line_2']
-        if 'city' in the_address.keys():
-            min_event['event_address']['city'] = the_address['city']
-        if 'state' in the_address.keys():
-            min_event['event_address']['state'] = the_address['state']
-        if 'postal_code' in the_address.keys():
-            min_event['event_address']['postal_code'] = the_address['postal_code']
-        if 'country' in the_address.keys():
-            min_event['event_address']['country'] = the_address['country']
-        if 'lat' in the_address.keys():
-            min_event['event_address']['lat'] = the_address['lat']
-        if 'lng' in the_address.keys():
-            min_event['event_address']['lng'] = the_address['lng']
-
-    # activity
-    the_activity = mongo.db.activities.find_one(event['activity'])
-    if the_activity is not None:
-        if 'icon' in the_activity.keys():
-            min_event['activity_icon'] = the_activity['icon']
-        if 'name' in the_activity.keys():
-            min_event['activity_name'] = the_activity['name']
-
-    # place
-    the_place = mongo.db.places.find_one(event['place'])
-    if the_place is not None:
-        if 'name' in the_place.keys():
-            min_event['place_name'] = the_place['name']
-        if 'description' in the_place.keys():
-            min_event['place_description'] = the_place['description']
-
-    # dates
-    min_event['start_date']: event['date_time_range'][0:10]
-    min_event['end_date']: event['date_time_range'][19:29]
-
-    return min_event
-
-
 def get_list_of_icons():
     icon_path = 'static/assets/images/icons'
     icons = [f for f in listdir(icon_path) if isfile(join(icon_path, f))]
@@ -1117,6 +982,77 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
                         place['event_address'][0]['country'] = country['country']
 
     return list_places
+
+
+def mini_event(event):
+    min_event = {
+        '_id': str(event['_id']),
+        'activity_name': '',
+        'activity_icon': '',
+        'place_name': '',
+        'place_description': '',
+        'start_date': '',
+        'end_date': '',
+        'event_name': event['name'],
+        'date_time_range': event['date_time_range'],
+        'details': event['details'],
+        'age_limit': event['age_limit'],
+        'price_for_non_members': event['price_for_non_members'],
+        'max_attendees': event['max_attendees'],
+        'attendees': len(event['attendees']),
+        'event_address': {
+            'address_line_1': '',
+            'address_line_2': '',
+            'city': '',
+            'state': '',
+            'postal_code': '',
+            'country': '',
+            'lat': 0,
+            'lng': 0,
+        }
+    }
+
+    # address
+    the_address = mongo.db.addresses.find_one(event['address'])
+    if the_address is not None:
+        if 'address_line_1' in the_address.keys():
+            min_event['event_address']['address_line_1'] = the_address['address_line_1']
+        if 'address_line_2' in the_address.keys():
+            min_event['event_address']['address_line_2'] = the_address['address_line_2']
+        if 'city' in the_address.keys():
+            min_event['event_address']['city'] = the_address['city']
+        if 'state' in the_address.keys():
+            min_event['event_address']['state'] = the_address['state']
+        if 'postal_code' in the_address.keys():
+            min_event['event_address']['postal_code'] = the_address['postal_code']
+        if 'country' in the_address.keys():
+            min_event['event_address']['country'] = the_address['country']
+        if 'lat' in the_address.keys():
+            min_event['event_address']['lat'] = the_address['lat']
+        if 'lng' in the_address.keys():
+            min_event['event_address']['lng'] = the_address['lng']
+
+    # activity
+    the_activity = mongo.db.activities.find_one(event['activity'])
+    if the_activity is not None:
+        if 'icon' in the_activity.keys():
+            min_event['activity_icon'] = the_activity['icon']
+        if 'name' in the_activity.keys():
+            min_event['activity_name'] = the_activity['name']
+
+    # place
+    the_place = mongo.db.places.find_one(event['place'])
+    if the_place is not None:
+        if 'name' in the_place.keys():
+            min_event['place_name'] = the_place['name']
+        if 'description' in the_place.keys():
+            min_event['place_description'] = the_place['description']
+
+    # dates
+    min_event['start_date']: event['date_time_range'][0:10]
+    min_event['end_date']: event['date_time_range'][19:29]
+
+    return min_event
 
 
 if __name__ == '__main__':
