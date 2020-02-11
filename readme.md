@@ -266,31 +266,35 @@ To streamline the development process without the complexity of user roles and p
 #### Common Elements
 1. Speech Bubble - used on home page to inform users what the site is about
 1. Icon buttons - used to indicate adding events, adding places, adding reviews, following places, joining events
-1. Switches - enabling and disabling events, places and reviews
-1. Date Pickers - setting up time frames of events
+1. Switches - sharing and disabling events, places and reviews. The switch acts as a soft delete of items from main lists and allows users to turn them back to being shared.
+1. Date Pickers - setting up time frames of events and filtering of the events list.
 1. Rating Selector - star icon based radio button to record user ratings
-1. Overlays - way to disable main page while getting user input for filtering results, joining an event, following a place, add review
-1. Checkboxes - user friendly way to hide/show sections such as place address, place add event, place add review, event address
-1. Icon Selector - allow users to customize activity by name and icon, for searching, they can pick from a list of icons/name pairs
-1. Age Selector - allow a multiple select field for ages, in adding/updating and filtering events
-1. Accordion - collapse places' reviews and events, expand on click, expand/collapse filters on event and places pages
-1. Pagination - when results for events or places pages exceed 10, paginate results
+1. Overlays - way to disable main page while getting user input for filtering results, joining an event, adding a review
+1. Checkboxes - user friendly way to hide/show  sections on update and add forms such as the place address , place event, place review, event address.
+1. Icon Selector - single choice, allow users to customize a place or event's activity by name and icon, 
+1. Icon Selector - multiple choice, allows users to select more than one activity when searching for events.
+1. Age Selector - allow a multiple select field for ages, in adding/updating events.
+1. Accordion - collapse places' reviews and events, on the places list page, expands on click, expand/collapse filters on event list page.
 #### Forms
-1. Add Place - validation for required fields and proper data, unique Name check
+1. Add Place - validation for required fields and proper data, unique Name check, also includes conditional validation of sub forms such as address, events and reviews.
 1. Update Place - validation for required fields and proper data, uniqueness check
-1. Follow Place - validation for unique email in list of followers
-1. Filter Place - allow user to filter places by rating and activity type
 1. Add Event - validation for required fields and proper data, unique Name and Date check
 1. Update Event - validation for required fields and proper data, uniqueness check
 1. Count Me In - validation for unique email in list of attendees, check for max attendees limit
-1. Filter Events - allow user to filter events by activity, date range and age
-1. Add Review - validation for required fields
-1. Update Review - allow user to change rating, comments, and share to community settings
+1. Filter Events - allow user to filter events by activities, date range and age, checks for validity of age input
+1. Add Review - validation for required fields where author email can be conditionally required depending if added from place or add review button/add review navigation.
 
-#### Data Operations
-1. Aggregated Review - from enabled reviews of a given place, present an average rating for a place
-1. Count of followers - When a unique email is entered, add them to follower list
+#### Database Operations
+1. Aggregated Review - from all reviews of a given place, present an average rating for a place
 1. Count of event joiners - When a unique email is entered, add them to the joiner list
+1. filter results for events based on updating vs reading (share field both on place and event), 
+1. Create list of activities for filtering based on updating vs reading (share field both on place and event)
+1. check for unique emails before adding a new user
+1. check for unique place name before adding a new place or updating an existing place
+1. check for unique event name /date and place combo before adding or updating an existing place
+1. check for a unique user/place id and date within a week before adding a new review to a place
+1. check for unique user before joining an event
+1. check for max attendees not exceeded before joining an event
 #### API Integration
 1. Email JS - when an event is added to a place, email details to followers
 1. Google Calendar - when a user joins an event, send calendar invite, when event is updated, email joiner list
@@ -308,8 +312,16 @@ To streamline the development process without the complexity of user roles and p
 1. get numbers for joining event funnel: events page hits, join event click, send invite success, send invite user error, send invite exceed attendance error
  
 ### Features Left to Implement
-In the long term once this concept proves viable, authentication would be enabled and five sets of roles would accessing the site: 
+I overestimated my abilities when originally scoping this project. I didn't account for uncovering some core issues with Bulma's [datepicker functionality](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621), nor did I anticipate as much trouble understanding the routing and parameter passing in flask.  I also spent too much time trying to figure out how to break out the controller, filtering, and utility functions from my app.py. Since this project required a greater learning curve than anticipated, some functionality had to be deferred in order to allow me to learn how to automate testing and to provide attention to cross browser/cross device validation.
+#### Features Deferred from original plan
+1. Follow a place - I have used Email JS in a past project so I would not gain any skills taking this functionality on and I the UX being similar to the delivered Join Event feature.
+1. Filter Places - I tackled more complex filtering logic in the filter events layer and saw this list not getting nearly as long as the events list could be.
+1. Pagination - By including a count of events or places found, the user has an idea of how many results they are seeing. Pagination isn't nearly as useful on smaller devices as the buttons are cumbersome for fingers and users are accustomed to scrolling down vs paging through results, thus pagination was differed
+1. Update Review - updating and sharing reviews are tightly tied to various user roles. Since user roles were originally out of scope, it made sense to differ this functionality, especially since updating and soft delete powers have been examplified in update events and update places.
+
 #### User Roles & Permissions
+In the long term once this concept proves viable, authentication would be enabled and five sets of roles would accessing the site: 
+
 1. <strong>Place Administrators</strong> -  users who have permissions to manage the Place, Events and Activities.
 1. <strong>External Users Adults</strong> - users who have permissions to grant minor external users  access to the site. Adult users would also have permissions to manage their profile and create, edit and delete their own reviews.
 1. <strong>External Users Minors</strong> - users who must be granted permissions to the site by Adult External Users. Minor users can manage their profile with limited features to help ensure their safety (no images or location settings if and when those features are added to the site). Minor users can also create, edit and delete their own reviews.
@@ -362,7 +374,6 @@ In the long term once this concept proves viable, authentication would be enable
 #### Switch to Relational Database
 1. mongo DB is not the correct data base, it was chosen because it has a free tier, but the aggregation to force joins is awkward and inefficient. As the dataset grows this will cripple the application's efficiency.
 
-
 ## Technologies Used
 ### Programming languages
 - [CSS3](https://www.w3schools.com/w3css/default.asp) - used to define DOM appearance. 
@@ -407,6 +418,8 @@ In the long term once this concept proves viable, authentication would be enable
 
 ### Unit Testing
 Constant integration testing was preformed to ensure no console/javascript. Beyond that, validation testing, cross browser testing and accessibility testing were manually performed. 
+During the development process where 90% of my time was producing code, I tracked [defects](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing) in a google sheet. They ranged from severely horrible coding errors, to the realization that my features were not 100% defined. 
+
 To ensure core functionality and features were delivered and working a series of [test cases](/documentation/manual_unit_tests.md) were executed.
 ### Validation Testing
 Used the following validation websites to test the code:
@@ -415,22 +428,20 @@ Used the following validation websites to test the code:
 - [JSON Validator](https://jsonlint.com/) Note: warnings were ignored.
 - [JavaScript Validator](http://beautifytools.com/javascript-validator.php) Note any errors for let, variables set in other .js files, and constants were ignored.
 
-### Regression Testing
+
 
 ### Automated Testing
+Once the core development was 70% done, the unit testing defect list and features to do list were revisited to help define core functionality pieces that could be automated
+Provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
+ 
+### Regression Testing
+To supplement the automated testing, manual testing to verify visual look and feel were run.  
+
 
 ### Bugs
-Several defects were discovered throughout the development process. They were tracked in a separate [document](/documentation/bugs_encountered.md).
+All b
 
-Whenever it is feasible, prefer to automate your tests, and if you've done so, provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
 
-For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
-
-1. Contact form:
-    1. Go to the "Contact Us" page
-    2. Try to submit the empty form and verify that an error message about the required fields appears
-    3. Try to submit the form with an invalid email address and verify that a relevant error message appears
-    4. Try to submit the form with all inputs valid and verify that a success message appears.
 
 In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
 
