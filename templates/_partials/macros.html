@@ -70,16 +70,16 @@
 {%- endmacro %}
 
 {# macro to create disable/enable (don't share/share) switch element #}
-{% macro star_form (id='', label="Rating", form=false) -%}
+{% macro star_form (label="Rating", form=false) -%}
     {% if form %}
-        <label for="{{ id }}" class="label">{{ label }}</label>
+        <label for="{{ form.id }}" class="label">{{ label }}</label>
         {% if form.choices|length > 0 %}
-            <div class="stars" id="{{ id }}">
+            <div class="stars" id="{{ form.id }}">
                 {% for subfield in form.choices|reverse %}
-                    <input class="star star-{{ subfield[0] }}" id="{{ id }}-{{ subfield[0]|int-1 }}" type="radio"
-                           name="{{ id }}" value="{{ subfield[0] }}" {% if form.data == subfield[0] %}
+                    <input class="star star-{{ subfield[0] }}" id="{{ form.id }}-{{ subfield[0]|int-1 }}" type="radio"
+                           name="{{ form.id }}" value="{{ subfield[0] }}" {% if form.data == subfield[0] %}
                            checked{% endif %}/>
-                    <label class="star star-{{ subfield[0] }}" for="{{ id }}-{{ subfield[0]|int-1 }}"
+                    <label class="star star-{{ subfield[0] }}" for="{{ form.id }}-{{ subfield[0]|int-1 }}"
                            title="{{ subfield[1] }}"></label>
                 {% endfor %}
             </div>
@@ -291,10 +291,11 @@
 {% macro star_rating_display(rating, label=False) -%}
     <div class="star_wrapper">
         {% if rating %}
-            <div class="Stars" style="--rating: {{ rating }};"
-             aria-label="Rating of this product is {{ rating }} out of 5."></div>
+            <div class="Stars" style="--rating: {{ rating|myround(1) }};"
+                 aria-label="Rating of this product is {{ rating|myround(1) }} out of 5."></div>
             {% if label %}
-                <div class="star-label">{{ rating }} out of 5</div>
+                <div class="star-label">{{ rating|myround(1) }} out of 5</div>
+                <div class="star-totals">{{ place.reviews|length }} review{% if place.reviews|length > 1 %}s{% endif %} </div>
             {% endif %}
         {% else %}
             no ratings yet

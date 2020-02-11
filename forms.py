@@ -195,6 +195,7 @@ class PlaceForm(FlaskForm):
         super(PlaceForm, self).__init__()
 
         """Let review form know it should use place email"""
+        self.review.use_place_email.value = "y"
         self.review.use_place_email.data = "y"
 
     def validate_activity_icon(self, activity_icon):

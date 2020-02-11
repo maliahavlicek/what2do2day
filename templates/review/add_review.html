@@ -4,12 +4,12 @@
 {# Enter Reivew Form  #}
 {% block content %}
     {# hero/tile #}
-    <form method="POST" action="/add_review/{{id}}/" enctype="multipart/form-data">
+    <form method="POST" action="/add_review/{{ id }}/" enctype="multipart/form-data">
         <section class="hero is-primary">
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
-                        Add Review {{name}}
+                        Add Review {{ name }}
                     </h1>
                 </div>
             </div>
@@ -40,8 +40,44 @@
                 </button>
             </div>
         </section>
-
-
     </form>
+    {% if show_modal%}
+        {# modal for count me in submission results #}
+        <div class="modal is-active {% if show_modal['status'] == 'OK' %}user-success{% else %}user-error{% endif %}"
+             id="modal-review-submitted" data-target="{{ url_for('get_places', _external=True) }}">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Add Review</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="container">
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                    {{ show_modal['message'] }}
+                                </div>
+                                <div class="column">
+                                    <div class="image-holder"
+                                         aria-label="image of {% if show_modal['status'] =='OK' %} Phineas and Ferb celebrating success.{% else %}Image of Dr. Doofenshmirtz looking bewildered.{% endif %}"></div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                {# button to acknowledge message and close modal #}
+                <footer class="modal-card-foot">
+                    <div class="level-left">
+                        <a class=" button is-primary action modal-close-2">
+                        <span class="icon is-small">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                            <span class="action">OK</span>
+                        </a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    {% endif %}
 
 {% endblock %}

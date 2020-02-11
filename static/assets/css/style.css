@@ -351,6 +351,9 @@ label.star:before {
 .star-label {
     font-size: 1rem;
 }
+.star-totals{
+    font-size: .8rem;
+}
 
 .review-date {
     display: inline-block;
@@ -676,7 +679,6 @@ span#event-modal-title {
 
 
 .places .container:nth-child(odd) {
-    margin-left: 75px;
     -webkit-animation: slide-right 0.5s forwards;
     animation: slide-right 0.5s forwards;
     right: -100%;
@@ -697,7 +699,6 @@ span#event-modal-title {
 }
 
 .places .container:nth-child(even) {
-    margin-right: 75px;
     -webkit-animation: slide-left 0.5s forwards;
     animation: slide-left 0.5s forwards;
     -webkit-animation-delay: .1s;
@@ -717,17 +718,9 @@ span#event-modal-title {
     }
 }
 
-.places .container:nth-child(odd) .card.is-primary {
-    border-left: 2px solid #4a4a4a;
-    border-top: solid 2px #4a4a4a;
-    border-bottom: solid 2px #4a4a4a;
-    margin-bottom: -2px;
-}
-
-.places .container:nth-child(even) .card.is-primary {
-    border-right: 2px solid #4a4a4a;
-    border-top: solid 2px #4a4a4a;
-    border-bottom: solid 2px #4a4a4a;
+.places.list-events .container .card.is-primary {
+    border-top: 2px solid #4a4a4a;
+    border-bottom: 2px solid #4a4a4a;
     margin-bottom: -2px;
 }
 

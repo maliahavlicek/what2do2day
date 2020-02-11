@@ -303,9 +303,9 @@ $(document).ready(function () {
     });
 
     /* handlers for place add review buttons */
-    $('.button.action.review-add').click(function() {
+    $('.button.action.review-add').click(function () {
         // need to pass place id to add_review
-        let place_id =  $(this).data('target');
+        let place_id = $(this).data('target');
         window.location = "/add_review/" + place_id;
     });
 
@@ -318,6 +318,11 @@ $(document).ready(function () {
     if ($modalCloses.length > 0) {
         $modalCloses.forEach(function ($el) {
             $el.addEventListener('click', function () {
+                let target =$(this).parents('.modal').data('target');
+                if( typeof target !== "undefined")
+                {
+                    window.location = target;
+                }
                 closeModals();
             });
         });
