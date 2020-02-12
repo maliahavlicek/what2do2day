@@ -13,11 +13,15 @@ from flask_pymongo import PyMongo
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from pymongo import WriteConcern
 
-from . import filters
+import filters
 from .forms import PlaceForm, EventForm, CountMeInForm, FilterEventsFrom, ReverseProxied
 
 app = Flask(__name__, instance_relative_config=True)
-app.register_blueprint(filters.blueprint)
+app.jinja_env.filters['date_only'] = filters.date_only
+app.jinja_env.filters['date_range'] = filters.date_range
+app.jinja_env.filters['icon_alt'] = filters.icon_alt
+app.jinja_env.filters['myround'] = filters.myround
+app.jinja_env.filters['time_only'] = filters.time_only
 if isfile(join('instance', 'flask_full.cfg')):
     app.config.from_pyfile('flask_full.cfg')
 else:
@@ -36,7 +40,7 @@ details_url = "https://maps.googleapis.com/maps/api/place/details/json"
 #### blueprints ####
 ####################
 
-from what2do2day.reviews.views import reviews_blueprint
+from what2do2day.reviews.views import reviews_blueprint, db_add_review
 
 # register the blueprints
 app.register_blueprint(reviews_blueprint)
