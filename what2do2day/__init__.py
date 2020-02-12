@@ -1,31 +1,33 @@
-import os
-from inspect import getmembers, isfunction
+import re
+import time
+from datetime import datetime
+from os import listdir
+from os.path import isfile, join, splitext
 
 import bson
 import pymongo
+import requests
+from bson.objectid import ObjectId
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
-from os import listdir
-from os.path import isfile, join
-import filters
-
-from pymongo import WriteConcern
-from datetime import datetime, timedelta
-import requests
-import time
-
-from forms import PlaceForm, EventForm, ReviewForm, CountMeInForm, FilterEventsFrom, ReverseProxied
 from flask_wtf.csrf import CSRFProtect, CSRFError
+from pymongo import WriteConcern
 
-app = Flask(__name__, instance_relative_config=False)
-app.config.from_object('config.Config')
+import filters
+from .forms import PlaceForm, EventForm, CountMeInForm, FilterEventsFrom, ReverseProxied
+
+app = Flask(__name__, instance_relative_config=True)
+app.jinja_env.filters['date_only'] = filters.date_only
+app.jinja_env.filters['date_range'] = filters.date_range
+app.jinja_env.filters['icon_alt'] = filters.icon_alt
+app.jinja_env.filters['myround'] = filters.myround
+app.jinja_env.filters['time_only'] = filters.time_only
+if isfile(join('instance', 'flask_full.cfg')):
+    app.config.from_pyfile('flask_full.cfg')
+else:
+    app.config.from_pyfile('flask.cfg')
+
 app.wsgi_app = ReverseProxied(app.wsgi_app)
-my_filters = {name: function
-              for name, function in getmembers(filters)
-              if isfunction(function)}
-
-app.jinja_env.filters.update(my_filters)
 
 csrf = CSRFProtect(app)
 mongo = PyMongo(app)
@@ -33,6 +35,15 @@ mongo = PyMongo(app)
 google_key = app.config['GOOGLE_MAP_KEY']
 search_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 details_url = "https://maps.googleapis.com/maps/api/place/details/json"
+
+####################
+#### blueprints ####
+####################
+
+from what2do2day.reviews.views import reviews_blueprint, db_add_review
+
+# register the blueprints
+app.register_blueprint(reviews_blueprint)
 
 
 def db_issue(e):
@@ -407,45 +418,6 @@ def country_choice_list():
     return country_choices
 
 
-@app.route('/add_review/<string:place_id>/', methods=['GET', 'POST'])
-def add_review(place_id):
-    form = ReviewForm()
-    form.use_place_email.data = "n"
-    show_modal = False
-
-    the_place = mongo.db.places.find_one({'_id': ObjectId(place_id)})
-    if the_place is not None:
-        place_name = the_place['name']
-    else:
-        return render_template('error.html', reason="I couldn't find the place you were looking for.")
-
-    if form.validate_on_submit():
-        review = {'place': ObjectId(place_id), 'date': datetime.today(),
-                  'rating': int(form.data['rating']),
-                  'comments': form.data['comments'].strip(),
-                  'share': form.share.data}
-
-        email = form.author.data.strip().lower()
-        review['user'] = get_add_user_id(email)
-
-        # check if user has added a review for this place in the last 7 days (want to make it harder to bloat reviews)
-        one_week_ago = datetime.today() - timedelta(days=7)
-        too_recent = mongo.db.reviews.find_one({"date": {"$gte": one_week_ago}, "user": review['user']})
-        if too_recent is not None:
-            show_modal = {
-                'status': "ERROR",
-                'message': "Sorry, it looks like you have already submitted a review within the last week."
-            }
-        else:
-            show_modal = {
-                'status': "OK",
-                'message': "Thank you for adding to the community! It may take up to 5 minutes before your review shows up."
-            }
-            review_id = db_add_review(review)
-
-    return render_template('review/add_review.html', id=place_id, name=place_name, form=form, show_modal=show_modal)
-
-
 @app.route('/filter_events', defaults={'update': 'false'}, methods=['POST'])
 @app.route('/filter_events/<string:update>/', methods=['POST'])
 def filter_events(update):
@@ -546,15 +518,6 @@ def db_add_event(event):
     return the_event.inserted_id
 
 
-def db_add_review(review):
-    """"need to make sure insert rating as an integer"""
-    db = mongo.db.reviews.with_options(
-        write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
-    )
-    the_review = db.insert_one(review)
-    return the_review.inserted_id
-
-
 def get_add_address_id(add):
     """retrieve or create an address based on add"""
     the_address = mongo.db.addresses.find_one(add)
@@ -647,8 +610,22 @@ def handle_csrf_error(e):
     return render_template('error.html', reason=e), 400
 
 
+def icon_alt(icon_file_name):
+    """take an image name strip out file extension and numbers"""
+    if isinstance(icon_file_name, str):
+        try:
+            clean_name = splitext(icon_file_name)[0]
+            clean_name = re.sub(r'[0-9]', '', clean_name)
+            clean_name = clean_name.replace('-', ' ')
+            return re.sub(' +', ' ', clean_name).strip()
+        except (TypeError, ValueError) as e:
+            pass
+            return icon_file_name
+    return icon_file_name
+
+
 def get_list_of_icons():
-    icon_path = 'static/assets/images/icons'
+    icon_path = 'what2do2day/static/assets/images/icons'
     icons = [f for f in listdir(icon_path) if isfile(join(icon_path, f))]
     # need to sort by friendly name
     friendlier = []
@@ -1053,9 +1030,3 @@ def mini_event(event):
     min_event['end_date']: event['date_time_range'][19:29]
 
     return min_event
-
-
-if __name__ == '__main__':
-    app.run(host=os.getenv("IP", "0.0.0.0"),
-            port=int(os.getenv("PORT", "5000")),
-            debug=bool(os.getenv("DEBUG", False)))

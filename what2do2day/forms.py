@@ -1,7 +1,5 @@
-import datetime
+
 import re
-import json
-import pymongo
 from flask_wtf import FlaskForm
 from wtforms import (StringField,
                      TextAreaField,
@@ -9,8 +7,7 @@ from wtforms import (StringField,
                      BooleanField,
                      ValidationError,
                      HiddenField,
-                     RadioField,
-                     FormField, DateTimeField, IntegerField, SelectMultipleField)
+                     FormField, IntegerField, SelectMultipleField)
 from wtforms.validators import (DataRequired,
                                 Email,
                                 Length,
@@ -18,9 +15,8 @@ from wtforms.validators import (DataRequired,
                                 Optional,
                                 NumberRange)
 
-from templates.validators import validate_option_not_none, validate_datetime, validate_rating, validate_daterange
-from wtforms.widgets import HiddenInput
-
+from what2do2day.templates.validators import validate_datetime, validate_daterange
+from .reviews.forms import ReviewForm
 
 class RequiredIf(DataRequired):
     """Validator which makes a field required if another field is set and has a truthy value.
@@ -75,28 +71,6 @@ class AddressForm(FlaskForm):
         # RequiredIf doesn't work for SelectField, must use own validation to detect this combination
         if str(country.data) == 'none' and self.has_address.data:
             raise ValidationError('Please select an option.')
-
-
-class ReviewForm(FlaskForm):
-    """Review Form"""
-
-    has_review = BooleanField('Add Review', default=True)
-    author = StringField('Author Email *',
-                         [RequiredIf(use_place_email='n'), Length(min=1, message='Email is required.'),
-                          Email(message='Not a valid email address.')])
-    rating = RadioField('Rating *',
-                        choices=[('none', 'none'), ('1', 'Bad: 1-star'), ('2', 'Poor: 2-star'), ('3', 'Fair: 3-star'),
-                                 ('4', 'Good: 4-star'),
-                                 ('5', 'Excellent: 5-star')], default='none', validators=[validate_rating])
-    comments = TextAreaField('Comments *',
-                             [RequiredIf(has_review=True), Length(min=1, message='Please enter your review.'),
-                              Length(max=500, message='Comments cannot be longer than 500 characters.')])
-    use_place_email = HiddenField(None, [DataRequired()], default="n")
-    share = BooleanField('Share with Community', default=True)
-
-    def validate_author(self, author):
-        if self.has_review.data and str(self.use_place_email.data) == 'n' and len(str(author.data)) < 0:
-            raise ValidationError(" you must enter an author")
 
 
 class EventForm(FlaskForm):
@@ -205,7 +179,7 @@ class PlaceForm(FlaskForm):
 
     def validate_name(self, name):
         """Custom validator to make sure name is unique"""
-        from app import mongo
+        from what2do2day import mongo
         places = list(mongo.db.places.find({"item.name": name.data}))
         if len(places) > 0:
             raise ValidationError('Place Name already exists.')
