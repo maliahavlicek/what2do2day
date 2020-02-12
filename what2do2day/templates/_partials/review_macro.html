@@ -32,7 +32,7 @@
         <div class="column">
             <div class="field {% if form.rating.errors %}has-error{% endif %}">
                 <div class="control">
-                    {{ star_form(form=form.rating, label="Rating *") }}
+                    {{ star_form(label="Rating *", form=form.rating) }}
                 </div>
                 <p class="error-msg help is-danger">
                     {% if form.rating.errors|length > 0 %}

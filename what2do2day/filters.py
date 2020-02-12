@@ -1,10 +1,17 @@
 import re
 from os.path import splitext
+
+import jinja2
 from jinja2 import filters
 from datetime import datetime
+import flask
+
+blueprint = flask.Blueprint('filters', __name__)
 
 
-def date_only(date):
+@jinja2.contextfilter
+@blueprint.app_template_filter()
+def date_only(context, date):
     """Function takes a datetime object and stringifies it down to MM/DD/YYYY format"""
     try:
         start_date = datetime.strftime(date, '%m/%d/%Y')
@@ -14,7 +21,8 @@ def date_only(date):
     return start_date
 
 
-def date_range(date_time_range):
+@jinja2.contextfilter
+def date_range(context, date_time_range):
     """expecting MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM
      startDate startTime - endDate endTime
      """
@@ -42,7 +50,11 @@ def date_range(date_time_range):
         return date_time_range
 
 
-def icon_alt(icon_file_name):
+blueprint.add_app_template_filter(date_range)
+
+
+@jinja2.contextfilter
+def icon_alt(context, icon_file_name):
     """take an image name strip out file extension and numbers"""
     if isinstance(icon_file_name, str):
         try:
@@ -56,7 +68,11 @@ def icon_alt(icon_file_name):
     return icon_file_name
 
 
-def myround(*args, **kw):
+blueprint.add_app_template_filter(icon_alt)
+
+
+@jinja2.contextfilter
+def myround(context, *args, **kw):
     try:
         """from https://stackoverflow.com/questions/28458524/how-to-round-to-zero-decimals-if-there-is-no-decimal-value-with-jinja2"""
         # Use the original round filter, to deal with the extra arguments
@@ -71,7 +87,11 @@ def myround(*args, **kw):
         return None
 
 
-def time_only(date_time_range):
+blueprint.add_app_template_filter(myround)
+
+
+@jinja2.contextfilter
+def time_only(context, date_time_range):
     try:
         if date_time_range and date_time_range != '' and len(date_time_range) == 35:
             start_date = date_time_range[0:10]
@@ -90,3 +110,6 @@ def time_only(date_time_range):
     except (TypeError, ValueError) as e:
         pass
         return date_time_range
+
+
+blueprint.add_app_template_filter(time_only)
