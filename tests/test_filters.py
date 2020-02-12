@@ -6,7 +6,6 @@ import filters
 
 class Test_Filters(unittest.TestCase):
 
-
     def test_date_only(self):
         """expects a datetime object """
 
