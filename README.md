@@ -50,6 +50,10 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 >     - [Tools](#tools)
 >     - [APIs](#apis)
 > - [Testing](#testing)
+> - [Deployment](#deployment)
+>   - [Requirements](#requires)
+>   - [Local](#Running Locally)
+>
 
 
 ## UX
@@ -475,23 +479,13 @@ https://github.com/maliahavlicek/what2do2day
 ```$ git clone https://github.com/maliahavlicek/what2do2day.git```
 
 2. [set environmental variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html) with your own values for: 
-> - MONGO_URI_WHAT2DO2DAY
-> - GOOGLE_MAP_KEY
-> - SECRET_KEY
-> - WTF_CSRF_SECRET_KEY 
+> - MONGO_URI_WHAT2DO2DAY [URI connection string](https://docs.atlas.mongodb.com/driver-connection/) 
+> - GOOGLE_MAP_KEY [get here](https://developers.google.com/maps/documentation/javascript/get-api-key)
+> - SECRET_KEY - a long random string of bytes. For example, copy the output of this to your config:
+                ```$ python -c 'import os; print(os.urandom(16))'```
+> - WTF_CSRF_SECRET_KEY another long random string of bytes to help protect against cross site request forgery.  You can copy the output of this to your config:
+                ```$ python -c 'import os; print(os.urandom(24))'```
 
-or hard code the values in the config.py file:
-```python
-    # General Config
-    SECRET_KEY = environ.get('SECRET_KEY', 'YOUR_KEY')
-    WTF_CSRF_SECRET_KEY = environ.get('WTF_CSRF_SECRET_KEY', 'YOUR_KEY')
-
-    # mongodb connection
-    MONGO_URI = environ.get('MONGO_URI_WHAT2DO2DAY','YOUR_MONGO_URI_STRING')
-
-    # google
-    GOOGLE_MAP_KEY = environ.get("GOOGLE_MAP_KEY", 'YOUR_GOOGLE_MAPS_API_KEY')
-```
 3. start your server by typing 
 ```$ python run.py```
 4. access your local version of the application at http://0.0.0.0:5000/home
