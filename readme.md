@@ -312,7 +312,7 @@ To streamline the development process without the complexity of user roles and p
 1. get numbers for joining event funnel: events page hits, join event click, send invite success, send invite user error, send invite exceed attendance error
  
 ### Features Left to Implement
-I overestimated my abilities when originally scoping this project. I didn't account for uncovering some core issues with Bulma's [datepicker functionality](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621), nor did I anticipate as much trouble understanding the routing and parameter passing in flask.  I also spent too much time trying to figure out how to break out the controller, filtering, and utility functions from my app.py. Since this project required a greater learning curve than anticipated, some functionality had to be deferred in order to allow me to learn how to automate testing and to provide attention to cross browser/cross device validation.
+I overestimated my abilities when originally scoping this project. I didn't account for uncovering some core issues with Bulma's [datepicker functionality](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621), nor did I anticipate as much trouble understanding the routing and parameter passing in flask.  I also spent too much time trying to figure out how to break out the controller, filtering, and utility functions from my run.py. Since this project required a greater learning curve than anticipated, some functionality had to be deferred in order to allow me to learn how to automate testing and to provide attention to cross browser/cross device validation.
 #### Features Deferred from original plan
 1. Follow a place - I have used Email JS in a past project so I would not gain any skills taking this functionality on and I the UX being similar to the delivered Join Event feature.
 1. Filter Places - I tackled more complex filtering logic in the filter events layer and saw this list not getting nearly as long as the events list could be.
@@ -493,7 +493,7 @@ or hard code the values in the config.py file:
     GOOGLE_MAP_KEY = environ.get("GOOGLE_MAP_KEY", 'YOUR_GOOGLE_MAPS_API_KEY')
 ```
 3. start your server by typing 
-```$ python app.py```
+```$ python run.py```
 4. access your local version of the application at http://0.0.0.0:5000/home
 
 ### Heroku
@@ -566,4 +566,4 @@ The wonderful results of the google search engine helped me tremendously in comp
 - [mongo reference](https://docs.mongodb.com/manual/reference/) - Learning how to manipulate dates, strings, perform lookups, sorting, and merges on data
 - [javascript dates](https://www.aspsnippets.com/Articles/JavaScript-Display-Current-Time-in-12-hour-format-AM-PM-and-24-hour-format-with-Hours-Minutes-and-Seconds-hhmmss.aspx) to clean up date formatting in the initial count me in layer
 - [Pretty Printed](https://www.youtube.com/watch?v=kWncnBBxoJ4&feature=youtu.be)This video shows how to integrate google maps to a python flask application.
-- [aezel](https://stackoverflow.com/users/64266/aezell) for [posting](https://stackoverflow.com/users/64266/aezell) a good way to separate flask filters from app.py
+- [aezel](https://stackoverflow.com/users/64266/aezell) for [posting](https://stackoverflow.com/users/64266/aezell) a good way to separate flask filters from run.py
