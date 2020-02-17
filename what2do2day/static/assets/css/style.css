@@ -59,8 +59,13 @@ footer p {
 .accordion-content {
     border-bottom: 1px solid #00d1b2;
 }
+
 .accordion-content:last-of-type {
     border-bottom: none;
+}
+.accordions .accordion .accordion-header + .accordion-body{
+     transition: height 1s, max-height .5s;
+    transition-timing-function: ease-in-out;
 }
 
 /* calendar adjustments */
@@ -343,7 +348,8 @@ label.star:before {
 .star-label {
     font-size: 1rem;
 }
-.star-totals{
+
+.star-totals {
     font-size: .8rem;
 }
 
@@ -670,7 +676,7 @@ span#event-modal-title {
 }
 
 /* flip order of columns every other row */
-.places .container:nth-child(even) .card-content .media{
+.places .container:nth-child(even) .card-content .media {
     flex-direction: row-reverse;
 }
 
@@ -764,6 +770,75 @@ span#event-modal-title {
 
 i.not-shared {
     color: #f14668;
+}
+.modal-card{
+    visibility: hidden;
+}
+
+.modal {
+    transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+}
+
+/* modal show animation */
+.is-active .modal-card {
+    visibility: visible;
+    -webkit-animation: modal-show 1s; /* Safari 4+ */
+    -moz-animation: modal-show 1s; /* Fx 5+ */
+    -o-animation: modal-show 1s; /* Opera 12+ */
+    animation: modal-show 1s; /* IE 10+, Fx 29+ */
+}
+
+
+@-webkit-keyframes modal-show {
+    0% {
+        transform-origin: center center;
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        transform-origin: center center;
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@-moz-keyframes modal-show {
+    0% {
+        transform-origin: center center;
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        transform-origin: center center;
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@-o-keyframes modal-show {
+    0% {
+        transform-origin: center center;
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        transform-origin: center center;
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes modal-show {
+    0% {
+        transform-origin: center center;
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        transform-origin: center center;
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* scrollbar styles */
