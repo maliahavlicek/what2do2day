@@ -32,7 +32,7 @@
                         {{ place.description }}
                     </div>
                     <div>
-                        <section class="accordions">
+                        <section class="accordions {% if place.reviews|length <1 %}is-hidden{% endif %}">
                             <article class="accordion">
                                 <div class="accordion-header">
                                     <p>Reviews</p>
@@ -44,12 +44,13 @@
                                             {{ star_rating_display(rating=review.rating) }}
                                             <span class="review-date">{{ review.date| date_only }}</span>
                                             <p>{{ review.comments }}</p>
+                                            <p>~{{ review.user_name }}</p>
                                         </div>
                                     {% endfor %}
                                 </div>
                             </article>
                         </section>
-                        <section class="accordions">
+                        <section class="accordions {% if place.events|length <1 %}is-hidden{% endif %}">
                             <article class="accordion">
                                 <div class="accordion-header">
                                     <p>Events</p>
@@ -79,6 +80,14 @@
                                                     {{ event['details'] }}
                                                 </div>
                                             </div>
+                                            <a class="button is-primary action event-modal {% if event['max_attendees'] == event['attendees']|length %} is-disabled{% endif %}"
+                                               data-target="{{ event['_id'] }}"
+                                               aria-haspopup="true">
+                                                <span class="icon">
+                                                    <i class="fas fa-calendar-plus"></i>
+                                                </span>
+                                                <span class="action">Count Me In</span>
+                                            </a>
                                         {% endfor %}
                                     </div>
                                 </div>

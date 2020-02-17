@@ -897,16 +897,10 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
                 'from': 'reviews',
                 'localField': 'place_id',
                 'foreignField': 'place',
-                'as': 'reviews'
-            }})
+                'as': 'reviews',
+            }
+        })
 
-        query.append({
-            "$lookup": {
-                'from': 'users',
-                'localField': 'reviews.user',
-                'foreignField': '_id',
-                'as': 'review_user'
-            }})
         query.append({
             "$replaceRoot": {
                 'newRoot': {
@@ -957,6 +951,17 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
                     place['address-country'] = country['country']
                     if 'event_address' in place.keys():
                         place['event_address'][0]['country'] = country['country']
+            if 'reviews' in place.keys():
+                if len(place['reviews']) > 0:
+                    for review in place['reviews']:
+                        the_user = mongo.db.users.find_one({'_id': review['user']})
+                        if the_user is not None:
+                            the_user = the_user['email']
+                            review['user_name'] = re.sub(r'[@][a-zA-Z]+[.][a-zA-Z]+$', '', the_user)
+                    place['reviews'] = sorted(place['reviews'], key=lambda x: x['date'], reverse=True)
+            if 'events' in place.keys():
+                if len(place['events']) > 1:
+                    place['events'] = sorted(place['events'], key=lambda x: filters.date_only(x['date_time_range'][0:10]), reverse=True)
 
     return list_places
 

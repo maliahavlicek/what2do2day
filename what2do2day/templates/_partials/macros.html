@@ -238,17 +238,19 @@
                 </div>
             </div>
             <div id="event-modal-right" class="media-content is-half">
-                <div class="is-bold {% if layer_event['event_address'] =='' %} is-hidden{% endif %}">Where:</div>
-                <div id="map">
-                    {% if layer_event['event_address'] !='' %}
-                        <iframe width="280" height="225" frameborder="0" style="border:0"
-                                src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ layer_event['event_address']['address_line_1'] }}&center={{ layer_event['event_address']['lat'] }},{{ layer_event['event_address']['lng'] }}&maptype=satellite&zoom=16"></iframe>
-                    {% endif %}
-                </div>
+                {% if layer_event['event_address'] and layer_event['event_address'] !='' and  layer_event['event_address']['address_line_1'] != "" %}
+                    <div class="is-bold {% if layer_event['event_address'] =='' %} is-hidden{% endif %}">Where:</div>
+                    <div id="map">
+                        {% if layer_event['event_address'] and layer_event['event_address'] !='' and  layer_event['event_address']['address_line_1'] != "" %}
+                            <iframe width="280" height="225" frameborder="0" style="border:0"
+                                    src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ layer_event['event_address']['address_line_1'] }}&center={{ layer_event['event_address']['lat'] }},{{ layer_event['event_address']['lng'] }}&maptype=satellite&zoom=16"></iframe>
+                        {% endif %}
+                    </div>
+                {% endif %}
                 <div id="place-description">
                     <p><span class="is-bold">Sponsored By:</span> <span>{{ layer_event['place_name']|title }}</span></p>
-                    {% if layer_event['event_address'] =='' %}
-                        <div class="is-bold">About Us</div>
+                    {% if layer_event['event_address'] and layer_event['event_address']['address_line_1'] == "" %}
+
                         <p>
                             {{ layer_event['place_description'] }}
                         </p>
@@ -295,7 +297,8 @@
                  aria-label="Rating of this product is {{ rating|myround(1) }} out of 5."></div>
             {% if label %}
                 <div class="star-label">{{ rating|myround(1) }} out of 5</div>
-                <div class="star-totals">{{ place.reviews|length }} review{% if place.reviews|length > 1 %}s{% endif %} </div>
+                <div class="star-totals">{{ place.reviews|length }} review{% if place.reviews|length > 1 %}
+                    s{% endif %} </div>
             {% endif %}
         {% else %}
             no ratings yet

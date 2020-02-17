@@ -26,8 +26,12 @@
             </div>
         </div>
     </section>
-    <section>
-
+     <section class="list-events places">
+        {% if places | length > 0 %}
+            {% for place in places %}
+                {% include 'place/place_add_event.html' %}
+            {% endfor %}
+        {% endif %}
     </section>
 
 {% endblock %}
