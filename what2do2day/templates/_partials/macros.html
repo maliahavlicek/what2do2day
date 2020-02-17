@@ -277,15 +277,15 @@
         <a class="is-text has-tooltip-multiline has-tooltip-bottom is-capitalized"
            data-tooltip="{{ address_tooltip(add=add) }}">{{ add['address_line_1']|title }}</a>
     {% else %}
-        {{ add['address_line_1'] }}
+        {{ add['address_line_1']|title  }}
         {% if add['address_line_2']|length > 0 %}
-            <br>{{ add['address_line_2'] }}
+            <br>{{ add['address_line_2']|title  }}
         {% endif %}
-        <br>{{ add['city'] }}, {{ add['state'] }}
+        <br>{{ add['city']|title  }}, {{ add['state']|title  }}
         {% if add['postal_code']|length > 0 %}
-            <br>{{ add['postal_code'] }} {{ add['country'] }}
+            <br>{{ add['postal_code']|title  }} {{ add['country']|title  }}
         {% else %}
-            <br>{{ add['country'] }}
+            <br>{{ add['country']|title }}
         {% endif %}
     {% endif %}
 {%- endmacro %}

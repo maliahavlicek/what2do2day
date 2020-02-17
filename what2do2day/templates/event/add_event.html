@@ -4,7 +4,7 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Add Events
+                    Add Event For:
                 </h1>
                 {% if places | length < 1 and filter=='none' %}
                     <h2 class="subtitle">
@@ -26,12 +26,13 @@
             </div>
         </div>
     </section>
-     <section class="list-events places">
+     <section class="list-events places add-place">
         {% if places | length > 0 %}
             {% for place in places %}
                 {% include 'place/place_add_event.html' %}
             {% endfor %}
         {% endif %}
     </section>
+
 
 {% endblock %}

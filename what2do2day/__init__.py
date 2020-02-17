@@ -318,10 +318,18 @@ def edit_events(filter_string, update_status):
 
 
 def push_event_to_db(form, event):
+
     # create a cleaned up event object to the point of unique data [place_id, name, date_time_range]
     new_event = {'place': event['place_id'], 'name': form.data['event_name'].strip().lower(),
                  'date_time_range': form.data['event_start_datetime']
                  }
+
+    # make sure event is unique if adding (place_id, name, date_time_range combo does not already exist in database)
+    if '_id' not in event.keys():
+        mongo.db.events.find_one(new_event)
+        if mongo.db.events is not None:
+            status = "An event with the same name, time and place already exists. Please try again."
+            return redirect(url_for('new_event', place_id=event['place_id'], status=status))
 
     # event is unique so format rest of form entries and load to db
     has_address = form.address.data['has_address']
@@ -349,21 +357,28 @@ def push_event_to_db(form, event):
     new_event['price_for_non_members'] = form.data['price_for_non_members'].strip()
     new_event['address'] = event_address_id
     new_event['max_attendees'] = form.data['max_attendees']
-    new_event['attendees'] = event['attendees']
+    if 'attendees' in event.keys():
+        new_event['attendees'] = event['attendees']
     new_event['share'] = form.share.data
 
     db = mongo.db.events.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
     )
 
-    the_event = db.update_one({"_id": event['_id']}, {"$set": new_event})
+    if '_id' in event.keys():
+        the_event = db.update_one({"_id": event['_id']}, {"$set": new_event})
+    else:
+        the_event = db.insert_one(new_event)
 
     if the_event is None:
         status = "There was a database connectivity issue. Please try again."
     else:
         status = "OK"
     # need to route to edit events maybe show show Success message overlay vs error message overlay
-    return redirect(url_for('edit_events', filter_string='None', update_status=status))
+    if '_id' in event.keys():
+        return redirect(url_for('edit_events', filter_string='None', update_status=status))
+    else:
+        return redirect(url_for('new_event', place_id=event['place_id'], status=status))
 
 
 @app.route('/update_event/<string:event_id>/', methods=['GET', 'POST'])
@@ -458,20 +473,33 @@ def filter_events(update):
                            google_key=google_key, layer_event=event, filter_form=filter_form)
 
 
-@app.route('/add_event', methods=['GET', 'POST'])
+@app.route('/add_event', methods=['GET'])
 def add_event():
-    if request.method == 'POST':
-        filters = 'yes'
-    else:
-        filters = 'none'
-
     try:
-        list_places = list(mongo.db.places.find())
+        list_places = retrieve_places_from_db(True, filter_form=False, place_id=False)
     except Exception as e:
         db_issue(e)
         list_places = []
 
-    return render_template('event/add_event.html', places=list_places, filter=filters)
+    return render_template('event/add_event.html', places=list_places, filter=filters, google_key=google_key)
+
+
+@app.route('/new_event/<string:place_id>/', defaults={'status': False}, methods=['GET', 'POST'])
+@app.route('/new_event/<string:place_id>/<string:status>/', methods=['GET', 'POST'])
+def new_event(place_id, status):
+    form = EventForm()
+    form.address.country.choices = country_choice_list()
+    icons = get_list_of_icons()
+    the_place = mongo.db.places.find_one(ObjectId(place_id))
+
+    if form.validate_on_submit():
+        # all is good with the post based on PlaceForm wftForm validation
+        event = {'place_id': ObjectId(place_id), 'attendees': []}
+        return push_event_to_db(form, event)
+
+    # there were errors
+
+    return render_template('event/new_event.html', form=form, icons=icons, place=the_place, status=status)
 
 
 @app.route('/get_places')
@@ -857,111 +885,113 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
     if not update:
         query.append(
             {"$match": {'share_place': True}})
-    if not update:
-        query.append({
-            "$project": {
-                'place_name': "$name",
-                'place_id': "$_id",
-                'user_id': "$user",
-                'image': '$image_url',
-                'activity_id': '$activity',
-                'description': '$description',
-                'address_id': '$address',
-                'phone': '$phone',
-                'web': '$website',
-                'share': '$share_place'
-            }})
-        query.append({
-            "$lookup": {
-                'from': 'activities',
-                'localField': 'activity_id',
-                'foreignField': '_id',
-                'as': 'place_activity'
-            }})
-        query.append({
-            "$lookup": {
-                'from': 'addresses',
-                'localField': 'address_id',
-                'foreignField': '_id',
-                'as': 'place_address'
-            }})
-        query.append({
-            "$lookup": {
-                'from': 'events',
-                'localField': 'place_id',
-                'foreignField': 'place',
-                'as': 'events'
-            }})
-        query.append({
-            "$lookup": {
-                'from': 'reviews',
-                'localField': 'place_id',
-                'foreignField': 'place',
-                'as': 'reviews',
-            }
-        })
 
-        query.append({
-            "$replaceRoot": {
-                'newRoot': {
-                    "$mergeObjects":
-                        [{"$let": {
-                            "vars": {"v": {"$arrayElemAt": ["$place_activity", 0]}},
-                            "in": {"$arrayToObject": {
-                                "$map": {
-                                    "input": {"$objectToArray": "$$v"},
-                                    "as": "val",
-                                    "in": {
-                                        "k": {"$concat": ["activity", "_", "$$val.k"]},
-                                        "v": "$$val.v"
-                                    }}
-                            }}
-                        }}, "$$ROOT"]
-                }}})
-        query.append({
-            "$replaceRoot": {
-                'newRoot': {
-                    "$mergeObjects":
-                        [{"$let": {
-                            "vars": {"v": {"$arrayElemAt": ["$place_address", 0]}},
-                            "in": {"$arrayToObject": {
-                                "$map": {
-                                    "input": {"$objectToArray": "$$v"},
-                                    "as": "val",
-                                    "in": {
-                                        "k": {"$concat": ["address", "-", "$$val.k"]},
-                                        "v": "$$val.v"
-                                    }}
-                            }}
-                        }}, "$$ROOT"]
-                }}})
-        query.append({
-            "$addFields": {
-                "rating_average": {"$avg": "$reviews.rating"}
-            }})
+    query.append({
+        "$project": {
+            'place_name': "$name",
+            'place_id': "$_id",
+            'user_id': "$user",
+            'image': '$image_url',
+            'activity_id': '$activity',
+            'description': '$description',
+            'address_id': '$address',
+            'phone': '$phone',
+            'web': '$website',
+            'share': '$share_place'
+        }})
+    query.append({
+        "$lookup": {
+            'from': 'activities',
+            'localField': 'activity_id',
+            'foreignField': '_id',
+            'as': 'place_activity'
+        }})
+    query.append({
+        "$lookup": {
+            'from': 'addresses',
+            'localField': 'address_id',
+            'foreignField': '_id',
+            'as': 'place_address'
+        }})
+    query.append({
+        "$lookup": {
+            'from': 'events',
+            'localField': 'place_id',
+            'foreignField': 'place',
+            'as': 'events'
+        }})
+    query.append({
+        "$lookup": {
+            'from': 'reviews',
+            'localField': 'place_id',
+            'foreignField': 'place',
+            'as': 'reviews',
+        }
+    })
 
-        list_places = list(mongo.db.places.aggregate(query))
+    query.append({
+        "$replaceRoot": {
+            'newRoot': {
+                "$mergeObjects":
+                    [{"$let": {
+                        "vars": {"v": {"$arrayElemAt": ["$place_activity", 0]}},
+                        "in": {"$arrayToObject": {
+                            "$map": {
+                                "input": {"$objectToArray": "$$v"},
+                                "as": "val",
+                                "in": {
+                                    "k": {"$concat": ["activity", "_", "$$val.k"]},
+                                    "v": "$$val.v"
+                                }}
+                        }}
+                    }}, "$$ROOT"]
+            }}})
+    query.append({
+        "$replaceRoot": {
+            'newRoot': {
+                "$mergeObjects":
+                    [{"$let": {
+                        "vars": {"v": {"$arrayElemAt": ["$place_address", 0]}},
+                        "in": {"$arrayToObject": {
+                            "$map": {
+                                "input": {"$objectToArray": "$$v"},
+                                "as": "val",
+                                "in": {
+                                    "k": {"$concat": ["address", "-", "$$val.k"]},
+                                    "v": "$$val.v"
+                                }}
+                        }}
+                    }}, "$$ROOT"]
+            }}})
+    query.append({
+        "$addFields": {
+            "rating_average": {"$avg": "$reviews.rating"}
+        }})
 
-        for place in list_places:
-            if 'address-country' in place.keys():
-                country_id = place['address-country']
-                place['country_id'] = country_id
-                country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
-                if country is not None:
-                    place['address-country'] = country['country']
-                    if 'event_address' in place.keys():
-                        place['event_address'][0]['country'] = country['country']
-            if 'reviews' in place.keys():
-                if len(place['reviews']) > 0:
-                    for review in place['reviews']:
-                        the_user = mongo.db.users.find_one({'_id': review['user']})
-                        if the_user is not None:
-                            the_user = the_user['email']
-                            review['user_name'] = re.sub(r'[@][a-zA-Z]+[.][a-zA-Z]+$', '', the_user)
-                    place['reviews'] = sorted(place['reviews'], key=lambda x: x['date'], reverse=True)
-            if 'events' in place.keys():
-                if len(place['events']) > 1:
-                    place['events'] = sorted(place['events'], key=lambda x: filters.date_only(x['date_time_range'][0:10]), reverse=True)
+    list_places = list(mongo.db.places.aggregate(query))
+
+    for place in list_places:
+        if 'address-country' in place.keys():
+            country_id = place['address-country']
+            place['country_id'] = country_id
+            country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
+            if country is not None:
+                place['address-country'] = country['country']
+                if 'place_address' in place.keys():
+                    place['place_address'][0]['country'] = country['country']
+                if 'event_address' in place.keys():
+                    place['event_address'][0]['country'] = country['country']
+        if 'reviews' in place.keys():
+            if len(place['reviews']) > 0:
+                for review in place['reviews']:
+                    the_user = mongo.db.users.find_one({'_id': review['user']})
+                    if the_user is not None:
+                        the_user = the_user['email']
+                        review['user_name'] = re.sub(r'[@][a-zA-Z]+[.][a-zA-Z]+$', '', the_user)
+                place['reviews'] = sorted(place['reviews'], key=lambda x: x['date'], reverse=True)
+        if 'events' in place.keys():
+            if len(place['events']) > 1:
+                place['events'] = sorted(place['events'], key=lambda x: filters.date_only(x['date_time_range'][0:10]))
 
     return list_places
 

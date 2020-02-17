@@ -679,6 +679,9 @@ span#event-modal-title {
 .places .container:nth-child(even) .card-content .media {
     flex-direction: row-reverse;
 }
+.add-place.places .container:nth-child(even) .card-content .media{
+    flex-direction: row;
+}
 
 .places .container:nth-child(odd), .list-events .container:nth-child(odd) {
     -webkit-animation: slide-right 0.5s forwards;

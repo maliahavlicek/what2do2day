@@ -88,7 +88,10 @@ $(document).ready(function () {
     } else if ($('#event_start_datetime').length > 0) {
         cal_selector = '#event_start_datetime';
         incomingDate = $(cal_selector);
-        date_val = incomingDate.val();
+        if (incomingDate.length > 0) {
+            date_val = incomingDate.val();
+        }
+
         let incomingStartDate = date_val.substring(0, 16);
         if (incomingStartDate !== "" && incomingStartDate < today) {
             cal_start = incomingStartDate;
@@ -105,6 +108,7 @@ $(document).ready(function () {
             showTodayButton: false,
             showClearButton: false,
             validateLabel: "Select",
+            minuteSteps: 15,
             labelFrom: 'Start',
             labelTo: 'End',
             minDate: cal_start,
@@ -115,15 +119,18 @@ $(document).ready(function () {
             // something wrong with bulma code and start date hours and minutes not populated
             // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
             // get the startDate hours and minutes
-            incomingDate.val(date_val);
 
-            let incomingStartHours = date_val.substring(11, 13);
-            let incomingStartMinutes = date_val.substring(14, 16);
-            let incomingStartDate = date_val.substring(0, 16);
-            $('.datetimepicker-dummy-input.is-datetimepicker-range').val(incomingStartDate);
-            $('.timepicker-start .timepicker-hours .timepicker-input-number').text(incomingStartHours);
-            $('.datetimepicker-selection-start .datetimepicker-selection-hour').text(incomingStartHours + ':' + incomingStartMinutes);
-            $('.timepicker-start .timepicker-minutes .timepicker-input-number').text(incomingStartMinutes);
+            if(date_val !=="") {
+                incomingDate.val(date_val);
+
+                let incomingStartHours = date_val.substring(11, 13);
+                let incomingStartMinutes = date_val.substring(14, 16);
+                let incomingStartDate = date_val.substring(0, 16);
+                $('.datetimepicker-dummy-input.is-datetimepicker-range').val(incomingStartDate);
+                $('.timepicker-start .timepicker-hours .timepicker-input-number').text(incomingStartHours);
+                $('.datetimepicker-selection-start .datetimepicker-selection-hour').text(incomingStartHours + ':' + incomingStartMinutes);
+                $('.timepicker-start .timepicker-minutes .timepicker-input-number').text(incomingStartMinutes);
+            }
         }
 
         // Loop on each calendar initialized
@@ -309,6 +316,13 @@ $(document).ready(function () {
         window.location = "/add_review/" + place_id;
     });
 
+    /* handlers for place add event buttons */
+    $('.button.action.event-add').click(function () {
+        // need to pass place id to add_review
+        let place_id = $(this).data('target');
+        window.location = "/new_event/" + place_id;
+    });
+
 
     /*  modals handling */
     let rootEl = document.documentElement;
@@ -318,9 +332,8 @@ $(document).ready(function () {
     if ($modalCloses.length > 0) {
         $modalCloses.forEach(function ($el) {
             $el.addEventListener('click', function () {
-                let target =$(this).parents('.modal').data('target');
-                if( typeof target !== "undefined")
-                {
+                let target = $(this).parents('.modal').data('target');
+                if (typeof target !== "undefined") {
                     window.location = target;
                 }
                 closeModals();

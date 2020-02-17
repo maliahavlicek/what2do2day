@@ -1,0 +1,72 @@
+{# This template is used on the get_events page. It houses the HTML for each event row in the table #}
+{% from "_partials/macros.html" import display_address with context %}
+{% from "_partials/macros.html" import star_rating_display with context %}
+<div class="container">
+    <div class="card is-primary">
+        {# give credit to place hosting event #}
+        <header class="card-header">
+            {# activity icon #}
+            <div class="containers">
+                <figure class="image is-38x38">
+                    <img src="/static/assets/images/icons/{{ place['activity_icon'] }}"
+                         alt="image for {{ place['activity_icon']|icon_alt }} icon" height="34"
+                         width="34">
+                </figure>
+                {# name of place #}
+                <div class="title is-3">&nbsp;&nbsp;{{ place.place_name|title }}</div>
+            </div>
+        </header>
+        <div class="card-content">
+
+            <div class="media">
+                <div class="media-content is-two-thirds">
+                    <div class="columns">
+                        <div class="column">
+                            {{ place.description }}
+                        </div>
+                    </div>
+                    <div class="columns">
+                        {% if place.image %}
+                            <div class="is-bold column has-text-left">Image:</div>
+                            <div class="column">
+                                <img src="{{ place['image'] }}"
+                                     alt="image for {{ place['image']|icon_alt }} icon" height="100"
+                                     width="235">
+                            </div>
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="media-content is-one-third">
+                    {% if place.phone %}
+                        <div class="columns">
+                            <div class="is-bold column has-text-left">Phone:</div>
+                            <div class="column">{{ place['phone'] }}</div>
+                        </div>
+                    {% endif %}
+                    {% if place.web %}
+                            <div class="is-bold column has-text-left">Website:</div>
+                            <div class="column">{{ place['web'] }}</div>
+                    {% endif %}
+                    {% if place['address-_id'] and place['address-_id'] !="" %}
+                        <div class="columns">
+                            <div class="is-bold column">Location:</div>
+                            <div class="column">
+                                <div class="has-text-left">
+                                    {{ display_address(place['place_address'][0],tooltip=False) }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {# Add event button #}
+                    <a class="button is-primary action place-edit" data-target="{{ place['place_id'] }}">
+                        <span class="icon">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="action">Edit Place</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

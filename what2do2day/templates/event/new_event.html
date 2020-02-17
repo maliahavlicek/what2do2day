@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% from "_partials/event_macro.html" import event_entry with context %}
+{% block content %}
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Add Event
+                </h1>
+            </div>
+        </div>
+    </section>
+    <form method="POST" action="{{ url_for('new_event', place_id=place['_id'], _external=True) }}"
+          enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <nav class="level is-primary">
+            <div class="level-left">
+                <div class="level-item">
+                    <p class="title">
+                        <i class="fas fa-edit"></i> New Event for: {{ place['name'] | title }}
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <section class="section">
+            <div class="container">
+                <div class="list-events">
+                    <div class="field is-hidden">
+                        <label class="label">Events</label>
+                        <div class="control">
+                            {{ form.has_event(class_="is-checkradio is-medium") }}
+                            {{ form.has_event.label }}
+                        </div>
+                    </div>
+                    <div class="container">
+                        {{ event_entry(form=form, event=event, update=True) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="section update is-submit-wrapper">
+            <nav class="level">
+                <div class="level-left">
+                    <button type="submit" class="button is-primary action submit">
+                        <span class="icon is-small">
+                           <i class="fas fa-share-square"></i>
+                        </span>
+                        <span class="action">Save Event</span>
+                    </button>
+                </div>
+                <div class="level-right">
+                    <a class="button is-primary is-inverted action add_event"
+                       href="{{ url_for('add_event', _external=True) }}">
+                        <span class="icon">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                        <span class="action">Cancel</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </form>
+    <P>PION STATUS IS {{ status }}</P>
+
+    {% if status %}
+        {# modal for update event submission results #}
+        <div class="modal is-active {% if status == 'OK' %}user-success{% else %}user-error{% endif %}"
+             id="modal-add-event-submitted" data-target="/get_events">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Add Event</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="container">
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                    {% if status== "OK" %}
+                                        The event was successfully added. Note, it may take a couple of minutes to see your event.
+                                    {% else %}
+                                        {{ status }}
+                                    {% endif %}
+                                </div>
+                                <div class="column">
+                                    <div class="image-holder"
+                                         aria-label="image of {% if status=='OK' %} Phineas and Ferb celebrating success.{% else %}Image of Dr. Doofenshmirtz looking bewildered.{% endif %}"></div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                {# button to acknowledge message and close modal #}
+                <footer class="modal-card-foot">
+                    <div class="level-left">
+                        <a class=" button is-primary action modal-close-2">
+                        <span class="icon is-small">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                            <span class="action">OK</span>
+                        </a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
