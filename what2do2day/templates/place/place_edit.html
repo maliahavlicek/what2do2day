@@ -41,6 +41,8 @@
                 </div>
             </nav>
         </section>
+        {# include accordion for future filtering #}
+        {% include 'place/filter_place.html' %}
         <section class="list-events places add-place">
 
             {% for place in places %}

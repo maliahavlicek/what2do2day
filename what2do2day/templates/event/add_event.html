@@ -4,7 +4,7 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Add Event For:
+                    Add Event
                 </h1>
                 {% if places | length < 1 and filter=='none' %}
                     <h2 class="subtitle">
@@ -26,13 +26,27 @@
             </div>
         </div>
     </section>
-     <section class="list-events places add-place">
-        {% if places | length > 0 %}
+    {% if places | length > 0 %}
+        <section>
+            <nav class="level is-primary">
+                <div class="level-left">
+                    <div class="level-item">
+                        <p class="title">
+                            <i class="far fa-hand-pointer"></i> Select the Place to Add and Event to
+                        </p>
+                    </div>
+                </div>
+            </nav>
+        </section>
+        {# include accordion for future filtering #}
+        {% include 'place/filter_place.html' %}
+        <section class="list-events places add-place">
             {% for place in places %}
                 {% include 'place/place_add_event.html' %}
             {% endfor %}
-        {% endif %}
-    </section>
+        </section>
+
+    {% endif %}
 
 
 {% endblock %}
