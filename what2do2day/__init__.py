@@ -300,6 +300,19 @@ def get_events(event_id, filter_string):
                                google_key=google_key, layer_event=event, filter_form=filter_form)
 
 
+@app.route('/edit_place/', methods=['GET'])
+def edit_place():
+    filters = FilterEventsFrom
+    filters.update.data = "true"
+    try:
+        list_places = retrieve_places_from_db(True, filter_form=False, place_id=False)
+    except Exception as e:
+        db_issue(e)
+        list_places = []
+
+    return render_template('place/place_edit.html', places=list_places, filter=filters, google_key=google_key)
+
+
 @app.route('/edit_events/', defaults={'filter_string': None, 'update_status': None}, methods=['GET', 'POST'])
 @app.route('/edit_events/<string:filter_string>/', defaults={'update_status': None}, methods=['GET', 'POST'])
 @app.route('/edit_events/<string:filter_string>/<string:update_status>', methods=['GET', 'POST'])
@@ -318,7 +331,6 @@ def edit_events(filter_string, update_status):
 
 
 def push_event_to_db(form, event):
-
     # create a cleaned up event object to the point of unique data [place_id, name, date_time_range]
     new_event = {'place': event['place_id'], 'name': form.data['event_name'].strip().lower(),
                  'date_time_range': form.data['event_start_datetime']
@@ -462,13 +474,20 @@ def filter_events(update):
         filter_string = "None"
 
     try:
-        list_events = list(retrieve_events_from_db(False, filter_form))
+        if update=='false':
+            list_events = list(retrieve_events_from_db(False, filter_form))
+        else:
+            list_events = list(retrieve_events_from_db(True, filter_form))
         activity_choices = unique_activities(update)
         filter_form.activity.choices = activity_choices
     except Exception as e:
         db_issue(e)
         list_events = []
-    return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
+    if update == 'true':
+        return render_template('event/edit_events.html', events=list_events, filter=filter_string,
+                        google_key=google_key, filter_form=filter_form, update=True, status=False)
+    else:
+        return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
                            show_modal=show_modal,
                            google_key=google_key, layer_event=event, filter_form=filter_form)
 

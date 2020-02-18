@@ -55,6 +55,9 @@ footer p {
 .accordions .accordion .accordion-header {
     justify-content: space-between;
 }
+.accordion-header .column {
+    width: 150px;
+}
 
 .accordion-content {
     border-bottom: 1px solid #00d1b2;

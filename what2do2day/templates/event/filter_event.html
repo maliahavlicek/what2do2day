@@ -6,19 +6,28 @@
             <p>Filters: <span id="filtering" class="active-filters">{{ filter }}</span>
                 <button class="toggle" aria-label="toggle"></button>
             </p>
-            {% if filter != "None" %}<a class="level-right" href="/get_events">
-                                    <span class="icon">
-                                        <i class="fas fa-redo-alt"></i>
-                                    </span>
-                <span>Clear Filters</span>
-            </a> {% endif %}
+            <div class="level-right columns">
+                {% if filter != "None" %}
+                    <a class="column" href="{% if not update %}/get_events{% else %}/edit_events{% endif %}">
+                        <span class="icon">
+                            <i class="fas fa-redo-alt"></i>
+                        </span>&nbsp;<span>Clear&nbsp;Filters</span>
+                    </a>
+                {% endif %}
+                <span class="column">{{ events|length }} results</span>
+            </div>
         </div>
         <div class="accordion-body">
-
             <div class="accordion-content">
+            {% if update %}
                 <form method="POST"
-                      action="{{ url_for('filter_events', filter_string='yes', _external=True) }}"
+                      action="{{ url_for('filter_events', filter_string='yes', update='true', _external=True) }}"
                       enctype="multipart/form-data">
+                {% else %}
+                <form method="POST"
+                      action="{{ url_for('filter_events', filter_string='yes', update='false', _external=True) }}"
+                      enctype="multipart/form-data">
+                {% endif %}
                     {#  prevent cross site scripting #}
                     {{ filter_form.csrf_token }}
 
