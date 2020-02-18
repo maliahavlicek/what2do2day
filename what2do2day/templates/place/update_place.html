@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% from "_partials/macros.html" import activity_choice with context %}
+{% from "_partials/macros.html" import enable_switch with context %}
+{% from "_partials/macros.html" import address_collection with context %}
+{% from "place/place_macro.html" import place_entry with context %}
+{% block content %}
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Update Place
+                </h1>
+                {% if places | length < 1 %}
+                    <h2 class="subtitle">
+                        Opps I can't find that place anymore.
+                    </h2>
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p class="control">
+                                <a class="button is-white" href="{{ url_for('edit_place', _external=True) }}">
+                                <span class="icon">
+                                    <i class="fas fa-plus-square"></i>
+                                </span>
+                                    <span>Edit Places</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% if places | length > 0 %}
+        {% for place in places %}
+            <form method="POST" action="{{ url_for('update_place', place_id=place['_id'], _external=True) }}"
+                  enctype="multipart/form-data">
+                {{ form.csrf_token }}
+                <nav class="level is-primary">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p class="title">
+                                <i class="fas fa-edit"></i> Now Updating: {{ place['name'] | title }}
+                            </p>
+                        </div>
+                    </div>
+                </nav>
+                <section class="section">
+                    <div class="container">
+                        <div class="list-events">
+                            {# collect initial event of place #}
+                            {# This template collects data for a place. #}
+
+                            {# hidden field to control if we collect a review or event #}
+                            {{ form.has_review }}
+                            {{ form.has_event }}
+
+
+                            <div class="container">
+                                {{ place_entry(form=form, place=place, update=True) }}
+                            </div>
+                            {# share or hide place from community #}
+                            <div class="field">
+                                {{ enable_switch(id="share_place", form=form.share_place) }}
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </section>
+                <div class="section update is-submit-wrapper">
+                    <nav class="level">
+                        <div class="level-left">
+                            <button type="submit" class="button is-primary action submit">
+                            <span class="icon is-small">
+                               <i class="fas fa-share-square"></i>
+                            </span>
+                                <span class="action">Save Changes</span>
+                            </button>
+                        </div>
+                        <div class="level-right">
+                            <a class="button is-primary is-inverted action edit_place"
+                               href="{{ url_for('edit_place', _external=True) }}">
+                            <span class="icon">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                                <span class="action">Cancel</span>
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </form>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

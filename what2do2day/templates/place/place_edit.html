@@ -45,7 +45,7 @@
 
             {% for place in places %}
                 <div class="container">
-                    <div class="card is-primary">
+                    <div class="card is-primary  {% if not place['share'] %}not-shared{% endif %}">
                         {# give credit to place hosting event #}
                         <header class="card-header">
                             {# activity icon #}
@@ -67,6 +67,19 @@
                                             {{ place.description }}
                                         </div>
                                     </div>
+
+
+                                    <div class="columns">
+                                        <div class="is-bold column has-text-left">Share:</div>
+                                        <div class="column has-text-left">
+                                            {% if place['share'] %}
+                                                <i class="fas fa-eye"></i> Yes
+                                            {% else %}
+                                                <i class="fas fa-eye-slash not-shared"></i> No
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
                                     <div class="columns">
                                         {% if place.image %}
                                             <div class="is-bold column has-text-left">Image:</div>

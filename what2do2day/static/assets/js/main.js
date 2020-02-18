@@ -323,6 +323,13 @@ $(document).ready(function () {
         window.location = "/new_event/" + place_id;
     });
 
+     /* handlers for place add event buttons */
+    $('.button.action.place-edit').click(function () {
+        // need to pass place id to add_review
+        let place_id = $(this).data('target');
+        window.location = "/update_place/" + place_id;
+    });
+
 
     /*  modals handling */
     let rootEl = document.documentElement;
