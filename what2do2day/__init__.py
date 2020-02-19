@@ -50,6 +50,24 @@ def db_issue(e):
     print("mongo.db.client.server_info(): " + mongo.db.client_info() + "error" + e)
 
 
+def get_add_user_id(email):
+    """retrieve or create a user based on email"""
+
+    print("IN get_add_user_id. email: ", email)
+    the_user = mongo.db.users.find_one({'email': email.lower()})
+    if the_user is None:
+        db = mongo.db.users.with_options(
+            # for production application, we'd want a majority(or 2) value and True for confirmation on writing the data
+            write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+        )
+        the_user = db.insert_one(
+            {'email': email.lower()}
+        )
+        return the_user.inserted_id
+    else:
+        return the_user['_id']
+
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -623,12 +641,6 @@ def db_add_place(place):
         return the_place.inserted_id
 
 
-
-
-
-
-
-
 def db_add_event(event):
     db = mongo.db.events.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
@@ -650,24 +662,6 @@ def get_add_address_id(add):
         return the_address.inserted_id
     else:
         return the_address['_id']
-
-
-def get_add_user_id(email):
-    """retrieve or create a user based on email"""
-
-    print("IN get_add_user_id. email: ", email)
-    the_user = mongo.db.users.find_one({'email': email.lower()})
-    if the_user is None:
-        db = mongo.db.users.with_options(
-            # for production application, we'd want a majority(or 2) value and True for confirmation on writing the data
-            write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
-        )
-        the_user = db.insert_one(
-            {'email': email.lower()}
-        )
-        return the_user.inserted_id
-    else:
-        return the_user['_id']
 
 
 def get_add_activity_id(name, icon):
@@ -872,7 +866,7 @@ def push_place_to_db(form, update=False, place_id=False):
     elif is_unique != ObjectId(place_id):
         return render_template('error.html', reason="Place already exists.", place_id=is_unique), 1200
     elif is_unique == ObjectId(place_id):
-        place['_id']= ObjectId(place_id)
+        place['_id'] = ObjectId(place_id)
     # add rest of place to the dictionary
     email = form.email.data.strip().lower()
     place['user'] = get_add_user_id(email)

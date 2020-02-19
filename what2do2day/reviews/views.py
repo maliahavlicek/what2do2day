@@ -1,7 +1,5 @@
-import bson
-import pymongo
-from flask import Flask, render_template, redirect, request, url_for, Blueprint
-from flask_pymongo import PyMongo
+
+from flask import render_template, Blueprint
 from bson.objectid import ObjectId
 
 from pymongo import WriteConcern
@@ -9,7 +7,6 @@ from datetime import datetime, timedelta
 
 from what2do2day import mongo
 from what2do2day.forms import ReviewForm
-from flask_wtf.csrf import CSRFProtect, CSRFError
 
 ################
 #### config ####
@@ -29,7 +26,6 @@ def db_add_review(review):
     the_review = db.insert_one(review)
     return the_review.inserted_id
 
-
 def get_add_user_id(email):
     """retrieve or create a user based on email"""
 
@@ -46,7 +42,6 @@ def get_add_user_id(email):
         return the_user.inserted_id
     else:
         return the_user['_id']
-
 
 ################
 #### routes ####
