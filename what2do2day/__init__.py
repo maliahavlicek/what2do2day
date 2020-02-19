@@ -1,7 +1,6 @@
 import re
 import time
 from datetime import datetime
-from os import listdir
 from os.path import isfile, join, splitext
 
 import bson
@@ -40,10 +39,15 @@ details_url = "https://maps.googleapis.com/maps/api/place/details/json"
 #### blueprints ####
 ####################
 
-from what2do2day.reviews.views import reviews_bp, db_add_review, get_add_user_id
-
+from what2do2day.activities.views import activities_bp, get_add_activity_id, get_list_of_icons, unique_activities
+from what2do2day.events.views import events_bp, retrieve_events_from_db
+from what2do2day.reviews.views import reviews_bp, db_add_review
+from what2do2day.users.views import users_bp, get_add_user_id
 # register the blueprints
+app.register_blueprint(activities_bp)
+app.register_blueprint(events_bp)
 app.register_blueprint(reviews_bp)
+app.register_blueprint(users_bp)
 
 
 def db_issue(e):
@@ -57,209 +61,6 @@ def home():
     return render_template('home.html')
 
 
-def retrieve_events_from_db(update, filter_form=False, event_id=False):
-    # join the activities and places to the events database and flatten it down so we don't have to dig for values
-
-    query = []
-    activities = []
-    age_choices = {
-        'no-limit': [0, 120],
-        '0-2': [0, 2],
-        '3-5': [3, 5],
-        '6-10': [6, 10],
-        '11-13': [11, 15],
-        '14-18': [14, 18],
-        '19-20': [19, 20],
-        '21-plus': [21, 120]
-    }
-    ages = []
-    filter_start_date = False
-    filter_end_date = False
-
-    # check if any filtering is required
-    if filter_form:
-        # check for activities in the filter_form
-        if filter_form.activity_selection.data != "n":
-            for item in filter_form.activity_selection.data.split("~"):
-                if item != "n":
-                    activity = item.split(":")
-                    the_activity = mongo.db.activities.find_one({'name': activity[0].lower(), 'icon': activity[1]})
-                    if the_activity is not None:
-                        activities.append(the_activity['_id'])
-                        query.append({"$match": {'activity': {'$in': activities}}})
-                    else:
-                        pass
-        if filter_form.filter_date_range.data is not None and filter_form.filter_date_range.data != "":
-            filter_start_date = datetime.strptime(filter_form.filter_date_range.data[0:10], '%m/%d/%Y')
-            filter_end_date = datetime.strptime(filter_form.filter_date_range.data[14:24], '%m/%d/%Y')
-        if filter_form.age.data:
-            for age_limit, age_range in age_choices.items():
-                min = age_range[0]
-                max = age_range[1]
-                if filter_form.age.data >= min and filter_form.age.data <= max:
-                    ages.append(age_limit)
-
-    # when updating, we see all events, for normal view, ony show those that are shared
-    if not update:
-        query.append(
-            {"$match": {'share': True}})
-
-    # check if an event id is coming in
-    if event_id:
-        query.append(
-            {"$match": {'_id': ObjectId(event_id)}})
-
-    query.append({
-        "$project": {
-            'start_date': {
-                "$dateFromString": {
-                    'dateString': {
-                        "$substr": ["$date_time_range", 0, 10]
-                    },
-                    'format': "%m/%d/%Y"}
-            },
-            'end_date': {
-                "$dateFromString": {
-                    'dateString': {
-                        "$substr": ["$date_time_range", 19, 10]
-                    },
-                    'format': "%m/%d/%Y"}
-            },
-            'place_id': "$place",
-            'event_name': "$name",
-            'event_id': "$_id",
-            'activity_id': '$activity',
-            'date_time_range': '$date_time_range',
-            'details': '$details',
-            'age_limit': '$age_limit',
-            'price_for_non_members': '$price_for_non_members',
-            'attendees': '$attendees',
-            'max_attendees': '$max_attendees',
-            'address_id': '$address',
-            'share': '$share'
-        }})
-
-    # check for a date range in the filter_form
-    if filter_end_date and filter_start_date:
-        query.append({
-            "$match": {'start_date': {"$gte": filter_start_date, "$lte": filter_end_date}}
-        })
-
-    if len(ages) > 0:
-        query.append({'$match': {'age_limit': {"$in": ages}}})
-
-    # normal view suppress past events from view
-    if not update:
-        today = datetime.today()
-        query.append(
-            {"$match": {'start_date': {"$gte": today}}})
-    query.append({"$sort": {'start_date': 1}})
-    query.append({
-        "$lookup": {
-            'from': 'places',
-            'localField': 'place_id',
-            'foreignField': '_id',
-            'as': 'place_details',
-        }})
-    query.append({
-        "$lookup": {
-            'from': 'activities',
-            'localField': 'activity_id',
-            'foreignField': '_id',
-            'as': 'event_activity'
-        }})
-    query.append({
-        "$lookup": {
-            'from': 'addresses',
-            'localField': 'address_id',
-            'foreignField': '_id',
-            'as': 'event_address'
-        }})
-    query.append({
-        "$replaceRoot": {
-            'newRoot': {
-                "$mergeObjects":
-                    [{"$let": {
-                        "vars": {"v": {"$arrayElemAt": ["$place_details", 0]}},
-                        "in": {"$arrayToObject": {
-                            "$map": {
-                                "input": {"$objectToArray": "$$v"},
-                                "as": "val",
-                                "in": {
-                                    "k": {"$concat": ["place", "-", "$$val.k"]},
-                                    "v": "$$val.v"
-                                }}
-                        }}
-                    }}, "$$ROOT"]
-            }}})
-    query.append({
-        "$replaceRoot": {
-            'newRoot': {
-                "$mergeObjects":
-                    [{"$let": {
-                        "vars": {"v": {"$arrayElemAt": ["$event_activity", 0]}},
-                        "in": {"$arrayToObject": {
-                            "$map": {
-                                "input": {"$objectToArray": "$$v"},
-                                "as": "val",
-                                "in": {
-                                    "k": {"$concat": ["activity", "_", "$$val.k"]},
-                                    "v": "$$val.v"
-                                }}
-                        }}
-                    }}, "$$ROOT"]
-            }}})
-    query.append({
-        "$replaceRoot": {
-            'newRoot': {
-                "$mergeObjects":
-                    [{"$let": {
-                        "vars": {"v": {"$arrayElemAt": ["$event_address", 0]}},
-                        "in": {"$arrayToObject": {
-                            "$map": {
-                                "input": {"$objectToArray": "$$v"},
-                                "as": "val",
-                                "in": {
-                                    "k": {"$concat": ["address", "-", "$$val.k"]},
-                                    "v": "$$val.v"
-                                }}
-                        }}
-                    }}, "$$ROOT"]
-            }}})
-    # normal view suppress events with unshared places from view
-    if not update:
-        query.append({"$match": {'place-share_place': True}})
-
-    list_events = list(mongo.db.events.aggregate(
-        query
-    ))
-
-    for event in list_events:
-        if 'address-country' in event.keys():
-            country_id = event['address-country']
-            event['country_id'] = country_id
-            country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
-            if country is not None:
-                event['address-country'] = country['country']
-                if 'event_address' in event.keys():
-                    event['event_address'][0]['country'] = country['country']
-
-    return list_events
-
-
-def unique_activities(update="false"):
-    activities = []
-    ids = {}
-    if update == "false":
-        events = retrieve_events_from_db(False)
-    else:
-        events = retrieve_events_from_db(True)
-    for event in events:
-        new_id = event['activity_id']
-        if new_id not in ids.keys():
-            ids[new_id] = new_id
-            activities.append({'icon': event['activity_icon'], 'name': event['activity_name']})
-    return activities
 
 
 @app.route('/get_events/', defaults={'event_id': None, 'filter_string': None}, methods=['GET', 'POST'])
@@ -646,23 +447,6 @@ def get_add_address_id(add):
         return the_address['_id']
 
 
-def get_add_activity_id(name, icon):
-    """retrieve or create an activity based on name and icon"""
-    the_activity = mongo.db.activities.find_one({'name': name.lower(), 'icon': icon})
-    if the_activity is None:
-        db = mongo.db.activities.with_options(
-            # for production application, we'd want a majority(or 2) value and True for confirmation on writing the data
-            write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
-        )
-        the_activity = db.insert_one(
-            {'name': name.lower(),
-             'icon': icon}
-        )
-        return the_activity.inserted_id
-    else:
-        return the_activity['_id']
-
-
 @app.route('/add_place', methods=['GET', 'POST'])
 def add_place():
     form = PlaceForm()
@@ -703,35 +487,6 @@ def handle_db_error(e):
 @app.errorhandler(CSRFError)
 def handle_csrf_error(e):
     return render_template('error.html', reason=e), 400
-
-
-def icon_alt(icon_file_name):
-    """take an image name strip out file extension and numbers"""
-    if isinstance(icon_file_name, str):
-        try:
-            clean_name = splitext(icon_file_name)[0]
-            clean_name = re.sub(r'[0-9]', '', clean_name)
-            clean_name = clean_name.replace('-', ' ')
-            return re.sub(' +', ' ', clean_name).strip()
-        except (TypeError, ValueError) as e:
-            pass
-            return icon_file_name
-    return icon_file_name
-
-
-def get_list_of_icons():
-    icon_path = 'what2do2day/static/assets/images/icons'
-    icons = [f for f in listdir(icon_path) if isfile(join(icon_path, f))]
-    # need to sort by friendly name
-    friendlier = []
-    for f in icons:
-        friendlier.append({'file': f, 'alt': icon_alt(f)})
-
-    friendlier = sorted(friendlier, key=lambda i: i['alt'])
-
-    res = [sub['file'] for sub in friendlier]
-
-    return res
 
 
 def add_attendee(form, event_id, filter_form, filter_string):
