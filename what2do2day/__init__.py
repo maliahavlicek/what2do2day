@@ -14,7 +14,9 @@ from flask_wtf.csrf import CSRFProtect, CSRFError
 from pymongo import WriteConcern
 
 import filters
-from .forms import PlaceForm, EventForm, CountMeInForm, FilterEventsFrom, ReverseProxied
+from .forms import ReverseProxied
+from what2do2day.places.forms import PlaceForm, EventForm
+from what2do2day.events.forms import CountMeInForm, FilterEventsFrom
 
 app = Flask(__name__, instance_relative_config=True)
 app.jinja_env.filters['date_only'] = filters.date_only
@@ -22,6 +24,8 @@ app.jinja_env.filters['date_range'] = filters.date_range
 app.jinja_env.filters['icon_alt'] = filters.icon_alt
 app.jinja_env.filters['myround'] = filters.myround
 app.jinja_env.filters['time_only'] = filters.time_only
+app.jinja_env.filters['pluralize'] = filters.pluralize
+
 if isfile(join('instance', 'flask_full.cfg')):
     app.config.from_pyfile('flask_full.cfg')
 else:

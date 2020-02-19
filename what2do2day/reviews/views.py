@@ -8,7 +8,7 @@ from pymongo import WriteConcern
 from datetime import datetime, timedelta
 
 from what2do2day import mongo
-from what2do2day.forms import ReviewForm
+from what2do2day.reviews.forms import ReviewForm
 from flask_wtf.csrf import CSRFProtect, CSRFError
 
 ################
