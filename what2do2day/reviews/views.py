@@ -1,5 +1,6 @@
 
 from flask import render_template, Blueprint
+from flask import current_app as app
 from bson.objectid import ObjectId
 
 from pymongo import WriteConcern
@@ -12,8 +13,7 @@ from what2do2day.forms import ReviewForm
 #### config ####
 ################
 
-reviews_blueprint = Blueprint('reviews', __name__)
-
+reviews_bp = Blueprint('reviews_bp', __name__, template_folder='templates', static_folder='static')
 
 ##########################
 #### helper functions ####
@@ -25,6 +25,7 @@ def db_add_review(review):
     )
     the_review = db.insert_one(review)
     return the_review.inserted_id
+
 
 def get_add_user_id(email):
     """retrieve or create a user based on email"""
@@ -43,11 +44,12 @@ def get_add_user_id(email):
     else:
         return the_user['_id']
 
+
 ################
 #### routes ####
 ################
 
-@reviews_blueprint.route('/add_review/<string:place_id>/', methods=['GET', 'POST'])
+@reviews_bp.route('/add_review/<string:place_id>/', methods=['GET', 'POST'])
 def add_review(place_id):
     form = ReviewForm()
     form.use_place_email.data = "n"
@@ -83,4 +85,4 @@ def add_review(place_id):
             }
             review_id = db_add_review(review)
 
-    return render_template('review/add_review.html', id=place_id, name=place_name, form=form, show_modal=show_modal)
+    return render_template('add_review.html', id=place_id, name=place_name, form=form, show_modal=show_modal)

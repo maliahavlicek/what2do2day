@@ -40,32 +40,14 @@ details_url = "https://maps.googleapis.com/maps/api/place/details/json"
 #### blueprints ####
 ####################
 
-from what2do2day.reviews.views import reviews_blueprint, db_add_review
+from what2do2day.reviews.views import reviews_bp, db_add_review, get_add_user_id
 
 # register the blueprints
-app.register_blueprint(reviews_blueprint)
+app.register_blueprint(reviews_bp)
 
 
 def db_issue(e):
     print("mongo.db.client.server_info(): " + mongo.db.client_info() + "error" + e)
-
-
-def get_add_user_id(email):
-    """retrieve or create a user based on email"""
-
-    print("IN get_add_user_id. email: ", email)
-    the_user = mongo.db.users.find_one({'email': email.lower()})
-    if the_user is None:
-        db = mongo.db.users.with_options(
-            # for production application, we'd want a majority(or 2) value and True for confirmation on writing the data
-            write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
-        )
-        the_user = db.insert_one(
-            {'email': email.lower()}
-        )
-        return the_user.inserted_id
-    else:
-        return the_user['_id']
 
 
 @app.route('/')
@@ -863,9 +845,9 @@ def push_place_to_db(form, update=False, place_id=False):
     is_unique = place_unique(place)
     if is_unique is not None and not update:
         return render_template('error.html', reason="Place already exists.", place_id=is_unique), 1200
-    elif is_unique != ObjectId(place_id):
+    elif is_unique is not None and update and is_unique != ObjectId(place_id):
         return render_template('error.html', reason="Place already exists.", place_id=is_unique), 1200
-    elif is_unique == ObjectId(place_id):
+    elif is_unique is not None and update and is_unique == ObjectId(place_id):
         place['_id'] = ObjectId(place_id)
     # add rest of place to the dictionary
     email = form.email.data.strip().lower()
