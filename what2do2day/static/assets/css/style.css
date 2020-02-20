@@ -443,7 +443,8 @@ input:checked + .slider:before {
 .list-events .is-multiple.container .card.button.is-primary {
     margin: 0;
     padding: 0;
-    border-right: 1px solid rgb(0, 209, 178);
+    border: 1px solid rgb(0, 209, 178);
+
 }
 
 .list-events .card.button.is-primary.iconpicker {
