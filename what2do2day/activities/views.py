@@ -2,27 +2,22 @@ from os import listdir
 from os.path import isfile, join
 from filters import icon_alt
 
-from flask import render_template, Blueprint
-from flask import current_app as app
-from bson.objectid import ObjectId
+from flask import Blueprint
 
 from pymongo import WriteConcern
-from datetime import datetime, timedelta
 
 from what2do2day import mongo
-from what2do2day.forms import ReviewForm
 from what2do2day.events.views import retrieve_events_from_db
 
 ################
 #### config ####
 ################
-
 activities_bp = Blueprint('activities_bp', __name__, template_folder='templates', static_folder='static')
+
 
 ##########################
 #### helper functions ####
 ##########################
-
 def get_add_activity_id(name, icon):
     """retrieve or create an activity based on name and icon"""
     the_activity = mongo.db.activities.find_one({'name': name.lower(), 'icon': icon})

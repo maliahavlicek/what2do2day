@@ -1,5 +1,4 @@
 import re
-import time
 from datetime import datetime
 from os.path import isfile, join, splitext
 
@@ -38,12 +37,13 @@ details_url = "https://maps.googleapis.com/maps/api/place/details/json"
 ####################
 #### blueprints ####
 ####################
-
 from what2do2day.activities.views import activities_bp, get_add_activity_id, get_list_of_icons, unique_activities
+from what2do2day.addresses.views import addresses_bp, country_choice_list, get_add_address_id
 from what2do2day.events.views import events_bp, retrieve_events_from_db
 from what2do2day.reviews.views import reviews_bp, db_add_review
 from what2do2day.users.views import users_bp, get_add_user_id
 # register the blueprints
+app.register_blueprint(addresses_bp)
 app.register_blueprint(activities_bp)
 app.register_blueprint(events_bp)
 app.register_blueprint(reviews_bp)
@@ -59,8 +59,6 @@ def db_issue(e):
 def home():
     """ initial/default routing for app is the home page """
     return render_template('home.html')
-
-
 
 
 @app.route('/get_events/', defaults={'event_id': None, 'filter_string': None}, methods=['GET', 'POST'])
@@ -137,8 +135,8 @@ def push_event_to_db(form, event):
 
     # make sure event is unique if adding (place_id, name, date_time_range combo does not already exist in database)
     if '_id' not in event.keys():
-        mongo.db.events.find_one(new_event)
-        if mongo.db.events is not None:
+        event_exists = mongo.db.events.find_one(new_event)
+        if event_exists is not None:
             status = "An event with the same name, time and place already exists. Please try again."
             return redirect(url_for('new_event', place_id=event['place_id'], status=status))
 
@@ -297,15 +295,6 @@ def update_event(event_id):
     return render_template('event/update_event.html', events=list_events, form=form, update=True, icons=icons)
 
 
-def country_choice_list():
-    country_choices = [('none', 'Pick a Country.')]
-    for item in list(mongo.db.countries.find({}, {'country': 1}).sort('country', pymongo.ASCENDING)):
-        country_choices.append((
-            str(item['_id']),
-            item['country'].replace('&amp;', '&').title()
-        ))
-    return country_choices
-
 
 @app.route('/filter_events', defaults={'update': 'false'}, methods=['POST'])
 @app.route('/filter_events/<string:update>/', methods=['POST'])
@@ -432,21 +421,6 @@ def db_add_event(event):
     return the_event.inserted_id
 
 
-def get_add_address_id(add):
-    """retrieve or create an address based on add"""
-    the_address = mongo.db.addresses.find_one(add)
-    if the_address is None:
-        # get google lat and long
-        add = google_get_goecords(add)
-        db = mongo.db.addresses.with_options(
-            write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
-        )
-        the_address = db.insert_one(add)
-        return the_address.inserted_id
-    else:
-        return the_address['_id']
-
-
 @app.route('/add_place', methods=['GET', 'POST'])
 def add_place():
     form = PlaceForm()
@@ -541,36 +515,6 @@ def add_attendee(form, event_id, filter_form, filter_string):
         return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
                                show_modal=modal, google_key=google_key, layer_event=event, filter_form=filter_form)
 
-
-def google_get_goecords(address):
-    # get coords for mapping
-    add = address['address_line_1']
-    if 'address_line_2' in address.keys():
-        add += ", " + address['address_line_1']
-    add += ", " + address['city']
-    add += ", " + address['state']
-    if 'postal_code' in address.keys():
-        add += " " + address['postal_code']
-    country_id = address['country']
-    country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
-    if country is not None:
-        add += " " + country['country']
-    try:
-
-        search_payload = {"key": google_key, "query": add}
-        search_req = requests.get(search_url, params=search_payload)
-
-        search_json = search_req.json()
-        time.sleep(.3)
-        address['lat'] = search_json["results"][0]["geometry"]["location"]["lat"]
-        address['lng'] = search_json["results"][0]["geometry"]["location"]["lng"]
-        address['one_line'] = add
-        address['google_place_id'] = search_json["results"][0]["place_id"]
-
-    except Exception as e:
-        print("Did not get search results. ", e)
-
-    return address
 
 
 def push_place_to_db(form, update=False, place_id=False):

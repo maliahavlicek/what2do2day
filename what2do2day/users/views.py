@@ -1,24 +1,15 @@
-
-from flask import render_template, Blueprint
-from flask import current_app as app
-from bson.objectid import ObjectId
-
+from flask import Blueprint
 from pymongo import WriteConcern
-from datetime import datetime, timedelta
-
 from what2do2day import mongo
-from what2do2day.forms import ReviewForm
-
 ################
 #### config ####
 ################
-
 users_bp = Blueprint('users_bp', __name__, template_folder='templates', static_folder='static')
+
 
 ##########################
 #### helper functions ####
 ##########################
-
 def get_add_user_id(email):
     """retrieve or create a user based on email"""
 
