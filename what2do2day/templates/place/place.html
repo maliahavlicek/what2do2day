@@ -56,9 +56,9 @@
                                     <button class="toggle" aria-label="toggle"></button>
                                 </div>
                                 <div class="accordion-body">
-                                    <div class="accordion-content">
-                                        {% for event in place.events %}
-                                            <p>{{ event.name| title }}
+                                    {% for event in place.events %}
+                                        <div class="accordion-content">
+                                            <p class="subtitle">{{ event.name| title }}
                                             <div class="columns">
                                                 <div class="is-bold column">When:</div>
                                                 <div class="column">{{ event['date_time_range'] | date_range |safe }}</div>
@@ -87,8 +87,8 @@
                                                 </span>
                                                 <span class="action">Count Me In</span>
                                             </a>
-                                        {% endfor %}
-                                    </div>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </article>
                         </section>
