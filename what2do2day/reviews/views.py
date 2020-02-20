@@ -1,6 +1,4 @@
-
 from flask import render_template, Blueprint
-from flask import current_app as app
 from bson.objectid import ObjectId
 
 from pymongo import WriteConcern
@@ -13,7 +11,6 @@ from what2do2day.users.views import get_add_user_id
 ################
 #### config ####
 ################
-
 reviews_bp = Blueprint('reviews_bp', __name__, template_folder='templates', static_folder='static')
 
 ##########################
@@ -31,7 +28,6 @@ def db_add_review(review):
 ################
 #### routes ####
 ################
-
 @reviews_bp.route('/add_review/<string:place_id>/', methods=['GET', 'POST'])
 def add_review(place_id):
     form = ReviewForm()

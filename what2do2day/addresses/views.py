@@ -37,7 +37,3 @@ def get_add_address_id(add):
     else:
         return the_address['_id']
 
-
-################
-#### routes ####
-################

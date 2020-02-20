@@ -109,7 +109,6 @@ def time_only(date_time_range):
         return date_time_range
 
 
-
 def pluralize(number, singular='', plural='s', count=False):
     count_str = ""
     if count:

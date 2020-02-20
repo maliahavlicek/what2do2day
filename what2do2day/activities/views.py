@@ -1,9 +1,4 @@
-from os import listdir
-from os.path import isfile, join
-from filters import icon_alt
-
 from pymongo import WriteConcern
-
 from what2do2day import mongo
 from what2do2day.events.controllers import retrieve_events_from_db
 
@@ -11,8 +6,6 @@ from what2do2day.events.controllers import retrieve_events_from_db
 ##########################
 #### helper functions ####
 ##########################
-
-
 def get_add_activity_id(name, icon):
     """retrieve or create an activity based on name and icon"""
     the_activity = mongo.db.activities.find_one({'name': name.lower(), 'icon': icon})

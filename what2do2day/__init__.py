@@ -1,15 +1,7 @@
-import re
-from datetime import datetime
-from os.path import isfile, join, splitext
-
-import bson
-import pymongo
-import requests
-from bson.objectid import ObjectId
-from flask import Flask, render_template, redirect, request, url_for
+from os.path import isfile, join
+from flask import Flask, render_template
 from flask_pymongo import PyMongo
 from flask_wtf.csrf import CSRFProtect, CSRFError
-from pymongo import WriteConcern
 
 import filters
 from .forms import ReverseProxied

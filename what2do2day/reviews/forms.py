@@ -7,7 +7,6 @@ from wtforms import (StringField,
                      RadioField)
 from wtforms.validators import (DataRequired,
                                 Email,
-
                                 Length)
 
 from what2do2day.templates.validators import validate_rating

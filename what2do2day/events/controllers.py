@@ -1,4 +1,3 @@
-
 from flask import render_template, redirect, url_for
 from bson.objectid import ObjectId
 
