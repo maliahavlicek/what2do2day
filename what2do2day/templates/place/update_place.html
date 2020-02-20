@@ -62,24 +62,22 @@
                             <div class="field">
                                 {{ enable_switch(id="share_place", form=form.share_place) }}
                             </div>
-
-
                         </div>
-
                     </div>
                 </section>
-                <div class="section update is-submit-wrapper">
+
+                <div class="section is-submit-wrapper">
                     <nav class="level">
                         <div class="level-left">
-                            <button type="submit" class="button is-primary action submit">
+                            <button type="submit" class="button is-dark is-medium is-inverted submit">
                             <span class="icon is-small">
-                               <i class="fas fa-share-square"></i>
+                               <i class="fas fa-save"></i>
                             </span>
                                 <span class="action">Save Changes</span>
                             </button>
                         </div>
                         <div class="level-right">
-                            <a class="button is-primary is-inverted action edit_place"
+                            <a class="button is-dark is-medium is-light edit_place"
                                href="{{ url_for('places_bp.edit_place', _external=True) }}">
                             <span class="icon">
                                 <i class="fas fa-trash"></i>

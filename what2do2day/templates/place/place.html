@@ -58,7 +58,7 @@
                                 <div class="accordion-body">
                                     {% for event in place.events %}
                                         <div class="accordion-content">
-                                            <p class="subtitle">{{ event.name| title }}
+                                            <p class="title is-4">{{ event.name| title }}
                                             <div class="columns">
                                                 <div class="is-bold column">When:</div>
                                                 <div class="column">{{ event['date_time_range'] | date_range |safe }}</div>
