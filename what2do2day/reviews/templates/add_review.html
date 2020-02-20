@@ -44,7 +44,7 @@
     {% if show_modal%}
         {# modal for count me in submission results #}
         <div class="modal is-active {% if show_modal['status'] == 'OK' %}user-success{% else %}user-error{% endif %}"
-             id="modal-review-submitted" data-target="{{ url_for('get_places', _external=True) }}">
+             id="modal-review-submitted" data-target="{{ url_for('places_bp.get_places', _external=True) }}">
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">

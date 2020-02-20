@@ -21,11 +21,11 @@
             <div class="accordion-content">
             {% if update %}
                 <form method="POST"
-                      action="{{ url_for('filter_events', filter_string='yes', update='true', _external=True) }}"
+                      action="{{ url_for('events_bp.filter_events', filter_string='yes', update='true', _external=True) }}"
                       enctype="multipart/form-data">
                 {% else %}
                 <form method="POST"
-                      action="{{ url_for('filter_events', filter_string='yes', update='false', _external=True) }}"
+                      action="{{ url_for('events_bp.filter_events', filter_string='yes', update='false', _external=True) }}"
                       enctype="multipart/form-data">
                 {% endif %}
                     {#  prevent cross site scripting #}

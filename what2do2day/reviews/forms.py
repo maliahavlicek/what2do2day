@@ -7,10 +7,11 @@ from wtforms import (StringField,
                      RadioField)
 from wtforms.validators import (DataRequired,
                                 Email,
-                                Length, Optional)
+
+                                Length)
 
 from what2do2day.templates.validators import validate_rating
-from what2do2day.forms import RequiredIf
+from what2do2day.addresses.forms import RequiredIf
 
 
 class ReviewForm(FlaskForm):

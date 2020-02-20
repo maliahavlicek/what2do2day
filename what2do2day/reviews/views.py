@@ -1,22 +1,22 @@
-import bson
-import pymongo
-from flask import Flask, render_template, redirect, request, url_for, Blueprint
-from flask_pymongo import PyMongo
+
+from flask import render_template, Blueprint
+from flask import current_app as app
 from bson.objectid import ObjectId
 
 from pymongo import WriteConcern
 from datetime import datetime, timedelta
 
 from what2do2day import mongo
-from what2do2day.reviews.forms import ReviewForm
-from flask_wtf.csrf import CSRFProtect, CSRFError
+
+from what2do2day.forms import ReviewForm
+from what2do2day.users.views import get_add_user_id
+
 
 ################
 #### config ####
 ################
 
-reviews_blueprint = Blueprint('reviews', __name__)
-
+reviews_bp = Blueprint('reviews_bp', __name__, template_folder='templates', static_folder='static')
 
 ##########################
 #### helper functions ####
@@ -30,29 +30,11 @@ def db_add_review(review):
     return the_review.inserted_id
 
 
-def get_add_user_id(email):
-    """retrieve or create a user based on email"""
-
-    print("IN get_add_user_id. email: ", email)
-    the_user = mongo.db.users.find_one({'email': email.lower()})
-    if the_user is None:
-        db = mongo.db.users.with_options(
-            # for production application, we'd want a majority(or 2) value and True for confirmation on writing the data
-            write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
-        )
-        the_user = db.insert_one(
-            {'email': email.lower()}
-        )
-        return the_user.inserted_id
-    else:
-        return the_user['_id']
-
-
 ################
 #### routes ####
 ################
 
-@reviews_blueprint.route('/add_review/<string:place_id>/', methods=['GET', 'POST'])
+@reviews_bp.route('/add_review/<string:place_id>/', methods=['GET', 'POST'])
 def add_review(place_id):
     form = ReviewForm()
     form.use_place_email.data = "n"
@@ -88,4 +70,4 @@ def add_review(place_id):
             }
             review_id = db_add_review(review)
 
-    return render_template('review/add_review.html', id=place_id, name=place_name, form=form, show_modal=show_modal)
+    return render_template('add_review.html', id=place_id, name=place_name, form=form, show_modal=show_modal)

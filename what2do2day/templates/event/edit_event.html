@@ -67,7 +67,7 @@
                     <p>Attendance Limit: {{ event['max_attendees'] }}</p>
                     {# count me in button, disabled if max attendess met #}
                     <a class="button is-primary action edit_event"
-                       href="{{ url_for('update_event', event_id=event['event_id'], _external=True) }}">
+                       href="{{ url_for('events_bp.update_event', event_id=event['event_id'], _external=True) }}">
                                 <span class="icon">
                                     <i class="fas fa-edit"></i>
                                 </span>

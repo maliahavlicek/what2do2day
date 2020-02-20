@@ -10,7 +10,7 @@
             </div>
         </div>
     </section>
-    <form method="POST" action="{{ url_for('new_event', place_id=place['_id'], _external=True) }}"
+    <form method="POST" action="{{ url_for('events_bp.new_event', place_id=place['_id'], _external=True) }}"
           enctype="multipart/form-data">
         {{ form.csrf_token }}
         <nav class="level is-primary">
@@ -50,7 +50,7 @@
                 </div>
                 <div class="level-right">
                     <a class="button is-primary is-inverted action add_event"
-                       href="{{ url_for('add_event', _external=True) }}">
+                       href="{{ url_for('events_bp.add_event', _external=True) }}">
                         <span class="icon">
                             <i class="fas fa-trash"></i>
                         </span>

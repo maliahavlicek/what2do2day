@@ -18,10 +18,10 @@
             <a class="navbar-item" href="{{ url_for('home', _external=True) }}">
                 Home
             </a>
-            <a class="navbar-item" href="{{ url_for('get_events', _external=True) }}">
+            <a class="navbar-item" href="{{ url_for('events_bp.get_events', _external=True) }}">
                 Events
             </a>
-            <a class="navbar-item" href="{{ url_for('get_places', _external=True) }}">
+            <a class="navbar-item" href="{{ url_for('places_bp.get_places', _external=True) }}">
                 Places
             </a>
             <div class="navbar-item has-dropdown is-hoverable">
@@ -29,13 +29,13 @@
                     Contribute
                 </span>
                 <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" href="{{ url_for('add_event', _external=True) }}">
+                    <a class="navbar-item" href="{{ url_for('events_bp.add_event', _external=True) }}">
                         Add Event
                     </a>
-                    <a class="navbar-item" href="{{ url_for('add_place', _external=True) }}">
+                    <a class="navbar-item" href="{{ url_for('places_bp.add_place', _external=True) }}">
                         Add Place
                     </a>
-                    <a class="navbar-item" href="{{ url_for('get_places', _external=True) }}">
+                    <a class="navbar-item" href="{{ url_for('places_bp.get_places', _external=True) }}">
                         Add Review
                     </a>
                 </div>
@@ -45,10 +45,10 @@
                     Update
                 </span>
                 <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" href="{{ url_for('edit_events', _external=True) }}">
+                    <a class="navbar-item" href="{{ url_for('events_bp.edit_events', _external=True) }}">
                         Update Event
                     </a>
-                    <a class="navbar-item" href="{{ url_for('edit_place', _external=True) }}">
+                    <a class="navbar-item" href="{{ url_for('places_bp.edit_place', _external=True) }}">
                         Update Place
                     </a>
                 </div>
