@@ -107,3 +107,16 @@ def time_only(date_time_range):
     except (TypeError, ValueError) as e:
         pass
         return date_time_range
+
+
+
+def pluralize(number, singular='', plural='s', count=False):
+    count_str = ""
+    if count:
+        count_str += str(number) + " "
+    if number == 1:
+        count_str += singular
+    else:
+        count_str += plural
+    return count_str
+

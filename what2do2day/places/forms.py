@@ -5,7 +5,7 @@ from wtforms import (StringField,
                      BooleanField,
                      ValidationError,
                      HiddenField,
-                     FormField,)
+                     FormField)
 from wtforms.validators import (DataRequired,
                                 Email,
                                 Length,

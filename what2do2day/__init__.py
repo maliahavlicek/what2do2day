@@ -20,6 +20,8 @@ app.jinja_env.filters['date_range'] = filters.date_range
 app.jinja_env.filters['icon_alt'] = filters.icon_alt
 app.jinja_env.filters['myround'] = filters.myround
 app.jinja_env.filters['time_only'] = filters.time_only
+app.jinja_env.filters['pluralize'] = filters.pluralize
+
 if isfile(join('instance', 'flask_full.cfg')):
     app.config.from_pyfile('flask_full.cfg')
 else:
