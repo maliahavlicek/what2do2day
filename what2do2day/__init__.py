@@ -12,7 +12,7 @@ from flask_wtf.csrf import CSRFProtect, CSRFError
 from pymongo import WriteConcern
 
 import filters
-from .forms import PlaceForm, EventForm, CountMeInForm, FilterEventsFrom, ReverseProxied
+from .forms import ReverseProxied
 
 app = Flask(__name__, instance_relative_config=True)
 app.jinja_env.filters['date_only'] = filters.date_only

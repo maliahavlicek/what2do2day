@@ -1,17 +1,10 @@
 import bson
 from filters import get_list_of_icons
 
-from flask import render_template, Blueprint, redirect, url_for
-from flask import current_app as app
-from bson.objectid import ObjectId
-
-from pymongo import WriteConcern
-from datetime import datetime
-from what2do2day.addresses.views import country_choice_list, get_add_address_id
+from flask import Blueprint
+from what2do2day.addresses.views import country_choice_list
 from what2do2day.places.views import retrieve_places_from_db
-from what2do2day.users.views import get_add_user_id
-from what2do2day import mongo, google_key
-from what2do2day.forms import EventForm, CountMeInForm, FilterEventsFrom
+from what2do2day.events.forms import EventForm, CountMeInForm, FilterEventsFrom
 
 from .controllers import *
 ################

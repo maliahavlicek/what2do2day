@@ -4,7 +4,7 @@ from bson.objectid import ObjectId
 
 from what2do2day.addresses.views import country_choice_list
 from what2do2day import mongo, google_key
-from what2do2day.forms import PlaceForm
+from what2do2day.places.forms import PlaceForm
 
 ################
 #### config ####
