@@ -17,7 +17,7 @@
                     <div class="level-left">
                         <div class="level-item">
                             <p class="control">
-                                <a class="button is-white" href="{{ url_for('edit_place', _external=True) }}">
+                                <a class="button is-white" href="{{ url_for('places_bp.edit_place', _external=True) }}">
                                 <span class="icon">
                                     <i class="fas fa-plus-square"></i>
                                 </span>
@@ -32,7 +32,7 @@
     </section>
     {% if places | length > 0 %}
         {% for place in places %}
-            <form method="POST" action="{{ url_for('update_place', place_id=place['_id'], _external=True) }}"
+            <form method="POST" action="{{ url_for('places_bp.update_place', place_id=place['_id'], _external=True) }}"
                   enctype="multipart/form-data">
                 {{ form.csrf_token }}
                 <nav class="level is-primary">
@@ -80,7 +80,7 @@
                         </div>
                         <div class="level-right">
                             <a class="button is-primary is-inverted action edit_place"
-                               href="{{ url_for('edit_place', _external=True) }}">
+                               href="{{ url_for('places_bp.edit_place', _external=True) }}">
                             <span class="icon">
                                 <i class="fas fa-trash"></i>
                             </span>

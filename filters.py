@@ -1,9 +1,9 @@
 import re
-from os.path import splitext
+from os import listdir
+from os.path import splitext, isfile, join
 
 from jinja2 import filters
 from datetime import datetime
-import flask
 
 
 def date_only(date):
@@ -58,6 +58,21 @@ def icon_alt(icon_file_name):
     return icon_file_name
 
 
+def get_list_of_icons():
+    icon_path = 'what2do2day/static/assets/images/icons'
+    icons = [f for f in listdir(icon_path) if isfile(join(icon_path, f))]
+    # need to sort by friendly name
+    friendlier = []
+    for f in icons:
+        friendlier.append({'file': f, 'alt': icon_alt(f)})
+
+    friendlier = sorted(friendlier, key=lambda i: i['alt'])
+
+    res = [sub['file'] for sub in friendlier]
+
+    return res
+
+
 def myround(*args, **kw):
     try:
         """from https://stackoverflow.com/questions/28458524/how-to-round-to-zero-decimals-if-there-is-no-decimal-value-with-jinja2"""
@@ -92,4 +107,3 @@ def time_only(date_time_range):
     except (TypeError, ValueError) as e:
         pass
         return date_time_range
-

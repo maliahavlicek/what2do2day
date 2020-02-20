@@ -7,7 +7,7 @@
 
 {% block content %}
     {# hero/tile #}
-    <form method="POST" action="{{ url_for('add_place', _external=True) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ url_for('places_bp.add_place', _external=True) }}" enctype="multipart/form-data">
         <section class="hero is-primary">
             <div class="hero-body">
                 <div class="container">

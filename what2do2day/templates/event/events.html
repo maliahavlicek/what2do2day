@@ -23,7 +23,7 @@
                         {% if  filter =="none" %}
                             <div class="level-item">
                                 <p class="control">
-                                    <a class="button is-white" href="{{ url_for('add_event', _external=True) }}">
+                                    <a class="button is-white" href="{{ url_for('events_bp.add_event', _external=True) }}">
                                     <span class="icon">
                                         <i class="fas fa-calendar-plus"></i>
                                     </span>
@@ -34,7 +34,7 @@
                             {% else %}
                             {# reset filter form #}
                             <div class="level-right">
-                                <a class="button is-primary is-inverted" id="reset-event-filter-form" href="{{ url_for('get_events', _external=True) }}">
+                                <a class="button is-primary is-inverted" id="reset-event-filter-form" href="{{ url_for('events_bp.get_events', _external=True) }}">
                                     <span class="icon">
                                         <i class="fas fa-redo-alt"></i>
                                     </span>
@@ -76,7 +76,7 @@
                     <p class="modal-card-title">Count Me In</p>
                     <button class="delete" aria-label="close"></button>
                 </header>
-                <form method="POST" action="{{ url_for('get_events', event_id=layer_event['_id']) }}"
+                <form method="POST" action="{{ url_for('events_bp.get_events', event_id=layer_event['_id']) }}"
                       enctype="multipart/form-data">
                     <section class="modal-card-body">
                         {#  prevent cross site scripting #}
