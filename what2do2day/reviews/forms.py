@@ -7,6 +7,7 @@ from wtforms import (StringField,
                      RadioField)
 from wtforms.validators import (DataRequired,
                                 Email,
+
                                 Length)
 
 from what2do2day.templates.validators import validate_rating
@@ -33,4 +34,3 @@ class ReviewForm(FlaskForm):
     def validate_author(self, author):
         if self.has_review.data and str(self.use_place_email.data) == 'n' and len(str(author.data)) < 0:
             raise ValidationError(" you must enter an author")
-

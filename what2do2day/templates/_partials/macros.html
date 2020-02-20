@@ -277,13 +277,13 @@
         <a class="is-text has-tooltip-multiline has-tooltip-bottom is-capitalized"
            data-tooltip="{{ address_tooltip(add=add) }}">{{ add['address_line_1']|title }}</a>
     {% else %}
-        {{ add['address_line_1']|title  }}
+        {{ add['address_line_1']|title }}
         {% if add['address_line_2']|length > 0 %}
-            <br>{{ add['address_line_2']|title  }}
+            <br>{{ add['address_line_2']|title }}
         {% endif %}
-        <br>{{ add['city']|title  }}, {{ add['state']|title  }}
+        <br>{{ add['city']|title }}, {{ add['state']|title }}
         {% if add['postal_code']|length > 0 %}
-            <br>{{ add['postal_code']|title  }} {{ add['country']|title  }}
+            <br>{{ add['postal_code']|title }} {{ add['country']|title }}
         {% else %}
             <br>{{ add['country']|title }}
         {% endif %}
@@ -297,8 +297,7 @@
                  aria-label="Rating of this product is {{ rating|myround(1) }} out of 5."></div>
             {% if label %}
                 <div class="star-label">{{ rating|myround(1) }} out of 5</div>
-                <div class="star-totals">{{ place.reviews|length }} review{% if place.reviews|length > 1 %}
-                    s{% endif %} </div>
+                <div class="star-totals">{{ place.reviews|length|pluralize("review","reviews",True) }}</div>
             {% endif %}
         {% else %}
             no ratings yet
