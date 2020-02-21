@@ -6,6 +6,7 @@ from datetime import datetime
 from what2do2day.addresses.views import get_add_address_id
 from what2do2day.users.views import get_add_user_id
 from what2do2day import mongo, google_key
+from what2do2day.email.views import email_event
 
 
 def get_add_activity_id(name, icon):
@@ -77,6 +78,10 @@ def add_attendee(form, event_id, filter_form, filter_string):
             if added_attendee is None:
                 status = "ERROR"
                 message = "Opps, it looks like we may have lost a bit of data due to network lag time, can you try again?"
+            else:
+                # send email to attendee
+                email_event(event, form.email.data)
+
         modal = {
             'status': status,
             'message': message,
