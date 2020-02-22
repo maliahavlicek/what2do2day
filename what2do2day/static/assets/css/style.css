@@ -629,7 +629,7 @@ nav.level.is-primary .level-item {
 }
 
 .modal-card-foot .button.action {
-    margin: 0;
+    margin: 0 15px;
 }
 
 span#event-modal-title {
