@@ -36,10 +36,9 @@ def edit_events(filter_string, update_status):
 
     filter_form = FilterEventsFrom()
 
-    activity_choices = unique_activities("true")
-    filter_form.activity.choices = activity_choices
-
     the_events = retrieve_events_from_db(True, filter_form)
+    activity_choices = unique_activities(the_events)
+    filter_form.activity.choices = activity_choices
     return render_template('event/edit_events.html', events=the_events, filter=filter_string,
                            google_key=google_key, filter_form=filter_form, update=True, status=update_status)
 
@@ -77,7 +76,7 @@ def filter_events(update):
             list_events = list(retrieve_events_from_db(False, filter_form))
         else:
             list_events = list(retrieve_events_from_db(True, filter_form))
-        activity_choices = unique_activities(update)
+        activity_choices = unique_activities(list_events)
         filter_form.activity.choices = activity_choices
     except Exception as e:
         list_events = []
@@ -112,7 +111,7 @@ def get_events(event_id, filter_string):
         except Exception as e:
             return render_template('error.html', reason=e)
 
-        activity_choices = unique_activities()
+        activity_choices = unique_activities(list_events)
         filter_form.activity.choices = activity_choices
 
         if form.email.errors:

@@ -12,7 +12,7 @@ def email_event(event, user_email, update=False):
     message["To"] = user_email
     password = app.config['EMAIL_PASS']  # Your SMTP password for Gmail
     message["Subject"] = "What2do2day Event- " + event['event_name'].title()
-    email_body = "<div>It's your friends with What2do2day. Here are the details about an event you wanted to attend:</div>"
+    email_body = "<div style='color:#363636; font-size:18px;'>It's your friends with What2do2day. Here are the details about an event you wanted to attend:</div>"
     text = "Hello,\nIt's your friends with What2do2day. Here are the details about an event you wanted to attend:"
     if update:
         message["Subject"] = "Updated: " + message["Subject"]
@@ -22,13 +22,15 @@ def email_event(event, user_email, update=False):
     email_body += '<div style="color:#363636; font-size:18px;">'
     if update:
         email_body += '<h1 style="font-size:22px; margin: 20px;">' + event[
-            'event_name'].title() + ' has been updated!</h1>'
+            'event_name'].title() + '<span style="font-size:20px; margin-left:20px;">Sponsored By: ' + event[
+                          'place_name'] + '</span>' + ' has been updated!</h1>'
         text += "\n" + event['event_name'].title() + ' has been updated!'
     else:
-        email_body += '<h1 style="font-size:22px margin: 20px;">' + event['event_name'].title() + '</h1>'
+        email_body += '<h1 style="font-size:22px margin: 20px;">' + event['event_name'].title()
+        email_body += '<span style="font-size:20px; margin-left:20px;">Sponsored By: ' + event[
+            'place_name'] + '</span></h1>'
         text += "\n" + event['event_name'].title()
     text += "\n\tSponsored By: " + event['place_name']
-    email_body += '<div style="font-size:20px; margin-left:20px;">Sponsored By: ' + event['place_name'] + '</div>'
     email_body += '<div class="columns"><div class="is-bold column">When:</div><div class="column">'
 
     startDate = event['date_time_range'][0:10]
@@ -39,7 +41,6 @@ def email_event(event, user_email, update=False):
     email_body += startDate + " " + filters.time_only(
         event['date_time_range']) + '</div></div><div style="clear:both"></div>'
     text += "\nWhen: " + event['date_time_range']
-
 
     event_json = [{
         "@context": "http://schema.org",
@@ -121,10 +122,6 @@ def email_event(event, user_email, update=False):
         email_body += "No Limit </div></div><div style='clear:both'></div>"
         text += "No Limit"
 
-    email_body += '<div style="font-weight:700;">About ' + event['place_name'].title() + '</div>'
-    email_body += '<div>' + event['place_description'] + '</div>'
-    text += "\nAbout " + event['place_name']
-    text += "\n" + event['place_description']
     email_body += '</div><script type="application/ld+json">' + json.dumps(event_json) + '</script>'
 
     email_body = email_body.replace('class="columns"', 'style="line-height:1.8rem; margin:5px;"')

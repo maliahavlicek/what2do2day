@@ -26,13 +26,10 @@ def get_add_activity_id(name, icon):
         return the_activity['_id']
 
 
-def unique_activities(update="false"):
+def unique_activities(events):
     activities = []
     ids = {}
-    if update == "false":
-        events = retrieve_events_from_db(False)
-    else:
-        events = retrieve_events_from_db(True)
+
     for event in events:
         new_id = event['activity_id']
         if new_id not in ids.keys():
@@ -97,7 +94,7 @@ def add_attendee(form, event_id, filter_form, filter_string):
         event = mini_event(the_event)
 
         list_events = retrieve_events_from_db(False, False)
-        activity_choices = unique_activities("false")
+        activity_choices = unique_activities(list_events)
         filter_form.activity.choices = activity_choices
         # somehow filter_from activity choices are crap, when going back
         return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
