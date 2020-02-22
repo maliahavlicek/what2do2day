@@ -383,7 +383,7 @@ In the long term once this concept proves viable, authentication would be enable
 - [CSS3](https://www.w3schools.com/w3css/default.asp) - used to define DOM appearance. 
 - [HTML5](https://www.w3schools.com/html/default.asp) -  used to define DOM elements. 
 - [JQuery](https://jquery.com) - used to initialize elements of Bulma framework: check boxes, date pickers, menu toggles.
-- [JavaScript](https://www.javascript.com/)  -  used to implement Maps JavaScript API, Calendar API, and EmailJS.
+- [JavaScript](https://www.javascript.com/)  -  used to format dates and pull data from element attributes.
 - [Python](https://www.python.org/) the project back-end functions are written using Python. Flask and Python is used to build route functions
 - [Markdown](https://www.markdownguide.org/) Documentation within the readme was generated using markdown
 ### Framework & Extensions
@@ -415,8 +415,7 @@ In the long term once this concept proves viable, authentication would be enable
 - [color contrast](https://webaim.org/resourceshttps://webaim.org/resources/contrastchecker//contrastchecker/) Tool was used to adjust colors on fonts flagged as needing a higher contrast ratio from google's lighthouse audit tool.
 - [lighthouse audit] Google's open source automated too to help improve the quality of your website. Specifically paid attention to Accessibility  and best practices aiming for scores above 80.
 ### APIs
-- [emailJS](https://emailjs.com) - Send user notices when place they are following is modified, has a new event, or has a new review posted. 
-- [Google Calendar API](https://developers.google.com/calendar/v3/reference/events) - Used to [create events](https://developers.google.com/calendar/create-events) for application, add attendees when users join an event, and send updates to joiners if event is modified
+- [stmp](https://emailjs.com) - Send user notices when an event is joined or when an event they have joined has been updated.
 - [Google Maps Javascript API](https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/) - Customized Map of event and places
 
 ## Testing
@@ -485,6 +484,8 @@ https://github.com/maliahavlicek/what2do2day
                 ```$ python -c 'import os; print(os.urandom(16))'```
 > - WTF_CSRF_SECRET_KEY another long random string of bytes to help protect against cross site request forgery.  You can copy the output of this to your config:
                 ```$ python -c 'import os; print(os.urandom(24))'```
+> - EMAIL - a [gmail accoount](https://accounts.google.com/signup) once you have an account and are signed in you need to make sure it has less secure app access turned on use [this link](https://myaccount.google.com/lesssecureapps?pli=1)
+> - EMAIL_PASS - the password to the email account
 
 3. start your server by typing 
 ```$ python run.py```
@@ -561,4 +562,5 @@ The wonderful results of the google search engine helped me tremendously in comp
 - [javascript dates](https://www.aspsnippets.com/Articles/JavaScript-Display-Current-Time-in-12-hour-format-AM-PM-and-24-hour-format-with-Hours-Minutes-and-Seconds-hhmmss.aspx) to clean up date formatting in the initial count me in layer
 - [Pretty Printed](https://www.youtube.com/watch?v=kWncnBBxoJ4&feature=youtu.be)This video shows how to integrate google maps to a python flask application.
 - [aezel](https://stackoverflow.com/users/64266/aezell) for [posting](https://stackoverflow.com/users/64266/aezell) a good way to separate flask filters from run.py
--[Todd Birchard](https://hackersandslackers.com/flask-blueprints/) For a most useful example about blueprints to make a larger flask application's directory structure manageable
+- [Todd Birchard](https://hackersandslackers.com/flask-blueprints/) For a most useful example about blueprints to make a larger flask application's directory structure manageable
+- [Dan Badar](https://dbader.org/blog/python-send-email)- how to send emails via python and a google account

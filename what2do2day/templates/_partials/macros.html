@@ -203,6 +203,8 @@
                             {% for age in layer_event['age_limit'] %}
                                 {{ age }}{% if loop.index != loop.length %}, {% endif %}
                             {% endfor %}
+                        {% else %}
+                            No Limit
                         {% endif %}
                     </div>
                 </div>
@@ -226,12 +228,7 @@
                     <div class="column is-bold"><i class="fas fa-users" aria-hidden="true"></i></div>
                     <div class="column" id="event-attendance">
                         <p>
-                            {{ layer_event['attendees'] }}
-                            {% if layer_event['attendees'] > 1 %}
-                                people plan
-                            {% else %}
-                                person plans
-                            {% endif %}
+                            {{ layer_event['attendees'] | pluralize("person", "people", True) }}
                             on going
                         </p>
                     </div>

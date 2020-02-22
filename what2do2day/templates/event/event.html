@@ -72,11 +72,7 @@
                         {% if event['attendees']|length > 0 %}
                             <p>
                                 <i class="fas fa-users"></i>
-                                {% if event['attendees']|length > 1 %}
-                                    {{ event['attendees']|length }} people plan
-                                {% else %}
-                                    1 person plans
-                                {% endif %}
+                                 {{ event['attendees'] | length | pluralize("person", "people", True) }}
                                 on going
                             </p>
                         {% endif %}

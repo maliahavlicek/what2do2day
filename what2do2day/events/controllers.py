@@ -80,7 +80,13 @@ def add_attendee(form, event_id, filter_form, filter_string):
                 message = "Opps, it looks like we may have lost a bit of data due to network lag time, can you try again?"
             else:
                 # send email to attendee
-                email_event(event, form.email.data)
+                email_sent = email_event(event, form.email.data)
+                if email_sent:
+                    status = "OK"
+                    message = "Great!. You should be getting an email shortly with the invite."
+                else:
+                    status = "ERROR"
+                    message = "Opps, it looks like we are having issues with our email server, can you try again?"
 
         modal = {
             'status': status,
@@ -306,16 +312,16 @@ def retrieve_events_from_db(update, filter_form=False, event_id=False):
             'start_date': {
                 "$dateFromString": {
                     'dateString': {
-                        "$substr": ["$date_time_range", 0, 10]
+                        "$substr": ["$date_time_range", 0, 16]
                     },
-                    'format': "%m/%d/%Y"}
+                    'format': "%m/%d/%Y %H:%M"}
             },
             'end_date': {
                 "$dateFromString": {
                     'dateString': {
-                        "$substr": ["$date_time_range", 19, 10]
+                        "$substr": ["$date_time_range", 19, 35]
                     },
-                    'format': "%m/%d/%Y"}
+                    'format': "%m/%d/%Y %H:%M"}
             },
             'place_id': "$place",
             'event_name': "$name",
