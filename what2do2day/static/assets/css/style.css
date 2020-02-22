@@ -969,7 +969,11 @@ i.not-shared {
         margin-top: 0;
     }
 
-
+    .list-events.places .container{
+        margin:0;
+        max-width: 100%;
+        width: 100%;
+    }
 
     .list-events .container {
         margin: 0 0 auto auto;
