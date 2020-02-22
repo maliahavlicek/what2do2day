@@ -18,6 +18,10 @@ body {
     background-color: #FFF
 }
 
+/* section */
+.section {
+    padding: .25rem .5rem;
+}
 
 /* footer */
 .footer {
@@ -55,6 +59,7 @@ footer p {
 .accordions .accordion .accordion-header {
     justify-content: space-between;
 }
+
 .accordions .accordion .accordion-header .columns .column {
     width: 150px;
 }
@@ -66,14 +71,27 @@ footer p {
 .accordion-content:last-of-type {
     border-bottom: none;
 }
-.accordions .accordion .accordion-header + .accordion-body{
-     transition: height 1s, max-height .5s;
+
+.accordions .accordion .accordion-header + .accordion-body {
+    transition: height 1s, max-height .5s;
     transition-timing-function: ease-in-out;
 }
 
 /* calendar adjustments */
 .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
-    max-width: 70%;
+    font-size: .8rem;
+    text-indent: .25rem;
+}
+
+.datetimepicker-dummy::before, .datetimepicker-dummy:before {
+    top: .75rem;
+    left: .25rem;
+    width: 1rem;
+    height: 1rem;
+}
+
+.datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input:first-child {
+    text-indent: 1.5rem;
 }
 
 /* overwrite fonts for h1 and navigation */
@@ -97,6 +115,8 @@ h1, .navbar-brand a.navbar-item {
 /* font for switch label */
 .switch-value {
     font-size: 1rem;
+    margin-bottom: 45px;
+    display: inline-block;
 }
 
 /* have phineaus and ferb in backyard as home page background */
@@ -550,7 +570,7 @@ span.is-bold {
 /* section header on lists*/
 nav.level.is-primary {
     background: #b5b5b5;
-    padding: 15px;
+    padding: 8px 15px;
 }
 
 .button.action {
@@ -683,7 +703,8 @@ span#event-modal-title {
 .places .container:nth-child(even) .card-content .media {
     flex-direction: row-reverse;
 }
-.add-place.places .container:nth-child(even) .card-content .media{
+
+.add-place.places .container:nth-child(even) .card-content .media {
     flex-direction: row;
 }
 
@@ -736,13 +757,17 @@ span#event-modal-title {
 .list-events .card-header {
     padding: 10px;
     line-height: 1.8rem;
+    display: block;
 }
 
-.list-events .card-header .containers {
+.list-events .card-header .containers:first-of-type {
     display: flex;
-    align-items: center;
-    margin-left: 15px;
 }
+
+.list-events .card-header .containers .image {
+    display: inline-block;
+}
+
 
 .list-events .media .is-one-quarter {
     width: 100%;
@@ -778,7 +803,8 @@ span#event-modal-title {
 i.not-shared {
     color: #f14668;
 }
-.modal-card{
+
+.modal-card {
     visibility: hidden;
 }
 
@@ -906,6 +932,32 @@ i.not-shared {
 
 /* larger phones */
 @media screen and (min-width: 600px) {
+    /*card-header */
+    .list-events .card-header .containers {
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+    }
+
+    /* section */
+    .section {
+        padding: .5rem 1rem;
+    }
+
+    /* levels */
+    .level-left, .level-right, .level {
+        display: flex;
+    }
+
+    .level {
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .level-left + .level-right {
+        margin-top: 0;
+    }
+
     /* event list page */
     .list-events .media {
         display: flex;
@@ -942,18 +994,47 @@ i.not-shared {
     .list-events.places .card.is-primary {
         margin: 0;
     }
+
+    .list-events .card-header {
+        display: flex;
+    }
+
+    .list-events .card-header .containers .image {
+        display: block;
+    }
+
+    /* calendar adjustments */
+    .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
+        font-size: 1rem;
+        text-indent: 1rem;
+    }
+
+    .datetimepicker-dummy::before, .datetimepicker-dummy:before {
+        top: .65rem;
+        left: .75rem;
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input:first-child {
+        text-indent: 2.5rem;
+    }
 }
 
 
 /* tablet styles */
 @media screen and (min-width: 769px) {
+    .section {
+        padding: .5rem 1.5rem;
+    }
+
     .list-events.places .media {
         display: flex;
     }
 
     /* override home page background image to larger size */
     .hero-body.home {
-        background: url(/static/assets/images/were_gonna_build_a_rollercoaster.jpg) no-repeat center center;
+        background: url('/static/assets/images/were_gonna_build_a_rollercoaster.jpg') no-repeat center center;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
