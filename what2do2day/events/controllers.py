@@ -5,7 +5,7 @@ from pymongo import WriteConcern
 from datetime import datetime
 from what2do2day.addresses.views import get_add_address_id
 from what2do2day.users.views import get_add_user_id
-from what2do2day import mongo, google_key
+from what2do2day import app, mongo, google_key
 from what2do2day.email.views import email_event
 
 
@@ -201,6 +201,17 @@ def push_event_to_db(form, event):
         if event_exists is not None:
             status = "An event with the same name, time and place already exists. Please try again."
             return redirect(url_for('events_bp.new_event', place_id=event['place_id'], status=status))
+    else:
+        event_exists = list(mongo.db.events.find(new_event))
+        if event_exists is not None:
+            if len(event_exists) > 1:
+                status = "An event with the same name, time and place already exists. Please try again."
+                return redirect(url_for('events_bp.new_event', place_id=event['place_id'], status=status))
+            if len(event_exists) == 1:
+                if event_exists[0]['_id'] != event['_id']:
+                    status = "An event with the same name, time and place already exists. Please try again."
+                    return redirect(url_for('events_bp.new_event', place_id=event['place_id'], status=status))
+
 
     # event is unique so format rest of form entries and load to db
     has_address = form.address.data['has_address']
@@ -238,6 +249,17 @@ def push_event_to_db(form, event):
 
     if '_id' in event.keys():
         the_event = db.update_one({"_id": event['_id']}, {"$set": new_event})
+        # need to send update email to attendees if there are any
+        for user in event['attendees']:
+            user_email = mongo.db.users.find_one({'_id': user})
+            if user_email is not None:
+                email_sent = email_event(event, user_email['email'], True)
+                if app.config['DEBUG']:
+                    if email_sent:
+                        print('Email update to attendee: ', user_email['email'], " status: success")
+                    else:
+                        print('Email update to attendee: ', user_email['email'], " status: failure")
+
     else:
         the_event = db.insert_one(new_event)
 

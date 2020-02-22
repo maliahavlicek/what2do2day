@@ -23,14 +23,15 @@ def email_event(event, user_email, update=False):
     if update:
         email_body += '<h1 style="font-size:22px; margin: 20px;">' + event[
             'event_name'].title() + '<span style="font-size:20px; margin-left:20px;">Sponsored By: ' + event[
-                          'place_name'] + '</span>' + ' has been updated!</h1>'
+                          'place-name'] + '</span>' + ' has been updated!</h1>'
         text += "\n" + event['event_name'].title() + ' has been updated!'
+        text += "\n\tSponsored By: " + event['place-name']
     else:
         email_body += '<h1 style="font-size:22px margin: 20px;">' + event['event_name'].title()
         email_body += '<span style="font-size:20px; margin-left:20px;">Sponsored By: ' + event[
             'place_name'] + '</span></h1>'
         text += "\n" + event['event_name'].title()
-    text += "\n\tSponsored By: " + event['place_name']
+        text += "\n\tSponsored By: " + event['place_name']
     email_body += '<div class="columns"><div class="is-bold column">When:</div><div class="column">'
 
     startDate = event['date_time_range'][0:10]
@@ -42,10 +43,10 @@ def email_event(event, user_email, update=False):
         event['date_time_range']) + '</div></div><div style="clear:both"></div>'
     text += "\nWhen: " + event['date_time_range']
 
-    event_json = [{
+    event_json = {
         "@context": "http://schema.org",
         "@type": "EventReservation",
-        "reservationNumber": event['_id'],
+        "reservationNumber": str(event['_id']),
         "reservationStatus": "http://schema.org/Confirmed",
         "underName": {
             "@type": "Person",
@@ -59,9 +60,9 @@ def email_event(event, user_email, update=False):
             "details": event['details']
 
         }
-    }]
+    }
     streetAddress = ''
-    if 'event_address' in event.keys() and event['event_address'] != '' and 'address_line_1' in event[
+    if 'event_address' in event.keys() and event['event_address'] != '' and event['event_address'] != [] and 'address_line_1' in event[
         'event_address'].keys() and event['event_address']['address_line_1'] != "":
         text += "\nWhere: "
         streetAddress = event['event_address']['address_line_1'].title()

@@ -573,6 +573,10 @@ nav.level.is-primary {
     padding: 8px 15px;
 }
 
+nav.level.is-primary .level-item {
+    justify-content: flex-start;
+}
+
 .button.action {
     min-width: 90%;
     margin: 10px 0;
@@ -647,17 +651,19 @@ span#event-modal-title {
 
 /* map */
 #map {
-    width: 280px;
+    max-width: 280px;
+    width: 100%;
     height: 225px;
     background: url(../images/giphy_load.gif) center center no-repeat;
 }
 
 .map {
-    width: 235px;
+    max-width: 235px;
+    width: 100%;
     height: 200px;
     background: url(../images/giphy_load.gif) center center no-repeat;
     text-align: center;
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 .is-bold {
@@ -1003,6 +1009,12 @@ i.not-shared {
         display: block;
     }
 
+    /* map*/
+    .map {
+        margin: 10px auto;
+        width: auto;
+    }
+
     /* calendar adjustments */
     .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
         font-size: 1rem;
@@ -1030,6 +1042,11 @@ i.not-shared {
 
     .list-events.places .media {
         display: flex;
+    }
+
+    /* map*/
+    .map {
+        margin: 0 auto;
     }
 
     /* override home page background image to larger size */
@@ -1078,10 +1095,6 @@ i.not-shared {
         padding: .5em .75em;
         position: relative;
         justify-content: space-between;
-    }
-
-    .button.action {
-        min-width: 230px;
     }
 
     .list-events .card.is-primary {
