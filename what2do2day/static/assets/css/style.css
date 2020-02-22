@@ -138,6 +138,7 @@ h1, .navbar-brand a.navbar-item {
 .hero.home:after {
     background: none;
 }
+.hero-body .container .title { margin-right: 50px;}
 
 /* customize buttons container on home page */
 .buttons.home {
@@ -677,6 +678,10 @@ span#event-modal-title {
 
 .list-events .media {
     display: block;
+
+}
+.list-events .media-content{
+    overflow: hidden;
 }
 
 .list-events .media .is-one-third {
@@ -964,28 +969,6 @@ i.not-shared {
         margin-top: 0;
     }
 
-    /* event list page */
-    .list-events .media {
-        display: flex;
-    }
-
-    .list-events.places .media {
-        display: block;
-    }
-
-    .list-events nav.level {
-        margin: 0;
-    }
-
-    .list-events .media .is-one-third {
-        width: 33%;
-        text-align: left;
-        margin-top: .25rem;
-    }
-
-    .list-events .media .is-two-thirds {
-        width: 66%;
-    }
 
 
     .list-events .container {
@@ -1036,6 +1019,29 @@ i.not-shared {
 
 /* tablet styles */
 @media screen and (min-width: 769px) {
+     /* event list page */
+    .list-events .media {
+        display: flex;
+    }
+
+    .list-events.places .media {
+        display: block;
+    }
+
+    .list-events nav.level {
+        margin: 0;
+    }
+
+    .list-events .media .is-one-third {
+        width: 33%;
+        text-align: left;
+        margin-top: .25rem;
+    }
+
+    .list-events .media .is-two-thirds {
+        width: 66%;
+    }
+
     .section {
         padding: .5rem 1.5rem;
     }
@@ -1057,6 +1063,7 @@ i.not-shared {
         -o-background-size: cover;
         background-size: cover;
     }
+
 
     /* larger font for speech bubbles */
     .speech-bubble {
