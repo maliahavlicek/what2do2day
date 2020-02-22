@@ -239,7 +239,7 @@
                     <div class="is-bold {% if layer_event['event_address'] =='' %} is-hidden{% endif %}">Where:</div>
                     <div id="map">
                         {% if layer_event['event_address'] and layer_event['event_address'] !='' and  layer_event['event_address']['address_line_1'] != "" %}
-                            <iframe width="280" height="225" frameborder="0" style="border:0"
+                            <iframe width="100%" height="225" frameborder="0" style="border:0"
                                     src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ layer_event['event_address']['address_line_1'] }}&center={{ layer_event['event_address']['lat'] }},{{ layer_event['event_address']['lng'] }}&maptype=satellite&zoom=16"></iframe>
                         {% endif %}
                     </div>
