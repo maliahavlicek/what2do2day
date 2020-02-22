@@ -52,7 +52,7 @@
     <section class="list-events">
         {% if events | length > 0 %}
             {% for event in events %}
-                {% if loop.index == 1 or loop.index > 1 and event['start_date'] != events[loop.index - 2]['start_date'] %}
+                {% if loop.index == 1 or loop.index > 1 and event['start_date']|date_only != events[loop.index - 2]['start_date']|date_only %}
                     <nav class="level is-primary">
                         <div class="level-left">
                             <div class="level-item">

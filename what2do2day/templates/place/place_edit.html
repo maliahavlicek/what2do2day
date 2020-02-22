@@ -7,7 +7,9 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Edit Place
+                     <span class="title">
+                            <i class="far fa-hand-pointer"></i> Select the Place to Edit
+                        </span>
                 </h1>
                 {% if places | length < 1 %}
                     <h2 class="subtitle">
@@ -30,17 +32,6 @@
         </div>
     </section>
     {% if places | length >0 %}
-        <section>
-            <nav class="level is-primary">
-                <div class="level-left">
-                    <div class="level-item">
-                        <p class="title">
-                            <i class="far fa-hand-pointer"></i> Select the Place to Edit
-                        </p>
-                    </div>
-                </div>
-            </nav>
-        </section>
         {# include accordion for future filtering #}
         {% include 'place/filter_place.html' %}
         <section class="list-events places add-place">
