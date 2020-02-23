@@ -12,7 +12,6 @@ from what2do2day.places.forms import PlaceForm
 places_bp = Blueprint('places_bp', __name__, template_folder='templates', static_folder='static')
 
 
-
 ################
 #### routes ####
 ################

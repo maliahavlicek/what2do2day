@@ -77,4 +77,3 @@ class CountMeInForm(FlaskForm):
         Length(min=1, message='Email is required.'),
         Email(message='Not a valid email address.')
     ])
-

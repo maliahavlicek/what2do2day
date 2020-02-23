@@ -62,7 +62,8 @@ def email_event(event, user_email, update=False):
         }
     }
     streetAddress = ''
-    if 'event_address' in event.keys() and event['event_address'] != '' and event['event_address'] != [] and 'address_line_1' in event[
+    if 'event_address' in event.keys() and event['event_address'] != '' and event[
+        'event_address'] != [] and 'address_line_1' in event[
         'event_address'].keys() and event['event_address']['address_line_1'] != "":
         text += "\nWhere: "
         streetAddress = event['event_address']['address_line_1'].title()

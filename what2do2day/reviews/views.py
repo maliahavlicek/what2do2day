@@ -13,6 +13,7 @@ from what2do2day.users.views import get_add_user_id
 ################
 reviews_bp = Blueprint('reviews_bp', __name__, template_folder='templates', static_folder='static')
 
+
 ##########################
 #### helper functions ####
 ##########################

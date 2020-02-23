@@ -138,7 +138,10 @@ h1, .navbar-brand a.navbar-item {
 .hero.home:after {
     background: none;
 }
-.hero-body .container .title { margin-right: 50px;}
+
+.hero-body .container .title {
+    margin-right: 50px;
+}
 
 /* customize buttons container on home page */
 .buttons.home {
@@ -232,12 +235,13 @@ a.button.is-link.home-btn-2 {
     right: 38px;
 }
 
-.speech-bubble.second .speech-bubble-arrow:before{
+.speech-bubble.second .speech-bubble-arrow:before {
     border-top: 213px solid rgba(0, 0, 0, 0.2);
     bottom: -188px;
     right: 1px;
 }
-.speech-bubble.second .speech-bubble-arrow:after{
+
+.speech-bubble.second .speech-bubble-arrow:after {
     border-top: 213px solid #efefef;
     top: -26px;
 }
@@ -689,7 +693,8 @@ span#event-modal-title {
     display: block;
 
 }
-.list-events .media-content{
+
+.list-events .media-content {
     overflow: hidden;
 }
 
@@ -978,8 +983,8 @@ i.not-shared {
         margin-top: 0;
     }
 
-    .list-events.places .container{
-        margin:0;
+    .list-events.places .container {
+        margin: 0;
         max-width: 100%;
         width: 100%;
     }
@@ -1032,7 +1037,7 @@ i.not-shared {
 
 /* tablet styles */
 @media screen and (min-width: 769px) {
-     /* event list page */
+    /* event list page */
     .list-events .media {
         display: flex;
     }
@@ -1137,7 +1142,6 @@ i.not-shared {
 /* desktop and larger styles */
 @media screen and (min-width: 1024px) {
     /* larger font in speech bubbles for desktop and larger */
-
     /* hitting rails in this view, pin speech bubble placement */
     .speech-bubble.first {
         left: 25%;

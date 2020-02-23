@@ -212,7 +212,6 @@ def push_event_to_db(form, event):
                     status = "An event with the same name, time and place already exists. Please try again."
                     return redirect(url_for('events_bp.new_event', place_id=event['place_id'], status=status))
 
-
     # event is unique so format rest of form entries and load to db
     has_address = form.address.data['has_address']
     event_address = {}

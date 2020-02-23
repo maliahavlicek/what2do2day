@@ -120,7 +120,7 @@ $(document).ready(function () {
             // have a value of: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM (startDate startTime - endDate endTime)
             // get the startDate hours and minutes
 
-            if(date_val !=="") {
+            if (date_val !== "") {
                 incomingDate.val(date_val);
 
                 let incomingStartHours = date_val.substring(11, 13);
@@ -323,7 +323,7 @@ $(document).ready(function () {
         window.location = "/new_event/" + place_id;
     });
 
-     /* handlers for place add event buttons */
+    /* handlers for place add event buttons */
     $('.button.action.place-edit').click(function () {
         // need to pass place id to add_review
         let place_id = $(this).data('target');

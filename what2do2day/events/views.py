@@ -7,6 +7,7 @@ from what2do2day.places.views import retrieve_places_from_db
 from what2do2day.events.forms import EventForm, CountMeInForm, FilterEventsFrom
 
 from .controllers import *
+
 ################
 #### config ####
 ################

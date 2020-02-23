@@ -1,7 +1,6 @@
 import os
 from what2do2day import app
 
-
 if __name__ == '__main__':
     if not os.getenv("GOOGLE_MAP_KEY"):
         raise ValueError('GOOGLE_MAP_KEY environment variable is missing.')

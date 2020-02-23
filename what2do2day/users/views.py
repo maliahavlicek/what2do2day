@@ -1,6 +1,7 @@
 from flask import Blueprint
 from pymongo import WriteConcern
 from what2do2day import mongo
+
 ################
 #### config ####
 ################
@@ -26,7 +27,6 @@ def get_add_user_id(email):
         return the_user.inserted_id
     else:
         return the_user['_id']
-
 
 ################
 #### routes ####

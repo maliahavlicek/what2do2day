@@ -36,12 +36,14 @@ from what2do2day.events.views import events_bp
 from what2do2day.places.views import places_bp
 from what2do2day.reviews.views import reviews_bp
 from what2do2day.users.views import users_bp
+
 # register the blueprints
 app.register_blueprint(addresses_bp)
 app.register_blueprint(events_bp)
 app.register_blueprint(places_bp)
 app.register_blueprint(reviews_bp)
 app.register_blueprint(users_bp)
+
 
 @app.route('/')
 @app.route('/home')

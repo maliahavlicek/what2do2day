@@ -36,4 +36,3 @@ def get_add_address_id(add):
         return the_address.inserted_id
     else:
         return the_address['_id']
-

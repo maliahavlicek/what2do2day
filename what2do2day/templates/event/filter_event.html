@@ -19,87 +19,87 @@
         </div>
         <div class="accordion-body">
             <div class="accordion-content">
-            {% if update %}
-                <form method="POST"
-                      action="{{ url_for('events_bp.filter_events', filter_string='yes', update='true', _external=True) }}"
-                      enctype="multipart/form-data">
+                {% if update %}
+                    <form method="POST"
+                          action="{{ url_for('events_bp.filter_events', filter_string='yes', update='true', _external=True) }}"
+                          enctype="multipart/form-data">
                 {% else %}
-                <form method="POST"
-                      action="{{ url_for('events_bp.filter_events', filter_string='yes', update='false', _external=True) }}"
-                      enctype="multipart/form-data">
+                    <form method="POST"
+                          action="{{ url_for('events_bp.filter_events', filter_string='yes', update='false', _external=True) }}"
+                          enctype="multipart/form-data">
                 {% endif %}
-                    {#  prevent cross site scripting #}
-                    {{ filter_form.csrf_token }}
+                {#  prevent cross site scripting #}
+                {{ filter_form.csrf_token }}
 
-                    {# start and end datetime range filter #}
-                    <div class="field {% if filter_form.filter_date_range.errors %}has-error{% endif %}">
-                        {{ filter_form.filter_date_range.label(class_="label") }}
-                        <div class="control">
-                            {{ filter_form.filter_date_range(class_="input", type="datetime") }}
-                        </div>
-                        <p class="error-msg help is-danger">
-                            {% if filter_form.filter_date_range.errors|length > 0 %}
-                                {{ filter_form.filter_date_range.errors[0] }}
-                            {% endif %}
-                        </p>
+                {# start and end datetime range filter #}
+                <div class="field {% if filter_form.filter_date_range.errors %}has-error{% endif %}">
+                    {{ filter_form.filter_date_range.label(class_="label") }}
+                    <div class="control">
+                        {{ filter_form.filter_date_range(class_="input", type="datetime") }}
                     </div>
+                    <p class="error-msg help is-danger">
+                        {% if filter_form.filter_date_range.errors|length > 0 %}
+                            {{ filter_form.filter_date_range.errors[0] }}
+                        {% endif %}
+                    </p>
+                </div>
 
-                    {# activity filter mutliple choice #}
-                    <div class="field {% if filter_form.activity.errors %}has-error{% endif %}">
-                        {# macro for hidden inputs that go into form #}
-                        {{ filter_form.activity.label(class_='label') }}
-                        <p>Select the Activities your want to see</p>
-                        <div class="limited-exposure embedded activities">
-                            <div class="control">
-                                {# more user friendly experience for selecting mutliples #}
-                                <div class="select is-multiple container activities">
-                                    {{ filter_form.activity(class_="is-hidden controller-ages", size="8", id="event_filter_activity_select") }}
-                                    {% for item in filter_form.activity.choices %}
-                                        <a class="card button activities is-primary {{ item['icon'] }}"
-                                           data-choice="{{ item['name'] }}:{{ item['icon'] }}">
-                                            <div class="card-content">
-                                                <div class="media-con">
-                                                    <img src="/static/assets/images/icons/{{ item['icon'] }}"
-                                                         alt="image for {{ item['name'] }} activity choice">
-                                                </div>
-                                                <div class="media-content">
-                                                    <p class="subtitle is-5">{{ item['name'] }}</p>
-                                                </div>
+                {# activity filter mutliple choice #}
+                <div class="field {% if filter_form.activity.errors %}has-error{% endif %}">
+                    {# macro for hidden inputs that go into form #}
+                    {{ filter_form.activity.label(class_='label') }}
+                    <p>Select the Activities your want to see</p>
+                    <div class="limited-exposure embedded activities">
+                        <div class="control">
+                            {# more user friendly experience for selecting mutliples #}
+                            <div class="select is-multiple container activities">
+                                {{ filter_form.activity(class_="is-hidden controller-ages", size="8", id="event_filter_activity_select") }}
+                                {% for item in filter_form.activity.choices %}
+                                    <a class="card button activities is-primary {{ item['icon'] }}"
+                                       data-choice="{{ item['name'] }}:{{ item['icon'] }}">
+                                        <div class="card-content">
+                                            <div class="media-con">
+                                                <img src="/static/assets/images/icons/{{ item['icon'] }}"
+                                                     alt="image for {{ item['name'] }} activity choice">
                                             </div>
-                                        </a>
-                                    {% endfor %}
-                                </div>
+                                            <div class="media-content">
+                                                <p class="subtitle is-5">{{ item['name'] }}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% endfor %}
                             </div>
                         </div>
-                        <p class="error-msg help is-danger">
-                            {% if filter_form.activity.errors|length > 0 %}
-                                {{ filter_form.activity.errors[0] }}
-                            {% endif %}
-                        </p>
                     </div>
-                    {# hidden field to hold picked iconss #}
-                    {{ filter_form.activity_selection }}
+                    <p class="error-msg help is-danger">
+                        {% if filter_form.activity.errors|length > 0 %}
+                            {{ filter_form.activity.errors[0] }}
+                        {% endif %}
+                    </p>
+                </div>
+                {# hidden field to hold picked iconss #}
+                {{ filter_form.activity_selection }}
 
-                    {# Age #}
-                    <div class="field {% if filter_form.age.errors %}has-error{% endif %}">
-                        {{ filter_form.age.label(class_="label") }}
-                        <div class="control">
-                            {{ filter_form.age(class_="input", type="number") }}
-                        </div>
-                        <p class="error-msg help is-danger">
-                            {% if filter_form.age.errors %}
-                                {{ filter_form.age.errors[0] }}
-                            {% endif %}
-                        </p>
+                {# Age #}
+                <div class="field {% if filter_form.age.errors %}has-error{% endif %}">
+                    {{ filter_form.age.label(class_="label") }}
+                    <div class="control">
+                        {{ filter_form.age(class_="input", type="number") }}
                     </div>
-                    <div class="level-left">
-                        <button type="submit" class="button is-primary action submit">
+                    <p class="error-msg help is-danger">
+                        {% if filter_form.age.errors %}
+                            {{ filter_form.age.errors[0] }}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="level-left">
+                    <button type="submit" class="button is-primary action submit">
                         <span class="icon is-small">
                            <i class="fas fa-filter"></i>
                         </span>
-                            <span class="action">Filter Events</span>
-                        </button>
-                    </div>
+                        <span class="action">Filter Events</span>
+                    </button>
+                </div>
 
                 </form>
             </div>

@@ -118,4 +118,3 @@ def pluralize(number, singular='', plural='s', count=False):
     else:
         count_str += plural
     return count_str
-
