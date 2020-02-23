@@ -661,6 +661,10 @@ span#event-modal-title {
     max-width: 90px;
 }
 
+.metrics .is-bold.column{
+    max-width:100%;
+}
+
 .button.action span.action {
     font-size: 1.5rem;
 }

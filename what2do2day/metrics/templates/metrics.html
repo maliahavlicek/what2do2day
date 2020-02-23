@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {# Enter Reivew Form  #}
 {% block content %}
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    </form>
     {# hero/tile #}
     <section class="hero is-primary">
         <div class="hero-body">
@@ -13,17 +16,17 @@
     </section>
     <section class="section">
 
-        <div class="container">
+        <div class="container metrics">
             <div class="columns">
                 <div class="column is-half">
-                    <p class="title is-4">Pages</p>
+                    <p class="title is-4 has-text-centered">Pages</p>
                     {% for page in pages %}
                         <div class="columns">
                             <div class="is-bold column">
-                                {{ page.name }}
+                                {{ page['_id'] }}
                             </div>
                             <div class="column">
-                                {{ page.count }}
+                                {{ page['count'] }}
                             </div>
                         </div>
                     {% endfor %}
@@ -33,10 +36,10 @@
                     {% for click in clicks %}
                         <div class="columns">
                             <div class="is-bold column">
-                                {{ click.link_name}}
+                                {{ click['_id']}}
                             </div>
                             <div class="column">
-                                {{ click.count }}
+                                {{ click['count'] }}
                             </div>
                         </div>
                     {% endfor %}

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 from datetime import datetime
-from what2do2day import app, mongo
+from what2do2day import app, mongo, csrf
 from pymongo import errors, WriteConcern
 from urllib.parse import parse_qs
 
@@ -113,7 +113,6 @@ def record_click():
         params = parse_qs(query_string)
         if params['link_name'] and params['page'] and params['method']:
             load_click(params['link_name'][0], params['method'][0], params['page'][0])
-
 
     return "pass"
 
