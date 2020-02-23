@@ -177,21 +177,30 @@ Feel free to read about my [font choices](documentation/font_choices.md) if you 
 
 #### Image Choice
 This site's target audience is 12-18 years in age and they have a higher demand for imagery that older user groups do so I made an attempt at having engaging imagery across the site.
- 
-To keep the theme of Phineas and Ferb perpetuating, the cartoon's beginning of Phineas and Ferb in their back yard looking bored, chatting about what to do today is on the home page.
 
-<img src="what2do2day/static/assets/images/were_gonna_build_a_rollercoaster_sm.jpg" width="300" height="auto" alt="perry the platypus" />
+##### Home Page 
+To perpetuate the theme of Phineas and Ferb throughout the site, the cartoon's beginning of Phineas and Ferb in their back yard looking bored, chatting about what to do today is on the home page:
 
-I wanted easily recognizable activities  that users could easily associate to events and places on my website displayed as icons throughout the site. I also wanted to give users a bit of self expression when creating events and places, so  rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
-By having icons that are compatible with the colors I plan on using throughout my site, I am hoping to carry forward a calm yet cheerful website. 
+<img src="what2do2day/static/assets/images/were_gonna_build_a_rollercoaster_sm.jpg" width="300" height="auto" alt="phineas and ferb in backyard" />
 
-<img src="what2do2day/static/assets/images/icons/002-football-field.svg" width="50" height ="50" alt="football field icon"/>
+##### Activity Icons
+I wanted easily recognizable activities that users could quickly associate to events and places on my website. I also wanted to give users a bit of self expression when creating events and places, so rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons to choose from. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
+By having bold colorful icons, I am hoping to carry forward a cheerful and engaging website. 
 
-I found the site looking incredibly dull with wide full width entry fields. So I went back and broke it down into multiple columns and added slight splashes of color with icons.  
+<img src="what2do2day/static/assets/images/icons/002-football-field.svg" width="50" height ="50" alt="football field icon"/> <img src="what2do2day/static/assets/images/icons/021-fishing.svg" width="50" height ="50" alt="fishing icon"/>  <img src="what2do2day/static/assets/images/icons/037-road-sign.svg" width="50" height ="50" alt="trail directions icon"/>
 
-Still the pages were dull compared to the home page, so I added in Perry the Platypus to my header. He's a character in Phineas and Ferb that goes from a boring pet to a super secret agent saver of the universe. By placing Perry at the top of every page except the home page, I am hoping to start the user off with a bit of fun before they start searching for something to do. 
+##### Input Icons
+I found the site looking incredibly dull with wide full width entry fields, so I went back and broke it down into multiple columns and added slight splashes of color with icons relating to the input fields.  
+
+<img src="documentation/images/form_fields.png" width="100%" height="auto" alt="form field image"/>
+
+##### Header Image
+The pages were not exciting compared to the home page, so I added in Perry the Platypus to my header. He's a character in Phineas and Ferb that goes from a boring pet to a super secret agent saver of the universe. By placing Perry at the top of every page except the home page, I am hoping to start the user off with a bit of fun before they start searching for something to do. 
 
 <img src="what2do2day/static/assets/images/perry_the_platypus.png" width="50" height="auto" alt="perry the platypus" />
+
+##### Modals and Errors
+I wanted users to know through imagery that they had success or errors so I trolled the internet until I found a few Phineas and Ferb related images that would work.
 
  Phineas and Ferb giving each other a high five shows up on success layers. 
  
@@ -205,6 +214,7 @@ Ferb wielding tools is on the error page.
 
 <img src="/what2do2day/static/assets/images/fixit.png" width="100" height="auto" alt="fixit image" />
 
+##### Loading Giff
 I also added a loading gif for the maps in the event the API calls are a tad slow. 
 
 <img src="what2do2day/static/assets/images/giphy_load.gif" width="100" height="auto" alt="opps error image" />
