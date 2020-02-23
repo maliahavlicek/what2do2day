@@ -118,7 +118,8 @@ h1, .navbar-brand a.navbar-item {
     margin-bottom: 45px;
     display: inline-block;
 }
-.review .switch-value{
+
+.review .switch-value {
     margin-bottom: 0;
 }
 
@@ -661,8 +662,8 @@ span#event-modal-title {
     max-width: 90px;
 }
 
-.metrics .is-bold.column{
-    max-width:100%;
+.metrics .is-bold.column {
+    max-width: 100%;
 }
 
 .button.action span.action {
@@ -1141,6 +1142,10 @@ i.not-shared {
     .list-events .media .is-half {
         width: 50%;
         margin: 0 10px;
+    }
+
+    .button.action {
+        min-width: 230px;
     }
 
 }
