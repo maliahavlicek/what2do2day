@@ -78,7 +78,7 @@
                         {% endif %}
                         {# event almost booked warning #}
                         {% if event['max_attendees'] != event['attendees']|length and event['max_attendees'] - event['attendees']|length < 10 %}
-                            <p class="has-text-primary">
+                            <p class="has-text-warning">
                                 Only {{ event['max_attendees'] - event['attendees']|length }} spots left!
                             </p>
                         {% endif %}

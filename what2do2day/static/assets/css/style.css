@@ -444,6 +444,13 @@ label.star:before {
     transition: .4s;
 }
 
+/* color for warning */
+.has-text-warning {
+    color: hsl(31, 95%, 50%)!important;
+}
+.has-background-warning{
+    background: hsl(31, 95%, 50%)!important;
+}
 /* color for checked state of switch */
 input:checked + .slider {
     background-color: #00d1b1;
