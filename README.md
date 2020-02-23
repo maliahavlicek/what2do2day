@@ -183,17 +183,19 @@ To keep the theme of Phineas and Ferb perpetuating, the cartoon's beginning of P
 I wanted easily recognizable activities  that users could easily associate to events and places on my website displayed as icons throughout the site. I also wanted to give users a bit of self expression when creating events and places, so  rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
 By having icons that are compatible with the colors I plan on using throughout my site, I am hoping to carry forward a calm yet cheerful website. 
 
-<img src="static/assets/images/icons/002-football-field.svg" width="50" height ="50" alt="football field icon"/>
+<img src="what2do2day/static/assets/images/icons/002-football-field.svg" width="50" height ="50" alt="football field icon"/>
 
 I found the site looking incredibly dull with wide full width entry fields. So I went back and broke it down into multiple columns and added slight splashes of color with icons.  
 
-Still the pages were dull compared to the home page, so I added in Perry the Platypus to my header. He's a character in Phineas and Ferb that goes from a boring pet to a super secret agent saver of the universe. By placing Perry at the top of every page except the home page, I am hoping to start the user off with a bit of fun before they start searching for something to do. <img src="/static/assets/images/perry_the_platypus.png" width="50" height="auto" alt="perry the platypus" />
+Still the pages were dull compared to the home page, so I added in Perry the Platypus to my header. He's a character in Phineas and Ferb that goes from a boring pet to a super secret agent saver of the universe. By placing Perry at the top of every page except the home page, I am hoping to start the user off with a bit of fun before they start searching for something to do. <img src="what2do2day/static/assets/images/perry_the_platypus.png" width="50" height="auto" alt="perry the platypus" />
 
  Phineas and Ferb giving each other a high five shows up on success layers. <img src="/static/assets/images/success.png" width="100" height="auto" alt="success cheer image" />
 
-Dr. Heinz Doofenshmirtz looking dumbfounded makes an appearance on failure or error pages. <img src="/static/assets/images/oop.png" width="100" height="auto" alt="opps error image" />
+Dr. Heinz Doofenshmirtz looking dumbfounded makes an appearance on failure layers. <img src="/what2do2day/static/assets/images/oop.png" width="100" height="auto" alt="opps error image" />
 
-I also added a loading gif for the maps in the event the API calls are a tad slow. <img src="/static/assets/images/giphy_load" width="100" height="auto" alt="opps error image" />
+Ferb wielding tools is on the error page.  <img src="/what2do2day/static/assets/images/fixit.png" width="100" height="auto" alt="opps error image" />
+
+I also added a loading gif for the maps in the event the API calls are a tad slow. <img src="/what2do2day/static/assets/images/giphy_load" width="100" height="auto" alt="opps error image" />
 
 
 #### Design Elements
