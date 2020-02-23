@@ -20,7 +20,7 @@
                         Something went wrong...
                     </h2>
                     <p>{{ reason }}</p>
-                    <a class="button is-primary" href="{{ url_for('home', _external=True) }}">
+                    <a class="button is-primary" href="{{ url_for('home', _external=True) }}" data-track="home,error,button">
                                 <span class="icon">
                                     <i class="fas fa-home"></i>
                                 </span>

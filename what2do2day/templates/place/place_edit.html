@@ -18,7 +18,7 @@
                     <div class="level-left">
                         <div class="level-item">
                             <p class="control">
-                                <a class="button is-white" href="{{ url_for('places_bp.add_place', _external=True) }}">
+                                <a class="button is-white" href="{{ url_for('places_bp.add_place', _external=True) }}" data-track="place_add,{{page}},button">
                                 <span class="icon">
                                     <i class="fas fa-plus-square"></i>
                                 </span>
@@ -109,7 +109,7 @@
                                     {% endif %}
 
                                     {# Add event button #}
-                                    <a class="button is-primary action place-edit"
+                                    <a class="button is-primary action place-edit" data-track="place_edit,{{page}},button"
                                        data-target="{{ place['place_id'] }}">
                                         <span class="icon">
                                             <i class="fas fa-edit"></i>

@@ -1,4 +1,7 @@
 import json
+
+from bson import ObjectId
+
 import filters
 import smtplib, ssl
 from email.mime.text import MIMEText
@@ -79,24 +82,24 @@ def email_event(event, user_email, update=False):
         text += "\n" + event['event_address']['city'].title() + ", " + event['event_address']['state'].title()
 
         if streetAddress != '':
-            country = mongo.db.countries.find_one({'_id': event['event_address']['country']})
+            country = mongo.db.countries.find_one({'_id': ObjectId(event['event_address']['country'])})
             address = {
                 "@type": "PostalAddress",
                 "streetAddress": streetAddress,
                 "addressLocality": event['event_address']['city'].title(),
                 "addressRegion": event['event_address']['state'].title(),
-                "addressCountry": country.title()
+                "addressCountry": country['country'].title()
             }
             if 'postal_code' in event['event_address'].keys() and event['event_address']['postal_code'] != '':
                 postal_code = {'postal_code': event['event_address']['postal_code'].title()}
                 address['postal_code'] = postal_code
-                displayAddress += '<br>' + event['event_address']['postal_code'].title() + ' ' + country.title()
-                text += "\n" + event['event_address']['postal_code'].title() + ' ' + country.title()
+                displayAddress += '<br>' + event['event_address']['postal_code'].title() + ' ' + country['country'].title()
+                text += "\n" + event['event_address']['postal_code'].title() + ' ' + country['country'].title()
             else:
-                displayAddress += '<br>' + country.title()
-                text += "\n" + country.title()
+                displayAddress += '<br>' + country['country'].title()
+                text += "\n" + country['country'].title()
 
-            event_json[0]['reservationFor']['location'] = {'address': address}
+            event_json['reservationFor']['location'] = {'address': address}
             email_body += '<div class="columns"><div class="is-bold column">Where:</div><div class="column">'
             email_body += displayAddress + '</div></div><div style="clear:both"></div>'
     email_body += '<div class="columns"><div class="is-bold column">Details:</div><div class="column">'

@@ -23,7 +23,7 @@
                         {% if  filter =="none" %}
                             <div class="level-item">
                                 <p class="control">
-                                    <a class="button is-white" data-track="event_add,event_list,button"
+                                    <a class="button is-white" data-track="event_add,{{page}},button"
                                        href="{{ url_for('events_bp.add_event', _external=True) }}">
                                     <span class="icon">
                                         <i class="fas fa-calendar-plus"></i>
@@ -35,7 +35,7 @@
                         {% else %}
                             {# reset filter form #}
                             <div class="level-right">
-                                <a class="button is-primary is-inverted" id="reset-event-filter-form"  data-track="event_filter_clear,event_list,link"
+                                <a class="button is-primary is-inverted" id="reset-event-filter-form"  data-track="event_filter_clear,{{page}},link"
                                    href="{{ url_for('events_bp.get_events', _external=True) }}">
                                     <span class="icon">
                                         <i class="fas fa-redo-alt"></i>
