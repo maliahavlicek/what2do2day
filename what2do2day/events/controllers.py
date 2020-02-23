@@ -7,6 +7,7 @@ from what2do2day.addresses.views import get_add_address_id
 from what2do2day.users.views import get_add_user_id
 from what2do2day import app, mongo, google_key
 from what2do2day.email.views import email_event
+from what2do2day.metrics.views import load_page
 
 
 def get_add_activity_id(name, icon):
@@ -97,8 +98,15 @@ def add_attendee(form, event_id, filter_form, filter_string):
         activity_choices = unique_activities(list_events)
         filter_form.activity.choices = activity_choices
         # somehow filter_from activity choices are crap, when going back
+        page = "event_join"
+        if modal['status'] == "OK":
+            page += "_success"
+        else:
+            page += "_fail"
+        load_page(page)
         return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
-                               show_modal=modal, google_key=google_key, layer_event=event, filter_form=filter_form)
+                               show_modal=modal, google_key=google_key, layer_event=event, filter_form=filter_form,
+                               page=page)
 
 
 def db_add_event(event):

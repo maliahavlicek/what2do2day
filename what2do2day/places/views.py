@@ -4,6 +4,7 @@ from bson.objectid import ObjectId
 
 from what2do2day.addresses.views import country_choice_list
 from what2do2day import mongo, google_key
+from what2do2day.metrics.views import load_page
 from what2do2day.places.forms import PlaceForm
 
 ################
@@ -44,7 +45,8 @@ def add_place():
         print('form.event: ' + str(form.event.errors))
 
         icons = filters.get_list_of_icons()
-        return render_template('place/add_place.html', form=form, icons=icons)
+        load_page("place_add")
+        return render_template('place/add_place.html', form=form, icons=icons, page="place_add")
 
 
 @places_bp.route('/edit_place/', methods=['GET'])
@@ -53,8 +55,8 @@ def edit_place():
         list_places = retrieve_places_from_db(True, filter_form=False, place_id=False)
     except Exception as e:
         list_places = []
-
-    return render_template('place/place_edit.html', places=list_places, filter=filters, google_key=google_key)
+    load_page("place_edit_list")
+    return render_template('place/place_edit.html', places=list_places, filter=filters, google_key=google_key, page="place_edit_list")
 
 
 @places_bp.route('/get_places')
@@ -63,7 +65,9 @@ def get_places():
         list_places = retrieve_places_from_db(False, filter_form=False, place_id=False)
     except Exception as e:
         list_places = []
-    return render_template('place/places.html', places=list_places, google_key=google_key)
+
+    load_page("place_list")
+    return render_template('place/places.html', places=list_places, google_key=google_key, page="place_list")
 
 
 @places_bp.route('/update_place/<string:place_id>/', methods=['GET', 'POST'])
@@ -120,10 +124,11 @@ def update_place(place_id):
 
 
     except Exception as e:
+        load_page("error", "page", e)
         return render_template('error.html', reason=e)
 
     if form.validate_on_submit():
         # all is good with the post based on PlaceForm wftForm validation
         return push_place_to_db(form)
-
-    return render_template('place/update_place.html', form=form, icons=icons, update=True, places=places)
+    load_page("place_update")
+    return render_template('place/update_place.html', form=form, icons=icons, update=True, places=places, page="place_update")

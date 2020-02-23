@@ -41,7 +41,7 @@
         <div class="section is-submit-wrapper">
             <nav class="level">
                 <div class="level-left">
-                    <button type="submit" class="button is-dark is-medium is-inverted  submit">
+                    <button type="submit" class="button is-dark is-medium is-inverted  submit" data-track="event_add_save,{{page}},button">
                         <span class="icon is-small">
                            <i class="fas fa-save"></i>
                         </span>
@@ -49,7 +49,7 @@
                     </button>
                 </div>
                 <div class="level-right">
-                    <a class="button is-dark is-medium is-light add_event"
+                    <a class="button is-dark is-medium is-light add_event" data-track="event_add_cancel,{{page}},button"
                        href="{{ url_for('events_bp.add_event', _external=True) }}">
                         <span class="icon">
                             <i class="fas fa-trash"></i>
@@ -69,7 +69,7 @@
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Add Event</p>
-                    <button class="delete" aria-label="close"></button>
+                    <button class="delete" aria-label="close" data-track="{% if status=="OK" %}modal_close,{{page}}_success,button{% else %}modal_close,{{page}}_fail,button{% endif %}"></button>
                 </header>
                 <section class="modal-card-body">
                     <div class="container">
@@ -93,7 +93,7 @@
                 {# button to acknowledge message and close modal #}
                 <footer class="modal-card-foot">
                     <div class="level-left">
-                        <a class=" button is-primary action modal-close-2">
+                        <a class=" button is-primary action modal-close-2" data-track="{% if status=="OK" %}modal_close,{{page}}_success,button{% else %}modal_close,{{page}}_fail,button{% endif %}">
                         <span class="icon is-small">
                             <i class="fas fa-check-circle"></i>
                         </span>

@@ -30,7 +30,7 @@
                         {% if  filter =="none" %}
                             <div class="level-item">
                                 <p class="control">
-                                    <a class="button is-white"
+                                    <a class="button is-white" data-track="event_add,event_edit_list,button"  data-track="event_add,{{page}},button"
                                        href="{{ url_for('events_bp.add_event', _external=True) }}">
                                     <span class="icon">
                                         <i class="fas fa-calendar-plus"></i>
@@ -43,7 +43,7 @@
                             {# reset filter form #}
                             <div class="level-right">
                                 <a class="button is-primary is-inverted" id="reset-event-filter-form"
-                                   href="{{ url_for('events_bp.edit_events', _external=True) }}">
+                                   href="{{ url_for('events_bp.edit_events', _external=True) }}" data-track="event_filter_clear,{{page}},link">
                                     <span class="icon">
                                         <i class="fas fa-redo-alt"></i>
                                     </span>
@@ -85,7 +85,7 @@
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Update Event</p>
-                    <button class="delete" aria-label="close"></button>
+                    <button class="delete" aria-label="close" data-track="{% if status=="OK" %}modal_close,{{page}}_success,button{% else %}modal_close,{{page}}_fail,button{% endif %}"></button>
                 </header>
                 <section class="modal-card-body">
                     <div class="container">
@@ -108,7 +108,7 @@
                 {# button to acknowledge message and close modal #}
                 <footer class="modal-card-foot">
                     <div class="level-left">
-                        <a class=" button is-primary action modal-close-2">
+                        <a class=" button is-primary action modal-close-2" data-track="{% if status=="OK" %}modal_close,{{page}}_success,button{% else %}modal_close,{{page}}_fail,button{% endif %}">
                         <span class="icon is-small">
                             <i class="fas fa-check-circle"></i>
                         </span>

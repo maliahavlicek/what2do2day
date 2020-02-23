@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{# Enter Reivew Form  #}
+{% block content %}
+    {# hero/tile #}
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    What2do2day Metrics
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half">
+                    <p class="title is-4">Pages</p>
+                    {% for page in pages %}
+                        <div class="columns">
+                            <div class="is-bold column">
+                                {{ page.name }}
+                            </div>
+                            <div class="column">
+                                {{ page.count }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="column is-half">
+                    <p class="title is-4">Clicks</p>
+                    {% for click in clicks %}
+                        <div class="columns">
+                            <div class="is-bold column">
+                                {{ click.link_name}}
+                            </div>
+                            <div class="column">
+                                {{ click.count }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </section>
+    {# submit place form to save in database #}
+
+
+
+{% endblock %}

@@ -8,6 +8,7 @@ from datetime import datetime
 from what2do2day.activities.views import get_add_activity_id
 from what2do2day.addresses.views import get_add_address_id
 from what2do2day.events.controllers import event_unique, db_add_event
+from what2do2day.metrics.views import load_page
 from what2do2day.reviews.views import db_add_review
 from what2do2day.users.views import get_add_user_id
 from what2do2day import mongo
@@ -64,8 +65,10 @@ def push_place_to_db(form, update=False, place_id=False):
 
     is_unique = place_unique(place)
     if is_unique is not None and not update:
+        load_page("error", "page", "place already exists.")
         return render_template('error.html', reason="Place already exists.", place_id=is_unique), 1200
     elif is_unique is not None and update and is_unique != ObjectId(place_id):
+        load_page("error", "page", "place already exists.")
         return render_template('error.html', reason="Place already exists.", place_id=is_unique), 1200
     elif is_unique is not None and update and is_unique == ObjectId(place_id):
         place['_id'] = ObjectId(place_id)
@@ -96,6 +99,7 @@ def push_place_to_db(form, update=False, place_id=False):
                   'share': form.share_place.data}
         review_id = db_add_review(review)
         if review_id is None:
+            load_page("error", "page", "failed to add review.")
             return render_template('error.html', reason='Failed to add review')
 
     has_event = form.event.data['has_event']
@@ -109,6 +113,7 @@ def push_place_to_db(form, update=False, place_id=False):
         # see if event is in database or not
         is_unique = event_unique(event)
         if is_unique is not None:
+            load_page("error", "page", "event already exists.")
             return render_template('error.html', reason="Event already exists.", event_id=is_unique), 1300
 
         # event is unique so format rest of form entries and load to db
@@ -142,6 +147,7 @@ def push_place_to_db(form, update=False, place_id=False):
 
         event_id = db_add_event(event)
         if event_id is None:
+            load_page("error", "page", "failed to add event.")
             return render_template('error.html', reason='Failed to add event')
 
     return redirect(url_for('places_bp.get_places'))

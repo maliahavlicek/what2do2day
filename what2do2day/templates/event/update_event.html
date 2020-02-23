@@ -14,7 +14,7 @@
                     <div class="level-left">
                         <div class="level-item">
                             <p class="control">
-                                <a class="button is-white"
+                                <a class="button is-white"  data-track="edit_events,{{page}},button"
                                    href="{{ url_for('events_bp.edit_events', _external=True) }}">
                                 <span class="icon">
                                     <i class="fas fa-plus-square"></i>
@@ -65,7 +65,7 @@
                 <div class="section is-submit-wrapper">
                     <nav class="level">
                         <div class="level-left">
-                            <button type="submit" class="button is-dark is-medium is-inverted submit">
+                            <button type="submit" class="button is-dark is-medium is-inverted submit" data-track="{{page}}_save,{{page}},button">
                             <span class="icon is-small">
                                <i class="fas fa-save"></i>
                             </span>
@@ -73,7 +73,7 @@
                             </button>
                         </div>
                         <div class="level-right">
-                            <a class="button is-dark is-medium is-light edit_event"
+                            <a class="button is-dark is-medium is-light edit_event" data-track="{{page}}_cancel,{{page}},button"
                                href="{{ url_for('events_bp.edit_events', _external=True) }}">
                             <span class="icon">
                                 <i class="fas fa-trash"></i>

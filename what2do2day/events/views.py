@@ -24,8 +24,9 @@ def add_event():
         list_places = retrieve_places_from_db(True, filter_form=False, place_id=False)
     except Exception as e:
         list_places = []
-
-    return render_template('event/add_event.html', places=list_places, filter=False, google_key=google_key)
+    load_page("event_add")
+    return render_template('event/add_event.html', places=list_places, filter=False, google_key=google_key,
+                           page="event_add")
 
 
 @events_bp.route('/edit_events/', defaults={'filter_string': None, 'update_status': None}, methods=['GET', 'POST'])
@@ -40,8 +41,10 @@ def edit_events(filter_string, update_status):
     the_events = retrieve_events_from_db(True, filter_form)
     activity_choices = unique_activities(the_events)
     filter_form.activity.choices = activity_choices
+    load_page("event_edit_list")
     return render_template('event/edit_events.html', events=the_events, filter=filter_string,
-                           google_key=google_key, filter_form=filter_form, update=True, status=update_status)
+                           google_key=google_key, filter_form=filter_form, update=True, status=update_status,
+                           page="event_edit_list")
 
 
 @events_bp.route('/filter_events', defaults={'update': 'false'}, methods=['POST'])
@@ -82,12 +85,16 @@ def filter_events(update):
     except Exception as e:
         list_events = []
     if update == 'true':
+        load_page("event_edit_list_filtered")
         return render_template('event/edit_events.html', events=list_events, filter=filter_string,
-                               google_key=google_key, filter_form=filter_form, update=True, status=False)
+                               google_key=google_key, filter_form=filter_form, update=True, status=False,
+                               page="event_edit_list_filtered")
     else:
+        load_page("event_list_filtered")
         return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
                                show_modal=show_modal,
-                               google_key=google_key, layer_event=event, filter_form=filter_form)
+                               google_key=google_key, layer_event=event, filter_form=filter_form,
+                               page="event_list_filtered")
 
 
 @events_bp.route('/get_events/', defaults={'event_id': None, 'filter_string': None}, methods=['GET', 'POST'])
@@ -110,6 +117,7 @@ def get_events(event_id, filter_string):
         try:
             list_events = retrieve_events_from_db(False, False)
         except Exception as e:
+            load_page("error", "page", e)
             return render_template('error.html', reason=e)
 
         activity_choices = unique_activities(list_events)
@@ -122,10 +130,14 @@ def get_events(event_id, filter_string):
             if the_event is not None:
                 show_modal = True
                 event = mini_event(the_event)
+        page = "event_list"
+        if show_modal:
+            page = "event_join"
 
+        load_page(page)
         return render_template('event/events.html', form=form, events=list_events, filter=filter_string,
                                show_modal=show_modal,
-                               google_key=google_key, layer_event=event, filter_form=filter_form)
+                               google_key=google_key, layer_event=event, filter_form=filter_form, page=page)
 
 
 @events_bp.route('/new_event/<string:place_id>/', defaults={'status': False}, methods=['GET', 'POST'])
@@ -142,8 +154,9 @@ def new_event(place_id, status):
         return push_event_to_db(form, event)
 
     # there were errors
-
-    return render_template('event/new_event.html', form=form, icons=icons, place=the_place, status=status)
+    load_page("event_add")
+    return render_template('event/new_event.html', form=form, icons=icons, place=the_place, status=status,
+                           page="event_add")
 
 
 @events_bp.route('/update_event/<string:event_id>/', methods=['GET', 'POST'])
@@ -155,6 +168,7 @@ def update_event(event_id):
     try:
         list_events = list(retrieve_events_from_db(True, False, event_id))
     except Exception as e:
+        load_page("error", "page", e)
         return render_template('error.html', reason=e)
 
     if form.validate_on_submit():
@@ -185,4 +199,6 @@ def update_event(event_id):
         form.max_attendees.data = event['max_attendees']
         form.share.data = event['share']
 
-    return render_template('event/update_event.html', events=list_events, form=form, update=True, icons=icons)
+    load_page("event_update")
+    return render_template('event/update_event.html', events=list_events, form=form, update=True, icons=icons,
+                           page="event_update")

@@ -5,6 +5,7 @@ from pymongo import WriteConcern
 from datetime import datetime, timedelta
 
 from what2do2day import mongo
+from what2do2day.metrics.views import load_page
 from what2do2day.reviews.forms import ReviewForm
 from what2do2day.users.views import get_add_user_id
 
@@ -39,6 +40,7 @@ def add_review(place_id):
     if the_place is not None:
         place_name = the_place['name']
     else:
+        load_page("error", "page", "could not find place.")
         return render_template('error.html', reason="I couldn't find the place you were looking for.")
 
     if form.validate_on_submit():
@@ -65,4 +67,5 @@ def add_review(place_id):
             }
             review_id = db_add_review(review)
 
-    return render_template('add_review.html', id=place_id, name=place_name, form=form, show_modal=show_modal)
+    load_page("review_add")
+    return render_template('add_review.html', id=place_id, name=place_name, form=form, show_modal=show_modal, page="review_add")

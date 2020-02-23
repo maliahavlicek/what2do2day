@@ -63,6 +63,7 @@ $(document).ready(function () {
         $('#event-address_address_block').toggle(250);
     });
 
+
     // Initialize datetime
     let now = new Date();
     let today = getFormattedDate(now);

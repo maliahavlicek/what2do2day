@@ -33,6 +33,7 @@ details_url = "https://maps.googleapis.com/maps/api/place/details/json"
 ####################
 from what2do2day.addresses.views import addresses_bp
 from what2do2day.events.views import events_bp
+from what2do2day.metrics.views import metrics_bp, load_page
 from what2do2day.places.views import places_bp
 from what2do2day.reviews.views import reviews_bp
 from what2do2day.users.views import users_bp
@@ -40,6 +41,7 @@ from what2do2day.users.views import users_bp
 # register the blueprints
 app.register_blueprint(addresses_bp)
 app.register_blueprint(events_bp)
+app.register_blueprint(metrics_bp)
 app.register_blueprint(places_bp)
 app.register_blueprint(reviews_bp)
 app.register_blueprint(users_bp)
@@ -49,14 +51,17 @@ app.register_blueprint(users_bp)
 @app.route('/home')
 def home():
     """ initial/default routing for app is the home page """
-    return render_template('home.html')
+    load_page("home")
+    return render_template('home.html', page="home")
 
 
 @app.errorhandler(Exception)
 def handle_db_error(e):
+    load_page("error", "page", e)
     return render_template('error.html', reason=e)
 
 
 @app.errorhandler(CSRFError)
 def handle_csrf_error(e):
+    load_page("error", "page", e)
     return render_template('error.html', reason=e), 400

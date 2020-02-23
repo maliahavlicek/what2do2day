@@ -35,7 +35,7 @@
                             <article class="accordion">
                                 <div class="accordion-header">
                                     <p>Reviews</p>
-                                    <button class="toggle" aria-label="toggle"></button>
+                                    <button class="toggle" aria-label="toggle" data-track="reviews_toggle,{{page}},button"></button>
                                 </div>
                                 <div class="accordion-body">
                                     {# limit reviews to only show 5 most recent #}
@@ -54,7 +54,7 @@
                             <article class="accordion">
                                 <div class="accordion-header">
                                     <p>Events</p>
-                                    <button class="toggle" aria-label="toggle"></button>
+                                    <button class="toggle" aria-label="toggle" data-track="events_toggle,{{page}},button"></button>
                                 </div>
                                 <div class="accordion-body">
                                     {# limit events to 5 most recent in time #}
@@ -82,7 +82,7 @@
                                                 </div>
                                             </div>
                                             <a class="button is-primary action event-modal {% if event['max_attendees'] == event['attendees']|length %} is-disabled{% endif %}"
-                                               data-target="{{ event['_id'] }}"
+                                               data-target="{{ event['_id'] }}"  data-track="event_join,{{page}},button"
                                                aria-haspopup="true">
                                                 <span class="icon">
                                                     <i class="fas fa-calendar-plus"></i>
@@ -107,7 +107,7 @@
                     {# Add review button #}
                     <p>Know this place?</p>
 
-                    <a class="button is-primary action review-add" data-target="{{ place['place_id'] }}">
+                    <a class="button is-primary action review-add" data-target="{{ place['place_id'] }}"  data-track="review_add,{{page}},button">
                     <span class="icon">
                         <i class="fas fa-plus"></i>
                     </span>

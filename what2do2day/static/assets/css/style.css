@@ -118,6 +118,9 @@ h1, .navbar-brand a.navbar-item {
     margin-bottom: 45px;
     display: inline-block;
 }
+.review .switch-value{
+    margin-bottom: 0;
+}
 
 /* have phineaus and ferb in backyard as home page background */
 .hero-body.home {
@@ -146,7 +149,7 @@ h1, .navbar-brand a.navbar-item {
 /* customize buttons container on home page */
 .buttons.home {
     position: absolute;
-    top: 74%;
+    bottom: 50px;
     left: 10%;
 }
 
@@ -166,7 +169,6 @@ a.button.is-link.home-btn-1, a.button.is-link.home-btn-2 {
     color: #fff;
     font-weight: 900;
     padding: 1rem 1.5rem;
-    margin-top: -2rem;
     border-top: 1px solid #b5b5b5;
     border-bottom: 1px solid #b5b5b5;
 }
@@ -592,7 +594,7 @@ nav.level.is-primary .level-item {
 }
 
 .button.action {
-    min-width: 90%;
+    min-width: 100%;
     margin: 10px 0;
     color: #222;
     font-family: "Patrick Hand SC", Arial, sans-serif;
@@ -1155,7 +1157,6 @@ i.not-shared {
 
     /* hitting rails, pin buttons placement */
     .buttons.home {
-        top: 604px;
         width: 1024px;
         display: block;
         margin: 0 auto;
