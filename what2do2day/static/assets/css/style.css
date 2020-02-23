@@ -186,10 +186,10 @@ a.button.is-link.home-btn-2 {
     border-radius: 4px;
     -webkit-box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-    font-size: 2rem;
+    font-size: 1.6rem;
     line-height: 1.3;
     margin: 0 auto 40px;
-    max-width: 80%;
+    width: auto;
     padding: 10px;
     position: absolute;
     color: #222;
@@ -198,19 +198,18 @@ a.button.is-link.home-btn-2 {
 
 /* place first speech bubble below navbar */
 .speech-bubble.first {
-    margin-top: 80px;
-    left: 10px;
-    max-width: 77%;
+    margin-top: 110px;
+    left: 18px;
 }
 
 /* have first speech bubble arrow on right side */
 .first .speech-bubble-arrow {
-    right: 20%;
+    right: 84%;
 }
 
 /* place second speech bubble below first one, minor overlap allowed */
 .speech-bubble.second {
-    margin-top: 10px;
+    margin-top: 30px;
     right: 10px;
 }
 
@@ -230,7 +229,17 @@ a.button.is-link.home-btn-2 {
     border-top: 20px solid rgba(0, 0, 0, 0.2);
     bottom: -25px;
     position: absolute;
-    right: 15px;
+    right: 38px;
+}
+
+.speech-bubble.second .speech-bubble-arrow:before{
+    border-top: 213px solid rgba(0, 0, 0, 0.2);
+    bottom: -188px;
+    right: 1px;
+}
+.speech-bubble.second .speech-bubble-arrow:after{
+    border-top: 213px solid #efefef;
+    top: -26px;
 }
 
 /* speech bubble directional tail right side */
@@ -1071,15 +1080,12 @@ i.not-shared {
 
     /* larger font for speech bubbles */
     .speech-bubble {
-        font-size: 2.5rem;
-        max-width: 75%;
         padding: 15px;
     }
 
     /* account for larger real estate for speech bubble on larger devices */
     .speech-bubble.first {
         left: 20px;
-        max-width: 55%;
     }
 
     /* account for larger margins for second speech bubble on larger devices */
@@ -1131,19 +1137,16 @@ i.not-shared {
 /* desktop and larger styles */
 @media screen and (min-width: 1024px) {
     /* larger font in speech bubbles for desktop and larger */
-    .speech-bubble {
-        font-size: 3rem;
-    }
 
     /* hitting rails in this view, pin speech bubble placement */
     .speech-bubble.first {
-        right: 500px;
-        width: 700px;
+        left: 25%;
+
     }
 
     /* larger margin for second speech bubble on larger devices */
     .speech-bubble.second {
-        right: 33%;
+        right: 40%;
     }
 
     /* hitting rails, pin buttons placement */
