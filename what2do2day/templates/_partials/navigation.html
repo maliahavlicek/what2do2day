@@ -4,7 +4,7 @@
             <img src="{{ url_for('static', filename='favicon-32x32.png', _external=True) }}" alt="Logo for What2Do2Day"
                  width="28" height="28">
         </span>
-        <a class="navbar-item" href="{{ url_for('home', _external=True) }}">
+        <a class="navbar-item" href="{{ url_for('home', _external=True) }}" data-track="home,{{page}},link_nav" >
             What2Do2Day
         </a>
         <div class="navbar-burger burger" data-target="what2do2dayNav">
