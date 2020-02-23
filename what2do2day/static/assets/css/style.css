@@ -446,10 +446,10 @@ label.star:before {
 
 /* color for warning */
 .has-text-warning {
-    color: hsl(31, 95%, 50%)!important;
+    color: hsl(25, 87%, 40%)!important;
 }
 .has-background-warning{
-    background: hsl(31, 95%, 50%)!important;
+    background: hsl(25, 87%, 40%)!important;
 }
 /* color for checked state of switch */
 input:checked + .slider {

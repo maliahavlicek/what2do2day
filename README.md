@@ -4,15 +4,15 @@ URL: http://what2do2day.herokuapp.com/
 ## Author
 Malia Havlicek
 ## Project Overview
-This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. 
+This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. The target user for this app is 12 -18 years of age, children that are independent without individual transportation or lots of spare change. It can easily be scaled up to include more predefined age ranges if the market determines there is a need.
 
-Users can also view a list of all the places in the community that have ever hosted an event and read reviews about them. Users can add reviews about places to share their experiences and rate organizations. Places and Events can be created, read, soft deleted from the site, while reviews can only be created and read. Rather than forcing users to place activities into a predefined list, users freely associate places and events with  activities when creating an event or place based on a name and icon selection. Small businesses, social groups, and communities would ideally be in charge of their organizations's data and events but in this beta phase, user authentication, roles and permissions are not implemented, hence soft deletes and no updating of reviews.
+Users can also view a list of all the places in the community that have ever hosted an event and read reviews about them. Parents, children, members of the community can add reviews about places to share their experiences and rate organizations. Places and Events can be created, read, soft deleted from the site, while reviews can only be created and read. Rather than forcing users to place activities into a predefined list, users freely associate places and events with  activities when creating an event or place based on a name and icon selection. Small businesses, social groups, and communities would ideally be in charge of their organizations's data and events but in this beta phase, user authentication, roles and permissions are not implemented, hence soft deletes and no updating of reviews.
 
 Site owners could enable affiliate linking from any organization associated with the site that results in a sale from the place's own website.  By adding a Google Click Identifier (GCLID) to a place's url when leaving What2Do2Day's site, offline conversions could be tracked and negotiated to a monetary value for the site owners. Site admins could also gather data based on search activity as well as Places and Events with heavy interaction and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places's page has natural side bars in desktop when users are looking at events and reviews, on mobile devices ad space could be inserted below filtering options and above the footer too.)
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series [Phineas and Ferb](https://en.wikipedia.org/wiki/Phineas_and_Ferb).
  
->## Table of Contents
+## <summary>Table of Contents</summary>
 > - [UX](#UX)
 >   - [Strategy](#Strategy)
 >   - [Scope](#Scope)
@@ -131,23 +131,20 @@ __What2Do2Day__
 
 ***
 ### Scope
-The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that skips over authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user profiles and management of users will not be included initially. 
+The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that eliminates authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user profiles and management of users will not be in the first deliverable. 
 
-Restricting results based on user's location would be ideal for a long term solution but it is not necessary for the MVP. Since I do not have experience with Google Maps's Nearby API, this bit of scope will be deferred until a polished core product is developed. Also not enough data will be loaded to make searching and geolocation viable initially.
+Restricting results based on user's location increments of 1, 5, and 10 miles would be ideal for a long term solution but it is not necessary for the MVP. Since I do not have experience with Google Maps's Nearby API, this bit of scope will be deferred until a polished core product is financed. Also not enough data will be loaded to make searching and geolocation viable initially.
 
 Creating, reading and updating deleting functionality will only be accessible from menu options. This will allow the MVP to be built to serve the majority of long term users and keep the UX cleaner without an overwhelming amount of buttons. Admin proximity/ease of use functionality can be added after such roles are clearly defined. 
 
-Consolidating Delete functionality into an share/don't property reduces pages to develop. It also reduces the number of items in the menus and makes overall navigation easier while protecting the data's integrity by avoiding jumps in auto generated id's.
+Consolidating Delete functionality into a share property reduces pages to develop. It also reduces the number of items in the menus and makes overall navigation easier while protecting the data's integrity by avoiding jumps in auto generated id's.
 
 Business logic to track search requests, and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be included but graphical visualization will not be included in the MVP, only a list of the data collected. Likewise we need to know how many users are coming to the site and what percentage of them interact or do not interact with our buttons so we will attempt to track unique visits to our site and core functionality clicking attributes.
 
 ### Structure
-In order to have a better idea of the tables and the relationships between them I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise a rough Entity Relationship Diagram(ERD):
- ![Data Diagram](documentation/images/data_model/Data-Diagram-Initial.png)
+In order to have a better idea of the tables, forms and the relationships between them I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise a rough Entity Relationship Diagram(ERD). Like all projects, the data model morphed a few times. [See progression of data models.](documentation/data_model.md)
 
-After the decision to remove user roles and permissions and some refactoring around fields, I ended up with:
-
- ![Data Diagram](documentation/images/data_model/Data-Diagram.png)
+![final](documentation/images/data_model/Final%20Data%20Diagram-Objects%20For%20App.png)
 
 ### Skeleton
 Having the data structure in hand, I knew what data fields I had at hand to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had higher priority.
@@ -158,53 +155,49 @@ Once I had the Places list drawn out, I invested several hours to mockup and fin
 
 Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons. I decided that delete is really an update function since I am using the enabled attribute to hide or show items on the Places and Events pages.  The more formal mockups also allowed me to try several different layouts of the data for the main list pages. The mockkups include layers for searching and in site adding of reviews. Search non-happy paths were also mocked up. 
 
+#### Content Considerations
+Many UX decisions made had the target audience of 12 - 18 years in mind. The lack of maps on some pages was a conscious choice as the majority of users will be very familiar with the 1-5 mile radius around their home base. I wanted information spaced out with iconic/graphic identification so the users would know readily what interest the the most with limited reading required. 
+
 ### Surface:
 Below are the decisions and internal dialogs I had to help draw out what the end product will look like.
 ####Color Choice
-I have not had much success with color choice in the past using online tools such as picking colors from imagery via adobe or from color pallet wheels. My color choices pass accessibility audits but something is missing, so this time, I started with the pros at [Sherwin Williams](https://www.sherwin-williams.com/homeowners/color/find-and-explore-colors/paint-colors-by-family/SW6790-adriatic-sea#/6790/?s=coordinatingColors&p=PS0) and came up with the following colors:
-
-![colors](documentation/images/colors/AdriaticBlueCoordinatingColors.png)
-
-I then went to dribble.com and plugged in each of the colors from  Sherwin Williams to find others' pallets that had a cheerful look. Unfortunately Adriatic Blue, Aesthetic White, and Felted Wool all provided me with rather depressing options. Luckily Bravo Blue(\#d3e7e9) turned up a lot of more cheerful looking sites.
-- [One nice day](https://dribbble.com/shots/9428106-Vector-illustration-One-nice-day)
-- [Online Learning App](https://dribbble.com/shots/9404019-Online-Learning-App)
-- [Daily UI 004](https://dribbble.com/shots/9423898-Daily-UI-004)
-- [Sign up](https://dribbble.com/shots/9404019-Online-Learning-App)
-
-So I'm hoping I'll have success with the Daily UI 004 color's pallet.
-
-![Color Pallet](documentation/images/colors/colorpallet.png)
-
+I have never taken a course in color theory and have been told my choices of red are more orange than red so picking colors is a bit of a touchy area for me and I'd much rather have a professional UX designer help me out.  Feel free to read about this [project's color journey](documentation/color_choices.md) if you want to hear more about my struggle.  In short, h my final color choices are:
+![Final Pallet](documentation/images/colors/final_colors.png)
 
 #### Typography
-The home page lends itself to a comic strip so I searched Google's handwriting fonts and flagged the top 5 that matched what I had envisioned and typed some example lead text.
-- [WalterTurncoat](https://fonts.google.com/specimen/Walter+Turncoat)
-- [Sriracha](https://fonts.google.com/specimen/Sriracha)
-- [Coming Soon](https://fonts.google.com/specimen/Coming+Soon)
-- [Caveat Brush](https://fonts.google.com/specimen/Caveat+Brush)
+The target age group for this site is those that are young, bored at home whose parents desperately wish their kids would be outside interacting face to face with friends preferably doing something active.
+
+To keep the site light and fun, I really wanted a cartoon feel to my headers that wouldn't have issues between uppercase i's and lower case L's.
 - [Patrick Hand SC](https://fonts.google.com/specimen/Patrick+Hand+SC)
 
-In my opinion, the Patrick Hand SC font presented itself perfectly for cartoon writing when typing out potential lead text. It was easy to read and I could discern where true capitalization was and saw a difference between capital I's followed by lower case L's.
-
-Next I produced a short list of fonts for my main content by looking at google's suggested pairings of fonts with Patrick Hand SC a list of [best fonts](https://kinsta.com/blog/best-google-fonts/):
-
-- [Lato](https://fonts.google.com/specimen/Lato)
-- [Open Sans](https://fonts.google.com/specimen/Open+Sans)
+For my main content, I wanted a curvy flow to the font, but one that was easy to read without any i's and L's issues. 
 - [Raleway](https://fonts.google.com/specimen/Raleway)
 
-While Open Sans matched the curvy flowing fonts which I was trying to achieve with for my main content, I could not distinguish a capital I from a lower case l, so I chose Raleway as it met that criteria. I don't plan on using many different font weights so I only imported those for normal and bold.
-
-`<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC&display=swap" rel="stylesheet">`
-`<link href="https://fonts.googleapis.com/css?family=Raleway:500,700&display=swap" rel="stylesheet">`
+Feel free to read about my [font choices](documentation/font_choices.md) if you want to know more about my decision process. 
 
 #### Image Choice
-I wanted easily recognizable activities as icons that users could use to associate to events and places on my website rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
-By having icons that are compatible with the colors I plan on using throughout my site, I am hoping to achieve a calm yet cheerful website. 
+This site's target audience is 12-18 years in age and they have a higher demand for imagery that older user groups do so I made an attempt at having engaging imagery across the site.
+ 
+To keep the theme of Phineas and Ferb perpetuating, the cartoon's beginning of Phineas and Ferb in their back yard looking bored, chatting about what to do today is on the home page.
+
+I wanted easily recognizable activities  that users could easily associate to events and places on my website displayed as icons throughout the site. I also wanted to give users a bit of self expression when creating events and places, so  rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
+By having icons that are compatible with the colors I plan on using throughout my site, I am hoping to carry forward a calm yet cheerful website. 
 
 <img src="static/assets/images/icons/002-football-field.svg" width="50" height ="50" alt="football field icon"/>
 
+I found the site looking incredibly dull with wide full width entry fields. So I went back and broke it down into multiple columns and added slight splashes of color with icons.  
+
+Still the pages were dull compared to the home page, so I added in Perry the Platypus to my header. He's a character in Phineas and Ferb that goes from a boring pet to a super secret agent saver of the universe. By placing Perry at the top of every page except the home page, I am hoping to start the user off with a bit of fun before they start searching for something to do. <img src="/static/assets/images/perry_the_platypus.png" width="50" height="auto" alt="perry the platypus" />
+
+ Phineas and Ferb giving each other a high five shows up on success layers. <img src="/static/assets/images/success.png" width="100" height="auto" alt="success cheer image" />
+
+Dr. Heinz Doofenshmirtz looking dumbfounded makes an appearance on failure or error pages. <img src="/static/assets/images/oop.png" width="100" height="auto" alt="opps error image" />
+
+I also added a loading gif for the maps in the event the API calls are a tad slow. <img src="/static/assets/images/giphy_load" width="100" height="auto" alt="opps error image" />
+
+
 #### Design Elements
-The formal wire-frame process identified the need for:
+The formal wire-frame process identified the need for the following User Interface Components:
 
 |               	|              	|                 	|
 |---------------	|--------------	|-----------------	|
@@ -215,7 +208,9 @@ The formal wire-frame process identified the need for:
 | check boxes   	| buttons      	| date picker     	|
 | switches      	| text input   	| drop downs      	|
  
- I did not want to invent all of the above, so I read [best css frameworks](https://www.creativebloq.com/features/best-css-frameworks) to help make an informed decision on what framework to use. Foundation, picnic, and bulma made my short list as they appeared light weight and were frameworks I did not get exposure to from previous milestone projects or coursework. After reading up a bit, I decided that Bulma was the best fit for what I hoped to include in this project.
+ I did not want to invent all of the above, so I read [best css frameworks](https://www.creativebloq.com/features/best-css-frameworks) to make an informed decision on what framework to use. Foundation, picnic, and bulma made my short list as they appeared light weight and were frameworks I did not get exposure to from previous milestone projects or coursework. After reading up a bit, I decided that [Bulma](bulma.io) was the best fit for what I hoped to include in this project.
+ 
+ I did end up modifying a few things from Bulma as there are errors with their calendar date picker and the default multi select was very ugly in appearance. Customizing selects to display images greatly increases the user's willingness to interact with the app.
 
 #### Animations & Transitions
 I trolled [codrops](https://tympanus.net/codrops/) to look for some inspiration.  The following sites gave animation ideas that greatly altered my original wire-frames:
@@ -224,8 +219,12 @@ I trolled [codrops](https://tympanus.net/codrops/) to look for some inspiration.
  - [expanding overlay](https://tympanus.net/Tutorials/ExpandingOverlayEffect/)
  - [fullscreen overly](https://tympanus.net/Development/FullscreenGridPortfolioTemplate/)
 
-By seeing live examples, it dawned on me that I could have a small icon or minimal data in my lists instead of cramming all the information on the screen. I went back to my designs reduced the amount of data seen on the events and places lists pages so the user can see more options at one time. The buttons to join or follow will expand out to full screen detail layer and present all the data needed with a friendly animation.
- 
+By seeing live examples, it dawned on me that I could have a small icon or minimal data in my lists instead of cramming all the information on the screen. I went back to my designs reduced the amount of data seen on the events and places lists pages as I know my target age group really relates to icons and gets glassy eyed if bogged down with too much text. The buttons to join or follow will expand out to nearly full screen detail layer and present all the data needed with a friendly animation.
+
+I was also told by a test subject (son number 4) that the lists were boring. So I added some animation to slide rows in from the left and right sides of the screen. 
+
+For review input, the stars have a wiggle animation as the user hovers over them and a shine to them if you rate something a 5 star. A one star is dull to reflect the glum outlook the reviewer has.
+
 ### User Stories:
 This website serves 3 sets of users, thus the stories are broken down into 3 categories:
 
