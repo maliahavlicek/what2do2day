@@ -471,6 +471,7 @@ These manual unit test cases focus on testing the core functionality in a deskto
 To verify that the application is functional and looks pleasant  across various operating systems and device sizes I devised another suite of manual tests in the cross browser tab of my [testing workheet](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing).
 These tests are lighter on the functionality with more attention being paid to the layout and console logs.
 The matrix for the browsers, operating systems and screen sizes is as follows:
+
 |       TOOL      	|    DEVICE    	| BROWSER 	|    OS   	|   SCREEN WIDTH  	|
 |:---------------:	|:------------:	|:-------:	|:-------:	|:---------------:	|
 |       N/A       	|    motog6    	|  chrome 	| android 	| XS 360px & less 	|
@@ -485,6 +486,7 @@ The matrix for the browsers, operating systems and screen sizes is as follows:
 |       N/A       	| mac book pro 	|  safari 	|  Mohave 	|   HD 125-1240   	|
 |   browserstack  	|       ?      	| firefox 	| windows 	|   HD 125-1240   	|
 |   browserstack  	|       ?      	| IE Edge 	| windows 	|   HD 125-1240   	|
+
 Another part of my cross browser testing was hitting each page in each view port with the chrome emulator and copying the following javascript  into the developer's tools console screen. 
 ```javascript
 var docWidth = document.documentElement.offsetWidth;
