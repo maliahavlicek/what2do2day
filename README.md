@@ -471,14 +471,20 @@ These manual unit test cases focus on testing the core functionality in a deskto
 To verify that the application is functional and looks pleasant  across various operating systems and device sizes I devised another suite of manual tests in the cross browser tab of my [testing workheet](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing).
 These tests are lighter on the functionality with more attention being paid to the layout and console logs.
 The matrix for the browsers, operating systems and screen sizes is as follows:
-
-|     TOOL     	| N/A             	| browser stack   	| chrome emulator 	| browserstack 	| browserstack   	| N/A            	| browserstack   	| chrome emulator 	| browserstack 	| N/A          	| browserstack 	| browserstack 	|
-|:------------:	|-----------------	|-----------------	|-----------------	|--------------	|----------------	|----------------	|----------------	|-----------------	|--------------	|--------------	|--------------	|--------------	|
-|    DEVICE    	| motog6          	| iphone5s        	| pixel 2         	| iPhone 10x   	| nexus          	| ipad mini      	| galaxy         	| ipad            	|              	| mac book pro 	|              	|              	|
-|    BROWSER   	| chrome          	| safari          	| firefox         	| Chrome       	| Chrome         	| safari         	| firefox        	| safari          	| Chrome       	| safari       	| firefox      	| IE Edge      	|
-|      OS      	| android         	| iOs             	| android         	| iOs          	| android        	| iOs            	| android        	| iOs             	| windows      	| Mohave       	| windows      	| windows      	|
-| SCREEN WIDTH 	| XS 360px & less 	| XS 360px & less 	|    M 361-576    	|   M 361-576  	| T-vert 571-768 	| T-vert 571-768 	| T-hor 769-1024 	|  T-hor 769-1024 	|  HD 125-1240 	|  HD 125-1240 	|  HD 125-1240 	|  HD 125-1240 	|
-
+|       TOOL      	|    DEVICE    	| BROWSER 	|    OS   	|   SCREEN WIDTH  	|
+|:---------------:	|:------------:	|:-------:	|:-------:	|:---------------:	|
+|       N/A       	|    motog6    	|  chrome 	| android 	| XS 360px & less 	|
+|  browser stack  	|   iphone5s   	|  safari 	|   iOs   	| XS 360px & less 	|
+| chrome emulator 	|    pixel 2   	| firefox 	| android 	|    M 361-576    	|
+|   browserstack  	|  iPhone 10x  	|  Chrome 	|   iOs   	|    M 361-576    	|
+|   browserstack  	|     nexus    	|  Chrome 	| android 	|  T-vert 571-768 	|
+|       N/A       	|   ipad mini  	|  safari 	|   iOs   	|  T-vert 571-768 	|
+|   browserstack  	|    galaxy    	| firefox 	| android 	|  T-hor 769-1024 	|
+| chrome emulator 	|     ipad     	|  safari 	|   iOs   	|  T-hor 769-1024 	|
+|   browserstack  	|       ?      	|  Chrome 	| windows 	|   HD 125-1240   	|
+|       N/A       	| mac book pro 	|  safari 	|  Mohave 	|   HD 125-1240   	|
+|   browserstack  	|       ?      	| firefox 	| windows 	|   HD 125-1240   	|
+|   browserstack  	|       ?      	| IE Edge 	| windows 	|   HD 125-1240   	|
 Another part of my cross browser testing was hitting each page in each view port with the chrome emulator and copying the following javascript  into the developer's tools console screen. 
 ```javascript
 var docWidth = document.documentElement.offsetWidth;
