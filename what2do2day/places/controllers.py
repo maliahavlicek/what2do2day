@@ -285,7 +285,22 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
                         review['user_name'] = re.sub(r'[@][a-zA-Z]+[.][a-zA-Z]+$', '', the_user)
                 place['reviews'] = sorted(place['reviews'], key=lambda x: x['date'], reverse=True)
         if 'events' in place.keys():
-            if len(place['events']) > 1:
+            if len(place['events']) > 0:
                 place['events'] = sorted(place['events'], key=lambda x: filters.date_only(x['date_time_range'][0:10]))
+                cleaned_events = []
+                for event in place['events']:
+                    remove_it = False
+                    if not update:
+                        # remove unshared events if not in update path
+                        if not event['share']:
+                            remove_it = True
+                        # remove past events if not in update path
+                        event_start = datetime.strptime(event['date_time_range'][0:16], '%m/%d/%Y %H:%M')
+                        if event_start < datetime.today():
+                            remove_it = True
+
+                    if not remove_it:
+                        cleaned_events.append(event)
+                place['events'] = cleaned_events
 
     return list_places
