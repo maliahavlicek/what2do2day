@@ -53,16 +53,18 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 >   - [validation](#validation-testing)
 >   - [unit](#unit-testing)
 >   - [cross browser](#cross-browser-cross-device-verification)
+>   - [XSS & CSFR](#cross-site-scripting-and-forgery)
 >   - [accessibility](#accessibility-testing)
 >   - [regression](#regression-testing)
 >   - [automated](#automated-testing)
 > - [Deployment](#deployment)
 >   - [Requirements](#requires)
 >   - [Local](#Running Locally)
+>   - [Heroku](#heroku)
 > - [Credits](#credits)
->   -[content](#content)
->   -[media](#media)
->   -[Acknowledgements](#acknowledgements)
+>   - [content](#content)
+>   - [media](#media)
+>   - [Acknowledgements](#acknowledgements)
 
 
 ## UX
@@ -628,4 +630,4 @@ The wonderful results of the google search engine helped me tremendously in comp
 - [aezel](https://stackoverflow.com/users/64266/aezell) for [posting](https://stackoverflow.com/users/64266/aezell) a good way to separate flask filters from run.py
 - [Todd Birchard](https://hackersandslackers.com/flask-blueprints/) For a most useful example about blueprints to make a larger flask application's directory structure manageable
 - [Dan Badar](https://dbader.org/blog/python-send-email)- how to send emails via python and a google account
-- [the G-men](documentation/images/IMG_20190717_213729_096.jpg) A special thanks goes out to my family for allowing me to ignore them for the past two months as I dove deep into unknown waters. I hope the new skills I'm gaining from this program can pay for us all to go visit the grandparents again.
+- [the G-men](documentation/images/IMG_20190717_213729_096.jpg) A special thanks goes out to my family for allowing me to ignore them for the past two months as I dove deep into unknown waters. I hope the new skills I'm gaining from this program can pay for us all to go visit the grandparents again. Hawaii or Croatia... tough decisions.
