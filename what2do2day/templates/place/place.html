@@ -1,4 +1,5 @@
 {# This template is used on the get_events page. It houses the HTML for each event row in the table #}
+{% from "_partials/macros.html" import accordion_arrow with context %}
 {% from "_partials/macros.html" import display_address with context %}
 {% from "_partials/macros.html" import star_rating_display with context %}
 <div class="container">
@@ -27,8 +28,11 @@
                 </div>
 
                 <div class="media-content is-half">
-                    <div>
+                    <div class="is-hidden-mobile">
                         {{ place.description }}
+                    </div>
+                    <div class="is-hidden-tablet">
+                        {{ accordion_arrow (header="About Us", collapsed_text=place.description, track="about_toggle") }}
                     </div>
                     <div>
                         <section class="accordions {% if place.reviews|length <1 %}is-hidden{% endif %}">
@@ -53,11 +57,11 @@
                         <section class="accordions {% if place.events|length <1 %}is-hidden{% endif %}">
                             <article class="accordion">
                                 <div class="accordion-header">
-                                    <p>Events</p>
+                                    <p>Upcoming Event{{ place.events|length|pluralize("","s", False) }} - {{ place.events|length }}</p>
                                     <button class="toggle" aria-label="toggle" data-track="events_toggle,{{page}},button"></button>
                                 </div>
                                 <div class="accordion-body">
-                                    {# limit events to 5 most recent in time #}
+                                    {# events accordion #}
                                     {% for event in place.events[:5] %}
                                         <div class="accordion-content">
                                             <p class="title is-4">{{ event.name| title }}

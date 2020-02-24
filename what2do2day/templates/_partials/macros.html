@@ -1,3 +1,19 @@
+{# macro for a Textual with Arrow accordion (ABOUT US on mobile places list page) #}
+{% macro accordion_arrow (header="", collapsed_text="", track=False) -%}
+    <section class="accordions arrow{% if collapsed_text|length <1 %}is-hidden{% endif %}">
+        <article class="accordion">
+            <div class="accordion-header">
+                <p>{{header}}</p>
+                <button class="toggle" aria-label="toggle" {% if track %}data-track="{{track}},{{page}},button"{% endif %}></button>
+            </div>
+            <div class="accordion-body">
+            {{ collapsed_text }}
+            </div>
+        </article>
+    </section>
+
+{%- endmacro %}
+
 {# macro to create activies select element #}
 {% macro activity_choice (activity_input=False, hidden_input_for_icon=False) -%}
     {% if activity_input and hidden_input_for_icon %}
@@ -56,37 +72,7 @@
     {% endif %}
 {%- endmacro %}
 
-{# macro to create disable/enable (don't share/share) switch element #}
-{% macro enable_switch (id='', form=false) -%}
-    {{ form.label(class_="label") }}
-    <div class="control">
-        <label class="switch">
-            <input id="{{ id }}" name="{{ id }}" type="checkbox"
-                   {% if form.data %}checked value="on"{% else %}value="off"{% endif %}>
-            <span class="slider"></span>
-        </label>
-    </div>
-    <span class="switch-value">No&nbsp;&nbsp;&nbsp;Yes</span>
-{%- endmacro %}
-
-{# macro to create disable/enable (don't share/share) switch element #}
-{% macro star_form (label="Rating", form=false) -%}
-    {% if form %}
-        <label for="{{ form.id }}" class="label">{{ label }}</label>
-        {% if form.choices|length > 0 %}
-            <div class="stars" id="{{ form.id }}">
-                {% for subfield in form.choices|reverse %}
-                    <input class="star star-{{ subfield[0] }}" id="{{ form.id }}-{{ subfield[0]|int-1 }}" type="radio"
-                           name="{{ form.id }}" value="{{ subfield[0] }}" {% if form.data == subfield[0] %}
-                           checked{% endif %}/>
-                    <label class="star star-{{ subfield[0] }}" for="{{ form.id }}-{{ subfield[0]|int-1 }}"
-                           title="{{ subfield[1] }}"></label>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endif %}
-{%- endmacro %}
-
+{# address block collection used in various FORMS  #}
 {% macro address_collection (form=False, label="Has Physical Address") -%}
     <div class="field">
         <label class="label">Address</label>
@@ -178,8 +164,47 @@
     </div>
 {%- endmacro %}
 
-{% macro event_layer(layer_event, google_key) -%}
+{# macro to output address_line2 through country into for use by tooltip #}
+{% macro address_tooltip(add) -%}
+    {% if add['address_line_2']|length > 0 %}{{ add['address_line_2'] }}, {% endif %}
+    {{ add['city'] }}, {{ add['state'] }},
+    {{ add['postal_code'] }} {{ add['country'] }}
+{%- endmacro %}
 
+{# macro to display the address inline takes tooltip parameter in event address line2-country should be in a tooltip #}
+{% macro display_address(add, tooltip=False) -%}
+    {% if tooltip %}
+        <a class="is-text has-tooltip-multiline has-tooltip-bottom is-capitalized"
+           data-tooltip="{{ address_tooltip(add=add) }}">{{ add['address_line_1']|title }}</a>
+    {% else %}
+        {{ add['address_line_1']|title }}
+        {% if add['address_line_2']|length > 0 %}
+            <br>{{ add['address_line_2']|title }}
+        {% endif %}
+        <br>{{ add['city']|title }}, {{ add['state']|title }}
+        {% if add['postal_code']|length > 0 %}
+            <br>{{ add['postal_code']|title }} {{ add['country']|title }}
+        {% else %}
+            <br>{{ add['country']|title }}
+        {% endif %}
+    {% endif %}
+{%- endmacro %}
+
+{# macro to create disable/enable (don't share/share) switch element #}
+{% macro enable_switch (id='', form=false) -%}
+    {{ form.label(class_="label") }}
+    <div class="control">
+        <label class="switch">
+            <input id="{{ id }}" name="{{ id }}" type="checkbox"
+                   {% if form.data %}checked value="on"{% else %}value="off"{% endif %}>
+            <span class="slider"></span>
+        </label>
+    </div>
+    <span class="switch-value">No&nbsp;&nbsp;&nbsp;Yes</span>
+{%- endmacro %}
+
+{# macro to display event in COUNT ME IN  Layer #}
+{% macro event_layer(layer_event, google_key) -%}
     <div class="media-content">
         <p class="title is-4">
             <span id="event-icon" class="is-48x48">
@@ -257,7 +282,6 @@
                 <div id="place-description">
                     <p><span class="is-bold">Sponsored By:</span> <span>{{ layer_event['place_name']|title }}</span></p>
                     {% if layer_event['event_address'] and layer_event['event_address']['address_line_1'] == "" %}
-
                         <p>
                             {{ layer_event['place_description'] }}
                         </p>
@@ -267,36 +291,29 @@
                     {% endif %}
                 </div>
             </div>
-
         </div>
     </div>
-
 {%- endmacro %}
 
-{% macro address_tooltip(add) -%}
-    {% if add['address_line_2']|length > 0 %}{{ add['address_line_2'] }}, {% endif %}
-    {{ add['city'] }}, {{ add['state'] }},
-    {{ add['postal_code'] }} {{ add['country'] }}
-{%- endmacro %}
-
-{% macro display_address(add, tooltip=False) -%}
-    {% if tooltip %}
-        <a class="is-text has-tooltip-multiline has-tooltip-bottom is-capitalized"
-           data-tooltip="{{ address_tooltip(add=add) }}">{{ add['address_line_1']|title }}</a>
-    {% else %}
-        {{ add['address_line_1']|title }}
-        {% if add['address_line_2']|length > 0 %}
-            <br>{{ add['address_line_2']|title }}
-        {% endif %}
-        <br>{{ add['city']|title }}, {{ add['state']|title }}
-        {% if add['postal_code']|length > 0 %}
-            <br>{{ add['postal_code']|title }} {{ add['country']|title }}
-        {% else %}
-            <br>{{ add['country']|title }}
+{# macro for collecting star rating from user #}
+{% macro star_form (label="Rating", form=false) -%}
+    {% if form %}
+        <label for="{{ form.id }}" class="label">{{ label }}</label>
+        {% if form.choices|length > 0 %}
+            <div class="stars" id="{{ form.id }}">
+                {% for subfield in form.choices|reverse %}
+                    <input class="star star-{{ subfield[0] }}" id="{{ form.id }}-{{ subfield[0]|int-1 }}" type="radio"
+                           name="{{ form.id }}" value="{{ subfield[0] }}" {% if form.data == subfield[0] %}
+                           checked{% endif %}/>
+                    <label class="star star-{{ subfield[0] }}" for="{{ form.id }}-{{ subfield[0]|int-1 }}"
+                           title="{{ subfield[1] }}"></label>
+                {% endfor %}
+            </div>
         {% endif %}
     {% endif %}
 {%- endmacro %}
 
+{# macro for displaying star rating on places page and reviews accordion #}
 {% macro star_rating_display(rating, label=False) -%}
     <div class="star_wrapper">
         {% if rating %}
