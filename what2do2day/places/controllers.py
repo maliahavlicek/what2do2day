@@ -65,11 +65,9 @@ def push_place_to_db(form, update=False, place_id=False):
 
     is_unique = place_unique(place)
     if is_unique is not None and not update:
-        load_page("error", "page", "place already exists.")
-        return render_template('error.html', reason="Place already exists.", place_id=is_unique), 1200
+        return redirect(url_for('places_bp.get_places', status="Place already exists."))
     elif is_unique is not None and update and is_unique != ObjectId(place_id):
-        load_page("error", "page", "place already exists.")
-        return render_template('error.html', reason="Place already exists.", place_id=is_unique), 1200
+        return redirect(url_for('places_bp.edit_place', status="Place already exists."))
     elif is_unique is not None and update and is_unique == ObjectId(place_id):
         place['_id'] = ObjectId(place_id)
     # add rest of place to the dictionary
@@ -100,7 +98,7 @@ def push_place_to_db(form, update=False, place_id=False):
         review_id = db_add_review(review)
         if review_id is None:
             load_page("error", "page", "failed to add review.")
-            return render_template('error.html', reason='Failed to add review')
+            return render_template('error.html', reason='When adding the Place, we failed to add the review.')
 
     has_event = form.event.data['has_event']
     if has_event:
@@ -114,7 +112,7 @@ def push_place_to_db(form, update=False, place_id=False):
         is_unique = event_unique(event)
         if is_unique is not None:
             load_page("error", "page", "event already exists.")
-            return render_template('error.html', reason="Event already exists.", event_id=is_unique), 1300
+            return render_template('error.html', reason='Event already exists.')
 
         # event is unique so format rest of form entries and load to db
         has_address = form.event.address.data['has_address']
@@ -147,10 +145,12 @@ def push_place_to_db(form, update=False, place_id=False):
 
         event_id = db_add_event(event)
         if event_id is None:
-            load_page("error", "page", "failed to add event.")
-            return render_template('error.html', reason='Failed to add event')
-
-    return redirect(url_for('places_bp.get_places'))
+            load_page("error", "page", "Failed to load event.")
+            return render_template('error.html', reason='When adding the place, we could not add the event.')
+    if update:
+        return redirect(url_for('places_bp.edit_place', status="OK"))
+    else:
+        return redirect(url_for('places_bp.get_places', status="OK"))
 
 
 def retrieve_places_from_db(update, filter_form=False, place_id=False):

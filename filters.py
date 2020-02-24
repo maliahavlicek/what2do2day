@@ -59,6 +59,7 @@ def icon_alt(icon_file_name):
 
 
 def get_list_of_icons():
+    """checks directory of icons and produces a user friendly, tuple list of files and friendly names"""
     icon_path = 'what2do2day/static/assets/images/icons'
     icons = [f for f in listdir(icon_path) if isfile(join(icon_path, f))]
     # need to sort by friendly name
@@ -74,6 +75,7 @@ def get_list_of_icons():
 
 
 def myround(*args, **kw):
+    """Don't report decimals if rounding is an integer"""
     try:
         """from https://stackoverflow.com/questions/28458524/how-to-round-to-zero-decimals-if-there-is-no-decimal-value-with-jinja2"""
         # Use the original round filter, to deal with the extra arguments
@@ -89,6 +91,9 @@ def myround(*args, **kw):
 
 
 def time_only(date_time_range):
+    """Takes in datetime range string in format of MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM
+        passes out a more user friendly/consolidated time format if start date and endDate are the same
+        otherwise passes out the incoming string"""
     try:
         if date_time_range and date_time_range != '' and len(date_time_range) == 35:
             start_date = date_time_range[0:10]
@@ -110,11 +115,21 @@ def time_only(date_time_range):
 
 
 def pluralize(number, singular='', plural='s', count=False):
-    count_str = ""
-    if count:
-        count_str += str(number) + " "
-    if number == 1:
-        count_str += singular
-    else:
-        count_str += plural
-    return count_str
+    """Expecting
+         number: integer
+         singular: string for singular value
+         plural: string for plural value
+         count: boolean to denote if count should be prefix the singular or plural word """
+    try:
+        count_str = ""
+        if count:
+            count_str += str(number) + " "
+        if number == 1:
+            count_str += singular
+        else:
+            count_str += plural
+        return count_str
+
+    except (TypeError, ValueError) as e:
+        pass
+        return number

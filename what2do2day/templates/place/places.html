@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    </form>
     <section class="hero is-primary">
         <div class="hero-body">
             <div class="container">
@@ -15,7 +18,8 @@
                         </div>
                         <div class="level-item">
                             <p class="control">
-                                <a class="button is-white" href="{{ url_for('places_bp.add_place', _external=True) }}" data-track="place_add,{{page}},button">
+                                <a class="button is-white" href="{{ url_for('places_bp.add_place', _external=True) }}"
+                                   data-track="place_add,{{ page }},button">
                                     <span class="icon">
                                         <i class="fas fa-plus-square"></i>
                                     </span>
@@ -37,4 +41,49 @@
             {% endfor %}
         {% endif %}
     </section>
+    {% if status %}
+        {# modal for count me in submission results #}
+        <div class="modal is-active {% if status == 'OK' %}user-success{% else %}user-error{% endif %}"
+             id="modal-count-me-in-submitted">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Add Place</p>
+                    <button class="delete" aria-label="close"
+                            data-track="{% if status=="OK" %}modal_close,{{ page }}_success,button{% else %}modal_close,{{ page }}_fail,button{% endif %}"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="container">
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                    {% if status=='OK' %}
+                                        Your place has been successfully loaded. It may take a few minutes to see it live.
+                                    {% else %}
+                                        {{ status }}
+                                    {% endif %}
+                                </div>
+                                <div class="column">
+                                    <div class="image-holder"
+                                         aria-label="image of {% if status=='OK' %} Phineas and Ferb celebrating success.{% else %}Image of Dr. Doofenshmirtz looking bewildered.{% endif %}"></div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                {# button to acknowledge message and close modal #}
+                <footer class="modal-card-foot">
+                    <div class="level-left">
+                        <a class=" button is-primary action modal-close-2"
+                           data-track="{% if status=="OK" %}modal_close,{{ page }}_success,button{% else %}modal_close,event_join_fail,button{% endif %}">
+                        <span class="icon is-small">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                            <span class="action">OK</span>
+                        </a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock %}

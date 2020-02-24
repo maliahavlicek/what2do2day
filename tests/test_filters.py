@@ -129,7 +129,21 @@ class Test_Filters(unittest.TestCase):
         # wrong type returns itself
         self.assertEqual(filters.time_only(1), 1)
 
+    def test_pluralize(self):
+        """This method expects 4 inputs: ((number), singular='', plural='s', count=False):"""
+        # all bad arguments
+        self.assertEqual(filters.pluralize(([1, 2, 3]), 1, 2, "true"), [1, 2, 3])
+        # 1, all good arguments, no count
+        self.assertEqual(filters.pluralize((len([1])), "review", "reviews", False), "review")
+        # 0, all good arguments, no count
+        self.assertEqual(filters.pluralize((len([])), "review", "reviews", False), "reviews")
+        # 2, all good arguments, no count
+        self.assertEqual(filters.pluralize((len([1,2])), "review", "reviews", False), "reviews")
+        # 1, all good arguments, count
+        self.assertEqual(filters.pluralize((len([1])), "review", "reviews", True), "1 review")
+        # 0, all good arguments, count
+        self.assertEqual(filters.pluralize((len([])), "review", "reviews", True), "0 reviews")
+        # 2, all good arguments, count
+        self.assertEqual(filters.pluralize((len([1,2])), "review", "reviews", True), "2 reviews")
 
-# allow the file to run without needing '-m unittest'
-if __name__ == "__main__":
-    unittest.main()
+

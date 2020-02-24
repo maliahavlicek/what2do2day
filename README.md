@@ -161,8 +161,8 @@ Many UX decisions made had the target audience of 12 - 18 years in mind. The lac
 ### Surface:
 Below are the decisions and internal dialogs I had to help draw out what the end product will look like.
 ####Color Choice
-I have never taken a course in color theory and have been told my choices of red are more orange than red so picking colors is a bit of a touchy area for me and I'd much rather have a professional UX designer help me out.  Feel free to read about this [project's color journey](documentation/color_choices.md) if you want to hear more about my struggle.  In short, h my final color choices are:
-![Final Pallet](documentation/images/colors/final_colors.png)
+I have never taken a course in color theory and have been told my choices of red are more orange than red so picking colors is a bit of a touchy area for me and I'd much rather have a professional UX designer help me out.  Feel free to read about this [project's color journey](documentation/color_choices.md) if you want to hear more about my struggle.  In short, my final color choices are:
+![Final Pallet](documentation/images/colors/final_colors.png width="300")
 
 #### Typography
 The target age group for this site is those that are young, bored at home whose parents desperately wish their kids would be outside interacting face to face with friends preferably doing something active.
@@ -176,46 +176,46 @@ For my main content, I wanted a curvy flow to the font, but one that was easy to
 Feel free to read about my [font choices](documentation/font_choices.md) if you want to know more about my decision process. 
 
 #### Image Choice
-This site's target audience is 12-18 years in age and they have a higher demand for imagery that older user groups do so I made an attempt at having engaging imagery across the site.
+This site's target audience is 12-18 years in age and they have a higher demand for imagery than older user groups do so I placed engaging imagery across the site:
 
 ##### Home Page 
-To perpetuate the theme of Phineas and Ferb throughout the site, the cartoon's beginning of Phineas and Ferb in their back yard looking bored, chatting about what to do today is on the home page:
+To perpetuate the theme of Phineas and Ferb throughout the site, the cartoon's beginning image where Phineas and Ferb are in their back yard looking bored, chatting about what to do today is on the home page:
 
 <img src="what2do2day/static/assets/images/were_gonna_build_a_rollercoaster_sm.jpg" width="300" height="auto" alt="phineas and ferb in backyard" />
 
 ##### Activity Icons
-I wanted easily recognizable activities that users could quickly associate to events and places on my website. I also wanted to give users a bit of self expression when creating events and places, so rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons to choose from. I looked at free sets and downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
-By having bold colorful icons, I am hoping to carry forward a cheerful and engaging website. 
+I wanted easily recognizable activities that users could quickly associate to events and places. I also wanted to give users a bit of self expression when creating events and places, so rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons to passively create activities from. I downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
+By having bold colorful icons, I am hoping to carry forward a cheerful and engaging website. Here are some example activity icons:
 
 <img src="what2do2day/static/assets/images/icons/002-football-field.svg" width="50" height ="50" alt="football field icon"/> <img src="what2do2day/static/assets/images/icons/021-fishing.svg" width="50" height ="50" alt="fishing icon"/>  <img src="what2do2day/static/assets/images/icons/037-road-sign.svg" width="50" height ="50" alt="trail directions icon"/>
 
 ##### Input Icons
-I found the site looking incredibly dull with wide full width entry fields, so I went back and broke it down into multiple columns and added slight splashes of color with icons relating to the input fields.  
+The site looked incredibly dull with wide full width entry fields, so I went back and broke it down into multiple columns and added slight splashes of color with icons relating to the input fields utilizing the primary site color and font awesome:  
 
 <img src="documentation/images/form_fields.png" width="100%" height="auto" alt="form field image"/>
 
 ##### Header Image
-The pages were not exciting compared to the home page, so I added in Perry the Platypus to my header. He's a character in Phineas and Ferb that goes from a boring pet to a super secret agent saver of the universe. By placing Perry at the top of every page except the home page, I am hoping to start the user off with a bit of fun before they start searching for something to do. 
+The rest of the application's pages were not exciting compared to the home page, so I added in Perry the Platypus to my header with grass as seen in Phineas and Ferb's backyard. Perry's a character in Phineas and Ferb that goes from a boring pet to a super secret agent saver of the universe. By placing Perry at the top of every page except the home page, I am hoping to start the user off with a bit of fun before they start searching for something to do. 
 
 <img src="what2do2day/static/assets/images/perry_the_platypus.png" width="50" height="auto" alt="perry the platypus" />
 
 ##### Modals and Errors
 I wanted users to know through imagery that they had success or errors so I trolled the internet until I found a few Phineas and Ferb related images that would work.
 
- Phineas and Ferb giving each other a high five shows up on success layers. 
+ Phineas and Ferb giving each other a high five shows up on success layers: 
  
  <img src="/what2do2day/static/assets/images/success.png" width="100" height="auto" alt="success cheer image" />
 
-Dr. Heinz Doofenshmirtz looking dumbfounded makes an appearance on failure layers. 
+Dr. Heinz Doofenshmirtz looking dumbfounded makes an appearance on user based failure layers: 
 
 <img src="what2do2day/static/assets/images/oops.png" width="100" height="auto" alt="opps error image" />
 
-Ferb wielding tools is on the error page.  
+Ferb wielding tools is on the application's catch all error page:  
 
 <img src="/what2do2day/static/assets/images/fixit.png" width="100" height="auto" alt="fixit image" />
 
 ##### Loading Giff
-I also added a loading gif for the maps in the event the API calls are a tad slow. 
+I also added a loading gif for the maps in the event the API calls are a tad slow or if there are errors with google's API/configuration: 
 
 <img src="what2do2day/static/assets/images/giphy_load.gif" width="100" height="auto" alt="opps error image" />
 
@@ -232,22 +232,22 @@ The formal wire-frame process identified the need for the following User Interfa
 | check boxes   	| buttons      	| date picker     	|
 | switches      	| text input   	| drop downs      	|
  
- I did not want to invent all of the above, so I read [best css frameworks](https://www.creativebloq.com/features/best-css-frameworks) to make an informed decision on what framework to use. Foundation, picnic, and bulma made my short list as they appeared light weight and were frameworks I did not get exposure to from previous milestone projects or coursework. After reading up a bit, I decided that [Bulma](bulma.io) was the best fit for what I hoped to include in this project.
+ I did not want to invent all of the above, so I read [best css frameworks](https://www.creativebloq.com/features/best-css-frameworks) to make an informed decision on what framework to use. Foundation, Picnic, and Bulma made my short list as they appeared light weight and were frameworks I have not yet explored and I do want to get the most out of this course by picking up new technologies. After reading up a bit, I decided that [Bulma](https://bulma.io/) was the best fit for what I hoped to include in this project.
  
- I did end up modifying a few things from Bulma as there are errors with their calendar date picker and the default multi select was very ugly in appearance. Customizing selects to display images greatly increases the user's willingness to interact with the app.
+ I did end up modifying a few things from Bulma as there are errors with their calendar date picker and the default multi select was very ugly in appearance. I felt that customizing activity icon selections to display images greatly increased the user's willingness to interact with the app. 
 
 #### Animations & Transitions
-I trolled [codrops](https://tympanus.net/codrops/) to look for some inspiration.  The following sites gave animation ideas that greatly altered my original wire-frames:
+I trolled [codrops](https://tympanus.net/codrops/) to look for some inspiration.  The following sites provided ideas that greatly altered my original wire-frames:
  - [expanding search option](https://tympanus.net/Tutorials/ExpandingSearchBar/) 
  - [grid icon expansion](https://tympanus.net/Tutorials/ThumbnailGridExpandingPreview/)
  - [expanding overlay](https://tympanus.net/Tutorials/ExpandingOverlayEffect/)
  - [fullscreen overly](https://tympanus.net/Development/FullscreenGridPortfolioTemplate/)
 
-By seeing live examples, it dawned on me that I could have a small icon or minimal data in my lists instead of cramming all the information on the screen. I went back to my designs reduced the amount of data seen on the events and places lists pages as I know my target age group really relates to icons and gets glassy eyed if bogged down with too much text. The buttons to join or follow will expand out to nearly full screen detail layer and present all the data needed with a friendly animation.
+By seeing live examples, it dawned on me that I could and should have a small icon or minimal data in my lists instead of cramming all the information on the screen. I went back to my designs, reduced the amount of data seen on the events and places lists pages as I know my target age group really relates to icons and gets glassy eyed if bogged down with too much text. The buttons to join an event expands out to a nearly full screen detail layer and presents all the data needed with a friendly animation.
 
-I was also told by a test subject (son number 4) that the lists were boring. So I added some animation to slide rows in from the left and right sides of the screen. 
+I was also told by a test subject (son number 4) that the lists were boring. So I added some animation to slide rows in from the left and right sides of the screen and added some color to keep it a bit more upbeat that a mainly white page.
 
-For review input, the stars have a wiggle animation as the user hovers over them and a shine to them if you rate something a 5 star. A one star is dull to reflect the glum outlook the reviewer has.
+For the Review Input, the stars have a wiggle animation on desktop as the user hovers over them and a shine to the selection if you rate something a 5 star. A one star is dull to reflect the glum outlook the reviewer has.
 
 ### User Stories:
 This website serves 3 sets of users, thus the stories are broken down into 3 categories:
@@ -438,43 +438,56 @@ In the long term once this concept proves viable, authentication would be enable
 - [color contrast](https://webaim.org/resourceshttps://webaim.org/resources/contrastchecker//contrastchecker/) Tool was used to adjust colors on fonts flagged as needing a higher contrast ratio from google's lighthouse audit tool.
 - [lighthouse audit] Google's open source automated too to help improve the quality of your website. Specifically paid attention to Accessibility  and best practices aiming for scores above 80.
 ### APIs
-- [stmp](https://emailjs.com) - Send user notices when an event is joined or when an event they have joined has been updated.
+- [stmp](https://github.com/python/cpython/blob/3.8/Lib/smtplib.py) - Send user notices when an event is joined or when an event they have joined has been updated.
 - [Google Maps Javascript API](https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/) - Customized Map of event and places
 
 ## Testing
+Constant integration testing was preformed to ensure no console/javascript errors were present. Beyond that, unit testing, validation testing, cross browser testing, accessibility testing, and regression testing were manually performed. I also explored automated testing of custom filters that I created. Ideally mocked up database functionality tests would be automated as well, but I have not yet found the time to learn how to mock database data.
+
+### Validation Testing
+I used the following validation websites to test the code:
+- [CSS Validator](https://jigsaw.w3.org/css-validator/) Note, any error associated with root: color variables were ignored. Vendor extension warnings were also ignored. Bulma extension CSS errors concerning SVG and text area visibility were ignored too.
+- [HTML Validator](https://validator.w3.org/)  - validation of HTML with FLASK is pretty useless as all {{}} bracketed values raise errors. I ran only a few files through the validator and instead relyed heavily upon pycharm's IDE to identify mismatched tags and closing Flask directives.
+- [JSON Validator](https://jsonlint.com/) Used to validate roughed in json-ld for future google calendar integration. It is part of the user send invite email currently, but does not seem to be picked up by gmail. Note: warnings were ignored.
+- [JavaScript Validator](http://beautifytools.com/javascript-validator.php) Note any errors for let, variables set in other .js files, and constants were ignored. I also used a more [ES6 friendly checker](https://www.piliapp.com/syntax-check/es6/) and there were no errors for main.js
 
 ### Unit Testing
-Constant integration testing was preformed to ensure no console/javascript. Beyond that, validation testing, cross browser testing and accessibility testing were manually performed. 
-During the development process where 90% of my time was producing code, I tracked [defects](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing) in a google sheet. They ranged from severely horrible coding errors, to the realization that my features were not 100% defined. 
+To ensure core functionality and features were delivered and working I created a series of manual tests in a [google doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing)
+These manual unit test cases focus on testing the core functionality in a desktop browser only and examining the console for errors. Ideally the core functionality would be verified using mocked database inputs to the controller functions for specific views.
 
-To ensure core functionality and features were delivered and working a series of [test cases](/documentation/manual_unit_tests.md) were executed.
-### Validation Testing
-Used the following validation websites to test the code:
-- [CSS Validator](https://jigsaw.w3.org/css-validator/) Note, any error associated with root: color variables were ignored. Vendor extension warnings were also ignored.
-- [HTML Validator](https://validator.w3.org/)
-- [JSON Validator](https://jsonlint.com/) Note: warnings were ignored.
-- [JavaScript Validator](http://beautifytools.com/javascript-validator.php) Note any errors for let, variables set in other .js files, and constants were ignored.
+### Cross Browser/ Cross Device Verification
+To verify that the application is functional and looks pleasant  across various operating systems and device sizes I devised another suite of manual tests in the cross browser tab of my [testing workheet](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing).
+These tests are lighter on the functionality with more attention being paid to the layout and console logs.
+The matrix for the browsers, operating systems and screen sizes is as follows:
+
+|     TOOL     	| N/A             	| browser stack   	| chrome emulator 	| browserstack 	| browserstack   	| N/A            	| browserstack   	| chrome emulator 	| browserstack 	| N/A          	| browserstack 	| browserstack 	|
+|:------------:	|-----------------	|-----------------	|-----------------	|--------------	|----------------	|----------------	|----------------	|-----------------	|--------------	|--------------	|--------------	|--------------	|
+|    DEVICE    	| motog6          	| iphone5s        	| pixel 2         	| iPhone 10x   	| nexus          	| ipad mini      	| galaxy         	| ipad            	|              	| mac book pro 	|              	|              	|
+|    BROWSER   	| chrome          	| safari          	| firefox         	| Chrome       	| Chrome         	| safari         	| firefox        	| safari          	| Chrome       	| safari       	| firefox      	| IE Edge      	|
+|      OS      	| android         	| iOs             	| android         	| iOs          	| android        	| iOs            	| android        	| iOs             	| windows      	| Mohave       	| windows      	| windows      	|
+| SCREEN WIDTH 	| XS 360px & less 	| XS 360px & less 	|    M 361-576    	|   M 361-576  	| T-vert 571-768 	| T-vert 571-768 	| T-hor 769-1024 	|  T-hor 769-1024 	|  HD 125-1240 	|  HD 125-1240 	|  HD 125-1240 	|  HD 125-1240 	|
 
 
-
-### Automated Testing
-Once the core development was 70% done, the unit testing defect list and features to do list were revisited to help define core functionality pieces that could be automated
-Provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
  
 ### Regression Testing
-To supplement the automated testing, manual testing to verify visual look and feel were run.  
+No one wants to keep running a large suite of unit tests and cross browser tests again and again. Due to my ineptitude at writing interactive tests with a database, I reduced the unit testing and cross site browsing testing to a smaller suite once the core development was 70% done. These tests are on the Regression Tests Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing). While I really want to mock some database interaction, I do not have the bandwidth to take on that additional learning at this time. 
 
+### Automated Testing
+I did install unittest and put tests around the custom filters I wrote as I do not want them breaking. Doing such pointed out several type flaws in my logic that I shored up.
 
-### Bugs
-All b
+These tests are in  the [/tests/test_filters.py](/tests/test_filters.py)file.
+From a terminal window you can execute this command:
+ ````$ python -m unittest tests/test_filters.py -v````
+ 
+### Defect Tracking
+During the development process where 90% of my time was producing code, I tracked [defects](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing) in a google sheet. They ranged from severely horrible coding errors, to the realization that my features were not 100% defined. 
 
+#### Noteworthy Bugs
+One of the most intriguing bugs I encountered was a 500 error when I introduced page and click metrics. It took me a while to figure out how to restructure my ajax call through an onReady function out of base.html so I could easily access my CSRF_token and set it in the headers within the beforeSend function. Originally my ajax call was housed in my main.js file. That solution fixed 90% of the 500 errors I had seen, but I quickly discovered that my newer pages without forms lacked the setting of the csrf_token in a hidden form. It's easy to forget key steps if you take them early in the development process and forget about them a month later.
 
+Another odd bug was how my custom icon picker and multi picker for ages had mismatched heights. It took me a bit to discover a display flex on an outer div from 
 
-In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
-
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
-
-If this section grows too long, you may want to split it off into a separate file and link to it from here.
+The most bamboozling issue I encountered was with Bulma's datepicker and form errors. The darned thing never preselected the date I previously had and had the wrong times. I trolled the internet and found that this is an exasperating issue for many hopeful bulma users. I ended up getting a have way working work around by modifying the calendar.js a bit and adding to my binding functions in main.js. This is the [official thread](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621) that I added my findings to in hopes of getting to a resolution. I tried switching my input field to a date but then it picked up some browser specific console logs so I switched it back to a datetime range.
 
 ## Deployment
 This site was developed using PyCharm's IDE. To keep records of different versions of all project files, git version control was used. This project is hosted using Heroku deployed from the master branch.
@@ -495,6 +508,7 @@ https://github.com/maliahavlicek/what2do2day
  - A google api key [get here](https://developers.google.com/maps/documentation/javascript/get-api-key)
  - [flask-googlemaps](https://github.com/flask-extensions/Flask-GoogleMaps/blob/master/README.md) 
  ```$ pip install flask-googlemaps```
+ - a [gmail accoount](https://accounts.google.com/signup) with less secure app access turned on use [this link](https://myaccount.google.com/lesssecureapps?pli=1) after you are signed into the gmail account
 
 #### Running Locally
 1. Get the code base from git hub by running this command in the terminal of your IDE: 
@@ -512,10 +526,12 @@ https://github.com/maliahavlicek/what2do2day
 
 3. start your server by typing 
 ```$ python run.py```
+4. load up the countries db from the helper file:
+```$ python helpers/upload_countries.py ```
 4. access your local version of the application at http://0.0.0.0:5000/home
 
 ### Heroku
-Heroku can be used to run this site in a cloud environment to allow visiblity to external users.
+Heroku can be used to run this site in a cloud environment to allow visibility to external users.
 #### Deployment To Shared Environment
 1. Get the code base from git hub by running this command in the terminal of your IDE: 
 ```bash
@@ -532,6 +548,8 @@ Heroku can be used to run this site in a cloud environment to allow visiblity to
 >| SECRET_KEY            	| YOUR_KEY  	|
 >| WTF_CSRF_SECRET_KE    	| YOUR_KEY  	|
 >| GOOGLE_MAP_KEY        	| YOUR_KEY   	|
+>| EMAIL                	| YOUR_KEY   	|
+>| EMAIL_PASS            	| YOUR_KEY   	|
 
 5. Go back to your IDE's terminal window and connect to heroku ```bash heroku login``` and enter your credentials
 5. Clone the heroku repository (exact command can be found on the Deployment tab for the app you just created in heroku) ```bash heroku git:clone -a 'your_app_name'```

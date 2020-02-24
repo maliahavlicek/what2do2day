@@ -49,25 +49,41 @@ def add_place():
         return render_template('place/add_place.html', form=form, icons=icons, page="place_add")
 
 
-@places_bp.route('/edit_place/', methods=['GET'])
-def edit_place():
+@places_bp.route('/edit_place/', defaults={'status': False}, methods=['GET'])
+@places_bp.route('/edit_place/<string:status>', methods=['GET'])
+def edit_place(status):
     try:
         list_places = retrieve_places_from_db(True, filter_form=False, place_id=False)
     except Exception as e:
         list_places = []
     load_page("place_edit_list")
-    return render_template('place/place_edit.html', places=list_places, filter=filters, google_key=google_key, page="place_edit_list")
+    if status:
+        if status == "OK":
+            load_page("place_update_success", "modal")
+        else:
+            load_page("place_update_fail", "modal")
+    else:
+        load_page("place_edit_list")
+    return render_template('place/place_edit.html', places=list_places, filter=filters, google_key=google_key,
+                           page="place_edit_list", status=status)
 
 
-@places_bp.route('/get_places')
-def get_places():
+@places_bp.route('/get_places/', defaults={'status': False})
+@places_bp.route('/get_places/<string:status>/')
+def get_places(status):
     try:
         list_places = retrieve_places_from_db(False, filter_form=False, place_id=False)
     except Exception as e:
         list_places = []
-
-    load_page("place_list")
-    return render_template('place/places.html', places=list_places, google_key=google_key, page="place_list")
+    if status:
+        if status == "OK":
+            load_page("place_add_success", "modal")
+        else:
+            load_page("place_add_fail", "modal")
+    else:
+        load_page("place_list")
+    return render_template('place/places.html', places=list_places, google_key=google_key, page="place_list",
+                           status=status)
 
 
 @places_bp.route('/update_place/<string:place_id>/', methods=['GET', 'POST'])
@@ -131,4 +147,5 @@ def update_place(place_id):
         # all is good with the post based on PlaceForm wftForm validation
         return push_place_to_db(form)
     load_page("place_update")
-    return render_template('place/update_place.html', form=form, icons=icons, update=True, places=places, page="place_update")
+    return render_template('place/update_place.html', form=form, icons=icons, update=True, places=places,
+                           page="place_update")
