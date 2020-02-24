@@ -77,7 +77,7 @@
                         {# attendee count messaging #}
                         <p>
                             <i class="fas fa-users"></i>
-                            {{ event['attendees'] | length|pluralize("person", "people", True) }}
+                            {{ event['attendees'] | length|pluralize("person plans", "people plan", True) }}
                             on going
                         </p>
                         {# event almost booked warning #}

@@ -228,15 +228,15 @@
                     <div class="column is-bold"><i class="fas fa-users" aria-hidden="true"></i></div>
                     <div class="column" id="event-attendance">
                         <p>
-                            {{ layer_event['attendees'] | pluralize("person", "people", True) }}
-                            plan on going
+                            {{ layer_event['attendees'] | pluralize("person plans", "people plan", True) }}
+                            on going
                         </p>
                     </div>
                 </div>
                 <div class="is-hidden-desktop is-hidden-fullhd is-hidden-tablet is-hidden-widescreen">
                     <p class="is-bold is-mb"><i class="fas fa-users" aria-hidden="true"></i>
-                        {{ layer_event['attendees'] | pluralize("person", "people", True) }}
-                        plan on going
+                        {{ layer_event['attendees'] | pluralize("person plans", "people plan", True) }}
+                        on going
                     </p>
                     <p class="is-bold"> Sponsored By: {{ layer_event['place_name']|title }}</p>
                     <p>
