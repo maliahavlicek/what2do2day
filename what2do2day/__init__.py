@@ -58,10 +58,10 @@ def home():
 @app.errorhandler(Exception)
 def handle_db_error(e):
     load_page("error", "page", e)
-    return render_template('error.html', reason=e)
+    return render_template('error.html', reason=e, page="error")
 
 
 @app.errorhandler(CSRFError)
 def handle_csrf_error(e):
     load_page("error", "page", e)
-    return render_template('error.html', reason=e), 400
+    return render_template('error.html', reason=e, page="error"), 400

@@ -141,7 +141,7 @@ def update_place(place_id):
 
     except Exception as e:
         load_page("error", "page", e)
-        return render_template('error.html', reason=e)
+        return render_template('error.html', reason=e, page="error")
 
     if form.validate_on_submit():
         # all is good with the post based on PlaceForm wftForm validation

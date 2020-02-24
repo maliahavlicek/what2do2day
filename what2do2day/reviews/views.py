@@ -41,7 +41,7 @@ def add_review(place_id):
         place_name = the_place['name']
     else:
         load_page("error", "page", "could not find place.")
-        return render_template('error.html', reason="I couldn't find the place you were looking for.")
+        return render_template('error.html', reason="I couldn't find the place you were looking for.", page="error")
 
     if form.validate_on_submit():
         review = {'place': ObjectId(place_id), 'date': datetime.today(),

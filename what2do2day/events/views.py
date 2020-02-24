@@ -118,7 +118,7 @@ def get_events(event_id, filter_string):
             list_events = retrieve_events_from_db(False, False)
         except Exception as e:
             load_page("error", "page", e)
-            return render_template('error.html', reason=e)
+            return render_template('error.html', reason=e, page="error")
 
         activity_choices = unique_activities(list_events)
         filter_form.activity.choices = activity_choices
@@ -169,7 +169,7 @@ def update_event(event_id):
         list_events = list(retrieve_events_from_db(True, False, event_id))
     except Exception as e:
         load_page("error", "page", e)
-        return render_template('error.html', reason=e)
+        return render_template('error.html', reason=e, page="error")
 
     if form.validate_on_submit():
         return push_event_to_db(form, list_events[0])

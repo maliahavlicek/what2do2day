@@ -102,7 +102,7 @@ def metrics():
         {'$sort': {'count': -1}}
     ])
 
-    return render_template('metrics.html', pages=pages, clicks=clicks)
+    return render_template('metrics.html', pages=pages, clicks=clicks, page="metrics")
 
 
 @metrics_bp.route('/record_click/', methods=['POST'])
