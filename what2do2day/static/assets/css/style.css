@@ -831,8 +831,13 @@ span#event-modal-title {
     display: block;
 }
 
-.modal-card-body .media .is-half, .modal-card-body #event-modal-right.is-half {
-    width: calc(100vw - 20px);
+.modal-card-body .media .is-half, .modal-card-body #event-modal-right.is-half{
+    width: calc(100vw - 60px);
+    display: block;
+    flex: none;
+}
+.modal-card-body .media-content{
+    width: calc(100vw - 40px);
     display: block;
     flex: none;
 }
@@ -1211,8 +1216,15 @@ i.not-shared {
         display: flex;
     }
 
-    .modal-card-body .media .is-half {
+    .modal-card-body .media .is-half{
         width: 50%;
+        flex-basis: auto;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+    .modal-card-body .media-content{
+        width: 100%;
+        display: flex;
         flex-basis: auto;
         flex-grow: 0;
         flex-shrink: 0;

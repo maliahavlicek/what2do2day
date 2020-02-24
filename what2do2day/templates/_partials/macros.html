@@ -233,8 +233,15 @@
                         </p>
                     </div>
                 </div>
+                <div class=" is-hidden-desktop is-hidden-fullhd is-hidden-tablet is-hidden-widescreen">
+                   <p> Sponsored By: {{ layer_event['place_name']|title }}</p>
+
+                        <p>
+                            {{ layer_event['place_description'] }}
+                        </p>
+                </div>
             </div>
-            <div id="event-modal-right" class="media-content is-half">
+            <div id="event-modal-right" class="media-content is-half is-hidden-mobile">
                 {% if layer_event['event_address'] and layer_event['event_address'] !='' and  layer_event['event_address']['address_line_1'] != "" %}
                     <div class="is-bold {% if layer_event['event_address'] =='' %} is-hidden{% endif %}">Where:</div>
                     <div id="map">
