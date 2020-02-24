@@ -50,10 +50,19 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 >     - [Tools](#tools)
 >     - [APIs](#apis)
 > - [Testing](#testing)
+>   - [validation](#validation-testing)
+>   - [unit](#unit-testing)
+>   - [cross browser](#cross-browser-cross-device-verification)
+>   - [accessibility](#accessibility-testing)
+>   - [regression](#regression-testing)
+>   - [automated](#automated-testing)
 > - [Deployment](#deployment)
 >   - [Requirements](#requires)
 >   - [Local](#Running Locally)
->
+> - [Credits](#credits)
+>   -[content](#content)
+>   -[media](#media)
+>   -[Acknowledgements](#acknowledgements)
 
 
 ## UX
@@ -400,7 +409,8 @@ In the long term once this concept proves viable, authentication would be enable
 1. GoogleMaps Geolocation - share location with other members, narrow results of events and places by proximity
 #### Switch to Relational Database
 1. mongo DB is not the correct data base, it was chosen because it has a free tier, but the aggregation to force joins is awkward and inefficient. As the dataset grows this will cripple the application's efficiency.
-
+### Project Tracking
+The scope of this project was larger than a typical milestone effort and I quickly felt overwhelmed when learning new skills such as Bulma, mongodb, and Flask. To ensure I kept on task and could feel a sense of accomplishment while taking the millions of baby steps towards completion, I devised a [project tacking sheet](). It helped me prioritize what aspects I needed to accomplish first and also helped identify features to move into future releases. 
 ## Technologies Used
 ### Programming languages
 - [CSS3](https://www.w3schools.com/w3css/default.asp) - used to define DOM appearance. 
@@ -436,7 +446,7 @@ In the long term once this concept proves viable, authentication would be enable
 - [github](https://github.com/) - used for version control of project files
 - [heroku](https://www.heroku.com/) - runs the what2do2day application in the cloud
 - [color contrast](https://webaim.org/resourceshttps://webaim.org/resources/contrastchecker//contrastchecker/) Tool was used to adjust colors on fonts flagged as needing a higher contrast ratio from google's lighthouse audit tool.
-- [lighthouse audit] Google's open source automated too to help improve the quality of your website. Specifically paid attention to Accessibility  and best practices aiming for scores above 80.
+- [lighthouse audit](https://developers.google.com/web/tools/lighthouse) Google's open source automated too to help improve the quality of your website. Specifically paid attention to Accessibility  and best practices aiming for scores above 80.
 ### APIs
 - [stmp](https://github.com/python/cpython/blob/3.8/Lib/smtplib.py) - Send user notices when an event is joined or when an event they have joined has been updated.
 - [Google Maps Javascript API](https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/) - Customized Map of event and places
@@ -467,6 +477,19 @@ The matrix for the browsers, operating systems and screen sizes is as follows:
 |      OS      	| android         	| iOs             	| android         	| iOs          	| android        	| iOs            	| android        	| iOs             	| windows      	| Mohave       	| windows      	| windows      	|
 | SCREEN WIDTH 	| XS 360px & less 	| XS 360px & less 	|    M 361-576    	|   M 361-576  	| T-vert 571-768 	| T-vert 571-768 	| T-hor 769-1024 	|  T-hor 769-1024 	|  HD 125-1240 	|  HD 125-1240 	|  HD 125-1240 	|  HD 125-1240 	|
 
+Another part of my cross browser testing was hitting each page in each view port with the chrome emulator and copying the following javascript  into the developer's tools console screen. 
+```javascript
+var docWidth = document.documentElement.offsetWidth;
+[].forEach.call(document.querySelectorAll('*'),function(el){if(el.offsetWidth > docWidth){console.log(el);}});
+```
+This snippet grabs all elements in the DOM and outputs offending elements that exceed the width of the screen to the console. If the output is "undefined", then I can be 99% certain that users will not experience any odd horizontal scrolls on their devices.
+
+### Cross Site Scripting and Forgery
+During my unit testing I encountered the CSRF errors many times myself when I left the CSRF token off pages or update my routes to use blueprint and mistyped paths. This got me wondering what I can do to try to test my application proacively so I read [veracodes' XSS article](https://www.veracode.com/security/xss) article to figure out ways to manually test for XSS and CSRF.
+Based on my findings I added a XSS sheet to my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing) And documented routes where url parameters are allowed as well as pages with text or text area entries and templating variables. I then attempted to inject scripting and forgeries into my website. I still don't think I know enough to be confident the site is safe, but it held up. {{TODO}}
+
+### Accessibility Testing
+Because I know a few people with both physical handicaps which makes using a mouse nearly impossible as well as a couple severely visually impaired people I try to ensure I build websites that can be use by them. I make use of  [axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) and [google's lighthouse audi](https://developers.google.com/web/tools/lighthouse) tool to help ensure that the application meets accessibility standards.
 
  
 ### Regression Testing
@@ -475,12 +498,12 @@ No one wants to keep running a large suite of unit tests and cross browser tests
 ### Automated Testing
 I did install unittest and put tests around the custom filters I wrote as I do not want them breaking. Doing such pointed out several type flaws in my logic that I shored up.
 
-These tests are in  the [/tests/test_filters.py](/tests/test_filters.py)file.
-From a terminal window you can execute this command:
+These tests are in the [/tests/test_filters.py](https://github.com/maliahavlicek/what2do2day/blob/master/tests/test_filters.py) file.
+From a terminal window you can execute this suite of test using the following command:
  ````$ python -m unittest tests/test_filters.py -v````
  
 ### Defect Tracking
-During the development process where 90% of my time was producing code, I tracked [defects](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing) in a google sheet. They ranged from severely horrible coding errors, to the realization that my features were not 100% defined. 
+Once I finished the initial layout of my file structure and had roughed in the base html, I began tracking [defects](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing) in a google sheet. They ranged from severely horrible coding errors, to the realization that my features were not 100% defined. 
 
 #### Noteworthy Bugs
 One of the most intriguing bugs I encountered was a 500 error when I introduced page and click metrics. It took me a while to figure out how to restructure my ajax call through an onReady function out of base.html so I could easily access my CSRF_token and set it in the headers within the beforeSend function. Originally my ajax call was housed in my main.js file. That solution fixed 90% of the 500 errors I had seen, but I quickly discovered that my newer pages without forms lacked the setting of the csrf_token in a hidden form. It's easy to forget key steps if you take them early in the development process and forget about them a month later.
@@ -605,3 +628,4 @@ The wonderful results of the google search engine helped me tremendously in comp
 - [aezel](https://stackoverflow.com/users/64266/aezell) for [posting](https://stackoverflow.com/users/64266/aezell) a good way to separate flask filters from run.py
 - [Todd Birchard](https://hackersandslackers.com/flask-blueprints/) For a most useful example about blueprints to make a larger flask application's directory structure manageable
 - [Dan Badar](https://dbader.org/blog/python-send-email)- how to send emails via python and a google account
+- [the G-men](documentation/images/IMG_20190717_213729_096.jpg) A special thanks goes out to my family for allowing me to ignore them for the past two months as I dove deep into unknown waters. I hope the new skills I'm gaining from this program can pay for us all to go visit the grandparents again.
