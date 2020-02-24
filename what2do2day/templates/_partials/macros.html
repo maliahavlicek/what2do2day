@@ -224,21 +224,24 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="columns">
+                <div class="columns is-hidden-mobile">
                     <div class="column is-bold"><i class="fas fa-users" aria-hidden="true"></i></div>
                     <div class="column" id="event-attendance">
                         <p>
                             {{ layer_event['attendees'] | pluralize("person", "people", True) }}
-                            on going
+                            plan on going
                         </p>
                     </div>
                 </div>
-                <div class=" is-hidden-desktop is-hidden-fullhd is-hidden-tablet is-hidden-widescreen">
-                   <p> Sponsored By: {{ layer_event['place_name']|title }}</p>
-
-                        <p>
-                            {{ layer_event['place_description'] }}
-                        </p>
+                <div class="is-hidden-desktop is-hidden-fullhd is-hidden-tablet is-hidden-widescreen">
+                    <p class="is-bold is-mb"><i class="fas fa-users" aria-hidden="true"></i>
+                        {{ layer_event['attendees'] | pluralize("person", "people", True) }}
+                        plan on going
+                    </p>
+                    <p class="is-bold"> Sponsored By: {{ layer_event['place_name']|title }}</p>
+                    <p>
+                        {{ layer_event['place_description'] }}
+                    </p>
                 </div>
             </div>
             <div id="event-modal-right" class="media-content is-half is-hidden-mobile">
