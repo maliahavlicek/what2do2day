@@ -851,6 +851,8 @@ span#event-modal-title {
 
 .modal-card-body .media .is-half .column {
     padding: .25rem .75rem;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .containers .title.is-5 {
@@ -1241,6 +1243,8 @@ i.not-shared {
 
     .modal-card-body .media .is-half .column {
         padding: .75rem;
+        display: block;
+        vertical-align: bottom;
     }
 
     .modal-card::-webkit-scrollbar-track {
