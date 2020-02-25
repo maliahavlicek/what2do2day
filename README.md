@@ -173,7 +173,7 @@ Many UX decisions made had the target audience of 12 - 18 years in mind. The lac
 ### Surface:
 Below are the decisions and internal dialogs I had to help draw out what the end product will look like.
 
-####Color Choice
+#### Color Choice
 I have never taken a course in color theory and have been told my choices of red are more orange than red so picking colors is a bit of a touchy area for me and I'd much rather have a professional UX designer help me out.  Feel free to read about this [project's color journey](documentation/color_choices.md) if you want to hear more about my struggle.  In short, my final color choices are:
 ![Final Pallet](documentation/images/colors/final_colors.png)
 

@@ -2,9 +2,9 @@
 ## Author
 Malia Havlicek
 >## Table of Contents
-> - [Initia](#Initial)
-> - [Round 2](#Round 2)
-> - [Final](#Final Answer)
+> - [Initia](#initial)
+> - [Round 2](#round-2)
+> - [Final](#final-answer)
 > - [Back to README](https://github.com/maliahavlicek/what2do2day#color-choice)
 
 ### Initial
