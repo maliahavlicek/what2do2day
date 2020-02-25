@@ -22,11 +22,11 @@ The home page lends itself to a comic strip so I searched Google's handwriting f
 
 - [Caveat Brush](https://fonts.google.com/specimen/Caveat+Brush)
 
-<img src="images/fonts/Coming%20Soon.png" width="90%" height="auto" alt="coming soon font"/>
+<img src="images/fonts/Caveat%20Brush.png" width="90%" height="auto" alt="coming soon font"/>
 
 - [Patrick Hand SC](https://fonts.google.com/specimen/Patrick+Hand+SC)
 
-<img src="images/fonts/Caveat%20Brush.png" width="90%" height="auto" alt="caveat brush font"/>
+<img src="images/fonts/Patrick%20Hand%20SC.png" width="90%" height="auto" alt="caveat brush font"/>
 
 In my opinion, the Patrick Hand SC font presented itself perfectly for cartoon writing when typing out potential lead text. It was easy to read and I could discern where true capitalization was and saw a difference between capital I's followed by lower case L's.
 
