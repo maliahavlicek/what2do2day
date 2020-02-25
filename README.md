@@ -44,6 +44,7 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 >       - [Content Admin Dashboard](#content-admin-dashboard)
 >       - [Site Admin Dashboard](#site-admin-dashboard)
 >       - [API Integration](#api-integrations)
+> - [Project Tracking](#project-tracking)
 > - [Technologies Used](#technologies-used)
 >     - [Programming languages](#programming-languages)
 >     - [Framework & Extensions](#framework--extensions)
@@ -352,9 +353,9 @@ To streamline the development process without the complexity of user roles and p
 1. get numbers for joining event funnel: events page hits, join event click, send invite success, send invite user error, send invite exceed attendance error
  
 ### Features Left to Implement
-I overestimated my abilities when originally scoping this project. I didn't account for uncovering some core issues with Bulma's [datepicker functionality](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621), nor did I anticipate as much trouble understanding the routing and parameter passing in flask.  I also spent too much time trying to figure out how to break out the controller, filtering, and utility functions from my run.py. Since this project required a greater learning curve than anticipated, some functionality had to be deferred in order to allow me to learn how to automate testing and to provide attention to cross browser/cross device validation.
+I overestimated my abilities when originally scoping this project. I didn't account for uncovering some core issues with Bulma's [datepicker functionality](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621), nor did I anticipate as much trouble understanding the routing and parameter passing in flask.  I also spent too much time trying to figure out how to break out the controller, filtering, and utility functions from my run.py. Since this project required a greater learning curve than anticipated, some functionality had to be deferred in order to allow me to learn how to automate testing and to provide attention to cross browser/cross device validation.  
 #### Features Deferred from original plan
-1. Follow a place - I have used Email JS in a past project so I would not gain any skills taking this functionality on and I the UX being similar to the delivered Join Event feature.
+1. Follow a place - I have used Email JS in a past project so I would not gain any skills taking this functionality on and I the UX being similar to the delivered Join Event feature I don't believe I'm loosing out on a learning opportunity by eliminating this functionality.
 1. Filter Places - I tackled more complex filtering logic in the filter events layer and saw this list not getting nearly as long as the events list could be.
 1. Pagination - By including a count of events or places found, the user has an idea of how many results they are seeing. Pagination isn't nearly as useful on smaller devices as the buttons are cumbersome for fingers and users are accustomed to scrolling down vs paging through results, thus pagination was differed
 1. Update Review - updating and sharing reviews are tightly tied to various user roles. Since user roles were originally out of scope, it made sense to differ this functionality, especially since updating and soft delete powers have been examplified in update events and update places.
@@ -407,14 +408,40 @@ In the long term once this concept proves viable, authentication would be enable
 1. Allow users to enter how many in their group are attending an event min 1, max dynamic to max attendees allows - those already attending
 1. Aggregate attendance count based on each attendee count instead of 1 to 1 ratio currently implemented
 1. Real-Time attendance count - add backend wait time loops and javascript to show attendance adjustments made by other users instead of on checking attendance limit on submit only
+1. Utilize a calendar API such as Google Calendars.
 #### API Integrations
 1. GoogleAds - ad placement, offline conversions, automatic bidding
 1. GoogleMaps Sitepoint - get directions from current location
-1. GoogleMaps Geolocation - share location with other members, narrow results of events and places by proximity
+1. GoogleMaps Geolocation - share location with other members, narrow results of events and places by proximity/nearby functionality or postal code/address entry.
+1. GoogleCalendar - manage events and email notifications instead of STMP emails.
 #### Switch to Relational Database
 1. mongo DB is not the correct data base, it was chosen because it has a free tier, but the aggregation to force joins is awkward and inefficient. As the dataset grows this will cripple the application's efficiency.
 ### Project Tracking
-The scope of this project was larger than a typical milestone effort and I quickly felt overwhelmed when learning new skills such as Bulma, mongodb, and Flask. To ensure I kept on task and could feel a sense of accomplishment while taking the millions of baby steps towards completion, I devised a [project tacking sheet](). It helped me prioritize what aspects I needed to accomplish first and also helped identify features to move into future releases. 
+The scope of this project was larger than a typical milestone effort and I quickly felt overwhelmed when learning new skills such as Bulma, mongodb aggregated queries, Flask Filters, Flask Macros, Flask WTF Forms, Validators, Flask blueprints and routes. 
+To ensure I kept on task and could feel a sense of accomplishment while taking the countless baby steps towards completion, I devised a [project tacking sheet](https://docs.google.com/spreadsheets/d/1Lnvt9zLgJj0oQFdpOIAs1V2JAN2lVGcBalIBHwXzqjY/edit?usp=sharing). It helped me prioritize what aspects I needed to accomplish first and also helped identify features to descope into future releases. 
+I attempted to follow a rough Agile methodology where I prefixed discovery tasks in Feature 0 for sprint 0. Then I used the following numbers as a hierarchy of what to develop first:
+
+ | Epic Task Number 	|                      Tasks                     	|                                                            Deliverables                                                           	|
+|:----------------:	|:----------------------------------------------:	|:---------------------------------------------------------------------------------------------------------------------------------:	|
+|         0        	| Sprint 0                                       	| Wireframes Colors Fonts Initial Data Model List of Features                                                                       	|
+|         1        	| UI Decisions                                   	| Identify Design Elements Choose CSS Framework Images Base Layout Navigation Footer                                                	|
+|         2        	| Build UI Components                            	| Star Input Rating Age Multi Selector Check Boxes Date Picker Icon Selector Switches Form Inputs Deploy to Local                   	|
+|         3        	| Accept User Inputs DB Interaction              	| Address Collection Event Collection Place Collection Review Collection Write to mongodb Read from mongodb Deploy to Heroku        	|
+|         4        	| rough list Places List Events Join Event Layer 	| Maps Update mongodb Email  aggregated mongo queries google calendar                                                               	|
+|         5        	| Filter Events                                  	| aggregated find queries flask routes with parameters                                                                              	|
+|         6        	| Edit Events                                    	|  Flask route reusable code - macros reusable code - filters                                                                       	|
+|         7        	| Update Event                                    	| Flask Route Form Pre-population add conditionals to db query                                                                      	|
+|         8        	| List Places                                    	| Accordions aggregated star rating maps tooltips merge events, reviews                                                             	|
+|         9        	| Add Review                                     	| Review Form Refactor Code for Blueprint Success/Fail modals                                                                       	|
+|        10        	| Testing                                        	| Identify Types of Testing Write Test Cases Execute Test Case Automate Tests                                                       	|
+|        11        	| Metrics                                        	| Devise Tracking Scheme Hook up DB Implement Click Tracking Implement Page Tracking Ajax Post Clicks Routing Rough Display of Data 	|
+|        12        	| Documentation                                   	| Clean up Sections Refactor into Smaller Files Explain Decisions Check Links Check Images                                          	|
+|        13        	| Finalize UI                                    	| Final Footer Final Nav Execute Cross Browser Tests Execute Accessibility Tests                                                    	|
+|        14        	| Refactor                                       	| Identify Reuse Clean up unused files Restructure Directories Test Deployment Instructions                                         	|
+|        15        	| Demo                                           	| Peer Review Mentor Meeting                                                                                                        	|
+ 
+ If you sort the Project Tracking sheet by Complete Date, you can see that I would finish about 80-90% of an epic task and then start working on another feature. This goes hand in hand with the agile development cycle where epic features are all intermingled due to the interdependency of the UI components.  It is definitely nice to see the completed count diminish.
+
 ## Technologies Used
 ### Programming languages
 - [CSS3](https://www.w3schools.com/w3css/default.asp) - used to define DOM appearance. 
