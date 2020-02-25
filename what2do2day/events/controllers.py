@@ -453,10 +453,10 @@ def retrieve_events_from_db(update, filter_form=False, event_id=False):
     # normal view suppress events with unshared places from view
     if not update:
         query.append({"$match": {'place-share_place': True}})
+    # sor the results
+    query.append({"$sort": {"share": -1, "start_date": 1, "event_name": 1}})
 
-    list_events = list(mongo.db.events.aggregate(
-        query
-    ))
+    list_events = list(mongo.db.events.aggregate(query))
 
     for event in list_events:
         if 'address-country' in event.keys():

@@ -56,13 +56,12 @@
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-content is-two-thirds">
-                                    <div class="columns">
-                                        <div class="column">
-                                            {{ place.description }}
+
+                                <div class="columns">
+                                        <div class="is-bold column has-text-left">Detail:</div>
+                                        <div class="column has-text-left">{{ place.description|truncate(45, False) }}
                                         </div>
                                     </div>
-
-
                                     <div class="columns">
                                         <div class="is-bold column has-text-left">Share:</div>
                                         <div class="column has-text-left">
@@ -73,41 +72,53 @@
                                             {% endif %}
                                         </div>
                                     </div>
-
                                     <div class="columns">
-                                        {% if place.image %}
-                                            <div class="is-bold column has-text-left">Image:</div>
-                                            <div class="column">
+                                        <div class="is-bold column has-text-left">Image:</div>
+                                        <div class="column">
+                                            {% if place.image %}
                                                 <img src="{{ place['image'] }}"
-                                                     alt="image for {{ place['image']|icon_alt }} icon" height="100"
-                                                     width="235">
-                                            </div>
-                                        {% endif %}
+                                                     alt="image for {{ place['place_name']|icon_alt }} icon" height="60"
+                                                     width="140">
+                                            {% else %}
+                                                N/A
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="media-content is-one-third">
-                                    {% if place.phone %}
-                                        <div class="columns">
-                                            <div class="is-bold column has-text-left">Phone:</div>
-                                            <div class="column has-text-left">{{ place['phone'] }}</div>
+                                    <div class="columns">
+                                        <div class="is-bold column has-text-left">Phone:</div>
+                                        <div class="column has-text-left">
+                                            {% if place.phone %}
+                                                {{ place['phone'] }}
+                                            {% else %}
+                                                N/A
+                                            {% endif %}
                                         </div>
-                                    {% endif %}
-                                    {% if place.web %}
-                                        <div class="columns">
-                                            <div class="is-bold column has-text-left">Website:</div>
-                                            <div class="column has-text-left">{{ place['web'] }}</div>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="is-bold column has-text-left">Website:</div>
+                                        <div class="column has-text-left">
+                                            {% if place.web %}
+                                                {{ place['web'] }}
+                                            {% else %}
+                                                N/A
+                                            {% endif %}
                                         </div>
-                                    {% endif %}
-                                    {% if place['address-_id'] and place['address-_id'] !="" %}
-                                        <div class="columns">
-                                            <div class="is-bold column">Location:</div>
-                                            <div class="column">
-                                                <div class="has-text-left">
-                                                    {{ display_address(place['place_address'][0],tooltip=False) }}
-                                                </div>
+                                    </div>
+
+                                    <div class="columns">
+                                        <div class="is-bold column">Location:</div>
+                                        <div class="column">
+                                            <div class="has-text-left">
+                                                {% if place['address-_id'] and place['address-_id'] !="" %}
+                                                    {{ display_address(place['place_address'][0],tooltip=True) }}
+                                                {% else %}
+                                                    N/A
+                                                {% endif %}
                                             </div>
                                         </div>
-                                    {% endif %}
+                                    </div>
 
                                     {# Add event button #}
                                     <a class="button is-primary action place-edit"

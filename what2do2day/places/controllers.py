@@ -262,6 +262,8 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
         "$addFields": {
             "rating_average": {"$avg": "$reviews.rating"}
         }})
+    # sort results
+    query.append({"$sort": {"share": -1, "place_name": 1, "rating_average": 1}})
 
     list_places = list(mongo.db.places.aggregate(query))
 

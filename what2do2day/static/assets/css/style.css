@@ -90,6 +90,9 @@ footer p {
     background-color: #fff;
     color: #4a4a4a;
 }
+.not-shared .accordions.arrow .accordion .accordion-header {
+    background-color: #feecf0;
+}
 
 .accordions.arrow .accordion .accordion-header.toggle + .accordion-body {
     transition: height 1s, max-height .5s;
@@ -1119,6 +1122,9 @@ i.not-shared {
 .has-error .datetimepicker-dummy, .has-error .datetimepicker-dummy:hover, .has-error .datetimepicker-dummy:focus,
 .has-error .datetimepicker-dummy-wrapper:hover, .has-error .datetimepicker-dummy-wrapper:focus {
     border: 1px solid #f14668;
+}
+.has-error i{
+    color: #f14668;
 }
 
 .has-error input:hover, .has-error input:focus,

@@ -283,7 +283,11 @@
                         Sponsored By: <span class="is-normal-mobile">{{ layer_event['place_name']|title }}</span>
                     </p>
                     <div class="is-hidden-mobile">
-                        {{ layer_event['place_description'] }}
+                        {% if update %}
+                            {{ layer_event['place.description']|truncate(45, False) }}
+                        {% else %}
+                            {{ layer_event['place_description'] }}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -298,10 +302,15 @@
                     </div>
                 {% endif %}
                 <div id="place-description">
-                    <p><span class="is-bold">Sponsored By:</span> <span class="is-normal-mobile">{{ layer_event['place_name']|title }}</span></p>
+                    <p><span class="is-bold">Sponsored By:</span> <span
+                            class="is-normal-mobile">{{ layer_event['place_name']|title }}</span></p>
                     {% if layer_event['event_address'] and layer_event['event_address']['address_line_1'] == "" %}
                         <p>
-                            {{ layer_event['place_description'] }}
+                            {% if update %}
+                                {{ layer_event['place.description']|truncate(45, False) }}
+                            {% else %}
+                                {{ layer_event['place_description'] }}
+                            {% endif %}
                         </p>
                     {% else %}
                         <a class="is-text has-tooltip-multiline has-tooltip-bottom"
