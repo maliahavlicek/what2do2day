@@ -4,6 +4,7 @@ Malia Havlicek
 >## Table of Contents
 > - [Headers](#header-font)
 > - [Main](#main-font)
+> - [Back to README](https://github.com/maliahavlicek/what2do2day#typography)
 
 ### Header Font
 The home page lends itself to a comic strip so I searched Google's handwriting fonts and flagged the top 5 that matched what I had envisioned and typed some example lead text.
@@ -49,3 +50,5 @@ While Open Sans matched the curvy flowing fonts which I was trying to achieve wi
 
 `<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC&display=swap" rel="stylesheet">`
 `<link href="https://fonts.googleapis.com/css?family=Raleway:500,700&display=swap" rel="stylesheet">`
+
+[Back to README](https://github.com/maliahavlicek/what2do2day#typography)

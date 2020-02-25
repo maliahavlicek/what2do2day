@@ -6,6 +6,7 @@ Malia Havlicek
 > - [Mid Project](#Mid-Project)
 > - [Final](#Final)
 > - [Metrics](#Metrics)
+> - [Back to README](https://github.com/maliahavlicek/what2do2day#structure)
 
 ### Initial
 The data model for places was originally formed from google's MAPS api for places. I already had de-scoped the need to permissions and various user roles, but I did have an overly granular break down of address components:
@@ -24,3 +25,4 @@ Once I built the input fields and had the User Interface in front of me for all 
 Metrics were the last data models I built. Ideally I'd track devices and screen widths so future enhancement could be catered to the largest audience, but I did not find a reliable way in python to grab such data across various operating systems for page metrics. But once more research is done, I should be able to easily add that information into both the PAGES and CLICK metric tables.
 ![final](images/data_model/Final%20Data%20Diagram-Metrics.png)
 
+[Back to README](https://github.com/maliahavlicek/what2do2day#structure)
