@@ -77,6 +77,97 @@ footer p {
     transition-timing-function: ease-in-out;
 }
 
+/* accordion arrow alternative presentation */
+.accordions.arrow .accordion .accordion-header {
+    align-items: center;
+    background-color: #fff;
+    color: #4a4a4a;
+}
+
+.accordions.arrow .accordion .accordion-header.toggle + .accordion-body {
+    transition: height 1s, max-height .5s;
+    transition-timing-function: ease-in-out;
+}
+
+.accordions.arrow .accordion.is-active .accordion-body {
+    padding: .25em;
+}
+
+.accordions.arrow .accordion .accordion-header, .accordions.arrow .accordion .accordion-header .arrow-text {
+    justify-content: start;
+    font-size: 18px;
+    display: inline-block;
+    padding: .5em 0;
+}
+
+.accordions.arrow .arrow-text {
+    padding: .5em .24em;
+}
+
+span.toggle-arrow {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+span.toggle-arrow span {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    line-height: .5em;
+}
+
+span.toggle-arrow:hover {
+    cursor: pointer;
+}
+
+.accordions.arrow .accordion .accordion-header.toggle::after {
+    color: #00d1b2;
+    display: inline-block;
+    left: 0;
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    content: '\f13a';
+    background: #fff;
+    font-size: 1.25rem;
+    line-height: 1rem;
+    padding: 3px;
+    font-family: "FontAwesome";
+    transition: .5s ease-in-out;
+}
+
+.accordions.arrow .accordion.is-active .accordion-header.toggle::after {
+    content: '\f13a';
+    transform: rotate(180deg);
+}
+
+.accordion .toggle-arrow span.less, .accordion.is-active .toggle-arrow span.more {
+    opacity: 0;
+    width: 0;
+    transition: none;
+}
+
+.accordion .toggle-arrow span.more, .accordion.is-active .toggle-arrow span.less  {
+    opacity: 1;
+    width: 85px;
+    transition: opacity .2s linear;
+    -webkit-transition: opacity .2s linear;
+    -moz-transition: opacity .2s linear;
+    -o-transition: opacity .2s linear;
+    -webkit-transition-delay: .2s;
+    -moz-transition-delay: .2s;
+    -o-transition-delay: .2s;
+    transition-delay: .2s;
+}
+.accordion.is-active .toggle-arrow span.more, .accordion .toggle-arrow span.less  {
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+}
+
+
 /* calendar adjustments */
 .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
     font-size: .8rem;

@@ -32,7 +32,7 @@
                         {{ place.description }}
                     </div>
                     <div class="is-hidden-tablet">
-                        {{ accordion_arrow (header="About Us", collapsed_text=place.description, track="about_toggle") }}
+                        {{ accordion_arrow (text=place.description, more_text="Read more", less_text="Show less", display_chars=65, track="place_full_description") }}
                     </div>
                     <div>
                         <section class="accordions {% if place.reviews|length <1 %}is-hidden{% endif %}">
