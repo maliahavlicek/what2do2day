@@ -545,11 +545,19 @@ From a terminal window you can execute this suite of test using the following co
 Once I finished the initial layout of my file structure and had roughed in the base html, I began tracking [defects](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing) in a google sheet. They ranged from severely horrible coding errors, to the realization that my features were not 100% defined. 
 
 #### Noteworthy Bugs
-One of the most intriguing bugs I encountered was a 500 error when I introduced page and click metrics. It took me a while to figure out how to restructure my ajax call through an onReady function out of base.html so I could easily access my CSRF_token and set it in the headers within the beforeSend function. Originally my ajax call was housed in my main.js file. That solution fixed 90% of the 500 errors I had seen, but I quickly discovered that my newer pages without forms lacked the setting of the csrf_token in a hidden form. It's easy to forget key steps if you take them early in the development process and forget about them a month later.
+1. **500 CSRF** -One of the most intriguing bugs I encountered was a 500 error when I introduced page and click metrics. It took me a while to figure out how to restructure my ajax call through an onReady function out of base.html so I could easily access my CSRF_token and set it in the headers within the beforeSend function. Originally my ajax call was housed in my main.js file. That solution fixed 90% of the 500 errors I had seen, but I quickly discovered that my newer pages without forms lacked the setting of the csrf_token in a hidden form. It's easy to forget key steps if you take them early in the development process and forget about them a month later.
+1. **flex block madness** Another odd bug was how my custom icon picker and multi picker for ages had mismatched heights. It took me a bit to discover a display flex on an outer div from 
+1. **Bulma Date Picker** The most bamboozling issue I encountered was with Bulma's datepicker and form errors. The darned thing never preselected the date I previously had and had the wrong times. I trolled the internet and found that this is an exasperating issue for many hopeful bulma users. I ended up getting a have way working work around by modifying the calendar.js a bit and adding to my binding functions in main.js. This is the [official thread](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621) that I added my findings to in hopes of getting to a resolution. I tried switching my input field to a date but then it picked up some browser specific console logs so I switched it back to a datetime range.
+1. **500 CSP google API** When testing with browser stack using safari iPhone6s I saw the following errors:
+```
+The source list for Content Security Policy directive 'script-src' contains an invalid source: ''strict-dynamic''. It will be ignored.
+The source list for Content Security Policy directive 'script-src' contains an invalid source: ''report-sample''. It will be ignored.
+```
+Reading up on stack overflow it looks like google API wants you to have Content Security Policy directives. I tried append such to my flask app but that didn't work too well so I ended up adding many values to my base.html header and having to set a nuance value to my inline script. Learning so many things about web security.
 
-Another odd bug was how my custom icon picker and multi picker for ages had mismatched heights. It took me a bit to discover a display flex on an outer div from 
+#### Outstanding Defects
 
-The most bamboozling issue I encountered was with Bulma's datepicker and form errors. The darned thing never preselected the date I previously had and had the wrong times. I trolled the internet and found that this is an exasperating issue for many hopeful bulma users. I ended up getting a have way working work around by modifying the calendar.js a bit and adding to my binding functions in main.js. This is the [official thread](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621) that I added my findings to in hopes of getting to a resolution. I tried switching my input field to a date but then it picked up some browser specific console logs so I switched it back to a datetime range.
+
 
 ## Deployment
 This site was developed using PyCharm's IDE. To keep records of different versions of all project files, git version control was used. This project is hosted using Heroku deployed from the master branch.

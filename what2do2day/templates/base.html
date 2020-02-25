@@ -6,6 +6,12 @@
     <meta name="description"
           content="Find free things to do in your community for kids. List free events in your community for kids to attend. Review places that organize free events for kids in your neighborhood.">
     <title>What2Do2Day</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'sha256-+F3gOU1DQxY16x7fQfxUYLFRfEZrEO0VavTzK4EbD6c=' https://fonts.gstatic.com/;
+        img-src * data:;
+        style-src 'self' 'unsafe-inline' https://kit.fontawesome.com/ https://cdn.jsdelivr.net/ https://kit-free.fontawesome.com/ https://fonts.googleapis.com/ ;
+        font-src 'self' https://fonts.gstatic.com/ https://fonts.googleapis.com/  https://kit-free.fontawesome.com/ https://kit.fontawesome.com/ data:;
+        script-src 'self' https://kit.fontawesome.com/ https://cdnjs.cloudflare.com/ https://apis.google.com/ https://kit-free.fontawesome.com/ 'nonce-4AAemGb0xJpto1GFP3Nd';
+        frame-src 'self' https://www.google.com/;">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link rel="apple-touch-icon" sizes="180x180"
           href="{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}">
@@ -38,7 +44,7 @@
 
 
 </body>
-<script>
+<script type="text/javascript" nonce="4AAemGb0xJpto1GFP3Nd">
     $(document).ready(function () {
         // Metrics tracking link /record_click/<string:link_name>/<string:page>/<string:method>/)
         $('a[data-track], button[data-track]').click(function () {

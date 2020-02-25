@@ -21,6 +21,7 @@ else:
 
 app.wsgi_app = ReverseProxied(app.wsgi_app)
 
+
 csrf = CSRFProtect(app)
 mongo = PyMongo(app)
 
@@ -47,9 +48,10 @@ app.register_blueprint(reviews_bp)
 app.register_blueprint(users_bp)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/home')
 def home():
+
     """ initial/default routing for app is the home page """
     load_page("home")
     return render_template('home.html', page="home")
@@ -65,3 +67,5 @@ def handle_db_error(e):
 def handle_csrf_error(e):
     load_page("error", "page", e)
     return render_template('error.html', reason=e, page="error"), 400
+
+
