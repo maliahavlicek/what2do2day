@@ -1460,7 +1460,7 @@
 }
 
 [data-tooltip]:not(.is-disabled)::before, [data-tooltip]:not(.is-loading)::before, [data-tooltip]:not([disabled])::before {
-    background: rgba(74, 74, 74, .9);
+    background: rgba(74, 74, 74, 1);
     border-radius: 2px;
     content: attr(data-tooltip);
     padding: .5rem 1rem;
