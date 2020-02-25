@@ -2,24 +2,24 @@
 ## Author
 Malia Havlicek
 >## Table of Contents
-> - [Home Page](#Home Page)
-> - [Events Page](#Events List Page)
-> - [Filter Events](#Filter Events)
-> - [Join Event](#Join Event)
-> - [Places](#Places List Page)
-> - [Filter Places](#Filter Places)
-> - [Follow Place](#Follow Place)
-> - [Add Review](#Add Review)
-> - [Add Event](#Add Event)
-> - [Edit Event](#Events Edit Page)
-> - [Update Event](#Events Update Page)
-> - [Add Place](#Places Add Page)
-> - [Edit Place](#Places Edit Page)
-> - [Update Place](#Places Update Page)
-> - [Edit Review](#Review Edit Page)
-> - [Update Review](#Review Update Page)
-> - [Navigation](#Navigation)
-> - [Metrics](#Metrics)
+> - [Home Page](#home-page)
+> - [Events Page](#events-list-page)
+> - [Filter Events](#filter-events)
+> - [Join Event](#join-event)
+> - [Places](#places-list-page)
+> - [Filter Places](#filter-places)
+> - [Follow Place](#follow-place)
+> - [Add Review](#add-review)
+> - [Add Event](#add-event)
+> - [Edit Event](#events-edit-page)
+> - [Update Event](#events-update-page)
+> - [Add Place](#places-add-page)
+> - [Edit Place](#places-edit-page)
+> - [Update Place](#places-update-page)
+> - [Edit Review](#review-edit-page)
+> - [Update Review](#review-update-page)
+> - [Navigation](#navigation)
+> - [Metrics](#metrics)
 > - [Back to README](https://github.com/maliahavlicek/what2do2day#skeleton)
 
 ### Home Page
@@ -39,7 +39,7 @@ Malia Havlicek
 - Allow users to join an event
 
 ### Filter Events
-![filter events mockup](images/Filter%20Events.png)
+![filter events mockup](images/wireframes/Filter%20Events.png)
 
 - Modal that allows user to limit events by
   - Activity
@@ -47,7 +47,7 @@ Malia Havlicek
   - Date range
 
 ### Join Event
-![join event mockup](images/Join%20Event.png)
+![join event mockup](images/wireframes/Join%20Event.png)
 
 - Modal that show event details
 - collects email
@@ -65,14 +65,14 @@ Malia Havlicek
 - Allow user to add a review.
 
 ### Filter Places
-![filter places mockup](images/Filter%20Places.png)
+![filter places mockup](images/wireframes/Filter%20Places.png)
 
 - Modal that allows user to filter places by
   - Activity
   - Age Range
   
 ### Follow Place
-![follow place mockup](images/Follow%20Place.png)
+![follow place mockup](images/wireframes/Follow%20Place.png)
 
 - Modal that collects user email and keeps user posted if
   - when the place is updated
@@ -80,27 +80,27 @@ Malia Havlicek
   - when the place posts a new event
 
 ### Add Review
-![add review page mockup](images/Add%20Review.png)
+![add review page mockup](images/wireframes/Add%20Review.png)
 
 - accessible from button on Places Page and Navigation
 - if accessed from Navigation, user must search for Place to associate review with
 
 ### Add Event
-![add event page mockup](images/Add%20Event.png)
+![add event page mockup](images/wireframes/Add%20Event.png)
 
  - accessible only from button on Places Edit page and navigation
  - presents user with form including the name of the place the event is being added to. 
  - on submit, check that event with same date and place does not already exist. If successful, go back to Events page.
  
 ### Events Edit Page 
-![edit event page mockup](images/Edit%20Event.png)
+![edit event page mockup](images/wireframes/Edit%20Event.png)
 
 - accessed from navigation
 - find associated Place first, then list events associated to place with edit buttons (enabled and enabled, but only those in future)
 - Once edit is selected, switch to Event Update page. 
 
 ### Events Update Page 
-![update event page mockup](images/Update%20Event.png)
+![update event page mockup](images/wireframes/Update%20Event.png)
 
 - display events form field with values prepopulated
 - allow user to change values
@@ -108,14 +108,14 @@ Malia Havlicek
 - when save is successful take user to Events Page
 
 ### Places Add Page 
-![add place page mockup](images/Add%20Place.png)
+![add place page mockup](images/wireframes/Add%20Place.png)
 - capture user email (newsletters, groupon deals?)
 - present form to fill out to make a place
 - on submit add warning if Name already exists. 
 - If successful, go back to Places Page.
 
 ### Places Edit Page 
-![edit place page mockup](images/Edit%20Place.png)
+![edit place page mockup](images/wireframes/Edit%20Place.png)
 
 - List out enabled places, sorted by Name, ascending.
 - Paginate results so only 10 show per page on desktop. 
@@ -123,21 +123,21 @@ Malia Havlicek
 - once edit is selected, switch to Places Update Page 
 
 ### Places Update Page 
-![update place page mockup](images/Edit%20Place.png)
+![update place page mockup](images/wireframes/Edit%20Place.png)
 
 - present form prepopulated with inputs to user to update.
 - on submit, make sure Name check is performed
 - If successful, go back to Places Page.
 
 ### Review Edit Page 
-![edit review page mockup](images/Edit%20Review.png)
+![edit review page mockup](images/wireframes/Edit%20Review.png)
 
 - Have user find place Review is associated with
 - on successful match, list out reviews descending by date with edit buttons
 - if no reviews provide add Review button
 
 ### Review Update Page 
-![update review page mockup](images/Update%20Review.png)
+![update review page mockup](images/wireframes/Update%20Review.png)
 
 - present form prepopulated with inputs to user to update.
 - once changes are saved, return to Places Page
