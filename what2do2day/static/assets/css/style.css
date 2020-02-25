@@ -94,10 +94,13 @@ footer p {
 .accordions.arrow .accordion .accordion-header.toggle + .accordion-body {
     transition: height 1s, max-height .5s;
     transition-timing-function: ease-in-out;
+    border: none;
 }
 
 .accordions.arrow .accordion.is-active .accordion-body {
     padding: .25em;
+    border: 1px solid #dbdbdb;
+
 }
 
 .accordions.arrow .accordion .accordion-header, .accordions.arrow .accordion .accordion-header .arrow-text {
@@ -114,6 +117,10 @@ footer p {
 span.toggle-arrow {
     font-size: 1rem;
     font-weight: 700;
+}
+
+span.toggle-arrow.label-only {
+    font-weight: 500;
 }
 
 span.toggle-arrow span {
@@ -143,6 +150,7 @@ span.toggle-arrow:hover {
     font-family: "FontAwesome";
     transition: .5s ease-in-out;
 }
+
 
 .accordions.arrow .accordion.is-active .accordion-header.toggle::after {
     content: '\f13a';
@@ -693,6 +701,10 @@ span.is-bold, p.is-bold {
     font-weight: 700;
 }
 
+.is-normal-mobile {
+    font-weight: normal;
+}
+
 .is-mb {
     margin-bottom: .75rem;
 }
@@ -718,9 +730,11 @@ nav.level.is-primary .level-item {
 
 .modal-card {
     width: 100%;
-    max-height: 100%;
+    height: 100vh;
+    max-height: 100vh;
     max-width: 1024px;
     overflow-y: auto;
+    margin: auto 0;
 }
 
 .modal-card-head, .modal-card-foot {
@@ -732,7 +746,11 @@ nav.level.is-primary .level-item {
 }
 
 .user-error .modal-card, .user-success .modal-card {
-    width: 300px;
+    max-width: 320px;
+    width: 100vw;
+    max-height: 100vh;
+    height: 100vh;
+    margin: 0;
 }
 
 .user-error .modal-card .image-holder {
@@ -762,6 +780,10 @@ nav.level.is-primary .level-item {
     margin-bottom: 30px;
 }
 
+.join-event .modal-card-body .is-half {
+    margin-bottom: 10px;
+}
+
 #event-modal-right {
     width: 33%;
     margin-left: 10%;
@@ -772,11 +794,14 @@ nav.level.is-primary .level-item {
 }
 
 span#event-modal-title {
-    vertical-align: middle;
-    margin-top: -15px;
-    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    display: block;
     position: relative;
-    margin-left: 10px;
+}
+
+.join-event .is-bold.column {
+    width: 80px;
 }
 
 .is-bold.column {
@@ -1063,7 +1088,6 @@ i.not-shared {
 }
 
 .limited-exposure::-webkit-scrollbar, .modal-card::-webkit-scrollbar {
-    width: 20px;
     background-color: #c4efe8;
     border-radius: 4px;
 }
@@ -1124,6 +1148,28 @@ i.not-shared {
     .modal-card {
         width: calc(100vw - 100px);
         max-height: calc(100vh - 40px);
+    }
+
+    .user-error .modal-card, .user-success .modal-card {
+        max-width: 320px;
+        max-height: calc(100vh - 40px);
+        height: auto;
+        margin: auto;
+    }
+
+    .is-normal-mobile {
+        font-weight: 700;
+    }
+
+    .limited-exposure::-webkit-scrollbar, .modal-card::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    span#event-modal-title {
+        vertical-align: middle;
+        margin-top: -15px;
+        display: inline-block;
+        margin-left: 10px;
     }
 
     .modal-card-head {

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% from "_partials/macros.html" import accordion_arrow with context %}
 {% from "_partials/macros.html" import event_layer with context %}
 {% from "_partials/macros.html" import display_address with context %}
 {# This template houses the get_events list page. It houses the Count Me In modal and form #}
@@ -72,7 +73,7 @@
     </section>
     {# modal for count me in form #}
     {% if show_modal and not show_modal['status'] %}
-        <div class="modal is-active" id="modal-count-me-in">
+        <div class="modal is-active join-event" id="modal-count-me-in">
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
@@ -87,7 +88,7 @@
                         {# macro for actiity_choice type and icon collection #}
                         {{ event_layer(layer_event=layer_event, google_key=google_key) }}
 
-                        <p class="title is-6">
+                        <p class="title is-size-6-mobile is-size-4-tablet">
                             We'll save your spot and let you know if the
                             event is changed.
                         </p>
@@ -107,6 +108,24 @@
                                     {{ form.email.errors[0] }}
                                 {% endif %}
                             </p>
+                        </div>
+                    </section>
+                    <section class="modal-card-body is-hidden-tablet">
+                        <div class="media">
+                            <div class="media-left is-half">
+                                <div class="columns">
+                                    <div class="column">
+                                        {{ accordion_arrow (text=layer_event['details'], more_text="Show Details", less_text="Show Details", display_chars=0, track="event_full_details") }}
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column">
+                                        <span>
+                                            {{ accordion_arrow (text=layer_event['place_description'], more_text="About Us", less_text="About Us", display_chars=0, track="place_full_description") }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
 
