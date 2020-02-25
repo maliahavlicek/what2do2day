@@ -72,6 +72,13 @@ footer p {
     border-bottom: none;
 }
 
+.accordion-content.special {
+    font-size: 1rem;
+    font-weight: 700;
+    background: #95eeeb;
+    border-bottom: 1px solid #2f2f2f;
+}
+
 .accordions .accordion .accordion-header + .accordion-body {
     transition: height 1s, max-height .5s;
     transition-timing-function: ease-in-out;
@@ -148,7 +155,7 @@ span.toggle-arrow:hover {
     transition: none;
 }
 
-.accordion .toggle-arrow span.more, .accordion.is-active .toggle-arrow span.less  {
+.accordion .toggle-arrow span.more, .accordion.is-active .toggle-arrow span.less {
     opacity: 1;
     width: 85px;
     transition: opacity .2s linear;
@@ -160,13 +167,13 @@ span.toggle-arrow:hover {
     -o-transition-delay: .2s;
     transition-delay: .2s;
 }
-.accordion.is-active .toggle-arrow span.more, .accordion .toggle-arrow span.less  {
+
+.accordion.is-active .toggle-arrow span.more, .accordion .toggle-arrow span.less {
     -webkit-transition-delay: 0s;
     -moz-transition-delay: 0s;
     -o-transition-delay: 0s;
     transition-delay: 0s;
 }
-
 
 /* calendar adjustments */
 .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
@@ -242,7 +249,7 @@ h1, .navbar-brand a.navbar-item {
 .buttons.home {
     position: absolute;
     bottom: 50px;
-    left: 10%;
+    margin: 0 auto;
 }
 
 /* customize font and style on home page buttons */
@@ -272,7 +279,7 @@ a.button.is-link.home-btn-1, a.button.is-link.home-btn-2 {
 
 /* add space between buttons */
 a.button.is-link.home-btn-2 {
-    margin-left: 100px;
+    margin-left: 50px;
 }
 
 /* speech bubble styles*/
@@ -297,6 +304,7 @@ a.button.is-link.home-btn-2 {
 .speech-bubble.first {
     margin-top: 110px;
     left: 18px;
+    z-index: 5;
 }
 
 /* have first speech bubble arrow on right side */
@@ -306,7 +314,7 @@ a.button.is-link.home-btn-2 {
 
 /* place second speech bubble below first one, minor overlap allowed */
 .speech-bubble.second {
-    margin-top: 30px;
+    margin-top: 15px;
     right: 10px;
 }
 
@@ -330,13 +338,13 @@ a.button.is-link.home-btn-2 {
 }
 
 .speech-bubble.second .speech-bubble-arrow:before {
-    border-top: 213px solid rgba(0, 0, 0, 0.2);
-    bottom: -188px;
+    border-top: 140px solid rgba(0, 0, 0, 0.2);
+    bottom: -115px;
     right: 1px;
 }
 
 .speech-bubble.second .speech-bubble-arrow:after {
-    border-top: 213px solid #efefef;
+    border-top: 140px solid #efefef;
     top: -26px;
 }
 
@@ -380,10 +388,13 @@ a.button.is-link.home-btn-2 {
 
 /* Ratings widget stars */
 div.stars {
-    display: inline-block;
-    margin: 0;
+    display: flex;
+    margin: -10px 0 0;
     padding: 0;
     text-align: left;
+    justify-content: space-around;
+    max-width: 320px;
+    flex-direction: row-reverse;
 }
 
 /* hide placeholder selection one */
@@ -399,11 +410,9 @@ input.star {
 /* star rating label styles */
 label.star {
     float: right;
-    padding: 0 10px;
     font-size: 36px;
     color: #444;
     transition: all .2s;
-    margin-top: -10px;
 }
 
 /* override input with star image, when checked with animation and green color */
@@ -684,7 +693,7 @@ span.is-bold, p.is-bold {
     font-weight: 700;
 }
 
-p.is-mb {
+.is-mb {
     margin-bottom: .75rem;
 }
 
@@ -728,7 +737,7 @@ nav.level.is-primary .level-item {
 
 .user-error .modal-card .image-holder {
     height: 250px;
-    width: 250px;
+    width: 100%;
     background: url(../images/oops.png) center center no-repeat;
     background-size: cover;
 }
@@ -1206,6 +1215,20 @@ i.not-shared {
 
     .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input:first-child {
         text-indent: 2.5rem;
+    }
+
+    /* home page */
+    .speech-bubble.second {
+        margin-top: 30px;
+    }
+
+    .home.buttons {
+        left: 10%;
+        margin: 0;
+    }
+
+    a.button.is-link.home-btn-2 {
+        margin-left: 100px;
     }
 }
 

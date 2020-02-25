@@ -54,7 +54,7 @@ def add_review(place_id):
 
         # check if user has added a review for this place in the last 7 days (want to make it harder to bloat reviews)
         one_week_ago = datetime.today() - timedelta(days=7)
-        too_recent = mongo.db.reviews.find_one({"date": {"$gte": one_week_ago}, "user": review['user']})
+        too_recent = mongo.db.reviews.find_one({"date": {"$gte": one_week_ago}, "user": review['user'], "place": ObjectId(place_id)})
         if too_recent is not None:
             show_modal = {
                 'status': "ERROR",

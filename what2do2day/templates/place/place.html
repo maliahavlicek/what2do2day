@@ -27,7 +27,7 @@
                     <p>{{ star_rating_display(rating=place.rating_average, label=True) }}</p>
                 </div>
 
-                <div class="media-content is-half">
+                <div class="media-content is-half is-mb">
                     <div class="is-hidden-mobile">
                         {{ place.description }}
                     </div>
@@ -39,9 +39,19 @@
                             <article class="accordion">
                                 <div class="accordion-header">
                                     <p>Reviews</p>
-                                    <button class="toggle" aria-label="toggle" data-track="reviews_toggle,{{page}},button"></button>
+                                    <button class="toggle" aria-label="toggle"
+                                            data-track="reviews_toggle,{{ page }},button"></button>
                                 </div>
                                 <div class="accordion-body">
+                                    {#  messsage to users if some reviews are suppressed #}
+                                    <div class="accordion-content special">
+                                        {% if place.reviews|length > 5 %}
+                                            <p>Showing only 5 most recent reviews.</p>
+                                        {% else %}
+                                            <p>Showing {{ place.reviews|length }} most recent
+                                                review{{ place.reviews|length|pluralize("","s", False) }}.</p>
+                                        {% endif %}
+                                    </div>
                                     {# limit reviews to only show 5 most recent #}
                                     {% for review in place.reviews[:5] %}
                                         <div class="accordion-content">
@@ -57,12 +67,20 @@
                         <section class="accordions {% if place.events|length <1 %}is-hidden{% endif %}">
                             <article class="accordion">
                                 <div class="accordion-header">
-                                    <p>Upcoming Event{{ place.events|length|pluralize("","s", False) }} - {{ place.events|length }}</p>
-                                    <button class="toggle" aria-label="toggle" data-track="events_toggle,{{page}},button"></button>
+                                    <p>Events</p>
+                                    <button class="toggle" aria-label="toggle"
+                                            data-track="events_toggle,{{ page }},button"></button>
                                 </div>
                                 <div class="accordion-body">
+                                    {#  messsage to users the number of events #}
+                                    <div class="accordion-content special">
+                                        <p>
+                                            Showing {{ place.events|length }} upcoming
+                                            event{{ place.events|length|pluralize("","s", False) }}.
+                                        </p>
+                                    </div>
                                     {# events accordion #}
-                                    {% for event in place.events[:5] %}
+                                    {% for event in place.events %}
                                         <div class="accordion-content">
                                             <p class="title is-4">{{ event.name| title }}
                                             <div class="columns">
@@ -86,7 +104,8 @@
                                                 </div>
                                             </div>
                                             <a class="button is-primary action event-modal {% if event['max_attendees'] == event['attendees']|length %} is-disabled{% endif %}"
-                                               data-target="{{ event['_id'] }}"  data-track="event_join,{{page}},button"
+                                               data-target="{{ event['_id'] }}"
+                                               data-track="event_join,{{ page }},button"
                                                aria-haspopup="true">
                                                 <span class="icon">
                                                     <i class="fas fa-calendar-plus"></i>
@@ -111,7 +130,8 @@
                     {# Add review button #}
                     <p>Know this place?</p>
 
-                    <a class="button is-primary action review-add" data-target="{{ place['place_id'] }}" data-track="review_add,{{page}},button">
+                    <a class="button is-primary action review-add" data-target="{{ place['place_id'] }}"
+                       data-track="review_add,{{ page }},button">
                     <span class="icon">
                         <i class="fas fa-plus"></i>
                     </span>
