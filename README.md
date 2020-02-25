@@ -59,7 +59,7 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 >   - [automated](#automated-testing)
 > - [Deployment](#deployment)
 >   - [Requirements](#requires)
->   - [Local](#Running Locally)
+>   - [Local](#running-locally)
 >   - [Heroku](#heroku)
 > - [Credits](#credits)
 >   - [content](#content)
@@ -179,10 +179,11 @@ I have never taken a course in color theory and have been told my choices of red
 The target age group for this site is those that are young, bored at home whose parents desperately wish their kids would be outside interacting face to face with friends preferably doing something active.
 
 To keep the site light and fun, I really wanted a cartoon feel to my headers that wouldn't have issues between uppercase i's and lower case L's.
-- [Patrick Hand SC](https://fonts.google.com/specimen/Patrick+Hand+SC[Patrick Hand SC](documentation/images/fonts/Patrick%20Hand%20SC.png width="300"))
+[![Patrick Hand SC](documentation/images/fonts/Patrick%20Hand%20SC.png width="300" )](https://fonts.google.com/specimen/Patrick+Hand+SC)
 
-For my main content, I wanted a curvy flow to the font, but one that was easy to read without any i's and L's issues. 
-- [Raleway](https://fonts.google.com/specimen/Raleway[Raleway](documentation/images/fonts/Raleway.png width="300"))
+
+For my main content, I wanted a curvy flow to the font, but one that was easy to read without any i's and L's issues.
+[![Raleway](documentation/images/fonts/Raleway.png width="300" )](https://fonts.google.com/specimen/Raleway)
 
 Feel free to read about my [font choices](documentation/font_choices.md) if you want to know more about my decision process. 
 
