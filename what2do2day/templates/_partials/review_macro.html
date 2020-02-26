@@ -14,11 +14,18 @@
         {# use author email collection if embedded in place form #}
         <div class="column" {% if form.use_place_email.value == "y" %}style="display: none;"{% endif %}>
             <div class="field {% if form.author.errors %}has-error{% endif %}">
-                <div class="control">
+
                     {{ form.author.label(class_="label") }}
+                <div class="control has-icons-left has-icons-right">
                     <div class="control">
                         {{ form.author(class_="input", placeholder="your.email@you.com") }}
                     </div>
+                    <span class="icon is-small is-left has-text-primary">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="error-msg icon is-small is-right">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                     <p class="error-msg help is-danger">
                         {% if form.author.errors|length > 0 %}
                             {{ form.author.errors[0] }}

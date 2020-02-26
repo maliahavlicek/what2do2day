@@ -968,6 +968,9 @@ span#event-modal-title {
     display: block;
     flex: none;
 }
+.add-place .card .media-content .columns {
+    display: flex;
+}
 
 .modal-card-body .media-content {
     width: calc(100vw - 40px);
