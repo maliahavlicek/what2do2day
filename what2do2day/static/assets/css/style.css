@@ -2,13 +2,16 @@
 html {
     scroll-behavior: smooth;
 }
-a.button.is-text.no-icon-under{
+
+a.button.is-text.no-icon-under {
     text-decoration: none;
 }
-a.button.is-text.no-icon-under span.text{
+
+a.button.is-text.no-icon-under span.text {
     text-decoration: underline;
 }
-a.button.is-text.no-icon-under span.icon{
+
+a.button.is-text.no-icon-under span.icon {
     color: #00d1b2;
 }
 
@@ -36,8 +39,9 @@ body {
 .section {
     padding: .25rem .5rem;
 }
+
 /*columns */
-.columns, .modal{
+.columns, .modal {
     margin: 0;
     /* margin-left: -.75rem; */
     /* margin-right: -.75rem; */
@@ -752,7 +756,8 @@ nav.level.is-primary .level-item {
     font-weight: 700;
     padding: 0;
 }
-.modal, .modal-background{
+
+.modal, .modal-background {
     width: 100vw;
 }
 
@@ -1170,6 +1175,7 @@ i.not-shared {
 .has-error .datetimepicker-dummy:hover, .has-error .datetimepicker-dummy:focus {
     box-shadow: none;
 }
+
 /* metrics */
 progress:after {
     content: attr(value);
@@ -1177,12 +1183,14 @@ progress:after {
     position: relative;
     top: -26px;
 }
+
 .tab-header {
     font-weight: 700;
     font-size: 1.5rem;
     background: #b2b2b2;
     text-align: center;
 }
+
 .tab-header i {
     color: #FFF;
     margin: 0 20px 0 -20px;
@@ -1196,12 +1204,13 @@ progress:after {
         align-items: center;
         margin-left: 15px;
     }
+
     /*columns */
-.columns {
-    margin-left: -.75rem;
-    margin-right: -.75rem;
-    margin-top: -.75rem;
-}
+    .columns {
+        margin-left: -.75rem;
+        margin-right: -.75rem;
+        margin-top: -.75rem;
+    }
 
     /* modals */
     .modal-card {
@@ -1222,6 +1231,10 @@ progress:after {
 
     .limited-exposure::-webkit-scrollbar, .modal-card::-webkit-scrollbar {
         width: 20px;
+    }
+
+    .columns.is-multiline.embedded.limited-exposure {
+        margin: 0;
     }
 
     span#event-modal-title {
