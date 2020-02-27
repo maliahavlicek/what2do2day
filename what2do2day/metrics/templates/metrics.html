@@ -15,13 +15,26 @@
         </div>
     </section>
     <section class="section">
-
         <div class="container metrics">
-            <p class="title is-2 has-text-centered">Site Usage</p>
+            <div class="title is-2 has-text-centered" id="site_usage">Site Usage</div>
+            <div class="is-hidden-tablet">
+                <div class="has-addons">
+                    <a class="button is-text no-icon-under" href="#page_visits">
+                        <span class="icon"><i class="fas fa-lg fa-window-maximize"></i></span>
+                        <span class="text">Page Visits</span>
+                    </a>
+                </div>
+                <div class="has-addons">
+                    <a class="button is-text no-icon-under" href="#clicks">
+                        <span class="icon"><i class="fas fa-lg fa-mouse"></i></span>
+                        <span class="text">Clicks</span>
+                    </a>
+                </div>
+            </div>
             <div class="columns">
                 <div class="column is-half">
                     <div class="table-container">
-                        <table class="table table is-bordered is-striped is-fullwidth">
+                        <table class="table table is-bordered is-striped is-fullwidth" id="page_visits">
                             <thead>
                             <tr>
                                 <th class="tab-header" colspan="2">
@@ -61,13 +74,20 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="is-hidden-tablet has-text-centered has-addons">
+                        <div class="has-addons">
+                            <a class="button is-text no-icon-under" href="#site_usage">
+                                <span class="icon"><i class="fas fa-lg fa-arrow-alt-circle-up"></i></span>
+                                <span class="text">Back to Top</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="column is-half">
                     <div class="table-container">
-                        <table class="table table is-bordered is-striped is-fullwidth">
+                        <table class="table table is-bordered is-striped is-fullwidth" id="clicks">
                             <thead>
                             <tr>
-
                                 <th class="tab-header" colspan="2">
                                     <div class="tab-header">
                                         <i class="fas fa-mouse"></i>
@@ -105,6 +125,22 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="is-hidden-tablet has-text-centered has-addons">
+                        <div class="has-addons">
+                            <a class="button is-text no-icon-under" href="#site_usage">
+                                <span class="icon"><i class="fas fa-lg fa-arrow-alt-circle-up"></i></span>
+                                <span class="text">Back to Top</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-hidden-mobile has-text-centered has-addons">
+                <div class="has-addons">
+                    <a class="button is-text no-icon-under" href="#site_usage">
+                        <span class="icon"><i class="fas fa-lg fa-arrow-alt-circle-up"></i></span>
+                        <span class="text">Back to Top</span>
+                    </a>
                 </div>
             </div>
 

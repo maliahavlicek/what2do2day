@@ -1,3 +1,17 @@
+/* smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+a.button.is-text.no-icon-under{
+    text-decoration: none;
+}
+a.button.is-text.no-icon-under span.text{
+    text-decoration: underline;
+}
+a.button.is-text.no-icon-under span.icon{
+    color: #00d1b2;
+}
+
 /* overwrite styles for base fonts */
 body, button, input, select, textarea {
     font-family: Raleway, Arial, sans-serif;
