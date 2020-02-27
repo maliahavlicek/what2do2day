@@ -36,6 +36,13 @@ body {
 .section {
     padding: .25rem .5rem;
 }
+/*columns */
+.columns, .modal{
+    margin: 0;
+    /* margin-left: -.75rem; */
+    /* margin-right: -.75rem; */
+    /* margin-top: -.75rem; */
+}
 
 /* footer */
 .footer {
@@ -745,9 +752,12 @@ nav.level.is-primary .level-item {
     font-weight: 700;
     padding: 0;
 }
+.modal, .modal-background{
+    width: 100vw;
+}
 
 .modal-card {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     max-height: 100vh;
     max-width: 1024px;
@@ -1186,6 +1196,12 @@ progress:after {
         align-items: center;
         margin-left: 15px;
     }
+    /*columns */
+.columns {
+    margin-left: -.75rem;
+    margin-right: -.75rem;
+    margin-top: -.75rem;
+}
 
     /* modals */
     .modal-card {
