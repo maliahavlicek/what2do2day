@@ -1,18 +1,23 @@
 # What2Do2Day
-URL: http://what2do2day.herokuapp.com/
+[![what2do2day](documentation/images/w2d2day%20logo.png "What2do2day App")](http://what2do2day.herokuapp.com/)
 
+[what2do2day - An App to match kids up with free events in their neighborhoods](http://what2do2day.herokuapp.com/)
 ## Author
 Malia Havlicek
 ## Project Overview
-This website provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. The target user for this app is 12 -18 years of age, children that are independent without individual transportation or lots of spare change. The site can easily be scaled up to include more predefined age ranges if the market determines there is a need.
+[![what2do2day](documentation/images/ResponsiveScreenShot.png "What2do2day App")](http://what2do2day.herokuapp.com/)
 
-Users can also view a list of all the places in the community that have ever hosted an event and read reviews about them. Parents, children, members of the community can add reviews about places to share their experiences and rate organizations. Places and Events can be created, read, and soft deleted from the site, while reviews can only be created and read. Rather than forcing users to place activities into a predefined list, users freely associate places and events with  activities during creation based on a name and icon selection. Small businesses, social groups, and communities would ideally be in charge of their organizations's data and events but in this beta phase, user authentication, roles and permissions are not implemented, hence soft deletes and no updating of reviews.
+[What2do2day](http://what2do2day.herokuapp.com/) provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. The target user for this app is 12 -18 years of age: children who are independent without individual transportation or lots of spare change. 
 
-Site owners could enable affiliate linking from any organization associated with the site that results in a sale from the place's own website.  By adding a Google Click Identifier (GCLID) to a place's url when leaving What2Do2Day's site, offline conversions could be tracked and negotiated to a monetary value for the site owners. Site admins could also gather data based on search activity as well as Places and Events with heavy interaction and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places's page has natural side bars in desktop when users are looking at events and reviews, on mobile devices ad space could be inserted below filtering options and above the footer too.)
+Users can also view a list of all the places in the community and read reviews about them and see all the future events. Members of the community can add reviews about places to share their experiences and rate organizations. The website has a crisp, young feel to it and was built with ease of use and younger audience in mind. 
+
+Possibilities to monetize this site abound. Site owners can easily add affiliate linking from any organization associated with the site that results in a sale from the place's URL. By adding a Google Click Identifier (GCLID) to a place's website when leaving What2Do2Day's site, offline conversions could be tracked and negotiated to a monetary value for the site owners. Site admins can also examine site data and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places's page has natural side bars in desktop when users are looking at events and reviews, on mobile devices ad space could be inserted below filtering options and above the footer too.) The site can easily be scaled up to include more predefined age ranges if the market determines there is a need or re-skinned for older age groups under a different name if so desired.
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series [Phineas and Ferb](https://en.wikipedia.org/wiki/Phineas_and_Ferb).
  
-## <summary>Table of Contents</summary>
+## Table of Contents
+<details>
+<summary>
 > - [UX](#UX)
 >   - [Strategy](#Strategy)
 >   - [Scope](#Scope)
@@ -67,11 +72,12 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 >   - [content](#content)
 >   - [media](#media)
 >   - [Acknowledgements](#acknowledgements)
-
+</summary>
+</details>
 
 ## UX
 ### Strategy
-Before launching any website, business partners want to know how they can earn money and if there is a need or demand for the project. Defining business goals of a project from the standpoint of an external user as well as site owners helps you evaluate possible return on investment.
+Before launching any website, business partners want to know how they can earn money and if there is a need or demand for the project. Defining business goals for a project from the standpoint of an external user as well as site owners helps you evaluate possible returns on investment.
 
 Upon reading the suggested projects for the Data Centric Milestone Project, I came up with
 <details>
