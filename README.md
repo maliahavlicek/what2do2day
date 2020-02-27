@@ -9,15 +9,16 @@ Malia Havlicek
 
 [What2do2day](http://what2do2day.herokuapp.com/) provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. The target user for this app is 12 -18 years of age: children who are independent without individual transportation or lots of spare change. 
 
-Users can also view a list of all the places in the community and read reviews about them and see all the future events. Members of the community can add reviews about places to share their experiences and rate organizations. The website has a crisp, young feel to it and was built with ease of use and younger audience in mind. 
+Users can also view a list of all the places in the community and read reviews about them and see all the future events associated with a given place. Members of the community can add reviews about places to share their experiences and rate organizations. The website has a crisp, young feel to it and was built with ease of use and a younger audience in mind. 
 
-Possibilities to monetize this site abound. Site owners can easily add affiliate linking from any organization associated with the site that results in a sale from the place's URL. By adding a Google Click Identifier (GCLID) to a place's website when leaving What2Do2Day's site, offline conversions could be tracked and negotiated to a monetary value for the site owners. Site admins can also examine site data and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places's page has natural side bars in desktop when users are looking at events and reviews, on mobile devices ad space could be inserted below filtering options and above the footer too.) The site can easily be scaled up to include more predefined age ranges if the market determines there is a need or re-skinned for older age groups under a different name if so desired.
+Possibilities to monetize this site abound. Site owners can easily add affiliate linking from any organization listed on the site that results in a sale by appending attributes to the place's URL. By adding a Google Click Identifier (GCLID) to a place's website when leaving What2Do2Day's site, offline conversions could be tracked and negotiated to a monetary value for the site owners. Site admins can also examine site data and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places's page on desktop has natural side bars when users are looking at events and reviews, On mobile devices ad space could be inserted below filtering options and above the footer too.) The site can easily be scaled up to include more predefined age ranges if the market determines there is a need or re-skinned for older age groups under a different name if so desired.
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series [Phineas and Ferb](https://en.wikipedia.org/wiki/Phineas_and_Ferb).
- 
+
+
 ## Table of Contents
 <details>
-<summary>
+<summary> TOC </summary>
 > - [UX](#UX)
 >   - [Strategy](#Strategy)
 >   - [Scope](#Scope)
@@ -72,7 +73,6 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 >   - [content](#content)
 >   - [media](#media)
 >   - [Acknowledgements](#acknowledgements)
-</summary>
 </details>
 
 ## UX
