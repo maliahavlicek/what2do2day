@@ -90,6 +90,7 @@ footer p {
     background-color: #fff;
     color: #4a4a4a;
 }
+
 .not-shared .accordions.arrow .accordion .accordion-header {
     background-color: #feecf0;
 }
@@ -968,6 +969,7 @@ span#event-modal-title {
     display: block;
     flex: none;
 }
+
 .add-place .card .media-content .columns {
     display: flex;
 }
@@ -1126,7 +1128,8 @@ i.not-shared {
 .has-error .datetimepicker-dummy-wrapper:hover, .has-error .datetimepicker-dummy-wrapper:focus {
     border: 1px solid #f14668;
 }
-.has-error i{
+
+.has-error i {
     color: #f14668;
 }
 
@@ -1142,6 +1145,23 @@ i.not-shared {
 
 .has-error .datetimepicker-dummy:hover, .has-error .datetimepicker-dummy:focus {
     box-shadow: none;
+}
+/* metrics */
+progress:after {
+    content: attr(value);
+    left: 50%;
+    position: relative;
+    top: -26px;
+}
+.tab-header {
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: #b2b2b2;
+    text-align: center;
+}
+.tab-header i {
+    color: #FFF;
+    margin: 0 20px 0 -20px;
 }
 
 /* larger phones */

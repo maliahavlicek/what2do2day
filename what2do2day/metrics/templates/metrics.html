@@ -17,32 +17,94 @@
     <section class="section">
 
         <div class="container metrics">
+            <p class="title is-2 has-text-centered">Site Usage</p>
             <div class="columns">
                 <div class="column is-half">
-                    <p class="title is-4 has-text-centered">Pages</p>
-                    {% for page in pages %}
-                        <div class="columns">
-                            <div class="is-bold column">
-                                {{ page['_id'] }}
-                            </div>
-                            <div class="column">
-                                {{ page['count'] }}
-                            </div>
-                        </div>
-                    {% endfor %}
+                    <div class="table-container">
+                        <table class="table table is-bordered is-striped is-fullwidth">
+                            <thead>
+                            <tr>
+                                <th class="tab-header" colspan="2">
+                                    <div class="tab-header">
+                                        <i class="fas fa-window-maximize"></i>
+                                        &nbsp;&nbsp;Pages
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="has-text-centered">Page Name</th>
+                                <th class="has-text-centered">Count</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th class="has-text-centered">Total Pages</th>
+                                <th class="has-text-centered">Total Counts</th>
+                            </tr>
+                            <tr class="has-text-centered">
+                                <th class="has-text-centered">{{ pages|length }}</th>
+                                <th class="has-text-centered">{{ stats['page_total'] }}</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for page_list in pages %}
+                                <tr>
+                                    <td>
+                                        {{ page_list['_id'] }}
+                                    </td>
+                                    <td class="progress-bar">
+                                        <progress class="progress is-large is-primary" value="{{ page_list['count'] }}"
+                                                  max="{{ stats['page_max'] }}"></progress>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="column is-half">
-                    <p class="title is-4">Clicks</p>
-                    {% for click in clicks %}
-                        <div class="columns">
-                            <div class="is-bold column">
-                                {{ click['_id']}}
-                            </div>
-                            <div class="column">
-                                {{ click['count'] }}
-                            </div>
-                        </div>
-                    {% endfor %}
+                    <div class="table-container">
+                        <table class="table table is-bordered is-striped is-fullwidth">
+                            <thead>
+                            <tr>
+
+                                <th class="tab-header" colspan="2">
+                                    <div class="tab-header">
+                                        <i class="fas fa-mouse"></i>
+                                        &nbsp;&nbsp;Clicks
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="has-text-centered">Click Name</th>
+                                <th class="has-text-centered">Count</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th class="has-text-centered">Total Clicks Types</th>
+                                <th class="has-text-centered">Total Clicks</th>
+                            </tr>
+                            <tr>
+                                <th class="has-text-centered">{{ clicks|length }}</th>
+                                <th class="has-text-centered">{{ stats['click_total'] }}</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for click in clicks %}
+                                <tr>
+                                    <td>
+                                        {{ click['_id'] }}
+                                    </td>
+                                    <td class="progress-bar">
+                                        <progress class="progress is-large is-primary" value="{{ click['count'] }}"
+                                                  max="{{ stats['click_max'] }}"></progress>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

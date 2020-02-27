@@ -61,7 +61,7 @@ def load_click(link_name, method, pg_name):
 ################
 @metrics_bp.route('/mertrics/', methods=['GET', 'POST'])
 def metrics():
-    pages = mongo.db.metrics_page.aggregate([
+    pages = list(mongo.db.metrics_page.aggregate([
         {
             '$match': {
                 'name': {'$not': {'$size': 0}}
@@ -80,8 +80,8 @@ def metrics():
             }
         },
         {'$sort': {'count': -1}}
-    ])
-    clicks = mongo.db.metrics_clicks.aggregate([
+    ]))
+    clicks = list(mongo.db.metrics_clicks.aggregate([
         {
             '$match': {
                 'link_name': {'$not': {'$size': 0}}
@@ -100,9 +100,18 @@ def metrics():
             }
         },
         {'$sort': {'count': -1}}
-    ])
+    ]))
+    pgs = [x['count'] for x in pages]
+    cls = [x['count'] for x in clicks]
 
-    return render_template('metrics.html', pages=pages, clicks=clicks, page="metrics")
+    stats = {
+        'page_max': max(pgs),
+        'page_total': sum(pgs),
+        'click_max': max(cls),
+        'click_total': sum(cls)
+    }
+
+    return render_template('metrics.html', pages=pages, clicks=clicks, page="metrics", stats=stats)
 
 
 @metrics_bp.route('/record_click/', methods=['POST'])
