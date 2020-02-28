@@ -15,6 +15,8 @@ Possibilities to monetize this site abound. Site owners can easily add affiliate
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series [Phineas and Ferb](https://en.wikipedia.org/wiki/Phineas_and_Ferb).
 
+<details>
+<summary>Table of Contents</summary>
 
   * [UX](#ux)
     + [Strategy](#strategy)
@@ -102,7 +104,8 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
     + [Content](#content)
     + [Media](#media)
     + [Acknowledgements](#acknowledgements)
-
+    
+</details>
 
 ## UX
 ### Strategy
@@ -237,37 +240,39 @@ There are 9 data structures associate with what2do2day despite eliminating user 
 #### Activities
 Activities is a table to hold a unique icon image and name values that users have associated with events and places. It helps with sorting events and prevents the need from carrying around two data objects in the larger Events and Places data structures. The purpose of an Activities object is to provide an imagery association to a category.
 
-| DB Key 	| Data Type 	|          Purpose          	| Form Validation 	| DB processing                                                	|
-|:------:	|:---------:	|:-------------------------:	|:---------------:	|--------------------------------------------------------------	|
-| _id    	| ObjectId  	| unique identifier         	| None            	|                                                              	|
-| name   	| String    	| Name of Place             	| Required        	| Lead and trailing space trimmed<br>Transformed to lower case 	|
-| icon   	| String    	| system path to image file 	| Required        	|                                                              	|
+| DB Key 	| Data Type 	|          Purpose          	| Form Validation                        	| DB processing    	|
+|--------	|:---------:	|:-------------------------:	|----------------------------------------	|------------------	|
+| _id    	| ObjectId  	| unique identifier         	| None                                   	| n/a              	|
+| name   	| String    	| Name of Activity          	| Required<br>Min 1 char<br>Max 50 chars 	| trim<br>to lower 	|
+| icon   	| String    	| system path to image file 	| Required                               	|                  	|
 
 The name and icon pair is checked to be unique before adding an item to the collection. This table has no deletion or updates associated with it. It's strictly create and read. Eventually, maintenance scripts should be written to eliminate unused entries.
+
+Activity entries are used by events, places and filtering.
 
 #### Addresses
 Addresses are optionally entered in association with Places and Events. This data structure is used by both Events and Places to provide users with a physical location. Only the _id is stored in Places and Events to reduce the amount of data being stored as many places may use the same address as a meeting point for their events.
 
-|      DB Key     	| Data Type 	|             Purpose             	|                                                                                       Form Validation                                                                                       	| DB processing       	|
-|:---------------:	|:---------:	|:-------------------------------:	|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:	|---------------------	|
-| _id             	| ObjectId  	| unique identifier               	| None                                                                                                                                                                                        	|                     	|
-| address_line_1  	| String    	| Street Address                  	| Required<br>At least 1 character                                                                                                                                                            	| trimmed<br>to lower 	|
-| address_line_2  	| String    	| Suite, Unit Number              	| Optional<br>At least 1 character                                                                                                                                                            	| trimmed<br>to lower 	|
-| city            	| String    	| City                            	| Required<br>At least 1 character                                                                                                                                                            	| trimmed<br>to lower 	|
-| state           	| String    	| State / Region                  	| Required<br>At least 1 character                                                                                                                                                            	| trimmed<br>to lower 	|
-| postal_code     	| String    	| Postal Code                     	| Optional,<br>Must start with a letter or number<br>The second character can be a letter, number or dash<br>Followed by an optional 0-10 letters or numbers<br>And must end with a character 	| trimmed<br>to lower 	|
-| country         	| String    	| ObjectId for country            	| Required                                                                                                                                                                                    	|                     	|
-| lat             	| Double    	| Latitude Map value              	| system generated via google Maps API                                                                                                                                                        	|                     	|
-| lng             	| Double    	| Longitude Map Value             	| system generated via google Maps API                                                                                                                                                        	|                     	|
-| one_line        	| Sting     	| One line address representation  	| system generated for future Nearby API integration                                                                                                                                          	|                     	|
-| google_place_id 	| String    	| Unique Place ID for google Maps 	| system generated via google Maps API                                                                                                                                                        	|                     	|
+| DB Key          	| Data Type 	|             Purpose             	| Form Validation                                                                                                                                                                      	| DB processing    	|
+|-----------------	|:---------:	|:-------------------------------:	|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|------------------	|
+| _id             	| ObjectId  	| unique identifier               	| None                                                                                                                                                                                 	| n/a              	|
+| address_line_1  	| String    	| Street Address                  	| Required<br>Min 1 char<br>Max 50 chars                                                                                                                                               	| trim<br>to lower 	|
+| address_line_2  	| String    	| Building, Suite, Unit Number    	| Optional<br>Min 1 char<br>Max 50 chars                                                                                                                                               	| trim<br>to lower 	|
+| city            	| String    	| City                            	| Required<br>Min 1 char<br>Max 50 chars                                                                                                                                               	| trim<br>to lower 	|
+| state           	| String    	| State/Region                    	| Required<br>Min 1 char<br>Max 50 chars                                                                                                                                               	| trim<br>to lower 	|
+| postal_code     	| String    	| Postal Code                     	| Optional<br>min 2 char<br>first char must be a character<br>2nd char must be number or character or dash<br>must be no longer than 11 characters<br>must end with a number of letter 	| trim<br>to lower 	|
+| country         	| ObjectID  	| Cross Reference to Countries    	| Required                                                                                                                                                                             	|                  	|
+| lat             	| Double    	| Latitude Map value              	| system generated via google maps API                                                                                                                                                 	|                  	|
+| lng             	| Double    	| Longitude Map value             	| system generated via google maps API                                                                                                                                                 	|                  	|
+| one_line        	| String    	| One line address representation 	| system generated for future maps interactions                                                                                                                                        	|                  	|
+| google_place_id 	| String    	| Unique Place ID for google Maps 	| system generated via google maps API                                                                                                                                                 	|                  	|
 
-Users input address_line_1, address_line_2, city, state, country and postal_code values. The system checks to see if the user entered data is already in the database and if not it will call Google Map's API to retrieve the google_place_id, latitude and longitude values so maps can be rendered without requesting those pieces of information each time a list of event is displayed on the site.
+Users input address_line_1, address_line_2, city, state, country and postal_code values. The system checks to see if the user entered data is already in the database and if not it will call Google Map's API to retrieve the google_place_id, latitude and longitude values so maps can be rendered without requesting those pieces of information each time a list of event is displayed on the site. Address ObjectId's are associated withe events and places.
 
 Addresses cannot be updated or deleted, they are only added or read, so long term, there should be a process that checks for unused addresses.
 
 #### Countries
-Countries are associated to address. Since the list is long and does not change often this collection was initialized via the helper countries.py helper function
+Countries are cross referenced to address. Since the list is long and does not change often this collection was initialized via the helper countries.py helper function
 ```$ python helpers/upload_countries.py ```
 It is a read only table after being initialized.
 
