@@ -19,6 +19,7 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 ## Table of Contents
 <details>
 <summary> TOC </summary>
+
 > - [UX](#UX)
 >   - [Strategy](#Strategy)
 >   - [Scope](#Scope)
@@ -73,109 +74,288 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 >   - [content](#content)
 >   - [media](#media)
 >   - [Acknowledgements](#acknowledgements)
+
 </details>
 
 ## UX
 ### Strategy
 Before launching any website, business partners want to know how they can earn money and if there is a need or demand for the project. Defining business goals for a project from the standpoint of an external user as well as site owners helps you evaluate possible returns on investment.
 
-Upon reading the suggested projects for the Data Centric Milestone Project, I came up with
-<details>
-<summary>2 Ideas: </summary>
+I had a couple of [ideas](documentation/proejct_definition.md) in mind that could fulfill the requirements of this project and wrote out high level user goals to aid in determining which project would work best. What2do2day was the winner.
 
-1.Texting Translator:
-> External Goals
->  - Lookup definitions so you know what LOL and MILF means before determining if you need to have a serious talk with your children
->  - Find out what your savvy friend means rather than embarrassing yourself by asking your clueless parents
->  - Correct poor definitions by providing a new one and down voting the older definitions so people are better informed
->
-> Site Owner's Goals
->  - Publish T-shirts, & stickers mugs for benign but up to date trends
->
-> Features
->   - Create an app that allows users to upload Texting Terms, definitions 
->   - Allow users to Up and Down voting if Definition is Accurate or not.
->   - Create back end code to manage:
->     - Terms
->     - Definitions
->     - Votes
->   - Search, allow users to search terms for a texting phrase they are unfamiliar with 
->   - Metrics about what words were search for the most so owner can Stock Online store accordingly
-
-2.What2Do2Day:
-> External Goals
->  - As a parent, find something safe for your kids to do near home that doesn't break the bank
->  - As a kid, find something that's interests me to do with my friends when mom and dad take away my electronics
->  - As a place or organization, bring attention to your business or group by being involved in the community
-> 
-> Site Owner's Goal
->  - Earn money from affiliate links to businesses that post their places on site when links lead to online sales
->  - Track most popular activities on site to score some money from ads
-> 
-> Features
->  - Create an app that allows users to upload details about places to do things with kids. Main objects are Places and Events tied to them
->  - Allow users to write reviews about places and rate them
->  - Allow users to follow a place so they know new events posted by that business
->  - Allow users to join an event so other members know how many people might show up 
->  - Create back end code to manage:
->    - Reviews
->    - Places
->    - Events
->  - Search, allow searching by activity as means to filter results
->  - Metrics - track follows to business and joins to business as well as visitors to site.
-
-Out of these two concepts, I weighed the pros and cons of each:
-
-__Texting Translator__ 
-            
-|             Pros               |                        Cons                        |
-|--------------------------------|----------------------------------------------------|
-| MVP could go live              | Rather Simple                                      |
-| Moderate  UX                   | No API integration                                 |
-| Scalable to world market       |                                                    |
-| Ad & product earnings moderate |                                                    |
-
-__What2Do2Day__
-
-|             Pros               |                        Cons                        |
-|--------------------------------|----------------------------------------------------|
-| Integration with Google Maps   | Very complex                                       |
-| Challenging UX                 | MVP not production worthy, anyone can make updates |
-| Scalable to world market       | MVP not production worthy, (kid safety first)      |
-| Earnings from Ads is high      |                                                    |
-| Social Need is high            |                                                    |
-
- What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the Nextdoor app.  What2Do2Day is more intriguing and likely to keep users coming back to the site. As a developer, the What2Do2Day app will provide greater value in the long term towards my coding skills due to it's complexity.
-</details>
-
-***
 ### Scope
-The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that eliminates authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user profiles and management of users will not be in the first deliverable. 
+The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version which eliminates authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user profiles and management of users will not be in the first deliverable. 
 
-Restricting results based on user's location increments of 1, 5, and 10 miles would be ideal for a long term solution but it is not necessary for the MVP. Since I do not have experience with Google Maps's Nearby API, this bit of scope will be deferred until a polished core product is financed. Also not enough data will be loaded to make searching and geolocation viable initially.
+Restricting results based on user's location increments of 1, 5, and 10 miles would be ideal for a long term solution but it is not necessary for the MVP. Simply put, not enough data will be loaded to make searching and geolocation viable initially.
 
-Creating, reading and updating deleting functionality will only be accessible from menu options. This will allow the MVP to be built to serve the majority of long term users and keep the UX cleaner without an overwhelming amount of buttons. Admin proximity/ease of use functionality can be added after such roles are clearly defined. 
+For the MVP, users do not need to be registered, verified or logged in. Creating options are consolidated under a Contribute menu and can easily be moved behind permissions at a later date. Likewise, updating including deleting functionality will only be accessible from the Update menu option. This allowed the MVP to be built to serve the majority of long term users and kept the UX cleaner without an overwhelming amount of buttons. 
 
-Consolidating Delete functionality into a share property reduces pages to develop. It also reduces the number of items in the menus and makes overall navigation easier while protecting the data's integrity by avoiding jumps in auto generated id's.
+Ideally the update functions would be hidden behind administrative roles. Likewise, adding functions would be distributed across another set of users as adding a review is mush less restricted than adding events and places. A long term project would also look at providing admin proximity/ease of use functionality by including cloning options. 
 
-Business logic to track search requests, and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be included but graphical visualization will not be included in the MVP, only a list of the data collected. Likewise we need to know how many users are coming to the site and what percentage of them interact or do not interact with our buttons so we will attempt to track unique visits to our site and core functionality clicking attributes.
+The MVP solution consolidates the Delete functionality into a toggle which shares and event, or place on the site. This property eliminates helper pages to develop and reduces the number of items in the menus which makes overall navigation easier while protecting the data's integrity by avoiding jumps in auto generated id's.
 
-### Structure
-In order to have a better idea of the tables, forms and the relationships between them I looked at google Maps' Places API to help determine what fields my place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise a rough Entity Relationship Diagram(ERD). Like all projects, the data model morphed a few times. [See progression of data models.](documentation/data_model.md)
+Business logic to track the pages, and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be include. The user click data being collected does include which pages the click occurred on but funnel reports will will not be included in the MVP, only a count of the pages and clicks collected ordered by max to min. 
+
+### Goals
+#### Customer Goals
+The target audience for What2do2day is children ages 12-18 who have a bit of freedom to move around unsupervised but very little means to addend costly mass entertainment complexes.
+
+Customer Goals are:
+
+- Bring up site and look for an event to attend close to home
+- Look at places to see how they rank without having to read much
+- Quickly find activities that interest them without having to type much
+- Read reviews about places that interest them
+- See events related to places that interest them
+- Easily know where an event they are interested in is located
+- Join an event of interest
+- See how many others are interested in an event
+- Receive a notification about an event they've joined
+- Receive updates about events they've joined
+
+What2do2day helps the customer meet these goals because:
+
+ - The application was developed around easily and intuitively Listing Events, Places, writing reviews and Joining events from the planning stages to the end of development.
+ - All the navigation is done either by the clearly identified nav bar or from clearly labeled buttons on list pages.
+ - Icons and Text accompany all buttons to make the intent of the button's action more easily understood
+ - Forms have place holder text to help guide users to successful completion
+ - Forms have validation and logical error messages and colors to help aid users to successful form completion
+ - Details that are not relevant to quick browsing are omitted on the events page so users can see more options at a time in order to find something to do more quickly. 
+ - Allowing event filtering by icons and name pairs, date ranges and age limits
+ - Listing aggregated ratings with the number of reviews to show community engagement
+ - Sending emails when users join an event
+ - Sending emails when an event is updated to all users that have joined it
+ - Listing the number of available spots and adding text that lets users know if the event is full or close to being filled
+ - By proving a map on the count me in layer
+ - By providing a mpa on the lists page
+ 
+#### Place Owner Goals
+
+Owners of Places would ideally have a different set of user permissions and the Update and Contribute sections of navigation would be under a strict workflow, but in the initial phase, I wanted to show off the ability to add, update and delete items from the website's view so it's not hidden behind permissions or workflow at this point.
+Place owners are those that have a business or an organization that hosts free events withing a community. Examples are a group that wants to play pickup soccer, or a bicycle shop that leads group rides once a month.
+
+Place Owner Goals:
+
+- I want my place to be easily found on the site so I can get more customers
+- I want users to share community reviews so I build trust with future customers
+- I want to add events to my place to build a repertoire with my clients 
+- I want users to join my events so I can track how successful community events are to my bottom line
+- I want the ability to update my place's details
+- I want to update events associated with my organisation
+- I want to protect against bloated ratings
+- I want to protect against accidental deletion of my information
+
+What2do2day aides Place Owners by:
+
+ - Listing places alphabetically on the website
+ - Associating activity icons to events and places in an iconic format
+ - Listing events on the website by most recent 
+ - Allowing event filtering by icons and name pairs, date ranges and age limits
+ - Allows users to enter a review for a place only once a week
+ - Tracks users that want to attend an event
+ - Soft deletes information so events are not compeletely lost
+ - Will have specific workflow and permissions in it's final deployment
+ 
+ #### WebSite Goals
+ The primary goal of what2do2day is to create a user friendly app that allows customers to quickly find an event they want to attend. It's a meeting point between business/organisations and kids/parents to improve the likelihood of kids getting off their devices and interacting with others face to face at a low cost with minimal supervision.
+ 
+ What2do2day has three main audiences: 
+
+  - Kids looking for something to do with others that have similar interests
+  - Businesses looking to build a reproitoire with the community looking to build a follower base within the community
+  - Parents wanting to loosen the reigns and build trust with their kids by allowing them to attend community events without direct parental invovlment
+ 
+ In order to support the maintenance and development of cool features on the site, what2do2day hopes to produce monetary gains through the following means:
+ 
+ - Workflow Management Plans for Businesses around:
+   - oversee approval/disapproval of reviews to ensure spamming and bad mouthing in reviews does not occur
+   - batch event creation to help save time
+   - user account management to help with password recovery and assigning or removing roles as employees change
+   - sharing of user emails that attend events
+ - Affiliate linking - link to at cost services provided by businesses and receive a kickback
+ - Ads - target on line sales related to equipment based on activities a place or event is associated with
+
+## Structure
+
+While it was tempting to start with the UI immediately, I took the time to look into the data I wanted to present on the site. My first stop was to look at Google's Maps Places API to determine what fields the Place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise a Entity Relationship Diagram(ERD). 
 
 ![final](documentation/images/data_model/Final%20Data%20Diagram-Objects%20For%20App.png)
 
+Like all projects, the data model morphed a few times. [See progression of data models.](documentation/data_model.md)
+
+### Database Choice
+As a course requirement, this project was based on a NoSQL database structure. While the  project's data is better suited for a relational database such as SQL, MongoDB was used. 
+
+### Data Models
+Data stored in what2do2day's MongoDB consist of these types:
+- ObjectId
+- String
+- Double
+- Int32
+- Array
+- Boolean
+- Date
+
+### Collections Data Structure
+There are 9 data structures associate with what2do2day despite eliminating user permissions and roles:
+- Activities
+- Addresses
+- Countries
+- Events
+- Metrics Clicks
+- Metrics Pages
+- Places
+- Reviews
+- Users
+#### Activities
+Activities is a table to hold unique icon image and name values that users have associated with events and places. It helps with sorting events and prevents the need from carrying around two data objects in the larger Events and Places data structures. The purpose of an Activities object is to provide an imagery association to a category.
+
+| DB Key 	| Data Type 	|          Purpose          	| Form Validation 	| DB processing                                                	|
+|:------:	|:---------:	|:-------------------------:	|:---------------:	|--------------------------------------------------------------	|
+| _id    	| ObjectId  	| unique identifier         	| None            	|                                                              	|
+| name   	| String    	| Name of Place             	| Required        	| Lead and trailing space trimmed<br>Transformed to lower case 	|
+| icon   	| String    	| system path to image file 	| Required        	|                                                              	|
+
+The name and icon pair are checked to be unique before adding an item to the collection. This table has no deletion or updates associated with it. It's strictly create and read. Eventually maintenance scripts should be written to eliminate unused entries.
+
+#### Addresses
+Addresses are optionally entered in association to Places and Events. This data structure is used by both Events and Places to provide users with a physical location. Only the _id is stored in Places and Events to reduce the amount of data being stored as many places may use the same address as a meeting point for their events.
+
+|      DB Key     	| Data Type 	|             Purpose             	|                                                                                       Form Validation                                                                                       	| DB processing       	|
+|:---------------:	|:---------:	|:-------------------------------:	|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:	|---------------------	|
+| _id             	| ObjectId  	| unique identifier               	| None                                                                                                                                                                                        	|                     	|
+| address_line_1  	| String    	| Street Address                  	| Required<br>At least 1 character                                                                                                                                                            	| trimmed<br>to lower 	|
+| address_line_2  	| String    	| Suite, Unit Number              	| Optional<br>At least 1 character                                                                                                                                                            	| trimmed<br>to lower 	|
+| city            	| String    	| City                            	| Required<br>At least 1 character                                                                                                                                                            	| trimmed<br>to lower 	|
+| state           	| String    	| State / Region                  	| Required<br>At least 1 character                                                                                                                                                            	| trimmed<br>to lower 	|
+| postal_code     	| String    	| Postal Code                     	| Optional,<br>Must start with a letter or number<br>The second character can be a letter, number or dash<br>Followed by an optional 0-10 letters or numbers<br>And must end with a character 	| trimmed<br>to lower 	|
+| country         	| String    	| ObjectId for country            	| Required                                                                                                                                                                                    	|                     	|
+| lat             	| Double    	| Latitude Map value              	| system generated via google Maps API                                                                                                                                                        	|                     	|
+| lng             	| Double    	| Longitude Map Value             	| system generated via google Maps API                                                                                                                                                        	|                     	|
+| one_line        	| Sting     	| One line address representation  	| system generated for future Nearby API integration                                                                                                                                          	|                     	|
+| google_place_id 	| String    	| Unique Place ID for google Maps 	| system generated via google Maps API                                                                                                                                                        	|                     	|
+
+Users in put address_line_1, address_line_2, city, state, country and postal_code values. The system checks to see if the user entered data is already in the database and if not it will call Google Map's API to retrieve the google_place_id, latitude and longitude values so maps can be rendered without requesting those pieces of information each time a list or event is displayed on the site.
+
+Addresses cannot be updated or deleted, they are only added or read, so long term, there should be a process that checks for unused addresses.
+
+#### Countries
+Countries are associated to address. Since the list is long and does not change often this collection was initialized via the helper countries.py helper function
+```$ python helpers/upload_countries.py ```
+It is a read only table after being initialized.
+
+| DB Key  	| Data Type 	|      Purpose      	| Form Validation 	| DB processing 	|
+|---------	|:---------:	|:-----------------:	|:---------------:	|---------------	|
+| _id     	| ObjectId  	| unique identifier 	| None            	|               	|
+| country 	| String    	| Country's name    	| None            	| to lower      	|
+
+The ObjectId for a country is stored in an address. It's used to populate the address collection country drop down menu.
+
+#### Events
+Events are one of the more complex data structures in What2do2day. An event has cross references to places, addresses, activities, and users and has some data attributed by a call to google maps api:
+
+| DB Key                	| Data Type 	|          Purpose         	| Form Validation                                                                                                                                            	| DB processing                                	|
+|-----------------------	|:---------:	|:------------------------:	|------------------------------------------------------------------------------------------------------------------------------------------------------------	|----------------------------------------------	|
+| _id                   	| ObjectId  	| unique identifier        	| None                                                                                                                                                       	|                                              	|
+| place                 	| ObjectId  	| Place Id                 	| Required                                                                                                                                                   	|                                              	|
+| name                  	| String    	| Name of Event            	| Required<br>min 1 char<br>max 50 char                                                                                                                      	| trimmed<br>to lower                          	|
+| date_time_range       	| String    	| Date Time Range of Event 	| Required<br>Format: MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM<br>Start Date in future<br>End Date >= Start Date<br>If Start Date = End Date EndTime > Start Time 	|                                              	|
+| activity              	| ObjectId  	| Activity Id              	| Required                                                                                                                                                   	|                                              	|
+| details               	| String    	| Event Details            	| Required<br>min 1 char<br>max 500 char                                                                                                                     	| trim                                         	|
+| age_limit             	| Array     	| Ages allowed in event    	| Required<br>1 or more choices                                                                                                                              	| If No-limit in array<br>only upload no-limit 	|
+| price_for_non_members 	| String    	| Optional price           	| Optional<br>min 1 char<br>max 50 char                                                                                                                      	| trim                                         	|
+| address               	| ObjectId  	| Address of event         	| Optional                                                                                                                                                   	|                                              	|
+| max_attendees         	| Int32     	| Number of attendees      	| Required<br>min 1<br>max 1000                                                                                                                              	|                                              	|
+| attendees             	| Array     	| array of users           	| Updated when user joins event                                                                                                                              	|                                              	|
+
+Before an event is added to or updated, a uniqueness check is done to ensure the name and date/time combination is unique for events associated to the place.
+#### Metrics Clicks
+The Metrics Clicks collection serves the purpose of tracking clicks by names related to the action the user is taking. Typically data-trigger attributes are set to buttons and links by a developer and handlers will then write to the database when the button or link is clicked through an ajax post. When a template is rendered, the app developer has to set the page value so the reporting will attribute the click the page.
+
+| DB Key    	| Data Type 	|               Purpose              	| Form Validation            	| DB processing 	|
+|-----------	|:---------:	|:----------------------------------:	|----------------------------	|---------------	|
+| _id       	| ObjectId  	| unique identifier                  	| None                       	| n/a           	|
+| link_name 	| String    	| reflects purpose of link or button 	| None, set by app developer 	| n/a           	|
+| date      	| Date      	| track time of user click           	| None, auto generated       	| n/a           	|
+| page      	| String    	| Page click initiated from          	| None, set by app developer 	| n/a           	|
+| method    	| String    	| button or link                     	| None, set by app developer 	| n/a           	| 
+
+The metrics click data is aggregated to get counts by name only at this time and presented on the Metrics page. At a future point, funnels for joining events could be queried and analyzed to determine .
+
+
+The design decisions around metrics can be found in the Clicks tab of this [google doc](https://docs.google.com/spreadsheets/d/1IRcafdaRZDiYhr5YtFVhcnb1w3mtcNLNPzOdSg6LiX4/edit?usp=sharing).
+
+#### Metrics Page
+The page metrics collection just holds page visited data:
+
+| DB Key 	| Data Type 	|         Purpose        	| Form Validation            	| DB processing 	|
+|--------	|:---------:	|:----------------------:	|----------------------------	|---------------	|
+| _id    	| ObjectId  	| unique identifier      	| None                       	| n/a           	|
+| name   	| String    	| Page click use visited 	| None, set by app developer 	| n/a           	|
+| type   	| String    	| page or modal          	| None, set by app developer 	| n/a           	|
+
+The metrics page data is aggregated to counts by name only at this time and presented on the Metrics page. At a future point, it might be nice to see how more events are joined, initiated from the Places page or the Events page.
+
+The design documentation around the pages metrics can be found in the Page tab of the [metrics spreadsheet](https://docs.google.com/spreadsheets/d/1IRcafdaRZDiYhr5YtFVhcnb1w3mtcNLNPzOdSg6LiX4/edit?usp=sharing).
+#### Places
+The places object is another major player in what2do2day and is built mostly by user input.
+
+| DB Key      	| Data Type 	|                      Purpose                      	| Form Validation                       	| DB processing    	|
+|-------------	|:---------:	|:-------------------------------------------------:	|---------------------------------------	|------------------	|
+| _id         	| ObjectId  	| unique identifier                                 	| None                                  	| n/a              	|
+| name        	| String    	| Name of place                                     	| Required<br>min 1 char<br>max 50 char 	| trim<br>to lower 	|
+| address     	| ObjectId  	| Cross reference addresses table                   	| Optional                              	|                  	|
+| user        	| ObjectId  	| Cross reference users table                       	| Required                              	|                  	|
+| phone       	| String    	| Contact number of place                           	| Optional                              	|                  	|
+| website     	| String    	| url of place                                      	| Optional                              	| trim             	|
+| image_url   	| String    	| url of image on web                               	| Optional                              	| trim             	|
+| share_place 	| Boolean   	| Used to hide places from list view<br>soft delete 	| Required                              	|                  	|
+| activity    	| ObjectId  	| Cross reference activities table                  	| Required                              	|                  	|
+
+While the From to collect a place gathers an email, an address, event and potentially another address and a review, the table only stores data related to the place object. 
+Before a place is added or updated to the database, it's name is checked to be unique in the database. In the future, this concept may need to be expanded to include an address especially if franchises start to use the application.
+#### Reviews
+Reviews are one of the simpler user objects on the site that requires user input for creation, but it's dat structure is quite a bit more complex than the user entry form.
+
+| DB Key   	| Data Type 	|                              Purpose                             	| Form Validation                       	| DB processing 	|
+|----------	|:---------:	|:----------------------------------------------------------------:	|---------------------------------------	|---------------	|
+| _id      	| ObjectId  	| unique identifier                                                	| None                                  	| n/a           	|
+| place    	| ObjectId  	| cross references place                                           	| Required                              	| n/a           	|
+| user     	| ObjectId  	| cross references user                                            	| Required                              	| n/a           	|
+| rating   	| Int32     	| rating of place                                                  	| Required<br>Integer<br>min 1<br>Max 5 	| n/a           	|
+| comments 	| String    	| User's opinion about the place                                   	| Required<br>min 1<br>max 500          	| trim          	|
+| share    	| Boolean   	| Used to hide a review from the place's review list (soft delete) 	| Required                              	|               	|
+
+Before a review is added to the database, the user and the date and name are queried to ensure the user hasn't reviewed the place within the last week to avoid bloating of the aggregated rating for a given place.
+
+Reviews are initiated from the Add Place form, by the add review button on the places list page.  Reviews cannot be updated at this time but would be part of a workflow before being shared in a future release.
+
+#### Users
+The user is a very simplistic representation at this time. It's only the email. It's not verified, it's not updatable, it has not roles or permissions.
+
+| DB Key 	| Data Type 	|                  Purpose                 	| Form Validation          	| DB processing               	|
+|--------	|:---------:	|:----------------------------------------:	|--------------------------	|-----------------------------	|
+| _id    	| ObjectId  	| unique identifier                        	| None                     	| n/a                         	|
+| email  	| String    	| minimalistic view of a user, their email 	| Required<br>email format 	| to lower<br>unique in table 	|
+
+User are added when adding a place, joining an event, or adding a review. Users are aggregated into the review list seen on the places list page. The user's ObjectId is added to reviews and the list of attendees for an event. The user's email is used a means to communicate event updates and joining via STMP mail.
+
 ### Skeleton
-Having the data structure in hand, I knew what data fields I had at hand to present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had higher priority.
+Having a rough data structure in hand, I knew what data fields I could present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had higher priority.
 [view hand drawn mockups](documentation/handdrawn.md)
 
 Once I had the Places list drawn out, I invested several hours to mockup and fine tune the user experience using Basalmiq.
 [view balsamiq deck](documentation/balsamiq.md)
 
-Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons. I decided that delete is really an update function since I am using the enabled attribute to hide or show items on the Places and Events pages.  The more formal mockups also allowed me to try several different layouts of the data for the main list pages. The mockkups include layers for searching and in site adding of reviews. Search non-happy paths were also mocked up. 
+Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons if I chose to clone the list pages and add buttons for updating and deleting. I decided that delete is really an update function since I am using a share attribute to hide or show items on the Places and Events pages.  The more formal mockups also allowed me to try several different layouts of the data for the main list pages. The mockkups include layers for searching and in site adding of reviews. Search non-happy paths were also mocked up. 
+
+Please note, the mockups were a guideline but not a hard design tool. Some aspects changed during development to make the site more user friendly and intuitive to use.
 
 #### Content Considerations
 Many UX decisions made had the target audience of 12 - 18 years in mind. The lack of maps on some pages was a conscious choice as the majority of users will be very familiar with the 1-5 mile radius around their home base. I wanted information spaced out with iconic/graphic identification so the users would know readily what interest the the most with limited reading required. 
+
+## Design Choices
+The application is aimed at users 12-18 in age. The intent is to provide a clean, intuitive design to users with engaging imagery and animation to spice up the views and keep users engaged. 
 
 ### Surface:
 Below are the decisions and internal dialogs I had to help draw out what the end product will look like.
