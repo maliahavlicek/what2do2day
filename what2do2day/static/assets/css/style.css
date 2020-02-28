@@ -116,6 +116,10 @@ footer p {
     color: #4a4a4a;
 }
 
+.accordions .accordion.is-active .accordion-body {
+    max-height: 100%;
+}
+
 .not-shared .accordions.arrow .accordion .accordion-header {
     background-color: #feecf0;
 }
@@ -746,6 +750,10 @@ nav.level.is-primary {
 
 nav.level.is-primary .level-item {
     justify-content: flex-start;
+}
+
+.count-in-text {
+    width: 100%;
 }
 
 .button.action {
@@ -1485,6 +1493,9 @@ progress:after {
 
     .button.action {
         min-width: 230px;
+    }
+    .count-in-text {
+        width: 230px;
     }
 
 }
