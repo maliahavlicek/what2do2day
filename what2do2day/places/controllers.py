@@ -69,7 +69,12 @@ def push_place_to_db(form, update=False, place_id=False):
     elif is_unique is not None and update and is_unique != ObjectId(place_id):
         return redirect(url_for('places_bp.edit_place', status="Place already exists."))
     elif is_unique is not None and update and is_unique == ObjectId(place_id):
+        # same name and address used when updating
         place['_id'] = ObjectId(place_id)
+    elif is_unique is None and update:
+        # name or address change of place
+        place['_id'] = ObjectId(place_id)
+
     # add rest of place to the dictionary
     email = form.email.data.strip().lower()
     place['user'] = get_add_user_id(email)

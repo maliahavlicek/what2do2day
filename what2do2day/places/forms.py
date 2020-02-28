@@ -24,7 +24,8 @@ class PlaceForm(FlaskForm):
         Email(message='Not a valid email address.')
     ])
     name = StringField('Name of Place *', [
-        Length(min=1, message='Name of Place is required.')
+        Length(min=1, message='Name of Place is required.'),
+        Length(max=50, message="Name must be less than 50 characters.")
     ])
     description = TextAreaField('Description *', [
         Length(min=1, message="Description is required"),
@@ -32,7 +33,8 @@ class PlaceForm(FlaskForm):
         Length(max=500, message='Descriptions cannot be longer than 500 characters.')
     ])
     activity_name = StringField('Activity Type', [
-        Length(min=1, message="Please enter the activity type.")])
+        Length(min=1, message="Please enter the activity type."),
+        Length(max=50, message="Activity must be less than 50 characters.")])
     activity_icon = HiddenField(None, [DataRequired()], default="n")
     phone = StringField('Phone', [Optional()])
     website = StringField('Website',

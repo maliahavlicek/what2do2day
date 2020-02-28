@@ -11,90 +11,117 @@ Malia Havlicek
 
 Users can also view a list of all the places in the community and read reviews about them and see all the future events associated with a given place. Members of the community can add reviews about places to share their experiences and rate organizations. The website has a crisp, young feel to it and was built with ease of use and a younger audience in mind. 
 
-Possibilities to monetize this site abound. Site owners can easily add affiliate linking from any organization listed on the site that results in a sale by appending attributes to the place's URL. By adding a Google Click Identifier (GCLID) to a place's website when leaving What2Do2Day's site, offline conversions could be tracked and negotiated to a monetary value for the site owners. Site admins can also examine site data and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places's page on desktop has natural side bars when users are looking at events and reviews, On mobile devices ad space could be inserted below filtering options and above the footer too.) The site can easily be scaled up to include more predefined age ranges if the market determines there is a need or re-skinned for older age groups under a different name if so desired.
+Possibilities to monetize this site abound. Site owners can easily add affiliate linking from any organization listed on the site that results in a sale by appending attributes to the place's URL. By adding a Google Click Identifier (GCLID) to a place's website when leaving What2Do2Day's site, offline conversions could be tracked and negotiated to a monetary value for the site owners. Site admins can also examine site data and sell ads on this site to help earn money by targeting audiences of similar interests. (Note how the Places' page on desktop has natural sidebars when users are looking at events and reviews, On mobile devices ad space could be inserted below filtering options and above the footer too.) The site can easily be scaled up to include more predefined age ranges if the market determines there is a need or re-skinned for older age groups under a different name if so desired.
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series [Phineas and Ferb](https://en.wikipedia.org/wiki/Phineas_and_Ferb).
 
 
-## Table of Contents
-<details>
-<summary> TOC </summary>
+  * [UX](#ux)
+    + [Strategy](#strategy)
+    + [Scope](#scope)
+    + [Goals](#goals)
+      - [Customer Goals](#customer-goals)
+      - [Place Owner Goals](#place-owner-goals)
+      - [WebSite Goals](#website-goals)
+  * [Structure](#structure)
+    + [Database Choice](#database-choice)
+    + [Data Models](#data-models)
+    + [Collections Data Structure](#collections-data-structure)
+      - [Activities](#activities)
+      - [Addresses](#addresses)
+      - [Countries](#countries)
+      - [Events](#events)
+      - [Metrics Clicks](#metrics-clicks)
+      - [Metrics Page](#metrics-page)
+      - [Places](#places)
+      - [Reviews](#reviews)
+      - [Users](#users)
+    + [Skeleton](#skeleton)
+      - [Content Considerations](#content-considerations)
+  * [Design Choices](#design-choices)
+    + [Surface:](#surface-)
+      - [Color Choice](#color-choice)
+      - [Typography](#typography)
+      - [Image Choice](#image-choice)
+        * [Home Page](#home-page)
+        * [Activity Icons](#activity-icons)
+        * [Input Icons](#input-icons)
+        * [Header Image](#header-image)
+        * [Modals and Errors](#modals-and-errors)
+        * [Loading Giff](#loading-giff)
+      - [Design Elements](#design-elements)
+      - [Animations & Transitions](#animations---transitions)
+    + [User Stories:](#user-stories-)
+      - [For kids looking for something free to do today in their neighborhood:](#for-kids-looking-for-something-free-to-do-today-in-their-neighborhood-)
+      - [For places and organizations involved in building the community](#for-places-and-organizations-involved-in-building-the-community)
+      - [For site owners hosting a website to store community information](#for-site-owners-hosting-a-website-to-store-community-information)
+  * [Features](#features)
+    + [Implemented Features](#implemented-features)
+      - [Structural](#structural)
+      - [Common Elements](#common-elements)
+      - [Forms](#forms)
+      - [Database Operations](#database-operations)
+      - [API Integration](#api-integration)
+      - [Metrics](#metrics)
+    + [Features Left to Implement](#features-left-to-implement)
+      - [Features Deferred from original plan](#features-deferred-from-original-plan)
+      - [User Roles & Permissions](#user-roles---permissions)
+      - [Place Administrator Dashboard](#place-administrator-dashboard)
+      - [External User Adult Dashboard](#external-user-adult-dashboard)
+      - [External User Minor Dashboard](#external-user-minor-dashboard)
+      - [Content Admin Dashboard](#content-admin-dashboard)
+      - [Site Admin Dashboard](#site-admin-dashboard)
+      - [More Sophisticated Attendance Tracking](#more-sophisticated-attendance-tracking)
+      - [API Integrations](#api-integrations)
+      - [Switch to Relational Database](#switch-to-relational-database)
+    + [Project Tracking](#project-tracking)
+  * [Technologies Used](#technologies-used)
+    + [Programming languages](#programming-languages)
+    + [Framework & Extensions](#framework---extensions)
+    + [Fonts](#fonts)
+    + [Tools](#tools)
+    + [APIs](#apis)
+  * [Testing](#testing)
+    + [Validation Testing](#validation-testing)
+    + [Unit Testing](#unit-testing)
+    + [Cross Browser/ Cross Device Verification](#cross-browser--cross-device-verification)
+    + [Cross Site Scripting and Forgery](#cross-site-scripting-and-forgery)
+    + [Accessibility Testing](#accessibility-testing)
+    + [Regression Testing](#regression-testing)
+    + [Automated Testing](#automated-testing)
+    + [Defect Tracking](#defect-tracking)
+      - [Noteworthy Bugs](#noteworthy-bugs)
+      - [Outstanding Defects](#outstanding-defects)
+  * [Deployment](#deployment)
+    + [GitHub](#github)
+      - [Requires](#requires)
+      - [Running Locally](#running-locally)
+    + [Heroku](#heroku)
+      - [Deployment To Shared Environment](#deployment-to-shared-environment)
+  * [Credits](#credits)
+    + [Content](#content)
+    + [Media](#media)
+    + [Acknowledgements](#acknowledgements)
 
-> - [UX](#UX)
->   - [Strategy](#Strategy)
->   - [Scope](#Scope)
->   - [Structure](#Structure)
->   - [Skeleton](#skeleton)
->   - [Surface](#surface)
->     - [Color Choice](#color-choice)
->     - [Typography](#typography)
->     - [Image Choice](#image-choice)
->     - [Design Elements](#design-elements)
->     - [Animations & Transitions](#animations--transitions)
->   - [User Stories](#user-stories)
->     - [For Community Members](#for-kids-looking-for-something-free-to-do-today-in-their-neighborhood)
->     - [For Places and Organizations](#for-places-and-organizations-involved-in-building-the-community)
->     - [For Site Owners](#for-site-owners-hosting-a-website-to-store-community-information)
->   - [Features](#features)
->     - [Implemented](#implemented-features)
->       - [Structural](#structural)
->       - [Common Elements](#common-elements)
->       - [Forms](#forms)
->       - [Data Operations](#data-operations)
->       - [API Integration](#api-integration)
->       - [Metrics](#metrics)
->     - [Future](#features-left-to-implement)
->       - [User Roles & Permissions](#user-roles--permissions)
->       - [Place Administrator Dashboard](#place-administrator-dashboard)
->       - [External User Adult Dashboard](#external-user-adult-dashboard)
->       - [External User Minor Dashboard](#external-user-minor-dashboard)
->       - [Content Admin Dashboard](#content-admin-dashboard)
->       - [Site Admin Dashboard](#site-admin-dashboard)
->       - [API Integration](#api-integrations)
-> - [Project Tracking](#project-tracking)
-> - [Technologies Used](#technologies-used)
->     - [Programming languages](#programming-languages)
->     - [Framework & Extensions](#framework--extensions)
->     - [Fonts](#fonts)
->     - [Tools](#tools)
->     - [APIs](#apis)
-> - [Testing](#testing)
->   - [validation](#validation-testing)
->   - [unit](#unit-testing)
->   - [cross browser](#cross-browser-cross-device-verification)
->   - [XSS & CSFR](#cross-site-scripting-and-forgery)
->   - [accessibility](#accessibility-testing)
->   - [regression](#regression-testing)
->   - [automated](#automated-testing)
-> - [Deployment](#deployment)
->   - [Requirements](#requires)
->   - [Local](#running-locally)
->   - [Heroku](#heroku)
-> - [Credits](#credits)
->   - [content](#content)
->   - [media](#media)
->   - [Acknowledgements](#acknowledgements)
-
-</details>
 
 ## UX
 ### Strategy
 Before launching any website, business partners want to know how they can earn money and if there is a need or demand for the project. Defining business goals for a project from the standpoint of an external user as well as site owners helps you evaluate possible returns on investment.
 
-I had a couple of [ideas](documentation/proejct_definition.md) in mind that could fulfill the requirements of this project and wrote out high level user goals to aid in determining which project would work best. What2do2day was the winner.
+I had a couple of [ideas](documentation/proejct_definition.md) in mind that could fulfill the requirements of this project and wrote out high-level user goals to aid in determining which project would work best. What2do2day was the winner.
 
 ### Scope
-The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version which eliminates authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user profiles and management of users will not be in the first deliverable. 
+The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that eliminates authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user-profiles and management of users will not be in the first deliverable. 
 
 Restricting results based on user's location increments of 1, 5, and 10 miles would be ideal for a long term solution but it is not necessary for the MVP. Simply put, not enough data will be loaded to make searching and geolocation viable initially.
 
 For the MVP, users do not need to be registered, verified or logged in. Creating options are consolidated under a Contribute menu and can easily be moved behind permissions at a later date. Likewise, updating including deleting functionality will only be accessible from the Update menu option. This allowed the MVP to be built to serve the majority of long term users and kept the UX cleaner without an overwhelming amount of buttons. 
 
-Ideally the update functions would be hidden behind administrative roles. Likewise, adding functions would be distributed across another set of users as adding a review is mush less restricted than adding events and places. A long term project would also look at providing admin proximity/ease of use functionality by including cloning options. 
+Ideally, the update functions would be hidden behind administrative roles. Likewise, adding functions would be distributed across another set of users as adding a review is much less restricted than adding events and places. A long term project would also look at providing admin proximity/ease of use functionality by including cloning options. 
 
-The MVP solution consolidates the Delete functionality into a toggle which shares and event, or place on the site. This property eliminates helper pages to develop and reduces the number of items in the menus which makes overall navigation easier while protecting the data's integrity by avoiding jumps in auto generated id's.
+The MVP solution consolidates the Delete functionality into a toggle which shares and event, or place on the site. This property eliminates helper pages to develop and reduces the number of items in the menus which makes overall navigation easier while protecting the data's integrity by avoiding jumps in auto-generated id's.
 
-Business logic to track the pages, and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be include. The user click data being collected does include which pages the click occurred on but funnel reports will will not be included in the MVP, only a count of the pages and clicks collected ordered by max to min. 
+Business logic to track the pages and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be include. The user click data being collected does include which pages the click occurred on but funnel reports will not be included in the MVP, only a count of the pages and clicks collected ordered by max to min. 
 
 ### Goals
 #### Customer Goals
@@ -102,7 +129,7 @@ The target audience for What2do2day is children ages 12-18 who have a bit of fre
 
 Customer Goals are:
 
-- Bring up site and look for an event to attend close to home
+- Bring up the site and look for an event to attend close to home
 - Look at places to see how they rank without having to read much
 - Quickly find activities that interest them without having to type much
 - Read reviews about places that interest them
@@ -110,7 +137,7 @@ Customer Goals are:
 - Easily know where an event they are interested in is located
 - Join an event of interest
 - See how many others are interested in an event
-- Receive a notification about an event they've joined
+- Receive notification about an event they've joined
 - Receive updates about events they've joined
 
 What2do2day helps the customer meet these goals because:
@@ -127,12 +154,12 @@ What2do2day helps the customer meet these goals because:
  - Sending emails when an event is updated to all users that have joined it
  - Listing the number of available spots and adding text that lets users know if the event is full or close to being filled
  - By proving a map on the count me in layer
- - By providing a mpa on the lists page
+ - By providing a map on the lists page
  
 #### Place Owner Goals
 
 Owners of Places would ideally have a different set of user permissions and the Update and Contribute sections of navigation would be under a strict workflow, but in the initial phase, I wanted to show off the ability to add, update and delete items from the website's view so it's not hidden behind permissions or workflow at this point.
-Place owners are those that have a business or an organization that hosts free events withing a community. Examples are a group that wants to play pickup soccer, or a bicycle shop that leads group rides once a month.
+Place owners are those that have a business or an organization that hosts free events within a community. Examples are a group that wants to play pickup soccer or a bicycle shop that leads group rides once a month.
 
 Place Owner Goals:
 
@@ -141,7 +168,7 @@ Place Owner Goals:
 - I want to add events to my place to build a repertoire with my clients 
 - I want users to join my events so I can track how successful community events are to my bottom line
 - I want the ability to update my place's details
-- I want to update events associated with my organisation
+- I want to update events associated with my organization
 - I want to protect against bloated ratings
 - I want to protect against accidental deletion of my information
 
@@ -153,38 +180,38 @@ What2do2day aides Place Owners by:
  - Allowing event filtering by icons and name pairs, date ranges and age limits
  - Allows users to enter a review for a place only once a week
  - Tracks users that want to attend an event
- - Soft deletes information so events are not compeletely lost
- - Will have specific workflow and permissions in it's final deployment
+ - Soft deletes information so events are not completely lost
+ - Will have specific workflow and permissions in its final deployment
  
  #### WebSite Goals
- The primary goal of what2do2day is to create a user friendly app that allows customers to quickly find an event they want to attend. It's a meeting point between business/organisations and kids/parents to improve the likelihood of kids getting off their devices and interacting with others face to face at a low cost with minimal supervision.
+ The primary goal of what2do2day is to create a user-friendly app that allows customers to quickly find an event they want to attend. It's a meeting point between business/organizations and kids/parents to improve the likelihood of kids getting off their devices and interacting with others face to face at a low cost with minimal supervision.
  
  What2do2day has three main audiences: 
 
   - Kids looking for something to do with others that have similar interests
-  - Businesses looking to build a reproitoire with the community looking to build a follower base within the community
-  - Parents wanting to loosen the reigns and build trust with their kids by allowing them to attend community events without direct parental invovlment
+  - Businesses looking to build a repertoire with the community looking to build a follower base within the community
+  - Parents wanting to loosen the reigns and build trust with their kids by allowing them to attend community events without direct parental involvement
  
  In order to support the maintenance and development of cool features on the site, what2do2day hopes to produce monetary gains through the following means:
  
  - Workflow Management Plans for Businesses around:
-   - oversee approval/disapproval of reviews to ensure spamming and bad mouthing in reviews does not occur
+   - oversee approval/disapproval of reviews to ensure spamming and bad-mouthing in reviews does not occur
    - batch event creation to help save time
    - user account management to help with password recovery and assigning or removing roles as employees change
    - sharing of user emails that attend events
- - Affiliate linking - link to at cost services provided by businesses and receive a kickback
- - Ads - target on line sales related to equipment based on activities a place or event is associated with
+ - Affiliate linking - link to at-cost services provided by businesses and receive a kickback
+ - Ads - target online sales related to equipment based on activities a place or event is associated with
 
 ## Structure
 
-While it was tempting to start with the UI immediately, I took the time to look into the data I wanted to present on the site. My first stop was to look at Google's Maps Places API to determine what fields the Place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise a Entity Relationship Diagram(ERD). 
+While it was tempting to start with the UI immediately, I took the time to look into the data I wanted to present on the site. My first stop was to look at Google's Maps Places API to determine what fields the Place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise an Entity Relationship Diagram(ERD). 
 
 ![final](documentation/images/data_model/Final%20Data%20Diagram-Objects%20For%20App.png)
 
 Like all projects, the data model morphed a few times. [See progression of data models.](documentation/data_model.md)
 
 ### Database Choice
-As a course requirement, this project was based on a NoSQL database structure. While the  project's data is better suited for a relational database such as SQL, MongoDB was used. 
+As a course requirement, this project was based on a NoSQL database structure. While the project's data is better suited for a relational database such as SQL, MongoDB was used. 
 
 ### Data Models
 Data stored in what2do2day's MongoDB consist of these types:
@@ -208,7 +235,7 @@ There are 9 data structures associate with what2do2day despite eliminating user 
 - Reviews
 - Users
 #### Activities
-Activities is a table to hold unique icon image and name values that users have associated with events and places. It helps with sorting events and prevents the need from carrying around two data objects in the larger Events and Places data structures. The purpose of an Activities object is to provide an imagery association to a category.
+Activities is a table to hold a unique icon image and name values that users have associated with events and places. It helps with sorting events and prevents the need from carrying around two data objects in the larger Events and Places data structures. The purpose of an Activities object is to provide an imagery association to a category.
 
 | DB Key 	| Data Type 	|          Purpose          	| Form Validation 	| DB processing                                                	|
 |:------:	|:---------:	|:-------------------------:	|:---------------:	|--------------------------------------------------------------	|
@@ -216,10 +243,10 @@ Activities is a table to hold unique icon image and name values that users have 
 | name   	| String    	| Name of Place             	| Required        	| Lead and trailing space trimmed<br>Transformed to lower case 	|
 | icon   	| String    	| system path to image file 	| Required        	|                                                              	|
 
-The name and icon pair are checked to be unique before adding an item to the collection. This table has no deletion or updates associated with it. It's strictly create and read. Eventually maintenance scripts should be written to eliminate unused entries.
+The name and icon pair is checked to be unique before adding an item to the collection. This table has no deletion or updates associated with it. It's strictly create and read. Eventually, maintenance scripts should be written to eliminate unused entries.
 
 #### Addresses
-Addresses are optionally entered in association to Places and Events. This data structure is used by both Events and Places to provide users with a physical location. Only the _id is stored in Places and Events to reduce the amount of data being stored as many places may use the same address as a meeting point for their events.
+Addresses are optionally entered in association with Places and Events. This data structure is used by both Events and Places to provide users with a physical location. Only the _id is stored in Places and Events to reduce the amount of data being stored as many places may use the same address as a meeting point for their events.
 
 |      DB Key     	| Data Type 	|             Purpose             	|                                                                                       Form Validation                                                                                       	| DB processing       	|
 |:---------------:	|:---------:	|:-------------------------------:	|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:	|---------------------	|
@@ -235,7 +262,7 @@ Addresses are optionally entered in association to Places and Events. This data 
 | one_line        	| Sting     	| One line address representation  	| system generated for future Nearby API integration                                                                                                                                          	|                     	|
 | google_place_id 	| String    	| Unique Place ID for google Maps 	| system generated via google Maps API                                                                                                                                                        	|                     	|
 
-Users in put address_line_1, address_line_2, city, state, country and postal_code values. The system checks to see if the user entered data is already in the database and if not it will call Google Map's API to retrieve the google_place_id, latitude and longitude values so maps can be rendered without requesting those pieces of information each time a list or event is displayed on the site.
+Users input address_line_1, address_line_2, city, state, country and postal_code values. The system checks to see if the user entered data is already in the database and if not it will call Google Map's API to retrieve the google_place_id, latitude and longitude values so maps can be rendered without requesting those pieces of information each time a list of event is displayed on the site.
 
 Addresses cannot be updated or deleted, they are only added or read, so long term, there should be a process that checks for unused addresses.
 
@@ -249,7 +276,7 @@ It is a read only table after being initialized.
 | _id     	| ObjectId  	| unique identifier 	| None            	|               	|
 | country 	| String    	| Country's name    	| None            	| to lower      	|
 
-The ObjectId for a country is stored in an address. It's used to populate the address collection country drop down menu.
+The ObjectId for a country is stored in an address. It's used to populate the address collection country drop-down menu.
 
 #### Events
 Events are one of the more complex data structures in What2do2day. An event has cross references to places, addresses, activities, and users and has some data attributed by a call to google maps api:
@@ -280,7 +307,7 @@ The Metrics Clicks collection serves the purpose of tracking clicks by names rel
 | page      	| String    	| Page click initiated from          	| None, set by app developer 	| n/a           	|
 | method    	| String    	| button or link                     	| None, set by app developer 	| n/a           	| 
 
-The metrics click data is aggregated to get counts by name only at this time and presented on the Metrics page. At a future point, funnels for joining events could be queried and analyzed to determine .
+The metrics click data is aggregated to get counts by name only at this time and presented on the Metrics page. At a future point, funnels for joining events could be queried and analyzed to determine.
 
 
 The design decisions around metrics can be found in the Clicks tab of this [google doc](https://docs.google.com/spreadsheets/d/1IRcafdaRZDiYhr5YtFVhcnb1w3mtcNLNPzOdSg6LiX4/edit?usp=sharing).
@@ -313,9 +340,9 @@ The places object is another major player in what2do2day and is built mostly by 
 | activity    	| ObjectId  	| Cross reference activities table                  	| Required                              	|                  	|
 
 While the From to collect a place gathers an email, an address, event and potentially another address and a review, the table only stores data related to the place object. 
-Before a place is added or updated to the database, it's name is checked to be unique in the database. In the future, this concept may need to be expanded to include an address especially if franchises start to use the application.
+Before a place is added or updated to the database, its name and it's address if one is present is checked to be unique in the database. This allows franchises to co-exist in the system.
 #### Reviews
-Reviews are one of the simpler user objects on the site that requires user input for creation, but it's dat structure is quite a bit more complex than the user entry form.
+Reviews are one of the simpler user objects on the site that requires user input for creation, but it's data structure is quite a bit more complex than the user entry form.
 
 | DB Key   	| Data Type 	|                              Purpose                             	| Form Validation                       	| DB processing 	|
 |----------	|:---------:	|:----------------------------------------------------------------:	|---------------------------------------	|---------------	|
@@ -341,13 +368,13 @@ The user is a very simplistic representation at this time. It's only the email. 
 User are added when adding a place, joining an event, or adding a review. Users are aggregated into the review list seen on the places list page. The user's ObjectId is added to reviews and the list of attendees for an event. The user's email is used a means to communicate event updates and joining via STMP mail.
 
 ### Skeleton
-Having a rough data structure in hand, I knew what data fields I could present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had higher priority.
-[view hand drawn mockups](documentation/handdrawn.md)
+Having a rough data structure in hand, I knew what data fields I could present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had a higher priority.
+[view hand-drawn mockups](documentation/hand-drawn.md)
 
-Once I had the Places list drawn out, I invested several hours to mockup and fine tune the user experience using Basalmiq.
-[view balsamiq deck](documentation/balsamiq.md)
+Once I had the Places list drawn out, I invested several hours to mockup and fine-tune the user experience using Balsamiq.
+[view Balsamiq deck](documentation/balsamiq.md)
 
-Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons if I chose to clone the list pages and add buttons for updating and deleting. I decided that delete is really an update function since I am using a share attribute to hide or show items on the Places and Events pages.  The more formal mockups also allowed me to try several different layouts of the data for the main list pages. The mockkups include layers for searching and in site adding of reviews. Search non-happy paths were also mocked up. 
+Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons if I chose to clone the list pages and add buttons for updating and deleting. I decided that delete is really an update function since I am using a share attribute to hide or show items on the Places and Events pages.  The more formal mockups also allowed me to try several different layouts of the data for the main list pages. The mock-ups include layers for searching and in site adding of reviews. Search non-happy paths were also mocked up. 
 
 Please note, the mockups were a guideline but not a hard design tool. Some aspects changed during development to make the site more user friendly and intuitive to use.
 
@@ -381,7 +408,7 @@ This site's target audience is 12-18 years in age and they have a higher demand 
 ##### Home Page 
 To perpetuate the theme of Phineas and Ferb throughout the site, the cartoon's beginning image where Phineas and Ferb are in their back yard looking bored, chatting about what to do today is on the home page:
 
-<img src="what2do2day/static/assets/images/were_gonna_build_a_rollercoaster_sm.jpg" width="300" height="auto" alt="phineas and ferb in backyard" />
+<img src="what2do2day/static/assets/images/were_gonna_build_a_rollercoaster_sm.jpg" width="300" height="auto" alt="Phineas and Ferb in backyard" />
 
 ##### Activity Icons
 I wanted easily recognizable activities that users could quickly associate to events and places. I also wanted to give users a bit of self expression when creating events and places, so rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons to passively create activities from. I downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
@@ -851,10 +878,10 @@ The wonderful results of the google search engine helped me tremendously in comp
 - [speech bubbles](https://auralinna.blog/post/2017/how-to-make-a-css-speech-bubble-with-borders-and-drop-shadow) The home page dialog bubbles were adopted from this post by Tero Auralinna.
 - [CSS tricks](https://css-tricks.com) has an assortment of helpful ways to use CSS to accomplish tasks. 
   - [image centering]((https://css-tricks.com/perfect-full-page-background-image/)) how to center the home page background image across device sizes
-  -  [styling scrollbars](https://css-tricks.com/the-current-state-of-styling-scrollbars/) to conserve vertical space, I put the icon choices into a scrolling area, but wanted to show the scrollbars in an intuitive manner rather than relying on inconsistent default browser styles
+  -  [styling scrollbars](https://css-tricks.com/the-current-state-of-styling-scrollbars/) to conserve vertical space, I put the icon choices into a scrolling area but wanted to show the scrollbars in an intuitive manner rather than relying on inconsistent default browser styles
 - [Kyle Marek-Spartz](https://kyle.marek-spartz.org/posts/2014-04-04-setting-wtforms-selection-fields-dynamically.html) - Setting WTForms Selection Fields Dynamically
 - [mcelhennyi](https://gist.github.com/devxoul/7638142) - Required If validation used in address, event, and review form entries
-- [api_mongodb](https://api.mongodb.com/python/current/migrate-to-pymongo3.html) -  Help in overcoming and understanding write concern errors I encountered with mongodb
+- [api_mongodb](https://api.mongodb.com/python/current/migrate-to-pymongo3.html) -  Help in overcoming and understanding write concern errors I encountered with MongoDB
 - [mongo reference](https://docs.mongodb.com/manual/reference/) - Learning how to manipulate dates, strings, perform lookups, sorting, and merges on data
 - [javascript dates](https://www.aspsnippets.com/Articles/JavaScript-Display-Current-Time-in-12-hour-format-AM-PM-and-24-hour-format-with-Hours-Minutes-and-Seconds-hhmmss.aspx) to clean up date formatting in the initial count me in layer
 - [Pretty Printed](https://www.youtube.com/watch?v=kWncnBBxoJ4&feature=youtu.be)This video shows how to integrate google maps to a python flask application.

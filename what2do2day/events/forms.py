@@ -19,7 +19,8 @@ class EventForm(FlaskForm):
     has_event = BooleanField('Add Event', default=True)
 
     event_name = StringField('Name of Event *', [RequiredIf(has_event=True),
-                                                 Length(min=1, message='Name of Event is required.')
+                                                 Length(min=1, message='Name of Event is required.'),
+                                                 Length(max=50, message="Name must be less than 50 characters.")
                                                  ])
     # post from form is 01/29/2020 05:00 - 01/30/2020 23:59
     event_start_datetime = StringField('Date & Time *',
@@ -28,7 +29,8 @@ class EventForm(FlaskForm):
     address = FormField(AddressForm, 'Address')
 
     activity_name = StringField('Activity Type', [
-        Length(min=1, message="Please enter the activity type.")])
+        Length(min=1, message="Please enter the activity type."),
+        Length(max=50, message="Name must be under 50 characters.")])
     activity_icon = HiddenField(None, [DataRequired()], default="n")
     details = TextAreaField('Details *', [RequiredIf(has_event=True),
                                           Length(min=1, message="Details are required"),
@@ -47,7 +49,9 @@ class EventForm(FlaskForm):
                                                                ], default='no-limit')
 
     price_for_non_members = StringField('Price for non-members', [Optional(),
-                                                                  Length(min=1, message='Name of Event is required.')])
+                                                                  Length(min=1, message='Name of Event is required.'),
+                                                                  Length(max=50,
+                                                                         message="Price must be less than 50 characters.")])
     max_attendees = IntegerField('Maximum Number of Attendees', [NumberRange(min=1, max=1000,
                                                                              message="You must allow at least 1 to 1,000 people to attend the event.")])
     share = BooleanField('Share with Community', default=True)
