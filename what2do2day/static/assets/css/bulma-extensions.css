@@ -1549,10 +1549,12 @@
 [data-tooltip]:not(.is-disabled).has-tooltip-multiline::before, [data-tooltip]:not(.is-loading).has-tooltip-multiline::before, [data-tooltip]:not([disabled]).has-tooltip-multiline::before {
     height: auto;
     width: 28rem;
-    max-width: 320px;
+    max-width: 300px;
     text-overflow: clip;
     white-space: normal;
     word-break: keep-all;
+    left: 0;
+    transform: translate(-80px, 100%);
 }
 
 [data-tooltip]:not(.is-disabled).has-tooltip-white.has-tooltip-bottom::after, [data-tooltip]:not(.is-loading).has-tooltip-white.has-tooltip-bottom::after, [data-tooltip]:not([disabled]).has-tooltip-white.has-tooltip-bottom::after {
@@ -2069,4 +2071,12 @@
 .accordions .accordion.is-danger .accordion-content {
     border-color: #ff3860;
     color: #cd0930
+}
+
+/* larger phones */
+@media screen and (min-width: 600px) {
+    [data-tooltip]:not(.is-disabled).has-tooltip-multiline::before, [data-tooltip]:not(.is-loading).has-tooltip-multiline::before, [data-tooltip]:not([disabled]).has-tooltip-multiline::before {
+        max-width: 500px;
+        left: 0;
+    }
 }
