@@ -4,7 +4,10 @@
             class="accordion {% if filter_form.errors and not filter_form.validate_on_submit() %}is-active{% endif %}">
         <div class="accordion-header">
             <p>Filters: <span id="filtering" class="active-filters">{{ filter }}</span>
-                <button class="toggle" aria-label="toggle" data-track="event_filter_toggle,{{ page }},button"></button>
+               {# why show a filter if only one item in list #}
+                {% if events|length > 1 %}
+                    <button class="toggle" aria-label="toggle" data-track="event_filter_toggle,{{ page }},button"></button>
+                {% endif %}
             </p>
             <div class="level-right columns">
                 {% if filter != "None" %}

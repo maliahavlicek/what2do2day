@@ -84,6 +84,9 @@ footer p {
 .accordions .accordion .accordion-header {
     justify-content: space-between;
 }
+.accordion-header .columns:last-child {
+    margin-bottom: 0;
+}
 
 .accordions .accordion .accordion-header .columns .column {
     width: 150px;
@@ -1033,6 +1036,7 @@ span#event-modal-title {
 .list-events .card.is-primary {
     border: 1px solid #00d1b2;
     border-right: none;
+    border-left: none;
     margin: 0 0 -1px 0;
     clip-path: inset(0 0 -1rem -1rem);
     box-shadow: none;
@@ -1219,6 +1223,9 @@ progress:after {
         margin-right: -.75rem;
         margin-top: -.75rem;
     }
+    .accordion-header .columns:last-child {
+    margin-bottom: -.75rem;
+}
 
     /* modals */
     .modal-card {
@@ -1446,6 +1453,7 @@ progress:after {
     .list-events .card.is-primary {
         margin: 0 0 0 75px;
         border-bottom: none;
+        border-left: 1px solid #00d1b2;
     }
 
     .list-events.places .card.is-primary {
