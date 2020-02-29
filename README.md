@@ -246,9 +246,13 @@ Activities is a table to hold a unique icon image and name values that users hav
 | name   	| String    	| Name of Activity          	| Required<br>Min 1 char<br>Max 50 chars 	| trim<br>to lower 	|
 | icon   	| String    	| system path to image file 	| Required                               	|                  	|
 
-The name and icon pair is checked to be unique before adding an item to the collection. This table has no deletion or updates associated with it. It's strictly create and read. Eventually, maintenance scripts should be written to eliminate unused entries.
-
 Activity entries are used by events, places and filtering.
+
+The Activities table is read when a user is adding an event, updating an event, adding a place or updating a place, to determine if a new value should be created or not. The activities table is queried for using the name and icon pair, if it is found, the ObjectId is passed to the event and places. If no match is found, a new Activity is created and that ObjectID is passed to the the place or event.
+ 
+ This table has no deletion or updates associated with it. It's strictly create and read. Eventually, maintenance scripts should be written to delete unused/deprecated entries.
+An activity is potentially created when a user successfully creates a place, creates and event, updates an event, or updates a place. 
+
 
 #### Addresses
 Addresses are optionally entered in association with Places and Events. This data structure is used by both Events and Places to provide users with a physical location. Only the _id is stored in Places and Events to reduce the amount of data being stored as many places may use the same address as a meeting point for their events.
@@ -269,10 +273,10 @@ Addresses are optionally entered in association with Places and Events. This dat
 
 Users input address_line_1, address_line_2, city, state, country and postal_code values. The system checks to see if the user entered data is already in the database and if not it will call Google Map's API to retrieve the google_place_id, latitude and longitude values so maps can be rendered without requesting those pieces of information each time a list of event is displayed on the site. Address ObjectId's are associated withe events and places.
 
-Addresses cannot be updated or deleted, they are only added or read, so long term, there should be a process that checks for unused addresses.
+Addresses cannot be updated or deleted, they are only added or read, so long term, there should be a process that checks for unused addresses and delete those items as part of a cleanup process.
 
 #### Countries
-Countries are cross referenced to address. Since the list is long and does not change often this collection was initialized via the helper countries.py helper function
+Countries are cross referenced to addresses. Since the list of countries is long and does not change often this collection was initialized via the helper countries.py helper function
 ```$ python helpers/upload_countries.py ```
 It is a read only table after being initialized.
 
@@ -281,7 +285,7 @@ It is a read only table after being initialized.
 | _id     	| ObjectId  	| unique identifier 	| None            	|               	|
 | country 	| String    	| Country's name    	| None            	| to lower      	|
 
-The ObjectId for a country is stored in an address. It's used to populate the address collection country drop-down menu.
+The ObjectId for a country is stored in an address. It's used to populate the address collection country drop-down menu. When displaying Places and Events to the screen, the Countries table is queried to provide a textual value for the country associated to an address.
 
 #### Events
 Events are one of the more complex data structures in What2do2day. An event has cross references to places, addresses, activities, and users and has some data attributed by a call to google maps api:
@@ -300,7 +304,12 @@ Events are one of the more complex data structures in What2do2day. An event has 
 | max_attendees         	| Int32     	| Number of attendees      	| Required<br>min 1<br>max 1000                                                                                                                              	|                                              	|
 | attendees             	| Array     	| array of users           	| Updated when user joins event                                                                                                                              	|                                              	|
 
-Before an event is added to or updated, a uniqueness check is done to ensure the name and date/time combination is unique for events associated to the place.
+Before an event is added to or updated, a uniqueness check is done to ensure the name and date/time combination is unique for events associated to the place. If the event already exists, the user is presented error messaging and routed back to the Events List Page or Update Events List Page.
+
+The attendees list for an event is updated when a user interacts with the Join Event (Count Me In) functionality. First the Events database is read to determine if the max number of attendees has been met, and if not, the user is added to the attendee list.  
+
+Due to the lack of user roles or permissions deletions of events do not happen. Events can be turned off via a soft delete by updating the share property. Ideally past events would be deleted and cleaned out of the databases if they have not been revised in a month to save space and reduce the number of records to keep the database efficient.
+
 #### Metrics Clicks
 The Metrics Clicks collection serves the purpose of tracking clicks by names related to the action the user is taking. Typically data-trigger attributes are set to buttons and links by a developer and handlers will then write to the database when the button or link is clicked through an ajax post. When a template is rendered, the app developer has to set the page value so the reporting will attribute the click the page.
 
@@ -312,10 +321,11 @@ The Metrics Clicks collection serves the purpose of tracking clicks by names rel
 | page      	| String    	| Page click initiated from          	| None, set by app developer 	| n/a           	|
 | method    	| String    	| button or link                     	| None, set by app developer 	| n/a           	| 
 
-The metrics click data is aggregated to get counts by name only at this time and presented on the Metrics page. At a future point, funnels for joining events could be queried and analyzed to determine.
-
+The metrics click data is read through an aggregated query to get counts by name and presented on the Metrics page. At a future point, funnels for joining events could be queried and analyzed to determine.
 
 The design decisions around metrics can be found in the Clicks tab of this [google doc](https://docs.google.com/spreadsheets/d/1IRcafdaRZDiYhr5YtFVhcnb1w3mtcNLNPzOdSg6LiX4/edit?usp=sharing).
+
+There are no updates or deletions to the metrics data. Ideally old data would be rolled up after a specific amount to save on disk space.
 
 #### Metrics Page
 The page metrics collection just holds page visited data:
@@ -326,7 +336,7 @@ The page metrics collection just holds page visited data:
 | name   	| String    	| Page click use visited 	| None, set by app developer 	| n/a           	|
 | type   	| String    	| page or modal          	| None, set by app developer 	| n/a           	|
 
-The metrics page data is aggregated to counts by name only at this time and presented on the Metrics page. At a future point, it might be nice to see how more events are joined, initiated from the Places page or the Events page.
+The metrics page data is read through an aggregated query to get counts of clicks by name and presented on the Metrics page. At a future point, it might be nice to see how more events are joined, initiated from the Places page or the Events page.
 
 The design documentation around the pages metrics can be found in the Page tab of the [metrics spreadsheet](https://docs.google.com/spreadsheets/d/1IRcafdaRZDiYhr5YtFVhcnb1w3mtcNLNPzOdSg6LiX4/edit?usp=sharing).
 #### Places
@@ -344,10 +354,16 @@ The places object is another major player in what2do2day and is built mostly by 
 | share_place 	| Boolean   	| Used to hide places from list view<br>soft delete 	| Required                              	|                  	|
 | activity    	| ObjectId  	| Cross reference activities table                  	| Required                              	|                  	|
 
-While the From to collect a place gathers an email, an address, event and potentially another address and a review, the table only stores data related to the place object. 
-Before a place is added or updated to the database, its name and it's address if one is present is checked to be unique in the database. This allows franchises to co-exist in the system.
+While the user input from to collect a place gathers an email, an address, event and potentially another address and a review, the table only stores data related to the place object. 
+
+Before a place is added or updated to the database, the Places database is ready to ensure the place's name and address (if one is present) is checked to be unique in the database. This allows franchises to co-exist in the system and prevents places from being updated to collide or stomp on other places in the system.
+
+If the places is unique and the user is adding a place, then a new entry is written to the Places database.
+If the user is updating a place, the uniqueness check is done as well. The name and or address can change and the place will be updated as long as it does not collide with another entry in the database.
+
+Places are not deleted from the system. They can be updated to not be shared as a soft_delete. Ideally once business accounts are set up, then there would be admin functions to delete places that have been flagged as business in poor standing or who have not hosted an event in a specified amount of time or places. 
 #### Reviews
-Reviews are one of the simpler user objects on the site that requires user input for creation, but it's data structure is quite a bit more complex than the user entry form.
+Reviews are one of the simpler user objects on the site that requires user input for creation, but it's data structure is quite a bit more complex than the user entry form:
 
 | DB Key   	| Data Type 	|                              Purpose                             	| Form Validation                       	| DB processing 	|
 |----------	|:---------:	|:----------------------------------------------------------------:	|---------------------------------------	|---------------	|
@@ -362,15 +378,23 @@ Before a review is added to the database, the user and the date and name are que
 
 Reviews are initiated from the Add Place form, by the add review button on the places list page.  Reviews cannot be updated at this time but would be part of a workflow before being shared in a future release.
 
+At this time reviews are not removed from the database. Ideally there would be a workflow process defined to help delete profaine and robot generated reviews as well as reviews from dormant reviews or reviews associated with deleted places.
+
 #### Users
-The user is a very simplistic representation at this time. It's only the email. It's not verified, it's not updatable, it has not roles or permissions.
+The user is a very simplistic representation at this time. It's only the email. It's not verified, and it cannot be updated, and it dose not roles or permissions.
 
 | DB Key 	| Data Type 	|                  Purpose                 	| Form Validation          	| DB processing               	|
 |--------	|:---------:	|:----------------------------------------:	|--------------------------	|-----------------------------	|
 | _id    	| ObjectId  	| unique identifier                        	| None                     	| n/a                         	|
 | email  	| String    	| minimalistic view of a user, their email 	| Required<br>email format 	| to lower<br>unique in table 	|
 
-User are added when adding a place, joining an event, or adding a review. Users are aggregated into the review list seen on the places list page. The user's ObjectId is added to reviews and the list of attendees for an event. The user's email is used a means to communicate event updates and joining via STMP mail.
+User are added to the database when adding a place, joining an event, or adding a review. 
+
+Before a user is added to the Users database, the email is checked to see if it is already in the system or not. Users are aggregated into the review list seen on the places list page with the email. The user's ObjectId is added to reviews and the list of attendees for an event. The user's email is used a means to communicate event updates and joining via STMP mail.
+
+The user is also cross referenced to a place as a creator. Ideally there would be an array of users that would have ownership and permissions to update a place.
+
+Users cannot be updated or deleted at this time. 
 
 ### Skeleton
 Having a rough data structure in hand, I knew what data fields I could present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had a higher priority.
