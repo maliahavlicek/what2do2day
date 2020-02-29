@@ -1034,9 +1034,7 @@ span#event-modal-title {
 }
 
 .list-events .card.is-primary {
-    border: 1px solid #00d1b2;
-    border-right: none;
-    border-left: none;
+    border: none;
     margin: 0 0 -1px 0;
     clip-path: inset(0 0 -1rem -1rem);
     box-shadow: none;
@@ -1452,7 +1450,6 @@ progress:after {
 
     .list-events .card.is-primary {
         margin: 0 0 0 75px;
-        border-bottom: none;
         border-left: 1px solid #00d1b2;
     }
 
