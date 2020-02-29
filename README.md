@@ -396,6 +396,8 @@ Below are the decisions and internal dialogs I had to help draw out what the end
 I have never taken a course in color theory and have been told my choices of red are more orange than red so picking colors is a bit of a touchy area for me and I'd much rather have a professional UX designer help me out.  Feel free to read about this [project's color journey](documentation/color_choices.md) if you want to hear more about my struggle.  In short, my final color choices are:
 ![Final Pallet](documentation/images/colors/final_colors.png)
 
+The Green color is the dominate color on the site used to highlight cards, icons and buttons. The dark gray is used on accordions and as a text color,e the lighter gray is used to help delineate event dates. The red is an accent color for error messaging on forms. White is the background filler color but when the grays are used it becomes an icon or text color.
+
 #### Typography
 The target age group for this site is those that are young, bored at home whose parents desperately wish their kids would be outside interacting face to face with friends preferably doing something active.
 
@@ -422,12 +424,12 @@ By having bold colorful icons, I am hoping to carry forward a cheerful and engag
 <img src="what2do2day/static/assets/images/icons/002-football-field.svg" width="50" height ="50" alt="football field icon"/> <img src="what2do2day/static/assets/images/icons/021-fishing.svg" width="50" height ="50" alt="fishing icon"/>  <img src="what2do2day/static/assets/images/icons/037-road-sign.svg" width="50" height ="50" alt="trail directions icon"/>
 
 ##### Input Icons
-The site looked incredibly dull with wide full width entry fields, so I went back and broke it down into multiple columns and added slight splashes of color with icons relating to the input fields utilizing the primary site color and font awesome:  
+The site looked incredibly dull with wide full width entry fields, so I went back and broke it down into multiple columns and added slight splashes of color with icons relating to the input fields utilizing the primary site color and font awesome icons:  
 
 <img src="documentation/images/form_fields.png" width="100%" height="auto" alt="form field image"/>
 
 ##### Header Image
-The rest of the application's pages were not exciting compared to the home page, so I added in Perry the Platypus to my header with grass as seen in Phineas and Ferb's backyard. Perry's a character in Phineas and Ferb that goes from a boring pet to a super secret agent saver of the universe. By placing Perry at the top of every page except the home page, I am hoping to start the user off with a bit of fun before they start searching for something to do. 
+The rest of the application's pages were not exciting compared to the home page, so I added in Perry the Platypus to my header with grass as seen in Phineas and Ferb's backyard. Perry's a character in Phineas and Ferb that goes from a boring pet to a super secret agent saver of the universe. By placing Perry at the top of every page except the home page, I am hoping to start the user off with a subconscious reminder to let your imagination be boundless before they start searching for something to do. 
 
 <img src="what2do2day/static/assets/images/perry_the_platypus.png" width="50" height="auto" alt="perry the platypus" />
 
@@ -466,7 +468,7 @@ The formal wire-frame process identified the need for the following User Interfa
  
  I did not want to invent all of the above, so I read [best css frameworks](https://www.creativebloq.com/features/best-css-frameworks) to make an informed decision on what framework to use. Foundation, Picnic, and Bulma made my short list as they appeared light weight and were frameworks I have not yet explored and I do want to get the most out of this course by picking up new technologies. After reading up a bit, I decided that [Bulma](https://bulma.io/) was the best fit for what I hoped to include in this project.
  
- I did end up modifying a few things from Bulma as there are errors with their calendar date picker and the default multi select was very ugly in appearance. I felt that customizing activity icon selections to display images greatly increased the user's willingness to interact with the app. 
+ I did end up modifying a few things from Bulma as there are errors with their calendar date picker and the default multi select was very ugly in appearance. I felt that customizing activity icon selections to display images greatly increased the user's willingness to interact with the app and was worth the struggle of learning flask macros. 
 
 #### Animations & Transitions
 I trolled [codrops](https://tympanus.net/codrops/) to look for some inspiration.  The following sites provided ideas that greatly altered my original wire-frames:
@@ -475,7 +477,7 @@ I trolled [codrops](https://tympanus.net/codrops/) to look for some inspiration.
  - [expanding overlay](https://tympanus.net/Tutorials/ExpandingOverlayEffect/)
  - [fullscreen overly](https://tympanus.net/Development/FullscreenGridPortfolioTemplate/)
 
-By seeing live examples, it dawned on me that I could and should have a small icon or minimal data in my lists instead of cramming all the information on the screen. I went back to my designs, reduced the amount of data seen on the events and places lists pages as I know my target age group really relates to icons and gets glassy eyed if bogged down with too much text. The buttons to join an event expands out to a nearly full screen detail layer and presents all the data needed with a friendly animation.
+By seeing live examples, it dawned on me that I could and should have a small icon or minimal data in my lists instead of cramming all the information on the screen. I went back to my designs, reduced the amount of noise on the events and places lists pages. Parsing out some information and relying more heavily on imagery will hopefully induce more interaction with the app. On small devices the join an event layer expands out to a full screen detail layer. For desktop, the layer is nearly full screen with more of the data exposed. Both desktop and small device presentations attempt to have user input fields above the page fold so users do not have to hunt for input fields.
 
 I was also told by a test subject (son number 4) that the lists were boring. So I added some animation to slide rows in from the left and right sides of the screen and added some color to keep it a bit more upbeat that a mainly white page.
 
@@ -546,7 +548,7 @@ To streamline the development process without the complexity of user roles and p
 #### Database Operations
 1. Aggregated Review - from all reviews of a given place, present an average rating for a place
 1. Count of event joiners - When a unique email is entered, add them to the joiner list
-1. filter results for events based on updating vs reading (share field both on place and event), 
+1. Filter results for events based on updating vs reading (share field both on place and event), 
 1. Create list of activities for filtering based on updating vs reading (share field both on place and event)
 1. check for unique emails before adding a new user
 1. check for unique place name before adding a new place or updating an existing place
@@ -554,29 +556,23 @@ To streamline the development process without the complexity of user roles and p
 1. check for a unique user/place id and date within a week before adding a new review to a place
 1. check for unique user before joining an event
 1. check for max attendees not exceeded before joining an event
+1. adjust the activities listed in the filters based on current items shown on the event list or update events page (meaning if you filter,  your list will get shorter)
 #### API Integration
-1. Email JS - when an event is added to a place, email details to followers
-1. Google Calendar - when a user joins an event, send calendar invite, when event is updated, email joiner list
+1. STMP Email -when a user joins an event, send agenda in email, when event is updated, email joiner list. Note the email includes json-ld for future google calendar integration
 1. Google Maps - show map of event location, show map of place location
 #### Metrics
-1. track place follows by activity type and rating - bar chart for activity type, pie chart for rating
-1. track event joins by activity type and age - bar chart for activity type, pie chart for age
-1. track event searches by activity and age inputs - bar chart for activity type, pie chart for age
-1. track place searches by activity and review - bar chart for activity type, pie chart for rating
-1. count places in db by activity type - bar chart
-1. count events in system by activity type - bar chart
-1. count events page hits
-1. count places page hits
-1. count number of home page hits
-1. get numbers for joining event funnel: events page hits, join event click, send invite success, send invite user error, send invite exceed attendance error
+1. track page and modal visits by date and type
+1. present page metrics by counts with a bar chart, data will be sorted from highest count to lowest count
+1. track user clicks by date and page. Record if a button or link was clicked
+1. present click metrics by counts with a simple bar chart. Datat will be sorted from highest count to lowest count.
  
 ### Features Left to Implement
-I overestimated my abilities when originally scoping this project. I didn't account for uncovering some core issues with Bulma's [datepicker functionality](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621), nor did I anticipate as much trouble understanding the routing and parameter passing in flask.  I also spent too much time trying to figure out how to break out the controller, filtering, and utility functions from my run.py. Since this project required a greater learning curve than anticipated, some functionality had to be deferred in order to allow me to learn how to automate testing and to provide attention to cross browser/cross device validation.  
+I overestimated my abilities when originally scoping this project. I didn't account for uncovering some core issues with Bulma's [datepicker functionality](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621), nor did I anticipate as much trouble understanding the routing and parameter passing in flask.  Understanding how to use WtForms and validation took a bit but was well worth the ability to have customized validation for my forms, especially with the date time range and conditional components of addresses, reviews and events when adding a place. I also spent too much time trying to figure out how to break out the controller, filtering, and utility functions from my run.py. Since this project required a greater learning curve than anticipated, some functionality had to be deferred in order to allow me to learn how to automate testing and to provide attention to cross browser/cross device validation.  
 #### Features Deferred from original plan
-1. Follow a place - I have used Email JS in a past project so I would not gain any skills taking this functionality on and I the UX being similar to the delivered Join Event feature I don't believe I'm loosing out on a learning opportunity by eliminating this functionality.
+1. Follow a place - I would not gain any skills taking this functionality on and I the UX being similar to the delivered Join Event feature I don't believe I'm loosing out on a learning opportunity by eliminating this functionality.
 1. Filter Places - I tackled more complex filtering logic in the filter events layer and saw this list not getting nearly as long as the events list could be.
 1. Pagination - By including a count of events or places found, the user has an idea of how many results they are seeing. Pagination isn't nearly as useful on smaller devices as the buttons are cumbersome for fingers and users are accustomed to scrolling down vs paging through results, thus pagination was differed
-1. Update Review - updating and sharing reviews are tightly tied to various user roles. Since user roles were originally out of scope, it made sense to differ this functionality, especially since updating and soft delete powers have been examplified in update events and update places.
+1. Update Review - updating and sharing reviews are tightly tied to various user roles. Since user roles were originally out of scope, it made sense to differ this functionality, especially since updating and soft delete powers have been exemplified in update events and update places.
 
 #### User Roles & Permissions
 In the long term once this concept proves viable, authentication would be enabled and five sets of roles would accessing the site: 
@@ -633,7 +629,7 @@ In the long term once this concept proves viable, authentication would be enable
 1. GoogleMaps Geolocation - share location with other members, narrow results of events and places by proximity/nearby functionality or postal code/address entry.
 1. GoogleCalendar - manage events and email notifications instead of STMP emails.
 #### Switch to Relational Database
-1. mongo DB is not the correct data base, it was chosen because it has a free tier, but the aggregation to force joins is awkward and inefficient. As the dataset grows this will cripple the application's efficiency.
+1. MongoDB is not the correct data base, it was chosen because it has a free tier, but the aggregation to force joins is awkward and inefficient. As the dataset grows this will cripple the application's efficiency.
 ### Project Tracking
 The scope of this project was larger than a typical milestone effort and I quickly felt overwhelmed when learning new skills such as Bulma, mongodb aggregated queries, Flask Filters, Flask Macros, Flask WTF Forms, Validators, Flask blueprints and routes. 
 To ensure I kept on task and could feel a sense of accomplishment while taking the countless baby steps towards completion, I devised a [project tacking sheet](https://docs.google.com/spreadsheets/d/1Lnvt9zLgJj0oQFdpOIAs1V2JAN2lVGcBalIBHwXzqjY/edit?usp=sharing). It helped me prioritize what aspects I needed to accomplish first and also helped identify features to descope into future releases. 
@@ -734,33 +730,33 @@ The matrix for the browsers, operating systems and screen sizes is as follows:
 |   browserstack  	|       ?      	| firefox 	| windows 	|   HD 125-1240   	|
 |   browserstack  	|       ?      	| IE Edge 	| windows 	|   HD 125-1240   	|
 
-Another part of my cross browser testing was hitting each page in each view port with the chrome emulator and copying the following javascript  into the developer's tools console screen. 
+Another part of my cross browser testing was hitting each page in each view port with the chrome emulator for a smaller phone and copying the following javascript  into the developer's tools console screen. 
 ```javascript
 var docWidth = document.documentElement.offsetWidth;
 [].forEach.call(document.querySelectorAll('*'),function(el){if(el.offsetWidth > docWidth){console.log(el);}});
 ```
-This snippet grabs all elements in the DOM and outputs offending elements that exceed the width of the screen to the console. If the output is "undefined", then I can be 99% certain that users will not experience any odd horizontal scrolls on their devices.
+This snippet grabs all elements in the DOM and outputs offending elements that exceed the width of the screen to the console. If the output is "undefined", then I can be 99% certain that users will not experience any odd horizontal scrolls on their devices. Running this helped me identify and fix margin issues on small devices for the modals and the icon picker for the update event flow.
 
 ### Cross Site Scripting and Forgery
-During my unit testing I encountered the CSRF errors many times myself when I left the CSRF token off pages or update my routes to use blueprint and mistyped paths. This got me wondering what I can do to try to test my application proacively so I read [veracodes' XSS article](https://www.veracode.com/security/xss) article to figure out ways to manually test for XSS and CSRF.
-Based on my findings I added a XSS sheet to my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing) And documented routes where url parameters are allowed as well as pages with text or text area entries and templating variables. I then attempted to inject scripting and forgeries into my website. I still don't think I know enough to be confident the site is safe, but it held up. {{TODO}}
+During my unit testing I encountered the CSRF errors many times myself when I left the CSRF token off pages or update my routes to use blueprint and mistyped paths. This got me wondering what I can do to try to test my application proactively so I read [veracodes' XSS article](https://www.veracode.com/security/xss) article to figure out ways to manually test for XSS and CSRF.
+Based on my findings I added a Security worksheet to my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing) And documented routes where url parameters are allowed as well as pages with text or text area entries and templating variables. I then attempted to inject scripting and forgeries into my website. 
 
 ### Accessibility Testing
-Because I know a few people with both physical handicaps which makes using a mouse nearly impossible as well as a couple severely visually impaired people I try to ensure I build websites that can be use by them. I make use of  [axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) and [google's lighthouse audi](https://developers.google.com/web/tools/lighthouse) tool to help ensure that the application meets accessibility standards.
+I know a few people with physical handicaps which makes using a mouse nearly impossible as well as a couple severely visually impaired people I try to ensure I build websites that can be use by them. I make use of  [axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) and [google's lighthouse audi](https://developers.google.com/web/tools/lighthouse) tool to help ensure that the application meets accessibility standards.
 
  
 ### Regression Testing
-No one wants to keep running a large suite of unit tests and cross browser tests again and again. Due to my ineptitude at writing interactive tests with a database, I reduced the unit testing and cross site browsing testing to a smaller suite once the core development was 70% done. These tests are on the Regression Tests Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing). While I really want to mock some database interaction, I do not have the bandwidth to take on that additional learning at this time. 
+No one wants to keep running a large suite of unit tests and cross browser tests again and again. Due to my ineptitude at writing interactive tests with a database, (I tried but learning how to mock data was not something I had planned on doing)I reduced the unit testing and cross site browsing testing to a smaller suite once the core development was 70% done. These tests are on the Regression Tests Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing). While I really want to mock some database interaction, I do not have the bandwidth to take on that additional learning at this time. 
 
 ### Automated Testing
-I did install unittest and put tests around the custom filters I wrote as I do not want them breaking. Doing such pointed out several type flaws in my logic that I shored up.
+I did install unittest and put tests around the custom filters I wrote as I do not want them breaking. Doing such pointed out several type flaws in my logic that I shored up specifically around data type and none type errors.
 
 These tests are in the [/tests/test_filters.py](https://github.com/maliahavlicek/what2do2day/blob/master/tests/test_filters.py) file.
 From a terminal window you can execute this suite of test using the following command:
  ````$ python -m unittest tests/test_filters.py -v````
  
 ### Defect Tracking
-Once I finished the initial layout of my file structure and had roughed in the base html, I began tracking [defects](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing) in a google sheet. They ranged from severely horrible coding errors, to the realization that my features were not 100% defined. 
+Once I finished the initial layout of my file structure and had roughed in the base html, I began tracking [defects](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing) in a google sheet. They ranged from severely horrible coding errors, to the realization that my features were not 100% defined and I could make the user experience better.
 
 #### Noteworthy Bugs
 1. **500 CSRF** -One of the most intriguing bugs I encountered was a 500 error when I introduced page and click metrics. It took me a while to figure out how to restructure my ajax call through an onReady function out of base.html so I could easily access my CSRF_token and set it in the headers within the beforeSend function. Originally my ajax call was housed in my main.js file. That solution fixed 90% of the 500 errors I had seen, but I quickly discovered that my newer pages without forms lacked the setting of the csrf_token in a hidden form. It's easy to forget key steps if you take them early in the development process and forget about them a month later.
@@ -774,7 +770,7 @@ The source list for Content Security Policy directive 'script-src' contains an i
 Reading up on stack overflow it looks like google API wants you to have Content Security Policy directives. I tried append such to my flask app but that didn't work too well so I ended up adding many values to my base.html header and having to set a nuance value to my inline script. Learning so many things about web security.
 
 #### Outstanding Defects
-
+Bulma's calendar is the bane of my existence. If you have a user error the date time for the end time gets dropped. 
 
 
 ## Deployment
