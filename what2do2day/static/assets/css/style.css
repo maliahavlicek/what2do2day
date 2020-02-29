@@ -84,6 +84,7 @@ footer p {
 .accordions .accordion .accordion-header {
     justify-content: space-between;
 }
+
 .accordion-header .columns:last-child {
     margin-bottom: 0;
 }
@@ -710,7 +711,7 @@ a.card.button.is-primary.iconpicker {
 }
 
 .limited-exposure.embedded.activities .container.activities .card {
-    margin: 15px 0 0 15px;
+    margin: 15px 20px 0 15px;
 }
 
 .limited-exposure.embedded.activities .card.button img {
@@ -1215,15 +1216,20 @@ progress:after {
         margin-left: 15px;
     }
 
+    .limited-exposure.embedded.activities .container.activities .card {
+        margin: 15px 0 0 15px;
+    }
+
     /*columns */
     .columns {
         margin-left: -.75rem;
         margin-right: -.75rem;
         margin-top: -.75rem;
     }
+
     .accordion-header .columns:last-child {
-    margin-bottom: -.75rem;
-}
+        margin-bottom: -.75rem;
+    }
 
     /* modals */
     .modal-card {
@@ -1499,6 +1505,7 @@ progress:after {
     .button.action {
         min-width: 230px;
     }
+
     .count-in-text {
         width: 230px;
     }
