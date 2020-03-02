@@ -237,6 +237,7 @@ There are 9 data structures associate with what2do2day despite eliminating user 
 - Places
 - Reviews
 - Users
+
 #### Activities
 Activities is a table to hold a unique icon image and name values that users have associated with events and places. It helps with sorting events and prevents the need from carrying around two data objects in the larger Events and Places data structures. The purpose of an Activities object is to provide an imagery association to a category.
 
@@ -246,6 +247,11 @@ Activities is a table to hold a unique icon image and name values that users hav
 | name   	| String    	| Name of Activity          	| Required<br>Min 1 char<br>Max 50 chars 	| trim<br>to lower 	|
 | icon   	| String    	| system path to image file 	| Required                               	|                  	|
 
+- [x] Create
+- [x] Read
+- [ ] Update
+- [ ] Delete
+
 Activity entries are used by events, places and filtering.
 
 The Activities table is read when a user is adding an event, updating an event, adding a place or updating a place, to determine if a new value should be created or not. The activities table is queried for using the name and icon pair, if it is found, the ObjectId is passed to the event and places. If no match is found, a new Activity is created and that ObjectID is passed to the the place or event.
@@ -253,7 +259,7 @@ The Activities table is read when a user is adding an event, updating an event, 
  This table has no deletion or updates associated with it. It's strictly create and read. Eventually, maintenance scripts should be written to delete unused/deprecated entries.
 An activity is potentially created when a user successfully creates a place, creates and event, updates an event, or updates a place. 
 
-
+The reading/writing of the activities table is housed in the [views.py](what2do2day/activities/views.py) file.
 #### Addresses
 Addresses are optionally entered in association with Places and Events. This data structure is used by both Events and Places to provide users with a physical location. Only the _id is stored in Places and Events to reduce the amount of data being stored as many places may use the same address as a meeting point for their events.
 
@@ -271,6 +277,12 @@ Addresses are optionally entered in association with Places and Events. This dat
 | one_line        	| String    	| One line address representation 	| system generated for future maps interactions                                                                                                                                        	|                  	|
 | google_place_id 	| String    	| Unique Place ID for google Maps 	| system generated via google maps API                                                                                                                                                 	|                  	|
 
+
+- [x] Create
+- [x] Read
+- [ ] Update
+- [ ] Delete
+
 Users input address_line_1, address_line_2, city, state, country and postal_code values. The system checks to see if the user entered data is already in the database and if not it will call Google Map's API to retrieve the google_place_id, latitude and longitude values so maps can be rendered without requesting those pieces of information each time a list of event is displayed on the site. Address ObjectId's are associated withe events and places.
 
 Addresses cannot be updated or deleted, they are only added or read, so long term, there should be a process that checks for unused addresses and delete those items as part of a cleanup process.
@@ -285,7 +297,13 @@ It is a read only table after being initialized.
 | _id     	| ObjectId  	| unique identifier 	| None            	|               	|
 | country 	| String    	| Country's name    	| None            	| to lower      	|
 
+- [ ] Create
+- [x] Read
+- [ ] Update
+- [ ] Delete
+
 The ObjectId for a country is stored in an address. It's used to populate the address collection country drop-down menu. When displaying Places and Events to the screen, the Countries table is queried to provide a textual value for the country associated to an address.
+
 
 #### Events
 Events are one of the more complex data structures in What2do2day. An event has cross references to places, addresses, activities, and users and has some data attributed by a call to google maps api:
@@ -304,6 +322,12 @@ Events are one of the more complex data structures in What2do2day. An event has 
 | max_attendees         	| Int32     	| Number of attendees      	| Required<br>min 1<br>max 1000                                                                                                                              	|                                              	|
 | attendees             	| Array     	| array of users           	| Updated when user joins event                                                                                                                              	|                                              	|
 
+
+- [x] Create
+- [x] Read
+- [x] Update
+- [ ] Delete
+
 Before an event is added to or updated, a uniqueness check is done to ensure the name and date/time combination is unique for events associated to the place. If the event already exists, the user is presented error messaging and routed back to the Events List Page or Update Events List Page.
 
 The attendees list for an event is updated when a user interacts with the Join Event (Count Me In) functionality. First the Events database is read to determine if the max number of attendees has been met, and if not, the user is added to the attendee list.  
@@ -320,6 +344,12 @@ The Metrics Clicks collection serves the purpose of tracking clicks by names rel
 | date      	| Date      	| track time of user click           	| None, auto generated       	| n/a           	|
 | page      	| String    	| Page click initiated from          	| None, set by app developer 	| n/a           	|
 | method    	| String    	| button or link                     	| None, set by app developer 	| n/a           	| 
+
+
+- [x] Create
+- [x] Read
+- [ ] Update
+- [ ] Delete
 
 The metrics click data is read through an aggregated query to get counts by name and presented on the Metrics page. At a future point, funnels for joining events could be queried and analyzed to determine.
 
@@ -354,6 +384,12 @@ The places object is another major player in what2do2day and is built mostly by 
 | share_place 	| Boolean   	| Used to hide places from list view<br>soft delete 	| Required                              	|                  	|
 | activity    	| ObjectId  	| Cross reference activities table                  	| Required                              	|                  	|
 
+
+- [x] Create
+- [x] Read
+- [x] Update
+- [ ] Delete
+
 While the user input from to collect a place gathers an email, an address, event and potentially another address and a review, the table only stores data related to the place object. 
 
 Before a place is added or updated to the database, the Places database is ready to ensure the place's name and address (if one is present) is checked to be unique in the database. This allows franchises to co-exist in the system and prevents places from being updated to collide or stomp on other places in the system.
@@ -362,6 +398,7 @@ If the places is unique and the user is adding a place, then a new entry is writ
 If the user is updating a place, the uniqueness check is done as well. The name and or address can change and the place will be updated as long as it does not collide with another entry in the database.
 
 Places are not deleted from the system. They can be updated to not be shared as a soft_delete. Ideally once business accounts are set up, then there would be admin functions to delete places that have been flagged as business in poor standing or who have not hosted an event in a specified amount of time or places. 
+
 #### Reviews
 Reviews are one of the simpler user objects on the site that requires user input for creation, but it's data structure is quite a bit more complex than the user entry form:
 
@@ -373,6 +410,12 @@ Reviews are one of the simpler user objects on the site that requires user input
 | rating   	| Int32     	| rating of place                                                  	| Required<br>Integer<br>min 1<br>Max 5 	| n/a           	|
 | comments 	| String    	| User's opinion about the place                                   	| Required<br>min 1<br>max 500          	| trim          	|
 | share    	| Boolean   	| Used to hide a review from the place's review list (soft delete) 	| Required                              	|               	|
+
+
+- [x] Create
+- [x] Read
+- [ ] Update
+- [ ] Delete
 
 Before a review is added to the database, the user and the date and name are queried to ensure the user hasn't reviewed the place within the last week to avoid bloating of the aggregated rating for a given place.
 
@@ -387,6 +430,11 @@ The user is a very simplistic representation at this time. It's only the email. 
 |--------	|:---------:	|:----------------------------------------:	|--------------------------	|-----------------------------	|
 | _id    	| ObjectId  	| unique identifier                        	| None                     	| n/a                         	|
 | email  	| String    	| minimalistic view of a user, their email 	| Required<br>email format 	| to lower<br>unique in table 	|
+
+- [x] Create
+- [x] Read
+- [ ] Update
+- [ ] Delete
 
 User are added to the database when adding a place, joining an event, or adding a review. 
 
@@ -489,6 +537,8 @@ The formal wire-frame process identified the need for the following User Interfa
 | forms         	| maps         	| select choice   	|
 | check boxes   	| buttons      	| date picker     	|
 | switches      	| text input   	| drop downs      	|
+ 
+ 
  
  I did not want to invent all of the above, so I read [best css frameworks](https://www.creativebloq.com/features/best-css-frameworks) to make an informed decision on what framework to use. Foundation, Picnic, and Bulma made my short list as they appeared light weight and were frameworks I have not yet explored and I do want to get the most out of this course by picking up new technologies. After reading up a bit, I decided that [Bulma](https://bulma.io/) was the best fit for what I hoped to include in this project.
  
