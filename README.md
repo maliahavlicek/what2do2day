@@ -844,7 +844,16 @@ The source list for Content Security Policy directive 'script-src' contains an i
 Reading up on stack overflow it looks like google API wants you to have Content Security Policy directives. I tried append such to my flask app but that didn't work too well so I ended up adding many values to my base.html header and having to set a nuance value to my inline script. Learning so many things about web security.
 
 #### Outstanding Defects
-Bulma's calendar is the bane of my existence. If you have a user error the date time for the end time gets dropped. 
+1.Bulma's calendar is the bane of my existence. If you have a user error the date time for the end time gets dropped. 
+2. Safari and google.api's (pages where maps are used (places list page) Safari is not yet compliant with CSP 3.0, so when you raise strict policies on script-src  you will see errors in the console about 
+```javascript
+The source list for Content Security Policy directive 'script-src' contains an invalid source: ''strict-dynamic''. It will be ignored
+The source list for Content Security Policy directive 'script-src' contains an invalid source: ''report-sample''. It will be ignored
+```
+The site seems to function in safari but it's crowded with console errors.
+Here's a google-api-javascrpt git hub thread about the issue:
+https://github.com/google/google-api-javascript-client/issues/397
+
 
 
 ## Deployment

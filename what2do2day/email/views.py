@@ -67,7 +67,7 @@ def email_event(event, user_email, update=False):
     streetAddress = ''
     if 'event_address' in event.keys() and event['event_address'] != '' and event[
         'event_address'] != []:
-        if type(event['event_address'] == list):
+        if isinstance(event['event_address'], list):
             address = event['event_address'][0]
         else:
             address = event['event_address']
