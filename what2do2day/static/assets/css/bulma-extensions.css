@@ -2078,5 +2078,6 @@
     [data-tooltip]:not(.is-disabled).has-tooltip-multiline::before, [data-tooltip]:not(.is-loading).has-tooltip-multiline::before, [data-tooltip]:not([disabled]).has-tooltip-multiline::before {
         max-width: 500px;
         left: 0;
+        width: auto;
     }
 }
