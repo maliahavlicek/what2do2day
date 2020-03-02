@@ -137,15 +137,13 @@ def update_place(place_id):
             else:
                 form.address.has_address.data = False
             form.share_place.data = place['share_place']
-
+        elif place is not None and len(form.errors) > 0:
+            places.append(place)
 
     except Exception as e:
         load_page("error", "page", e)
         return render_template('error.html', reason=e, page="error")
 
-    if form.validate_on_submit():
-        # all is good with the post based on PlaceForm wftForm validation
-        return push_place_to_db(form)
     load_page("place_update")
     return render_template('place/update_place.html', form=form, icons=icons, update=True, places=places,
                            page="place_update")
