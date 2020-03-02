@@ -234,8 +234,12 @@ def push_event_to_db(form, event):
         event_address['country'] = form.address.data['country']
         address_id = get_add_address_id(event_address)
         event_address_id = address_id
+        event['has_address'] = True
+        event['address'] = address_id
     else:
         event_address_id = ''
+        event['has_address'] = False
+        event['address'] = ''
 
     # see if event's activity is in db or not
     event_activity_id = get_add_activity_id(form.activity_name.data.strip().lower(),
@@ -243,6 +247,9 @@ def push_event_to_db(form, event):
     new_event['activity'] = event_activity_id
     new_event['details'] = form.data['details'].strip()
     new_event['age_limit'] = form.data['age_limit']
+    # make sure if no-limit in list of age_limits, only have that entry in the list
+    if 'no-limit' in new_event['age_limit']:
+        new_event['age_limit'] = ['no-limit']
     new_event['price_for_non_members'] = form.data['price_for_non_members'].strip()
     new_event['address'] = event_address_id
     new_event['max_attendees'] = form.data['max_attendees']
@@ -256,11 +263,13 @@ def push_event_to_db(form, event):
 
     if '_id' in event.keys():
         the_event = db.update_one({"_id": event['_id']}, {"$set": new_event})
+        updated_event = retrieve_events_from_db(True, False, event['_id'])
         # need to send update email to attendees if there are any
         for user in event['attendees']:
             user_email = mongo.db.users.find_one({'_id': user})
+
             if user_email is not None:
-                email_sent = email_event(event, user_email['email'], True)
+                email_sent = email_event(updated_event[0], user_email['email'], True)
                 if app.config['DEBUG']:
                     if email_sent:
                         print('Email update to attendee: ', user_email['email'], " status: success")

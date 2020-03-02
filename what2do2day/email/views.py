@@ -66,38 +66,44 @@ def email_event(event, user_email, update=False):
     }
     streetAddress = ''
     if 'event_address' in event.keys() and event['event_address'] != '' and event[
-        'event_address'] != [] and 'address_line_1' in event[
-        'event_address'].keys() and event['event_address']['address_line_1'] != "":
+        'event_address'] != []:
+        if type(event['event_address'] == list):
+            address = event['event_address'][0]
+        else:
+            address = event['event_address']
         text += "\nWhere: "
-        streetAddress = event['event_address']['address_line_1'].title()
+        streetAddress = address['address_line_1'].title()
         displayAddress = streetAddress.title()
         text += "\n" + streetAddress
-        if 'address_line_2' in event['event_address'].keys() and event['event_address']['address_line_2'] != "":
-            streetAddress += ", " + event['event_address']['address_line_2'].title()
-            displayAddress += '<br>' + event['event_address']['address_line_2'].title()
-            text += "\n" + event['event_address']['address_line_2'].title()
+        if 'address_line_2' in address.keys() and address['address_line_2'] != "":
+            streetAddress += ", " + address['address_line_2'].title()
+            displayAddress += '<br>' + address['address_line_2'].title()
+            text += "\n" + address['address_line_2'].title()
 
-        displayAddress += '<br>' + event['event_address']['city'].title() + ", " + event['event_address'][
-            'state'].title()
-        text += "\n" + event['event_address']['city'].title() + ", " + event['event_address']['state'].title()
+        displayAddress += '<br>' + address['city'].title() + ", " + address['state'].title()
+        text += "\n" + address['city'].title() + ", " + address['state'].title()
 
         if streetAddress != '':
-            country = mongo.db.countries.find_one({'_id': ObjectId(event['event_address']['country'])})
+            if isinstance(address['country'], str):
+                country = address['country'].title()
+            else:
+                country = mongo.db.countries.find_one({'_id': ObjectId(address['country'])})
+                country = country['country'].title()
             address = {
                 "@type": "PostalAddress",
                 "streetAddress": streetAddress,
-                "addressLocality": event['event_address']['city'].title(),
-                "addressRegion": event['event_address']['state'].title(),
-                "addressCountry": country['country'].title()
+                "addressLocality": address['city'].title(),
+                "addressRegion": address['state'].title(),
+                "addressCountry": country
             }
-            if 'postal_code' in event['event_address'].keys() and event['event_address']['postal_code'] != '':
-                postal_code = {'postal_code': event['event_address']['postal_code'].title()}
+            if 'postal_code' in address.keys() and address['postal_code'] != '':
+                postal_code = {'postal_code': address['postal_code'].title()}
                 address['postal_code'] = postal_code
-                displayAddress += '<br>' + event['event_address']['postal_code'].title() + ' ' + country['country'].title()
-                text += "\n" + event['event_address']['postal_code'].title() + ' ' + country['country'].title()
+                displayAddress += '<br>' + address['postal_code'].title() + ' ' + country
+                text += "\n" + address['postal_code'].title() + ' ' + country
             else:
-                displayAddress += '<br>' + country['country'].title()
-                text += "\n" + country['country'].title()
+                displayAddress += '<br>' + country
+                text += "\n" + country
 
             event_json['reservationFor']['location'] = {'address': address}
             email_body += '<div class="columns"><div class="is-bold column">Where:</div><div class="column">'

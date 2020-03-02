@@ -181,16 +181,6 @@ def update_event(event_id):
         form.event_name.data = event['event_name'].title()
         form.event_start_datetime.data = event['date_time_range']
 
-        if form.address.address_line_1.data is not None is not None and form.address.address_line_1.data is not None != "":
-            form.address.address_line_1.data = event['address-address_line_1'].title()
-            form.address.address_line_2.data = event['address-address_line_2'].title()
-            form.address.city.data = event['address-city'].title()
-            form.address.state.data = event['address-state'].title()
-            form.address.postal_code.data = event['address-postal_code']
-            form.address.country.data = event['country_id']
-        else:
-            form.address.has_address.data = False
-
         form.activity_name.data = event['activity_name']
         form.activity_icon.data = event['activity_icon']
         form.details.data = event['details']
@@ -198,6 +188,19 @@ def update_event(event_id):
         form.price_for_non_members.data = event['price_for_non_members']
         form.max_attendees.data = event['max_attendees']
         form.share.data = event['share']
+
+        if 'event_address' in event.keys() and event['event_address'] != "" and len(event['event_address']) > 0:
+            form.address.address_line_1.data = event['address-address_line_1'].title()
+            if 'address-address_line_2'  in  event.keys():
+                form.address.address_line_2.data = event['address-address_line_2'].title()
+            form.address.city.data = event['address-city'].title()
+            form.address.state.data = event['address-state'].title()
+            form.address.postal_code.data = event['address-postal_code']
+            if 'address-postal_code' in event.keys():
+                form.address.country.data = event['country_id']
+            form.address.has_address.data = True
+        else:
+            form.address.has_address.data = False
 
     load_page("event_update")
     return render_template('event/update_event.html', events=list_events, form=form, update=True, icons=icons,
