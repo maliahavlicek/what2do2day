@@ -1,5 +1,11 @@
 /* from https://github.com/wikiki/bulma-extensions */
 
+
+/* tables */
+.table td, .table th {
+    padding: .5em .25em;
+}
+
 /* checkbox modification */
 .is-checkradio[type=checkbox], .is-checkradio[type=radio] {
     outline: 0;
@@ -2079,5 +2085,10 @@
         max-width: 500px;
         left: 0;
         width: auto;
+    }
+
+    /* tables */
+    .table td, .table th {
+        padding: .5em .75em;
     }
 }
