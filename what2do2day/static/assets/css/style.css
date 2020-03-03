@@ -1327,11 +1327,6 @@ i.not-shared {
         display: flex;
     }
 
-    .filter.level-left {
-        display: block;
-        width: calc(100vw - 90px);
-    }
-
     .level {
         align-items: center;
         justify-content: space-between;
