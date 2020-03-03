@@ -1025,7 +1025,7 @@ span#event-modal-title {
 }
 
 .modal-card-body .media .is-half, .modal-card-body #event-modal-right.is-half {
-    width: calc(100vw - 60px);
+    width: calc(100%);
     display: block;
     flex: none;
 }
