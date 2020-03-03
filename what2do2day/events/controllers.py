@@ -242,6 +242,8 @@ def events_with_attendee_emails_from_db(event_id=False):
                     event['event_address'][0]['country'] = country['country']
         if 'attendees' in event.keys() and len(event['attendees']) > 0:
             event['user_list'] = list(mongo.db.users.find({'_id': {"$in": event['attendees']}}))
+        else:
+            event['user_list'] = []
 
     return list_events
 
