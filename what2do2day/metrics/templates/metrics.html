@@ -67,7 +67,9 @@
                                     </td>
                                     <td class="progress-bar">
                                         <progress class="progress is-large is-primary" value="{{ page_list['count'] }}"
-                                                  max="{{ stats['page_max'] }}"></progress>
+                                                  max="{{ stats['page_max'] }}">
+                                        </progress>
+                                        <span class="progress-after">{{ page_list['count'] }}</span>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -119,6 +121,7 @@
                                     <td class="progress-bar">
                                         <progress class="progress is-large is-primary" value="{{ click['count'] }}"
                                                   max="{{ stats['click_max'] }}"></progress>
+                                        <span class="progress-after">{{ click['count'] }}</span>
                                     </td>
                                 </tr>
                             {% endfor %}

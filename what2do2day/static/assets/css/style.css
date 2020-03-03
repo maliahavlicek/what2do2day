@@ -43,9 +43,6 @@ body {
 /*columns */
 .columns, .modal:not(.datetimepicker-wrapper) {
     margin: 0;
-    /* margin-left: -.75rem; */
-    /* margin-right: -.75rem; */
-    /* margin-top: -.75rem; */
 }
 
 /* footer */
@@ -233,19 +230,24 @@ span.toggle-arrow:hover {
     height: 1rem;
 }
 
-/* Safari 10.1+ */
+.progress-after {
+    display: none;
+}
 
+.progress, .progress:not(:last-child) {
+    margin-bottom: 0;
+}
+
+/* Safari 10.1+ only */
 @media not all and (min-resolution: .001dpcm) {
     @media {
-
-
         .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input:first-child,
         .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
             font-size: 16px;
+        }
+
 
     }
-
-}
 
 }
 
@@ -1205,11 +1207,19 @@ i.not-shared {
 }
 
 /* metrics */
-progress:after {
-    content: attr(value);
+.progress-after {
     left: 50%;
     position: relative;
-    top: -26px;
+    top: -14px;
+    display: inline;
+    color: #0a0a0a;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.progress-bar {
+    line-height: 0;
 }
 
 .tab-header {
