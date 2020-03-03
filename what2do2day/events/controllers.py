@@ -80,7 +80,7 @@ def add_attendee(form, event_id, filter_form, filter_string):
                 message = "Opps, it looks like we may have lost a bit of data due to network lag time, can you try again?"
             else:
                 # send email to attendee
-                email_sent = email_event(event, [form.email.data], False, True)
+                email_sent = email_event(event, [{'email': form.email.data}], False, True)
                 if email_sent:
                     status = "OK"
                     message = "Great!. You should be getting an email shortly with the invite."
