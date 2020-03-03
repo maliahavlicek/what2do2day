@@ -21,6 +21,13 @@ body, button, input, select, textarea {
     font-size: 18px;
     font-weight: 500;
 }
+body {
+    min-height: 100vh;
+    padding-right: 0 !important;
+}
+.modal.is-active{
+    overflow-y:auto;
+}
 
 /* add background color to rails on desktop + renderings */
 html {
