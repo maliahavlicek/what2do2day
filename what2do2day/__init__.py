@@ -21,7 +21,6 @@ else:
 
 app.wsgi_app = ReverseProxied(app.wsgi_app)
 
-
 csrf = CSRFProtect(app)
 mongo = PyMongo(app)
 
@@ -51,7 +50,6 @@ app.register_blueprint(users_bp)
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home')
 def home():
-
     """ initial/default routing for app is the home page """
     load_page("home")
     return render_template('home.html', page="home")
@@ -74,11 +72,14 @@ def handle_csrf_error(e):
 # inbuilt function which takes error as parameter
 def not_found(e):
     # defining function
-    return render_template('error.html', reason=e, page="error"), 400
+    reason="We can't seem to find that page right now. Don't worry we've noted the issue and have the best people working on it."
+    return render_template('error.html', reason=reason, page="error"), 400
+
 
 # app name
 @app.errorhandler(500)
 # inbuilt function which takes error as parameter
 def not_found(e):
     # defining function
-    return render_template('error.html', reason=e, page="error"), 500
+    reason = "The server was unable to complete your request. Don't worry we've noted the issue and hope to fix is as soon as possible."
+    return render_template('error.html', reason=reason, page="error"), 500
