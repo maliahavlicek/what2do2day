@@ -775,7 +775,7 @@ nav.level.is-primary .level-item {
     justify-content: flex-start;
 }
 
-.filter.level-left{
+.filter.level-left {
     display: block;
     width: calc(100vw - 90px);
 }
@@ -1327,6 +1327,11 @@ i.not-shared {
         display: flex;
     }
 
+    .filter.level-left {
+        display: block;
+        width: calc(100vw - 90px);
+    }
+
     .level {
         align-items: center;
         justify-content: space-between;
@@ -1542,7 +1547,7 @@ i.not-shared {
         width: 230px;
     }
 
-    .filter.level-left{
+    .filter.level-left {
         display: flex;
     }
 
