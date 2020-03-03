@@ -775,6 +775,11 @@ nav.level.is-primary .level-item {
     justify-content: flex-start;
 }
 
+.filter.level-left{
+    display: block;
+    width: calc(100vw - 90px);
+}
+
 .count-in-text {
     width: 100%;
 }
@@ -1535,6 +1540,10 @@ i.not-shared {
 
     .count-in-text {
         width: 230px;
+    }
+
+    .filter.level-left{
+        display: flex;
     }
 
 }
