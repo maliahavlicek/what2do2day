@@ -69,3 +69,16 @@ def handle_csrf_error(e):
     return render_template('error.html', reason=e, page="error"), 400
 
 
+# app name
+@app.errorhandler(404)
+# inbuilt function which takes error as parameter
+def not_found(e):
+    # defining function
+    return render_template('error.html', reason=e, page="error"), 400
+
+# app name
+@app.errorhandler(500)
+# inbuilt function which takes error as parameter
+def not_found(e):
+    # defining function
+    return render_template('error.html', reason=e, page="error"), 500
