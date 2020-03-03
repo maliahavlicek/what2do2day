@@ -85,21 +85,22 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
             else:
                 country = mongo.db.countries.find_one({'_id': ObjectId(address['country'])})
                 country = country['country'].title()
-            address = {
-                "@type": "PostalAddress",
-                "streetAddress": streetAddress,
-                "addressLocality": address['city'].title(),
-                "addressRegion": address['state'].title(),
-                "addressCountry": country
-            }
             if 'postal_code' in address.keys() and address['postal_code'] != '':
                 postal_code = {'postal_code': address['postal_code'].title()}
-                address['postal_code'] = postal_code
                 displayAddress += '<br>' + address['postal_code'].title() + ' ' + country
                 text += "\n" + address['postal_code'].title() + ' ' + country
             else:
                 displayAddress += '<br>' + country
                 text += "\n" + country
+                postal_code = ''
+            address = {
+                "@type": "PostalAddress",
+                "streetAddress": streetAddress,
+                "addressLocality": address['city'].title(),
+                "addressRegion": address['state'].title(),
+                "addressCountry": country,
+                "postalCode": postal_code
+            }
 
             event_json['reservationFor']['location'] = {'address': address}
             email_body += '<div class="columns"><div class="is-bold column">Where:</div><div class="column">'
@@ -139,7 +140,8 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
             "@type": "Person",
             "name": user_email
         }
-        send_email_body = email_body + '</div><script type="application/ld+json">' + json.dumps(event_json) + '</script>'
+        send_email_body = email_body + '</div><script type="application/ld+json">' + json.dumps(
+            event_json) + '</script>'
         # Turn these into plain/html MIMEText objects
         part1 = MIMEText(text, "plain")
         part2 = MIMEText(send_email_body, "html")
