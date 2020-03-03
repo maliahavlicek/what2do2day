@@ -57,14 +57,15 @@ def home():
 
 @app.errorhandler(Exception)
 def handle_db_error(e):
-    load_page("error", "page", e)
+    load_page("error", "page", 'Exception')
     return render_template('error.html', reason=e, page="error")
 
 
 @app.errorhandler(CSRFError)
 def handle_csrf_error(e):
-    load_page("error", "page", e)
-    return render_template('error.html', reason=e, page="error"), 400
+    load_page("error", "page", 'CSRF')
+    reason="Hmm, the CSRF token is missing. Don't worry we've noted the issue and have our best people looking into it."
+    return render_template('error.html', reason=reason, page="error")
 
 
 # app name
@@ -72,8 +73,9 @@ def handle_csrf_error(e):
 # inbuilt function which takes error as parameter
 def not_found(e):
     # defining function
+    load_page("error", "page", '404')
     reason="We can't seem to find that page right now. Don't worry we've noted the issue and have the best people working on it."
-    return render_template('error.html', reason=reason, page="error"), 400
+    return render_template('error.html', reason=reason, page="error")
 
 
 # app name
@@ -81,5 +83,6 @@ def not_found(e):
 # inbuilt function which takes error as parameter
 def not_found(e):
     # defining function
+    load_page("error", "page", '500')
     reason = "The server was unable to complete your request. Don't worry we've noted the issue and hope to fix is as soon as possible."
     return render_template('error.html', reason=reason, page="error"), 500
