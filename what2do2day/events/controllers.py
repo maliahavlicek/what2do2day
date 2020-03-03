@@ -36,6 +36,8 @@ def unique_activities(events):
         if new_id not in ids.keys():
             ids[new_id] = new_id
             activities.append({'icon': event['activity_icon'], 'name': event['activity_name']})
+    # sort the list
+    activities = sorted(activities, key=lambda i: i['name'])
     return activities
 
 
