@@ -301,6 +301,12 @@ $(document).ready(function () {
         iconpicker.prop("selected", true);
         iconpicker.toggleClass('is-inverted', 250);
     }
+    /* if a form is submitted, change style of button to loading so user has an idea that their action did something */
+    $('button[type=submit]').click(function (){
+        $(this).removeClass('is-dark');
+        $(this).removeClass('is-inverted');
+        $(this).addClass('is-loading');
+    });
 
     /* handlers for event-modals */
     $('.button.action.event-modal').not('.is-disabled').click(function () {

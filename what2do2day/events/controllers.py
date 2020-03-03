@@ -78,7 +78,7 @@ def add_attendee(form, event_id, filter_form, filter_string):
                 message = "Opps, it looks like we may have lost a bit of data due to network lag time, can you try again?"
             else:
                 # send email to attendee
-                email_sent = email_event(event, form.email.data)
+                email_sent = email_event(event, [form.email.data], False, True)
                 if email_sent:
                     status = "OK"
                     message = "Great!. You should be getting an email shortly with the invite."
@@ -115,6 +115,135 @@ def db_add_event(event):
     )
     the_event = db.insert_one(event)
     return the_event.inserted_id
+
+
+def events_with_attendee_emails_from_db(event_id=False):
+    # join the user, event, activity, address and flatten it down so we don't have to dig for values
+    query = []
+
+    # check if an event id is coming in
+    query.append(
+        {"$match": {'_id': ObjectId(event_id)}})
+
+    query.append({
+        "$project": {
+            'start_date': {
+                "$dateFromString": {
+                    'dateString': {
+                        "$substr": ["$date_time_range", 0, 16]
+                    },
+                    'format': "%m/%d/%Y %H:%M"}
+            },
+            'end_date': {
+                "$dateFromString": {
+                    'dateString': {
+                        "$substr": ["$date_time_range", 19, 35]
+                    },
+                    'format': "%m/%d/%Y %H:%M"}
+            },
+            'place_id': "$place",
+            'event_name': "$name",
+            'event_id': "$_id",
+            'activity_id': '$activity',
+            'date_time_range': '$date_time_range',
+            'details': '$details',
+            'age_limit': '$age_limit',
+            'price_for_non_members': '$price_for_non_members',
+            'attendees': '$attendees',
+            'max_attendees': '$max_attendees',
+            'address_id': '$address',
+            'share': '$share'
+        }})
+
+    query.append({
+        "$lookup": {
+            'from': 'places',
+            'localField': 'place_id',
+            'foreignField': '_id',
+            'as': 'place_details',
+        }})
+    query.append({
+        "$lookup": {
+            'from': 'activities',
+            'localField': 'activity_id',
+            'foreignField': '_id',
+            'as': 'event_activity'
+        }})
+    query.append({
+        "$lookup": {
+            'from': 'addresses',
+            'localField': 'address_id',
+            'foreignField': '_id',
+            'as': 'event_address'
+        }})
+
+    query.append({
+        "$replaceRoot": {
+            'newRoot': {
+                "$mergeObjects":
+                    [{"$let": {
+                        "vars": {"v": {"$arrayElemAt": ["$place_details", 0]}},
+                        "in": {"$arrayToObject": {
+                            "$map": {
+                                "input": {"$objectToArray": "$$v"},
+                                "as": "val",
+                                "in": {
+                                    "k": {"$concat": ["place", "-", "$$val.k"]},
+                                    "v": "$$val.v"
+                                }}
+                        }}
+                    }}, "$$ROOT"]
+            }}})
+    query.append({
+        "$replaceRoot": {
+            'newRoot': {
+                "$mergeObjects":
+                    [{"$let": {
+                        "vars": {"v": {"$arrayElemAt": ["$event_activity", 0]}},
+                        "in": {"$arrayToObject": {
+                            "$map": {
+                                "input": {"$objectToArray": "$$v"},
+                                "as": "val",
+                                "in": {
+                                    "k": {"$concat": ["activity", "_", "$$val.k"]},
+                                    "v": "$$val.v"
+                                }}
+                        }}
+                    }}, "$$ROOT"]
+            }}})
+    query.append({
+        "$replaceRoot": {
+            'newRoot': {
+                "$mergeObjects":
+                    [{"$let": {
+                        "vars": {"v": {"$arrayElemAt": ["$event_address", 0]}},
+                        "in": {"$arrayToObject": {
+                            "$map": {
+                                "input": {"$objectToArray": "$$v"},
+                                "as": "val",
+                                "in": {
+                                    "k": {"$concat": ["address", "-", "$$val.k"]},
+                                    "v": "$$val.v"
+                                }}
+                        }}
+                    }}, "$$ROOT"]
+            }}})
+
+    list_events = list(mongo.db.events.aggregate(query))
+
+    for event in list_events:
+        if 'address-country' in event.keys():
+            country_id = event['address-country']
+            event['country_id'] = country_id
+            country = mongo.db.countries.find_one({"_id": ObjectId(country_id)})
+            if country is not None:
+                event['address-country'] = country['country']
+                if 'event_address' in event.keys():
+                    event['event_address'][0]['country'] = country['country']
+        if 'attendees' in event.keys() and len(event['attendees']) > 0:
+            event['user_list'] = list(mongo.db.users.find({'_id': {"$in": event['attendees']}}))
+
+    return list_events
 
 
 def event_unique(event):
@@ -263,18 +392,9 @@ def push_event_to_db(form, event):
 
     if '_id' in event.keys():
         the_event = db.update_one({"_id": event['_id']}, {"$set": new_event})
-        updated_event = retrieve_events_from_db(True, False, event['_id'])
+        updated_event = events_with_attendee_emails_from_db(event['_id'])
         # need to send update email to attendees if there are any
-        for user in event['attendees']:
-            user_email = mongo.db.users.find_one({'_id': user})
-
-            if user_email is not None:
-                email_sent = email_event(updated_event[0], user_email['email'], True)
-                if app.config['DEBUG']:
-                    if email_sent:
-                        print('Email update to attendee: ', user_email['email'], " status: success")
-                    else:
-                        print('Email update to attendee: ', user_email['email'], " status: failure")
+        email_sent = email_event(updated_event[0], updated_event[0]['user_list'], True, False)
 
     else:
         the_event = db.insert_one(new_event)

@@ -41,7 +41,7 @@ body {
 }
 
 /*columns */
-.columns, .modal {
+.columns, .modal:not(.datetimepicker-wrapper) {
     margin: 0;
     /* margin-left: -.75rem; */
     /* margin-right: -.75rem; */

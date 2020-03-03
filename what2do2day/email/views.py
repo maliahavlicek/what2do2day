@@ -9,10 +9,9 @@ from email.mime.multipart import MIMEMultipart
 from what2do2day import app, mongo
 
 
-def email_event(event, user_email, update=False):
+def email_event(event, user_email_list, update=False, add_attendee=False):
     message = MIMEMultipart("alternative")
     message["From"] = app.config['EMAIL']
-    message["To"] = user_email
     password = app.config['EMAIL_PASS']  # Your SMTP password for Gmail
     message["Subject"] = "What2do2day Event- " + event['event_name'].title()
     email_body = "<div style='color:#363636; font-size:18px;'>It's your friends with What2do2day. Here are the details about an event you wanted to attend:</div>"
@@ -51,10 +50,7 @@ def email_event(event, user_email, update=False):
         "@type": "EventReservation",
         "reservationNumber": str(event['_id']),
         "reservationStatus": "http://schema.org/Confirmed",
-        "underName": {
-            "@type": "Person",
-            "name": user_email
-        },
+
         "reservationFor": {
             "@type": "Event",
             "name": event['event_name'],
@@ -133,30 +129,45 @@ def email_event(event, user_email, update=False):
         email_body += "No Limit </div></div><div style='clear:both'></div>"
         text += "No Limit"
 
-    email_body += '</div><script type="application/ld+json">' + json.dumps(event_json) + '</script>'
-
     email_body = email_body.replace('class="columns"', 'style="line-height:1.8rem; margin:5px;"')
     email_body = email_body.replace('class="is-bold column"', 'style="float:left; font-weight:700; width: 90px;"')
     email_body = email_body.replace('class="column"', 'style="float:left; width: auto;"')
 
-    # Turn these into plain/html MIMEText objects
-    part1 = MIMEText(text, "plain")
-    part2 = MIMEText(email_body, "html")
+    for user in user_email_list:
+        user_email = user['email']
+        event_json["underName"] = {
+            "@type": "Person",
+            "name": user_email
+        }
+        send_email_body = email_body + '</div><script type="application/ld+json">' + json.dumps(event_json) + '</script>'
+        # Turn these into plain/html MIMEText objects
+        part1 = MIMEText(text, "plain")
+        part2 = MIMEText(send_email_body, "html")
 
-    # Add HTML/plain-text parts to MIMEMultipart message
-    # The email client will try to render the last part first
-    message.attach(part1)
-    message.attach(part2)
+        # Add HTML/plain-text parts to MIMEMultipart message
+        # The email client will try to render the last part first
+        message.attach(part1)
+        message.attach(part2)
+        message["To"] = user_email
 
-    # Create secure connection with server and send email
-    context = ssl.create_default_context()
-    try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-            server.login(app.config['EMAIL'], password)
-            server.sendmail(
-                app.config['EMAIL'], user_email, message.as_string()
-            )
-    except smtplib.SMTPAuthenticationError as e:
-        return False
+        # Create secure connection with server and send email
+        context = ssl.create_default_context()
+        try:
+            with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                server.login(app.config['EMAIL'], password)
+                server.sendmail(
+                    app.config['EMAIL'], user_email, message.as_string()
+                )
+            if app.config['DEBUG']:
+                print('Email update to attendee: ', user_email, " status: success")
+
+        except smtplib.SMTPAuthenticationError as e:
+            if add_attendee:
+                return False
+            else:
+                # not the end of the world if email fails, Ideally would log system and let system admin know there is an issue
+                if app.config['DEBUG']:
+                    print('Email update to attendee: ', user_email, " status: failure")
+                pass
 
     return True
