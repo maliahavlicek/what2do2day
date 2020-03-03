@@ -21,12 +21,14 @@ body, button, input, select, textarea {
     font-size: 18px;
     font-weight: 500;
 }
+
 body {
     min-height: 100vh;
     padding-right: 0 !important;
 }
-.modal.is-active{
-    overflow-y:auto;
+
+.modal.is-active {
+    overflow-y: auto;
 }
 
 /* add background color to rails on desktop + renderings */
@@ -239,6 +241,23 @@ span.toggle-arrow:hover {
     width: 1rem;
     height: 1rem;
 }
+
+/* Safari 10.1+ */
+
+@media not all and (min-resolution: .001dpcm) {
+    @media {
+
+
+        .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input:first-child,
+        .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
+            font-size: 16px;
+
+    }
+
+}
+
+}
+
 
 .datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input:first-child {
     text-indent: 1.5rem;
