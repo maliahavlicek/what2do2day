@@ -80,11 +80,13 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
         text += "\n" + address['city'].title() + ", " + address['state'].title()
 
         if streetAddress != '':
+            country = ''
             if isinstance(address['country'], str):
-                country = address['country'].title()
-            else:
-                country = mongo.db.countries.find_one({'_id': ObjectId(address['country'])})
-                country = country['country'].title()
+                if ObjectId.is_valid(address['country']):
+                    country = mongo.db.countries.find_one({'_id': ObjectId(address['country'])})
+                    country = country['country'].title()
+                else:
+                 country = address['country'].title()
             if 'postal_code' in address.keys() and address['postal_code'] != '':
                 postal_code = {'postal_code': address['postal_code'].title()}
                 displayAddress += '<br>' + address['postal_code'].title() + ' ' + country
