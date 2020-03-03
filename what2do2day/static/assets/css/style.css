@@ -777,7 +777,7 @@ nav.level.is-primary .level-item {
 
 .filter.level-left {
     display: block;
-    width: calc(100vw - 90px);
+    width: calc(100vw - 140px);
 }
 
 .count-in-text {
