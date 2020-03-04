@@ -5,7 +5,7 @@
     <section class="hero is-primary" role="banner" aria-label="Banner for Picking Event to Update">
         <div class="hero-body">
             <div class="container">
-                <nav class="level ">
+                <nav class="level" aria-label="Find event to update.">
                     <div class="level-left">
                         <div class="level-item">
                             <h1 class="title">
@@ -63,7 +63,7 @@
         {% if events | length > 0 %}
             {% for event in events %}
                 {% if loop.index == 1 or loop.index > 1 and event['start_date']|date_only != events[loop.index - 2]['start_date']|date_only %}
-                    <nav class="level is-primary">
+                    <nav class="level is-primary" aria-label="Events on {{ event['start_date'].strftime('%Y-%m-%d') }}">
                         <div class="level-left">
                             <div class="level-item">
                                 <p class="title is-4">

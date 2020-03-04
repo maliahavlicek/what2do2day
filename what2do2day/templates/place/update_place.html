@@ -35,7 +35,7 @@
             <form method="POST" action="{{ url_for('places_bp.update_place', place_id=place['_id'], _external=True) }}"
                   enctype="multipart/form-data" role="form" aria-label="Update Place Form">
                 {{ form.csrf_token }}
-                <nav class="level is-primary">
+                <nav class="level is-primary" aria-label="Now updating: {{ place['name'] | title }}">
                     <div class="level-left">
                         <div class="level-item">
                             <p class="title">
@@ -67,7 +67,7 @@
                 </section>
 
                 <div class="section is-submit-wrapper">
-                    <nav class="level">
+                    <nav class="level" aria-label="Update Place Form Buttons">
                         <div class="level-left">
                             <button type="submit" class="button is-dark is-medium is-inverted submit" data-track="{{page}}_save,{{page}},button">
                             <span class="icon is-small">

@@ -13,7 +13,7 @@
     <form method="POST" action="{{ url_for('events_bp.new_event', place_id=place['_id'], _external=True) }}"
           enctype="multipart/form-data" role="form" aria-label="Add Event Form">
         {{ form.csrf_token }}
-        <nav class="level is-primary">
+        <nav class="level is-primary" aria-label="New event for: {{ place['name'] | title }}">
             <div class="level-left">
                 <div class="level-item">
                     <p class="title">
@@ -39,7 +39,7 @@
             </div>
         </section>
         <div class="section is-submit-wrapper">
-            <nav class="level">
+            <nav class="level" aria-label="Add Event Form Buttons">
                 <div class="level-left">
                     <button type="submit" class="button is-dark is-medium is-inverted  submit" data-track="event_add_save,{{page}},button">
                         <span class="icon is-small">

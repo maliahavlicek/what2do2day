@@ -33,7 +33,7 @@
             <form method="POST" action="{{ url_for('events_bp.update_event', event_id=event['_id'], _external=True) }}"
                   enctype="multipart/form-data" role="form" aria-label="Update Event Form">
                 {{ form.csrf_token }}
-                <nav class="level is-primary">
+                <nav class="level is-primary" aria-label="Now updating: {{ event['event_name'] | title }}">
                     <div class="level-left">
                         <div class="level-item">
                             <p class="title">
@@ -63,7 +63,7 @@
                     </div>
                 </section>
                 <div class="section is-submit-wrapper">
-                    <nav class="level">
+                    <nav class="level" aria-label="Update event form buttons">
                         <div class="level-left">
                             <button type="submit" class="button is-dark is-medium is-inverted submit" data-track="{{page}}_save,{{page}},button">
                             <span class="icon is-small">
