@@ -32,12 +32,10 @@
             </div>
         </div>
     </section>
-    <main role="main">
     {% if places | length >0 %}
         {# include accordion for future filtering #}
         {% include 'place/filter_place.html' %}
         <section class="list-events places add-place" role="main">
-
             {% for place in places %}
                 <div class="container">
                     <div class="card is-primary  {% if not place['share'] %}not-shared{% endif %}">
@@ -58,7 +56,7 @@
                             <div class="media">
                                 <div class="media-content is-two-thirds">
 
-                                <div class="columns">
+                                    <div class="columns">
                                         <div class="is-bold column has-text-left">Detail:</div>
                                         <div class="column has-text-left">{{ place.description|truncate(45, False) }}
                                         </div>
