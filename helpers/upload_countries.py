@@ -6,6 +6,7 @@ import os
 MONGODB_URI = os.getenv("MONGO_URI")
 DBS_NAME = "what2do2day"
 COLLECTION_NAME = "countries"
+DEBUG = os.getenv("DEBUG")
 
 
 def mongo_connect(url):
@@ -13,7 +14,8 @@ def mongo_connect(url):
         conn = pymongo.MongoClient(url)
         return conn
     except pymongo.errors.ConnectionFailure as e:
-        print("Could not connect to MongoDB: %s") % e
+        if DEBUG:
+            print("Could not connect to MongoDB: %s") % e
 
 
 def main_loop():

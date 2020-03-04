@@ -2,7 +2,7 @@ from bson.objectid import ObjectId
 from flask import Blueprint
 import requests
 import time
-from what2do2day import mongo, google_key, search_url
+from what2do2day import app, mongo, google_key, search_url
 
 ################
 #### config ####
@@ -39,7 +39,8 @@ def google_get_goecords(address):
         address['google_place_id'] = search_json["results"][0]["place_id"]
 
     except Exception as e:
-        print("Did not get search results. ", e)
+        if app.config['DEBUG']:
+            print("Did not get search results. ", e)
 
     return address
 

@@ -3,7 +3,7 @@ from flask import render_template, Blueprint
 from bson.objectid import ObjectId
 
 from what2do2day.addresses.views import country_choice_list
-from what2do2day import mongo, google_key
+from what2do2day import app, mongo, google_key
 from what2do2day.metrics.views import load_page
 from what2do2day.places.forms import PlaceForm
 
@@ -32,17 +32,18 @@ def add_place():
         # if all but event are valid, and event is toggled off, suppress errors and push the place to the db
         return push_place_to_db(form)
     else:
-        print('form.email: ' + str(form.email.errors))
-        print('form.name: ' + str(form.name.errors))
-        print('form.description: ' + str(form.description.errors))
-        print('form.activity_name: ' + str(form.activity_name.errors))
-        print('form.activity_icon: ' + str(form.activity_icon.errors))
-        print('form.phone: ' + str(form.phone.errors))
-        print('form.website: ' + str(form.website.errors))
-        print('form.image_url: ' + str(form.image_url.errors))
-        print('form.address: ' + str(form.address.errors))
-        print('form.review: ' + str(form.review.errors))
-        print('form.event: ' + str(form.event.errors))
+        if app.config['DEBUG']:
+            print('form.email: ' + str(form.email.errors))
+            print('form.name: ' + str(form.name.errors))
+            print('form.description: ' + str(form.description.errors))
+            print('form.activity_name: ' + str(form.activity_name.errors))
+            print('form.activity_icon: ' + str(form.activity_icon.errors))
+            print('form.phone: ' + str(form.phone.errors))
+            print('form.website: ' + str(form.website.errors))
+            print('form.image_url: ' + str(form.image_url.errors))
+            print('form.address: ' + str(form.address.errors))
+            print('form.review: ' + str(form.review.errors))
+            print('form.event: ' + str(form.event.errors))
 
         icons = filters.get_list_of_icons()
         load_page("place_add")

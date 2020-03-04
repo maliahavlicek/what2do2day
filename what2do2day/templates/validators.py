@@ -7,7 +7,6 @@ def validate_address(form, field):
     """See if the address is required or not and if it is valid."""
     has_address_value = form.has_address.data
     if has_address_value:
-        print(form.address)
         raise ValidationError("Address needs attention.")
 
 

@@ -13,8 +13,6 @@ users_bp = Blueprint('users_bp', __name__, template_folder='templates', static_f
 ##########################
 def get_add_user_id(email):
     """retrieve or create a user based on email"""
-
-    print("IN get_add_user_id. email: ", email)
     the_user = mongo.db.users.find_one({'email': email.lower()})
     if the_user is None:
         db = mongo.db.users.with_options(
