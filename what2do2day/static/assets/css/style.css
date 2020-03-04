@@ -460,14 +460,16 @@ a.button.is-link.home-btn-2 {
 }
 
 /* Ratings widget stars */
-div.stars {
-    display: flex;
-    margin: -10px 0 0;
-    padding: 0;
+.star-wrap{
+    width: 320px;
     text-align: left;
-    justify-content: space-around;
-    max-width: 320px;
-    flex-direction: row-reverse;
+    margin: -46px 0 0 0;
+    padding:0;
+    overflow: hidden;
+}
+div.stars {
+    display: inline-block;
+    width: 235px;
 }
 
 /* hide placeholder selection one */
@@ -486,6 +488,7 @@ label.star {
     font-size: 36px;
     color: #444;
     transition: all .2s;
+    padding: 12px 3px;
 }
 
 /* override input with star image, when checked with animation and green color */
@@ -1263,7 +1266,7 @@ i.not-shared {
     }
 
     div.stars {
-        max-width: 500px;
+        margin-top: 0;
     }
 
     /*columns */
