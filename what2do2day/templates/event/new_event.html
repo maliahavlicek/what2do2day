@@ -10,56 +10,60 @@
             </div>
         </div>
     </section>
-    <form method="POST" action="{{ url_for('events_bp.new_event', place_id=place['_id'], _external=True) }}"
-          enctype="multipart/form-data" role="form" aria-label="Add Event Form">
-        {{ form.csrf_token }}
-        <nav class="level is-primary" aria-label="New event for: {{ place['name'] | title }}">
-            <div class="level-left">
-                <div class="level-item">
-                    <p class="title">
-                        <i class="fas fa-edit"></i> New Event for: {{ place['name'] | title }}
-                    </p>
+    <main role="main">
+        <form method="POST" action="{{ url_for('events_bp.new_event', place_id=place['_id'], _external=True) }}"
+              enctype="multipart/form-data" role="form" aria-label="Add Event Form">
+            {{ form.csrf_token }}
+            <nav class="level is-primary" aria-label="New event for: {{ place['name'] | title }}">
+                <div class="level-left">
+                    <div class="level-item">
+                        <p class="title">
+                            <i class="fas fa-edit"></i> New Event for: {{ place['name'] | title }}
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </nav>
-        <section class="section">
-            <div class="container">
-                <div class="list-events">
-                    <div class="field is-hidden">
-                        <label class="label">Events</label>
-                        <div class="control">
-                            {{ form.has_event(class_="is-checkradio is-medium") }}
-                            {{ form.has_event.label }}
+            </nav>
+            <section class="section">
+                <div class="container">
+                    <div class="list-events">
+                        <div class="field is-hidden">
+                            <label class="label">Events</label>
+                            <div class="control">
+                                {{ form.has_event(class_="is-checkradio is-medium") }}
+                                {{ form.has_event.label }}
+                            </div>
+                        </div>
+                        <div class="container">
+                            {{ event_entry(form=form, event=event, update=True) }}
                         </div>
                     </div>
-                    <div class="container">
-                        {{ event_entry(form=form, event=event, update=True) }}
-                    </div>
                 </div>
-            </div>
-        </section>
-        <div class="section is-submit-wrapper">
-            <nav class="level" aria-label="Add Event Form Buttons">
-                <div class="level-left">
-                    <button type="submit" class="button is-dark is-medium is-inverted  submit" data-track="event_add_save,{{page}},button">
+            </section>
+            <div class="section is-submit-wrapper">
+                <nav class="level" aria-label="Add Event Form Buttons">
+                    <div class="level-left">
+                        <button type="submit" class="button is-dark is-medium is-inverted  submit"
+                                data-track="event_add_save,{{ page }},button">
                         <span class="icon is-small">
                            <i class="fas fa-save"></i>
                         </span>
-                        <span class="action">Save Event</span>
-                    </button>
-                </div>
-                <div class="level-right">
-                    <a class="button is-dark is-medium is-light add_event" data-track="event_add_cancel,{{page}},button"
-                       href="{{ url_for('events_bp.add_event', _external=True) }}">
+                            <span class="action">Save Event</span>
+                        </button>
+                    </div>
+                    <div class="level-right">
+                        <a class="button is-dark is-medium is-light add_event"
+                           data-track="event_add_cancel,{{ page }},button"
+                           href="{{ url_for('events_bp.add_event', _external=True) }}">
                         <span class="icon">
                             <i class="fas fa-trash"></i>
                         </span>
-                        <span class="action">Cancel</span>
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </form>
+                            <span class="action">Cancel</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </form>
+    </main>
 
     {% if status %}
         {# modal for update event submission results #}
@@ -69,7 +73,8 @@
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Add Event</p>
-                    <button class="delete" aria-label="close" data-track="{% if status=="OK" %}modal_close,{{page}}_success,button{% else %}modal_close,{{page}}_fail,button{% endif %}"></button>
+                    <button class="delete" aria-label="close"
+                            data-track="{% if status=="OK" %}modal_close,{{ page }}_success,button{% else %}modal_close,{{ page }}_fail,button{% endif %}"></button>
                 </header>
                 <section class="modal-card-body">
                     <div class="container">
@@ -93,7 +98,8 @@
                 {# button to acknowledge message and close modal #}
                 <footer class="modal-card-foot">
                     <div class="level-left">
-                        <a class=" button is-primary action modal-close-2" data-track="{% if status=="OK" %}modal_close,{{page}}_success,button{% else %}modal_close,{{page}}_fail,button{% endif %}">
+                        <a class=" button is-primary action modal-close-2"
+                           data-track="{% if status=="OK" %}modal_close,{{ page }}_success,button{% else %}modal_close,{{ page }}_fail,button{% endif %}">
                         <span class="icon is-small">
                             <i class="fas fa-check-circle"></i>
                         </span>
