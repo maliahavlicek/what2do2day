@@ -36,17 +36,18 @@
                 </p>
             </div>
             {# event price for non member collection#}
-            <div class="field {% if form.event.price_for_non_members.errors %}has-errors{% endif %}">
+            <div class="field {% if form.event.price_for_non_members.errors %}has-error{% endif %}">
                 {{ form.event.price_for_non_members.label(class_="label") }}
                 <div class="control has-icons-left has-icons-right">
                     {{ form.event.price_for_non_members(class_="input", placeholder="Free") }}
                     <span class="icon is-small is-left has-text-primary">
-                            <i class="fas fa-comments-dollar"></i>
-                        </span>
+                        <i class="fas fa-comments-dollar"></i>
+                    </span>
                     <span class="error-msg icon is-small is-right">
-                          <i class="fas fa-exclamation-triangle"></i>
-                        </span>
+                      <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                 </div>
+
                 <p class="error-msg help is-danger">
                     {% if form.event.price_for_non_members.errors|length > 0 %}
                         {{ form.event.price_for_non_members.errors[0] }}

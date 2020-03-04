@@ -11,7 +11,7 @@ from wtforms.validators import (DataRequired,
                                 Optional,
                                 NumberRange)
 
-from what2do2day.templates.validators import validate_datetime, validate_daterange
+from what2do2day.templates.validators import validate_datetime, validate_daterange, catch_xss
 from what2do2day.addresses.forms import AddressForm, RequiredIf
 
 
@@ -20,7 +20,8 @@ class EventForm(FlaskForm):
 
     event_name = StringField('Name of Event *', [RequiredIf(has_event=True),
                                                  Length(min=1, message='Name of Event is required.'),
-                                                 Length(max=50, message="Name must be less than 50 characters.")
+                                                 Length(max=50, message="Name must be less than 50 characters."),
+                                                 catch_xss
                                                  ])
     # post from form is 01/29/2020 05:00 - 01/30/2020 23:59
     event_start_datetime = StringField('Date & Time *',
@@ -30,12 +31,14 @@ class EventForm(FlaskForm):
 
     activity_name = StringField('Activity Type', [
         Length(min=1, message="Please enter the activity type."),
-        Length(max=50, message="Name must be under 50 characters.")])
+        Length(max=50, message="Name must be under 50 characters."),
+        catch_xss])
     activity_icon = HiddenField(None, [DataRequired()], default="n")
     details = TextAreaField('Details *', [RequiredIf(has_event=True),
                                           Length(min=1, message="Details are required"),
                                           Length(min=2, message='Your details section is too short'),
-                                          Length(max=500, message='Details cannot be longer than 500 characters.')
+                                          Length(max=500, message='Details cannot be longer than 500 characters.'),
+                                          catch_xss
                                           ])
 
     age_limit = SelectMultipleField(u'Expected Ages', choices=[('no-limit', 'No Limit'),
@@ -51,7 +54,8 @@ class EventForm(FlaskForm):
     price_for_non_members = StringField('Price for non-members', [Optional(),
                                                                   Length(min=1, message='Name of Event is required.'),
                                                                   Length(max=50,
-                                                                         message="Price must be less than 50 characters.")])
+                                                                         message="Price must be less than 50 characters."),
+                                                                  catch_xss])
     max_attendees = IntegerField('Maximum Number of Attendees', [NumberRange(min=1, max=1000,
                                                                              message="You must allow at least 1 to 1,000 people to attend the event.")])
     share = BooleanField('Share with Community', default=True)
@@ -66,7 +70,7 @@ class FilterEventsFrom(FlaskForm):
     """Filter Events"""
 
     activity = SelectMultipleField(u'Actvities', default='all')
-    age = IntegerField('Age', [Optional(), NumberRange(min=1, max=120, message="A valid age is 0 to 120")])
+    age = IntegerField('Age', [Optional(), NumberRange(min=1, max=120, message="A valid age is 0 to 120"), catch_xss])
     filter_date_range = StringField('Date Range',
                                     [Optional(), Length(min=1, message='Please select a date.'),
                                      validate_daterange])
@@ -79,5 +83,6 @@ class CountMeInForm(FlaskForm):
 
     email = StringField('Email *', [
         Length(min=1, message='Email is required.'),
-        Email(message='Not a valid email address.')
+        Email(message='Not a valid email address.'),
+        catch_xss
     ])

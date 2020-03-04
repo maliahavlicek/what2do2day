@@ -1,6 +1,38 @@
-from datetime import datetime, timedelta, date
+from datetime import datetime, date
 
 from wtforms import ValidationError
+import re
+
+
+def catch_xss(form, value):
+    """Make sure no script tag"""
+    if re.match(r'^(.)*(<\s*)(\/*)script', value.data):
+        raise ValidationError('Scripting not allowed.')
+
+
+def check_format(value, format_string):
+    """# check the format of startDate"""
+    try:
+        datetime.strptime(value, format_string)
+        return True
+    except ValueError:
+        return False
+
+
+def is_date_valid(f_date):
+    # check the format of startDate
+    if not check_format(f_date, '%m/%d/%Y'):
+        raise ValidationError("Incorrect data format, should be MM/DD/YYYY.")
+    else:
+        pass
+
+
+def is_time_valid(f_time):
+    # check the format of startTime
+    if not check_format(f_time, '%H:%M'):
+        raise ValidationError("Incorrect time format, should be HH:MM.")
+    else:
+        pass
 
 
 def validate_address(form, field):
@@ -8,18 +40,6 @@ def validate_address(form, field):
     has_address_value = form.has_address.data
     if has_address_value:
         raise ValidationError("Address needs attention.")
-
-
-def validate_rating(form, field):
-    if form.has_review.data and str(form.rating.data) == 'none':
-        raise ValidationError('Select a star rating.')
-
-
-def validate_option_not_none(form, field):
-    """Make sure a real selection is made."""
-    if str(field.data) == 'none':
-        raise ValidationError('Please select an option.')
-
 
 def validate_daterange(form, field):
     """event filtering daterange validation"""
@@ -55,22 +75,6 @@ def validate_daterange(form, field):
             daterange_end = datetime.strptime(endDate, '%m/%d/%Y')
             if daterange_start > daterange_end:
                 raise ValidationError("End Date is before Start Date.")
-
-
-def is_date_valid(f_date):
-    # check the format of startDate
-    if not check_format(f_date, '%m/%d/%Y'):
-        raise ValidationError("Incorrect data format, should be MM/DD/YYYY.")
-    else:
-        pass
-
-
-def is_time_valid(f_time):
-    # check the format of startTime
-    if not check_format(f_time, '%H:%M'):
-        raise ValidationError("Incorrect time format, should be HH:MM.")
-    else:
-        pass
 
 
 def validate_datetime(form, field):
@@ -122,10 +126,15 @@ def validate_datetime(form, field):
             raise ValidationError("Invalid Date Time.")
 
 
-def check_format(value, format_string):
-    """# check the format of startDate"""
-    try:
-        datetime.strptime(value, format_string)
-        return True
-    except ValueError:
-        return False
+def validate_option_not_none(form, field):
+    """Make sure a real selection is made."""
+    if str(field.data) == 'none':
+        raise ValidationError('Please select an option.')
+
+
+def validate_rating(form, field):
+    if form.has_review.data and str(form.rating.data) == 'none':
+        raise ValidationError('Select a star rating.')
+
+
+

@@ -5,6 +5,7 @@ from wtforms import (StringField,
                      BooleanField,
                      ValidationError)
 from wtforms.validators import Length, Optional, DataRequired
+from what2do2day.templates.validators import catch_xss
 
 
 class RequiredIf(DataRequired):
@@ -39,14 +40,18 @@ class AddressForm(FlaskForm):
     address_line_1 = StringField('Street Address *',
                                  [RequiredIf(has_address=True),
                                   Length(min=1, message="Street Address is Required."),
-                                  Length(max=50, message="Street Address must be less than 50 characters.")])
+                                  Length(max=50, message="Street Address must be less than 50 characters."),
+                                  catch_xss])
     address_line_2 = StringField('Address line 2', [Optional(), Length(max=50,
-                                                                       message="Address Line 2 must be less than 50 characters.")])
+                                                                       message="Address Line 2 must be less than 50 characters."),
+                                                    catch_xss])
     city = StringField('City *', [RequiredIf(has_address=True), Length(min=1),
-                                  Length(max=50, message="City must be less than 50 characters.")])
+                                  Length(max=50, message="City must be less than 50 characters."),
+                                  catch_xss])
     state = StringField('State/Province/Region *', [RequiredIf(has_address=True), Length(min=1),
-                                                    Length(max=50, message="State must be less than 50 characters.")])
-    postal_code = StringField('Postal Code', [Optional(), Length(min=1)])
+                                                    Length(max=50, message="State must be less than 50 characters."),
+                                                    catch_xss])
+    postal_code = StringField('Postal Code', [Optional(), Length(min=1), catch_xss])
     country = SelectField('Country *', choices=[('none', 'Pick a Country.')])
     has_address = BooleanField('Has Physical Address', default='y')
 

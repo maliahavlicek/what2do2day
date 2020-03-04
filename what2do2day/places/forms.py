@@ -14,6 +14,7 @@ from wtforms.validators import (DataRequired,
 from what2do2day.reviews.forms import ReviewForm
 from what2do2day.addresses.forms import AddressForm
 from what2do2day.events.forms import EventForm
+from what2do2day.templates.validators import catch_xss
 
 
 class PlaceForm(FlaskForm):
@@ -21,20 +22,24 @@ class PlaceForm(FlaskForm):
 
     email = StringField('Email *', [
         Length(min=1, message='Email is required.'),
-        Email(message='Not a valid email address.')
+        Email(message='Not a valid email address.'),
+        catch_xss
     ])
     name = StringField('Name of Place *', [
         Length(min=1, message='Name of Place is required.'),
-        Length(max=50, message="Name must be less than 50 characters.")
+        Length(max=50, message="Name must be less than 50 characters."),
+        catch_xss
     ])
     description = TextAreaField('Description *', [
         Length(min=1, message="Description is required"),
         Length(min=2, message='Your description is too short'),
-        Length(max=500, message='Descriptions cannot be longer than 500 characters.')
+        Length(max=500, message='Descriptions cannot be longer than 500 characters.'),
+        catch_xss
     ])
     activity_name = StringField('Activity Type', [
         Length(min=1, message="Please enter the activity type."),
-        Length(max=50, message="Activity must be less than 50 characters.")])
+        Length(max=50, message="Activity must be less than 50 characters."),
+        catch_xss])
     activity_icon = HiddenField(None, [DataRequired()], default="n")
     phone = StringField('Phone', [Optional()])
     website = StringField('Website',
