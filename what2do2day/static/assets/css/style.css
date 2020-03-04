@@ -1262,6 +1262,10 @@ i.not-shared {
         margin: 15px 0 0 15px;
     }
 
+    div.stars {
+        max-width: 500px;
+    }
+
     /*columns */
     .columns {
         margin-left: -.75rem;
