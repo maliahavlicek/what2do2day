@@ -2,9 +2,11 @@
 html {
     scroll-behavior: smooth;
 }
-form{
+
+form {
     margin: 0;
 }
+
 a.button.is-text.no-icon-under {
     text-decoration: none;
 }
@@ -554,6 +556,7 @@ label.star:before {
     display: inline-block;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
 }
 
 .star-label {
