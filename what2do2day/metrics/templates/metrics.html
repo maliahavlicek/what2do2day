@@ -37,7 +37,7 @@
                         <table class="table table is-bordered is-striped is-fullwidth" id="page_visits">
                             <thead>
                             <tr>
-                                <td class="tab-header" colspan="2" headers="page_visits">
+                                <td class="tab-header" colspan="2" headers="p_h1">
                                     <div class="tab-header">
                                         <i class="fas fa-window-maximize"></i>
                                         &nbsp;&nbsp;Pages
@@ -45,8 +45,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="has-text-centered" id="p_h1" headers="pages">Page Name</th>
-                                <th class="has-text-centered" id="p_h2" headers="pages">Count</th>
+                                <th class="has-text-centered" id="p_h1">Page Name</th>
+                                <th class="has-text-centered" id="p_h2">Count</th>
                             </tr>
                             </thead>
                             <tfoot>
@@ -55,8 +55,8 @@
                                 <th class="has-text-centered" id="p_h4">Total Counts</th>
                             </tr>
                             <tr class="has-text-centered">
-                                <th class="has-text-centered" headers="p_h3">{{ pages|length }}</th>
-                                <th class="has-text-centered" headers="p_h4">{{ stats['page_total'] }}</th>
+                                <td class="has-text-centered is-bold" headers="p_h3">{{ pages|length }}</td>
+                                <td class="has-text-centered is-bold" headers="p_h4">{{ stats['page_total'] }}</td>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -90,7 +90,7 @@
                         <table class="table table is-bordered is-striped is-fullwidth" id="clicks">
                             <thead>
                             <tr>
-                                <td class="tab-header" colspan="2" headers="clicks">
+                                <td class="tab-header" colspan="2" headers="c_h1">
                                     <div class="tab-header">
                                         <i class="fas fa-mouse"></i>
                                         &nbsp;&nbsp;Clicks
@@ -108,8 +108,8 @@
                                 <th class="has-text-centered" id="c_h4">Total Clicks</th>
                             </tr>
                             <tr>
-                                <th class="has-text-centered" headers="c_h3">{{ clicks|length }}</th>
-                                <th class="has-text-centered" headers="c_h4">{{ stats['click_total'] }}</th>
+                                <td class="has-text-centered is-bold" headers="c_h3">{{ clicks|length }}</td>
+                                <td class="has-text-centered is-bold" headers="c_h4">{{ stats['click_total'] }}</td>
                             </tr>
                             </tfoot>
                             <tbody>

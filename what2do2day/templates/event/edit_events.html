@@ -63,7 +63,7 @@
         {% if events | length > 0 %}
             {% for event in events %}
                 {% if loop.index == 1 or loop.index > 1 and event['start_date']|date_only != events[loop.index - 2]['start_date']|date_only %}
-                    <nav class="level is-primary" aria-label="Events on {{ event['start_date'].strftime('%Y-%m-%d') }}">
+                    <nav class="level is-primary" aria-label="Events on {{ event['start_date'].strftime('%Y-%m-%d') }} {% if event['share']%} - shared{% else %} - disabled {% endif %}">
                         <div class="level-left">
                             <div class="level-item">
                                 <p class="title is-4">
