@@ -63,7 +63,7 @@
                         {% endif %}
                     </p>
                 </div>
-                <div class="columns is-multiline embedded limited-exposure">
+                <div class="columns is-multiline embedded limited-exposure" style="overflow-y: auto" tabindex="0">
                     {# hidden field to hold picked icon #}
                     {{ hidden_input_for_icon }}
                     {% for item in icons %}

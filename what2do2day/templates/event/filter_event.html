@@ -31,11 +31,11 @@
                 {% if update %}
                     <form method="POST"
                           action="{{ url_for('events_bp.filter_events', filter_string='yes', update='true', _external=True) }}"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" role="form" aria-label="Filter Events Form">
                 {% else %}
                     <form method="POST"
                           action="{{ url_for('events_bp.filter_events', filter_string='yes', update='false', _external=True) }}"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" role="form" aria-label="Filter Events Form">
                 {% endif %}
                 {#  prevent cross site scripting #}
                 {{ filter_form.csrf_token }}
@@ -58,7 +58,7 @@
                     {# macro for hidden inputs that go into form #}
                     {{ filter_form.activity.label(class_='label') }}
                     <p>Select the Activities your want to see</p>
-                    <div class="limited-exposure embedded activities">
+                    <div class="limited-exposure embedded activities" style="overflow-y: auto" tabindex="0">
                         <div class="control">
                             {# more user friendly experience for selecting mutliples #}
                             <div class="select is-multiple container activities">

@@ -4,7 +4,7 @@
 {% from "_partials/macros.html" import display_address with context %}
 {# This template houses the get_events list page. It houses the Count Me In modal and form #}
 {% block content %}
-    <section class="hero is-primary">
+    <section class="hero is-primary" role="banner" aria-label="Banner for Events List Page">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
@@ -53,7 +53,7 @@
     </section>
     {# include accordion for filtering #}
     {% include 'event/filter_event.html' %}
-    <section class="list-events">
+    <section class="list-events" role="main">
         {% if events | length > 0 %}
             {% for event in events %}
                 {% if loop.index == 1 or loop.index > 1 and event['start_date']|date_only != events[loop.index - 2]['start_date']|date_only %}
@@ -73,7 +73,7 @@
     </section>
     {# modal for count me in form #}
     {% if show_modal and not show_modal['status'] %}
-        <div class="modal is-active join-event" id="modal-count-me-in">
+        <div class="modal is-active join-event" id="modal-count-me-in" role="main">
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
@@ -81,7 +81,7 @@
                     <button class="delete" aria-label="close" data-track="modal_close,event_join,button"></button>
                 </header>
                 <form method="POST" action="{{ url_for('events_bp.get_events', event_id=layer_event['_id']) }}"
-                      enctype="multipart/form-data">
+                      enctype="multipart/form-data" role="form" aria-label="Join Event Form">
                     <section class="modal-card-body">
                         {#  prevent cross site scripting #}
                         {{ form.csrf_token }}

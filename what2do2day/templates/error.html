@@ -3,7 +3,7 @@
     <form method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     </form>
-    <section class="hero is-primary">
+    <section class="hero is-primary" role="banner" aria-label="Banner for Error Page">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
@@ -12,7 +12,7 @@
             </div>
         </div>
     </section>
-    <section class="section">
+    <section class="section" role="main">
         <div class="container">
             <div class="columns is-centered">
                 <div class="column is-one-third">

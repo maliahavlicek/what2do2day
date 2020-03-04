@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% from "_partials/event_macro.html" import event_entry with context %}
 {% block content %}
-    <section class="hero is-primary">
+    <section class="hero is-primary" role="banner" aria-label="Banner for Updating an Event">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
@@ -31,7 +31,7 @@
     {% if events | length > 0 %}
         {% for event in events %}
             <form method="POST" action="{{ url_for('events_bp.update_event', event_id=event['_id'], _external=True) }}"
-                  enctype="multipart/form-data">
+                  enctype="multipart/form-data" role="form" aria-label="Update Event Form">
                 {{ form.csrf_token }}
                 <nav class="level is-primary">
                     <div class="level-left">

@@ -7,8 +7,8 @@
 
 {% block content %}
     {# hero/tile #}
-    <form method="POST" action="{{ url_for('places_bp.add_place', _external=True) }}" enctype="multipart/form-data">
-        <section class="hero is-primary">
+    <form method="POST" action="{{ url_for('places_bp.add_place', _external=True) }}" enctype="multipart/form-data" role="form" aria-label="Add Place Form">
+        <section class="hero is-primary" role="banner" aria-label="Banner for Adding a Place">
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </section>
-        <section class="section">
+        <section class="section" role="main">
             <div class="container">
                 <h2 class="subtitle">
                     Thank you for sharing!

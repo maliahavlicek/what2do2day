@@ -4,7 +4,7 @@
     <form method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     </form>
-    <section class="hero is-medium is-primary is-fullheight-with-navbar is-bold">
+    <section class="hero is-medium is-primary is-fullheight-with-navbar is-bold" role="banner" aria-label="Banner for home page">
         <div class="hero-body home">
             <div class="container">
             </div>
@@ -17,7 +17,7 @@
             <p>Hey Ferb, what're we gonna do today?</p>
             <div class="speech-bubble-arrow"></div>
         </div>
-        <div class="buttons home columns">
+        <div class="buttons home columns" role="main">
             <div class="column is-half">
                 <a class="button is-link home-btn-1" data-track='events,home,button' href="{{ url_for('events_bp.get_events', _external=True) }}">
                     <span>Discover Events</span>

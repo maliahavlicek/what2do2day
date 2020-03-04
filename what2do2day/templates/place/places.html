@@ -3,7 +3,7 @@
     <form method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     </form>
-    <section class="hero is-primary">
+    <section class="hero is-primary" role="banner" aria-label="Banner for Places List Page">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
@@ -34,7 +34,7 @@
     </section>
     {# include accordion for future filtering #}
     {% include 'place/filter_place.html' %}
-    <section class="list-events places">
+    <section class="list-events places" role="main">
         {% if places | length > 0 %}
             {% for place in places %}
                 {% include 'place/place.html' %}

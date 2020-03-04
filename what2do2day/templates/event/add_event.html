@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <section class="hero is-primary">
+    <section class="hero is-primary" role="banner" aria-label="Banner for Add Event Page">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
@@ -40,7 +40,7 @@
         </section>
         {# include accordion for future filtering #}
         {% include 'place/filter_place.html' %}
-        <section class="list-events places add-place">
+        <section class="list-events places add-place" role="main">
             {% for place in places %}
                 {% include 'place/place_add_event.html' %}
             {% endfor %}

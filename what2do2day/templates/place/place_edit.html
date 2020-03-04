@@ -3,7 +3,7 @@
 {% from "_partials/macros.html" import display_address with context %}
 {% from "_partials/macros.html" import star_rating_display with context %}
 {% block content %}
-    <section class="hero is-primary">
+    <section class="hero is-primary" role="banner" aria-label="Banner for Selecting Place to Edit">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
@@ -35,7 +35,7 @@
     {% if places | length >0 %}
         {# include accordion for future filtering #}
         {% include 'place/filter_place.html' %}
-        <section class="list-events places add-place">
+        <section class="list-events places add-place" role-="main">
 
             {% for place in places %}
                 <div class="container">

@@ -4,7 +4,7 @@
 {% from "_partials/macros.html" import address_collection with context %}
 {% from "place/place_macro.html" import place_entry with context %}
 {% block content %}
-    <section class="hero is-primary">
+    <section class="hero is-primary" role="banner" aria-label="Banner for Updating a Place">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
@@ -33,7 +33,7 @@
     {% if places | length > 0 %}
         {% for place in places %}
             <form method="POST" action="{{ url_for('places_bp.update_place', place_id=place['_id'], _external=True) }}"
-                  enctype="multipart/form-data">
+                  enctype="multipart/form-data" role="form" aria-label="Update Place Form">
                 {{ form.csrf_token }}
                 <nav class="level is-primary">
                     <div class="level-left">

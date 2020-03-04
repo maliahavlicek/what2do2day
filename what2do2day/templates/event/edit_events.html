@@ -2,7 +2,7 @@
 {% from "_partials/macros.html" import display_address with context %}
 {# This template houses the get_events list page. It houses the Count Me In modal and form #}
 {% block content %}
-    <section class="hero is-primary">
+    <section class="hero is-primary" role="banner" aria-label="Banner for Picking Event to Update">
         <div class="hero-body">
             <div class="container">
                 <nav class="level ">
@@ -59,7 +59,7 @@
     {# include accordion for filtering #}
     {% include 'event/filter_event.html' %}
 
-    <section class="list-events">
+    <section class="list-events" role="main">
         {% if events | length > 0 %}
             {% for event in events %}
                 {% if loop.index == 1 or loop.index > 1 and event['start_date']|date_only != events[loop.index - 2]['start_date']|date_only %}

@@ -4,8 +4,8 @@
 {# Enter Reivew Form  #}
 {% block content %}
     {# hero/tile #}
-    <form method="POST" action="/add_review/{{ id }}/" enctype="multipart/form-data">
-        <section class="hero is-primary">
+    <form method="POST" action="/add_review/{{ id }}/" enctype="multipart/form-data" role="form" aria-label="add review form">
+        <section class="hero is-primary" role="banner" aria-label="Banner for Add Review">
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </section>
-        <section class="section">
+        <section class="section" role="main">
             <div class="container">
                 <h2 class="subtitle has-text-centered-mobile">
                     Thanks for sharing your input!

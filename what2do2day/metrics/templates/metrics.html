@@ -5,7 +5,7 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     </form>
     {# hero/tile #}
-    <section class="hero is-primary">
+    <section class="hero is-primary" role="banner" aria-label="Banner for metrics">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
@@ -14,7 +14,7 @@
             </div>
         </div>
     </section>
-    <section class="section">
+    <section class="section" role="main">
         <div class="container metrics">
             <div class="title is-2 has-text-centered" id="site_usage">Site Usage</div>
             <div class="is-hidden-tablet">
@@ -37,35 +37,35 @@
                         <table class="table table is-bordered is-striped is-fullwidth" id="page_visits">
                             <thead>
                             <tr>
-                                <th class="tab-header" colspan="2">
+                                <td class="tab-header" colspan="2" headers="page_visits">
                                     <div class="tab-header">
                                         <i class="fas fa-window-maximize"></i>
                                         &nbsp;&nbsp;Pages
                                     </div>
-                                </th>
+                                </td>
                             </tr>
                             <tr>
-                                <th class="has-text-centered">Page Name</th>
-                                <th class="has-text-centered">Count</th>
+                                <th class="has-text-centered" id="p_h1" headers="pages">Page Name</th>
+                                <th class="has-text-centered" id="p_h2" headers="pages">Count</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th class="has-text-centered">Total Pages</th>
-                                <th class="has-text-centered">Total Counts</th>
+                                <th class="has-text-centered" id="p_h3">Total Pages</th>
+                                <th class="has-text-centered" id="p_h4">Total Counts</th>
                             </tr>
                             <tr class="has-text-centered">
-                                <th class="has-text-centered">{{ pages|length }}</th>
-                                <th class="has-text-centered">{{ stats['page_total'] }}</th>
+                                <th class="has-text-centered" headers="p_h3">{{ pages|length }}</th>
+                                <th class="has-text-centered" headers="p_h4">{{ stats['page_total'] }}</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             {% for page_list in pages %}
                                 <tr>
-                                    <td>
+                                    <td headers="p_h1">
                                         {{ page_list['_id'] }}
                                     </td>
-                                    <td class="progress-bar">
+                                    <td class="progress-bar" headers="p_h2">
                                         <progress class="progress is-large is-primary" value="{{ page_list['count'] }}"
                                                   max="{{ stats['page_max'] }}">
                                         </progress>
@@ -90,35 +90,35 @@
                         <table class="table table is-bordered is-striped is-fullwidth" id="clicks">
                             <thead>
                             <tr>
-                                <th class="tab-header" colspan="2">
+                                <td class="tab-header" colspan="2" headers="clicks">
                                     <div class="tab-header">
                                         <i class="fas fa-mouse"></i>
                                         &nbsp;&nbsp;Clicks
                                     </div>
-                                </th>
+                                </td>
                             </tr>
                             <tr>
-                                <th class="has-text-centered">Click Name</th>
-                                <th class="has-text-centered">Count</th>
+                                <th class="has-text-centered" id="c_h1">Click Name</th>
+                                <th class="has-text-centered" id="c_h2">Count</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th class="has-text-centered">Total Clicks Types</th>
-                                <th class="has-text-centered">Total Clicks</th>
+                                <th class="has-text-centered" id="c_h3">Total Clicks Types</th>
+                                <th class="has-text-centered" id="c_h4">Total Clicks</th>
                             </tr>
                             <tr>
-                                <th class="has-text-centered">{{ clicks|length }}</th>
-                                <th class="has-text-centered">{{ stats['click_total'] }}</th>
+                                <th class="has-text-centered" headers="c_h3">{{ clicks|length }}</th>
+                                <th class="has-text-centered" headers="c_h4">{{ stats['click_total'] }}</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             {% for click in clicks %}
                                 <tr>
-                                    <td>
+                                    <td headers="c_h3">
                                         {{ click['_id'] }}
                                     </td>
-                                    <td class="progress-bar">
+                                    <td class="progress-bar" headers="c_h4">
                                         <progress class="progress is-large is-primary" value="{{ click['count'] }}"
                                                   max="{{ stats['click_max'] }}"></progress>
                                         <span class="progress-after">{{ click['count'] }}</span>

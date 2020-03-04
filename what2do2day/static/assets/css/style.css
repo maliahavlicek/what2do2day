@@ -2,7 +2,9 @@
 html {
     scroll-behavior: smooth;
 }
-
+form{
+    margin: 0;
+}
 a.button.is-text.no-icon-under {
     text-decoration: none;
 }
