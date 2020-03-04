@@ -8,6 +8,7 @@ from what2do2day.users.views import get_add_user_id
 from what2do2day import app, mongo, google_key
 from what2do2day.email.views import email_event
 from what2do2day.metrics.views import load_page
+from filters import remove_html_tags
 
 
 def get_add_activity_id(name, icon):
@@ -332,7 +333,7 @@ def mini_event(event):
 
 def push_event_to_db(form, event):
     # create a cleaned up event object to the point of unique data [place_id, name, date_time_range]
-    new_event = {'place': event['place_id'], 'name': form.data['event_name'].strip().lower(),
+    new_event = {'place': event['place_id'], 'name': remove_html_tags(form.data['event_name']).strip().lower(),
                  'date_time_range': form.data['event_start_datetime']
                  }
 
@@ -357,13 +358,13 @@ def push_event_to_db(form, event):
     has_address = form.address.data['has_address']
     event_address = {}
     if has_address:
-        event_address['address_line_1'] = form.address.data['address_line_1'].strip().lower()
+        event_address['address_line_1'] = remove_html_tags(form.address.data['address_line_1']).strip().lower()
         if form.address.data['address_line_2']:
-            event_address['address_line_2'] = form.address.data['address_line_2'].strip().lower()
-        event_address['city'] = form.address.data['city'].strip().lower()
-        event_address['state'] = form.address.data['state'].strip().lower()
+            event_address['address_line_2'] = remove_html_tags(form.address.data['address_line_2']).strip().lower()
+        event_address['city'] = remove_html_tags(form.address.data['city']).strip().lower()
+        event_address['state'] = remove_html_tags(form.address.data['state']).strip().lower()
         if form.address.data['postal_code']:
-            event_address['postal_code'] = form.address.data['postal_code'].strip().lower()
+            event_address['postal_code'] = remove_html_tags(form.address.data['postal_code']).strip().lower()
         event_address['country'] = form.address.data['country']
         address_id = get_add_address_id(event_address)
         event_address_id = address_id
@@ -375,15 +376,15 @@ def push_event_to_db(form, event):
         event['address'] = ''
 
     # see if event's activity is in db or not
-    event_activity_id = get_add_activity_id(form.activity_name.data.strip().lower(),
+    event_activity_id = get_add_activity_id(remove_html_tags(form.activity_name.data).strip().lower(),
                                             form.activity_icon.data)
     new_event['activity'] = event_activity_id
-    new_event['details'] = form.data['details'].strip()
+    new_event['details'] = remove_html_tags(form.data['details']).strip()
     new_event['age_limit'] = form.data['age_limit']
     # make sure if no-limit in list of age_limits, only have that entry in the list
     if 'no-limit' in new_event['age_limit']:
         new_event['age_limit'] = ['no-limit']
-    new_event['price_for_non_members'] = form.data['price_for_non_members'].strip()
+    new_event['price_for_non_members'] = remove_html_tags(form.data['price_for_non_members']).strip()
     new_event['address'] = event_address_id
     new_event['max_attendees'] = form.data['max_attendees']
     if 'attendees' in event.keys():

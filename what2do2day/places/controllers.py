@@ -42,18 +42,18 @@ def place_unique(place):
 def push_place_to_db(form, update=False, place_id=False):
     # unique entries for a place are the name and address, so build that first
 
-    place = {'name': form.name.data.strip().lower()}
+    place = {'name': filters.remove_html_tags(form.name.data).strip().lower()}
     has_address = form.address.data['has_address']
     address = {}
     if has_address:
-        address['address_line_1'] = form.address.data['address_line_1'].strip().lower()
+        address['address_line_1'] = filters.remove_html_tags(form.address.data['address_line_1']).strip().lower()
         if form.address.data['address_line_2']:
-            address['address_line_2'] = form.address.data['address_line_2'].strip().lower()
+            address['address_line_2'] = filters.remove_html_tags(form.address.data['address_line_2']).strip().lower()
 
-        address['city'] = form.address.data['city'].strip().lower()
-        address['state'] = form.address.data['state'].strip().lower()
+        address['city'] = filters.remove_html_tags(form.address.data['city']).strip().lower()
+        address['state'] = filters.remove_html_tags(form.address.data['state']).strip().lower()
         if form.address.data['postal_code']:
-            address['postal_code'] = form.address.data['postal_code'].strip().lower()
+            address['postal_code'] = filters.remove_html_tags(form.address.data['postal_code']).strip().lower()
 
         address['country'] = form.address.data['country']
         address_id = get_add_address_id(address)
@@ -80,14 +80,14 @@ def push_place_to_db(form, update=False, place_id=False):
     place['user'] = get_add_user_id(email)
 
     # place description
-    place['description'] = form.description.data.strip()
+    place['description'] = filters.remove_html_tags(form.description.data).strip()
     place['phone'] = form.phone.data.strip()
     place['website'] = form.website.data.strip()
     place['image_url'] = form.image_url.data.strip()
     place['share_place'] = form.share_place.data
 
     # see if activity is in db or not
-    activity_id = get_add_activity_id(form.activity_name.data.strip().lower(), form.activity_icon.data)
+    activity_id = get_add_activity_id(filters.remove_html_tags(form.activity_name.data).strip().lower(), form.activity_icon.data)
     place['activity'] = activity_id
 
     # now we can add the place or update it
@@ -98,7 +98,7 @@ def push_place_to_db(form, update=False, place_id=False):
     if has_review:
         review = {'place': place_id, 'date': datetime.today(), 'user': get_add_user_id(email),
                   'rating': int(form.review.data['rating']),
-                  'comments': form.review.data['comments'].strip(),
+                  'comments': filters.remove_html_tags(form.review.data['comments']).strip(),
                   'share': form.share_place.data}
         review_id = db_add_review(review)
         if review_id is None:
@@ -109,7 +109,7 @@ def push_place_to_db(form, update=False, place_id=False):
     if has_event:
 
         # create event object to the point of unique data [place_id, name, date_time_range]
-        event = {'place': place_id, 'name': form.event.data['event_name'].strip().lower(),
+        event = {'place': place_id, 'name': filters.remove_html_tags(form.event.data['event_name']).strip().lower(),
                  'date_time_range': form.event.data['event_start_datetime']
                  }
 
@@ -123,13 +123,13 @@ def push_place_to_db(form, update=False, place_id=False):
         has_address = form.event.address.data['has_address']
         event_address = {}
         if has_address:
-            event_address['address_line_1'] = form.event.address.data['address_line_1'].strip().lower()
+            event_address['address_line_1'] = filters.remove_html_tags(form.event.address.data['address_line_1']).strip().lower()
             if form.event.address.data['address_line_2']:
-                event_address['address_line_2'] = form.event.address.data['address_line_2'].strip().lower()
-            event_address['city'] = form.event.address.data['city'].strip().lower()
-            event_address['state'] = form.event.address.data['state'].strip().lower()
+                event_address['address_line_2'] = filters.remove_html_tags(form.event.address.data['address_line_2']).strip().lower()
+            event_address['city'] = filters.remove_html_tags(form.event.address.data['city']).strip().lower()
+            event_address['state'] = filters.remove_html_tags(form.event.address.data['state']).strip().lower()
             if form.event.address.data['postal_code']:
-                event_address['postal_code'] = form.event.address.data['postal_code'].strip().lower()
+                event_address['postal_code'] = filters.remove_html_tags(form.event.address.data['postal_code']).strip().lower()
             event_address['country'] = form.event.address.data['country']
             address_id = get_add_address_id(event_address)
             event_address_id = address_id
@@ -137,12 +137,12 @@ def push_place_to_db(form, update=False, place_id=False):
             event_address_id = ''
 
         # see if event's activity is in db or not
-        event_activity_id = get_add_activity_id(form.event.activity_name.data.strip().lower(),
+        event_activity_id = get_add_activity_id(filters.remove_html_tags(form.event.activity_name.data).strip().lower(),
                                                 form.event.activity_icon.data)
         event['activity'] = event_activity_id
-        event['details'] = form.event.data['details'].strip()
+        event['details'] = filters.remove_html_tags(form.event.data['details']).strip()
         event['age_limit'] = form.event.data['age_limit']
-        event['price_for_non_members'] = form.event.data['price_for_non_members'].strip()
+        event['price_for_non_members'] = filters.remove_html_tags(form.event.data['price_for_non_members']).strip()
         event['address'] = event_address_id
         event['max_attendees'] = form.event.data['max_attendees']
         event['attendees'] = [get_add_user_id(email)]

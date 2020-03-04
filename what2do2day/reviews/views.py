@@ -8,6 +8,7 @@ from what2do2day import mongo
 from what2do2day.metrics.views import load_page
 from what2do2day.reviews.forms import ReviewForm
 from what2do2day.users.views import get_add_user_id
+import filters
 
 ################
 #### config ####
@@ -46,7 +47,7 @@ def add_review(place_id):
     if form.validate_on_submit():
         review = {'place': ObjectId(place_id), 'date': datetime.today(),
                   'rating': int(form.data['rating']),
-                  'comments': form.data['comments'].strip(),
+                  'comments': filters.remove_html_tags(form.data['comments']).strip(),
                   'share': form.share.data}
 
         email = form.author.data.strip().lower()

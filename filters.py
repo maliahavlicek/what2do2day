@@ -4,6 +4,7 @@ from os.path import splitext, isfile, join
 
 from jinja2 import filters
 from datetime import datetime
+import html
 
 
 def date_only(date):
@@ -90,6 +91,35 @@ def myround(*args, **kw):
         return None
 
 
+def remove_html_tags(text):
+    """Remove html tags from a string and escape special characters """
+    import re
+    clean = re.compile('<.*?>')
+    cleaned = re.sub(clean, '', text)
+    return html.escape(cleaned)
+
+
+def pluralize(number, singular='', plural='s', count=False):
+    """Expecting
+         number: integer
+         singular: string for singular value
+         plural: string for plural value
+         count: boolean to denote if count should be prefix the singular or plural word """
+    try:
+        count_str = ""
+        if count:
+            count_str += str(number) + " "
+        if number == 1:
+            count_str += singular
+        else:
+            count_str += plural
+        return count_str
+
+    except (TypeError, ValueError) as e:
+        pass
+        return number
+
+
 def time_only(date_time_range):
     """Takes in datetime range string in format of MM/DD/YYYY HH:MM - MM/DD/YYYY HH:MM
         passes out a more user friendly/consolidated time format if start date and endDate are the same
@@ -112,24 +142,3 @@ def time_only(date_time_range):
     except (TypeError, ValueError) as e:
         pass
         return date_time_range
-
-
-def pluralize(number, singular='', plural='s', count=False):
-    """Expecting
-         number: integer
-         singular: string for singular value
-         plural: string for plural value
-         count: boolean to denote if count should be prefix the singular or plural word """
-    try:
-        count_str = ""
-        if count:
-            count_str += str(number) + " "
-        if number == 1:
-            count_str += singular
-        else:
-            count_str += plural
-        return count_str
-
-    except (TypeError, ValueError) as e:
-        pass
-        return number
