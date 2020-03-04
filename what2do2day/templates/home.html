@@ -4,20 +4,20 @@
     <form method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     </form>
-    <section class="hero is-medium is-primary is-fullheight-with-navbar is-bold">
+    <section class="hero is-medium is-primary is-fullheight-with-navbar is-bold" role="main">
         <div class="hero-body home">
             <div class="container">
             </div>
         </div>
         <div class="speech-bubble first">
-            <p>Let's check What2do2day.</p>
+            <h1>Let's check What2do2day.</h1>
             <div class="speech-bubble-arrow"></div>
         </div>
         <div class="speech-bubble second">
-            <p>Hey Ferb, what're we gonna do today?</p>
+            <h1>Hey Ferb, what're we gonna do today?</h1>
             <div class="speech-bubble-arrow"></div>
         </div>
-        <div class="buttons home columns" role="main">
+        <div class="buttons home columns">
             <div class="column is-half">
                 <a class="button is-link home-btn-1" data-track='events,home,button' href="{{ url_for('events_bp.get_events', _external=True) }}">
                     <span>Discover Events</span>
