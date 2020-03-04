@@ -1,36 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description"
-          content="Find free things to do in your community for kids. List free events in your community for kids to attend. Review places that organize free events for kids in your neighborhood.">
+          content="Find free things to do in your community for kids. List free events in your community for kids to attend. Review places that organize free events for kids in your neighborhood." />
     <title>What2Do2Day</title>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'sha256-+F3gOU1DQxY16x7fQfxUYLFRfEZrEO0VavTzK4EbD6c=' https://fonts.gstatic.com/;
-        img-src * data:;
-        style-src 'self' 'unsafe-inline' https://kit.fontawesome.com/ https://cdn.jsdelivr.net/ https://kit-free.fontawesome.com/ https://fonts.googleapis.com/ ;
-        font-src 'self' https://fonts.gstatic.com/ https://fonts.googleapis.com/  https://kit-free.fontawesome.com/ https://kit.fontawesome.com/ data:;
-        script-src 'self' https://kit.fontawesome.com/ https://cdnjs.cloudflare.com/ https://apis.google.com/ https://kit-free.fontawesome.com/ 'nonce-4AAemGb0xJpto1GFP3Nd';
-        frame-src 'self' https://www.google.com/;">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self' 'sha256-+F3gOU1DQxY16x7fQfxUYLFRfEZrEO0VavTzK4EbD6c=' https://fonts.gstatic.com/; img-src * data:; style-src 'self' 'unsafe-inline' https://kit.fontawesome.com/ https://cdn.jsdelivr.net/ https://kit-free.fontawesome.com/ https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ https://fonts.googleapis.com/  https://kit-free.fontawesome.com/ https://kit.fontawesome.com/ data:; script-src 'self' https://kit.fontawesome.com/ https://cdnjs.cloudflare.com/ https://apis.google.com/ https://kit-free.fontawesome.com/ 'unsafe-inline' https: 'nonce-4AAemGb0xJpto1GFP3Nd' 'strict-dynamic'; frame-src 'self' https://www.google.com/; object-src 'none'; base-uri 'self';" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
     <link rel="apple-touch-icon" sizes="180x180"
-          href="{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}">
+          href="{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}"/>
     <link rel="icon" type="image/png" sizes="32x32"
-          href="{{ url_for('static', filename='favicon-32x32.png', _external=True) }}">
+          href="{{ url_for('static', filename='favicon-32x32.png', _external=True) }}"/>
     <link rel="icon" type="image/png" sizes="16x16"
-          href="{{ url_for('static', filename='favicon-16x16.png', _external=True) }}">
-    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest', _external=True) }}">
+          href="{{ url_for('static', filename='favicon-16x16.png', _external=True) }}"/>
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest', _external=True) }}"/>
 
-    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:500,700&display=swap" rel="stylesheet">
-    <link href="{{ url_for('static', filename='assets/css/bulma-extensions.css', _external=True) }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='assets/css/style.css', _external=True) }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:500,700&display=swap" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='assets/css/bulma-extensions.css', _external=True) }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='assets/css/style.css', _external=True) }}" rel="stylesheet"/>
 
     <script defer src="https://kit.fontawesome.com/6a08e8ea2d.js" crossorigin="anonymous" nonce="4AAemGb0xJpto1GFP3Nd"></script>
     <script type="text/javascript"
-            src="{{ url_for('static', filename='assets/js/bulma-accordion.min.js', _external=True) }}"></script>
+            src="{{ url_for('static', filename='assets/js/bulma-accordion.min.js', _external=True) }}" nonce="4AAemGb0xJpto1GFP3Nd"></script>
 
-    <!-- <link rel="stylsheet" hrfe="../static/css/debug.css"> -->
 </head>
 <body>
 <div class="body-container">
@@ -40,7 +35,7 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" nonce="4AAemGb0xJpto1GFP3Nd"></script>
 <script src="{{ url_for('static', filename='assets/js/bulma-calendar.min.js', _external=True) }}" nonce="4AAemGb0xJpto1GFP3Nd"></script>
-<script src="{{ url_for('static', filename='assets/js/main.js', _external=True) }}"></script>
+<script src="{{ url_for('static', filename='assets/js/main.js', _external=True) }}" nonce="4AAemGb0xJpto1GFP3Nd"></script>
 
 
 </body>
@@ -56,7 +51,7 @@
                 type: 'POST',
                 data: post_data,
                 dataType: 'json',
-                contentType: "application/json; charset=UTF-8",
+                contentType: 'application/json; charset=UTF-8',
                 beforeSend: function (xhr, settings) {
                     if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
                         xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token() }}")
@@ -67,8 +62,6 @@
                 }
             });
         });
-
-
     });
 </script>
 </html>
