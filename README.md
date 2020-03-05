@@ -15,8 +15,9 @@ Possibilities to monetize this site abound. Site owners can easily add affiliate
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series [Phineas and Ferb](https://en.wikipedia.org/wiki/Phineas_and_Ferb).
 
+## Table of Contents
 <details>
-<summary>Table of Contents</summary>
+<summary>Click to Expand</summary>
 
 - [UX](#ux)
   * [Strategy](#strategy)
@@ -41,7 +42,7 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 - [Design Choices](#design-choices)
   * [Skeleton](#skeleton)
     + [Content Considerations](#content-considerations)
-  * [Surface:](#surface-)
+  * [Surface:](#surface)
     + [Color Choice](#color-choice)
     + [Typography](#typography)
     + [Image Choice](#image-choice)
@@ -52,9 +53,9 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
       - [Modals and Errors](#modals-and-errors)
       - [Loading Giff](#loading-giff)
     + [Design Elements](#design-elements)
-    + [Animations & Transitions](#animations---transitions)
-  * [User Stories:](#user-stories-)
-    + [For kids looking for something free to do today in their neighborhood:](#for-kids-looking-for-something-free-to-do-today-in-their-neighborhood-)
+    + [Animations & Transitions](#animations--transitions)
+  * [User Stories:](#user-stories)
+    + [For kids looking for something free to do today in their neighborhood:](#for-kids-looking-for-something-free-to-do-today-in-their-neighborhood)
     + [For places and organizations involved in building the community](#for-places-and-organizations-involved-in-building-the-community)
     + [For site owners hosting a website to store community information](#for-site-owners-hosting-a-website-to-store-community-information)
 - [Features](#features)
@@ -67,7 +68,7 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
     + [Metrics](#metrics)
   * [Features Left to Implement](#features-left-to-implement)
     + [Features Deferred from original plan](#features-deferred-from-original-plan)
-    + [User Roles & Permissions](#user-roles---permissions)
+    + [User Roles & Permissions](#user-roles--permissions)
     + [Place Administrator Dashboard](#place-administrator-dashboard)
     + [External User Adult Dashboard](#external-user-adult-dashboard)
     + [External User Minor Dashboard](#external-user-minor-dashboard)
@@ -79,18 +80,18 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
   * [Project Tracking](#project-tracking)
 - [Technologies Used](#technologies-used)
   * [Programming languages](#programming-languages)
-  * [Framework & Extensions](#framework---extensions)
+  * [Framework & Extensions](#framework--extensions)
   * [Fonts](#fonts)
   * [Tools](#tools)
   * [APIs](#apis)
 - [Defensive Programming](#defensive-programming)
-  * [Form Validation:](#form-validation-)
+  * [Form Validation:](#form-validation)
   * [Cross Site Forgery Protection](#cross-site-forgery-protection)
   * [XSS Protection](#xss-protection)
 - [Testing](#testing)
   * [Validation Testing](#validation-testing)
   * [Unit Testing](#unit-testing)
-  * [Cross Browser/ Cross Device Verification](#cross-browser--cross-device-verification)
+  * [Cross Browser/ Cross Device Verification](#cross-browser-cross-device-verification)
   * [Cross Site Scripting and Forgery](#cross-site-scripting-and-forgery)
   * [Accessibility Testing](#accessibility-testing)
   * [Regression Testing](#regression-testing)
@@ -219,6 +220,12 @@ Like all projects, the data model morphed a few times. [See progression of data 
 
 ### Database Choice
 As a course requirement, this project was based on a NoSQL database structure. While the project's data is better suited for a relational database such as SQL, MongoDB was used. 
+
+The Database URI is read from environmental variables within the [flask.cfg](instance/flask.cfg) file:
+> MONGO_URI = environ.get('MONGO_URI_WHAT2DO2DAY')
+> MONGO_SERVER_SELECTION_TIMEOUT_MS = '2000'
+> MONGO_SOCKET_TIMEOUT_MS = '2000'
+> MONGO_CONNECT_TIMEOUT_MS = '2000'
 
 ### Data Models
 Data stored in what2do2day's MongoDB consist of these types:
@@ -639,6 +646,7 @@ I overestimated my abilities when originally scoping this project. I didn't acco
 1. Follow a place - I would not gain any skills taking this functionality on and I the UX being similar to the delivered Join Event feature I don't believe I'm loosing out on a learning opportunity by eliminating this functionality.
 1. Filter Places - I tackled more complex filtering logic in the filter events layer and saw this list not getting nearly as long as the events list could be.
 1. Pagination - By including a count of events or places found, the user has an idea of how many results they are seeing. Pagination isn't nearly as useful on smaller devices as the buttons are cumbersome for fingers and users are accustomed to scrolling down vs paging through results, thus pagination was differed
+1. Scroll to top - Longer pages should include a scroll to top fixed button to aid in returning to the top navigation
 1. Update Review - updating and sharing reviews are tightly tied to various user roles. Since user roles were originally out of scope, it made sense to differ this functionality, especially since updating and soft delete powers have been exemplified in update events and update places.
 
 #### User Roles & Permissions
@@ -699,7 +707,12 @@ In the long term once this concept proves viable, authentication would be enable
 1. MongoDB is not the correct data base, it was chosen because it has a free tier, but the aggregation to force joins is awkward and inefficient. As the dataset grows this will cripple the application's efficiency.
 ### Project Tracking
 The scope of this project was larger than a typical milestone effort and I quickly felt overwhelmed when learning new skills such as Bulma, mongodb aggregated queries, Flask Filters, Flask Macros, Flask WTF Forms, Validators, Flask blueprints and routes. 
-To ensure I kept on task and could feel a sense of accomplishment while taking the countless baby steps towards completion, I devised a [project tacking sheet](https://docs.google.com/spreadsheets/d/1Lnvt9zLgJj0oQFdpOIAs1V2JAN2lVGcBalIBHwXzqjY/edit?usp=sharing). It helped me prioritize what aspects I needed to accomplish first and also helped identify features to descope into future releases. 
+To ensure I kept on task and could feel a sense of accomplishment while taking the countless baby steps towards completion, I devised a [project tacking sheet](https://docs.google.com/spreadsheets/d/1Lnvt9zLgJj0oQFdpOIAs1V2JAN2lVGcBalIBHwXzqjY/edit?usp=sharing):
+ 
+This spreadsheet helped me prioritize what aspects I needed to accomplish first and also helped identify features to descope into future releases. It also helped remind me of tasks I like to put off forever such as writing test cases and updating documentation
+
+[![project task list](documentation/images/software_cycle/project_tracking.png "project task list")](https://docs.google.com/spreadsheets/d/1Lnvt9zLgJj0oQFdpOIAs1V2JAN2lVGcBalIBHwXzqjY/edit?usp=sharing)
+. 
 I attempted to follow a rough Agile methodology where I prefixed discovery tasks in Feature 0 for sprint 0. Then I used the following numbers as a hierarchy of what to develop first:
 
  | Epic Task Number 	|                         Tasks                        	|                                                                     Deliverables                                                                    	|
@@ -761,7 +774,7 @@ I attempted to follow a rough Agile methodology where I prefixed discovery tasks
 - [color contrast](https://webaim.org/resourceshttps://webaim.org/resources/contrastchecker//contrastchecker/) Tool was used to adjust colors on fonts flagged as needing a higher contrast ratio from google's lighthouse audit tool.
 - [lighthouse audit](https://developers.google.com/web/tools/lighthouse) Google's open source automated too to help improve the quality of your website. Specifically paid attention to Accessibility  and best practices aiming for scores above 80.
 ### APIs
-- [stmp](https://github.com/python/cpython/blob/3.8/Lib/smtplib.py) - Send user notices when an event is joined or when an event they have joined has been updated.
+- [SMTP](https://github.com/python/cpython/blob/3.8/Lib/smtplib.py) - Send user notices when an event is joined or when an event they have joined has been updated.
 - [Google Maps Javascript API](https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/) - Customized Map of event and places
 
 ## Defensive Programming
@@ -802,12 +815,17 @@ I used the following validation websites to test the code:
 - [CSP validation](https://csp-evaluator.withgoogle.com/) - used to determine that syntax of Context Security Policy is strong and valid
 
 ### Unit Testing
-To ensure core functionality and features were delivered and working I created a series of manual tests in a [google doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing)
-These manual unit test cases focus on testing the core functionality in a desktop browser only and examining the console for errors. Ideally the core functionality would be verified using mocked database inputs to the controller functions for specific views.
+To ensure core functionality and features were delivered and working I created a series of manual tests in a [google doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing) on the unit testing tab.
+These manual unit test cases focus on testing the core functionality in a desktop browser and iphone 6s emulator and examining the console for errors. Ideally the core functionality would be verified using mocked database inputs to the controller functions for specific views.
+
+[![unit tests](documentation/images/software_cycle/unit_test.png "unit tests")](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing)
 
 ### Cross Browser/ Cross Device Verification
-To verify that the application is functional and looks pleasant  across various operating systems and device sizes I devised another suite of manual tests in the cross browser tab of my [testing workheet](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing).
-These tests are lighter on the functionality with more attention being paid to the layout and console logs.
+To verify that the application is functional and looks pleasant  across various operating systems and device sizes I devised another suite of manual tests in the cross browser tab of my [testing workheet](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing) on the cross browser tab.
+These tests are lighter on the functionality with more attention being paid to the layout and console logs:
+
+[![cross browser tests](documentation/images/software_cycle/cross_browser_test.png "cross browser tests")](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing)
+
 The matrix for the browsers, operating systems and screen sizes is as follows:
 
 |       TOOL      	|    DEVICE    	| BROWSER 	|    OS   	|   SCREEN WIDTH  	|
@@ -836,11 +854,17 @@ This snippet grabs all elements in the DOM and outputs offending elements that e
 During my unit testing I encountered the CSRF errors many times myself when I left the CSRF token off pages or update my routes to use blueprint and mistyped paths. This got me wondering what I can do to try to test my application proactively so I read [veracodes' XSS article](https://www.veracode.com/security/xss) article to figure out ways to manually test for XSS and CSRF.
 Based on my findings I added a Security worksheet to my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing) And documented routes where url parameters are allowed as well as pages with text or text area entries and templating variables. I then attempted to inject scripting and forgeries into my website. 
 
+[![security tests](documentation/images/software_cycle/security_test.png "secruity tests")](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing)
+
 ### Accessibility Testing
-I know a few people with physical handicaps which makes using a mouse nearly impossible as well as a couple severely visually impaired people I try to ensure I build websites that can be use by them. I make use of  [axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) and [google's lighthouse audi](https://developers.google.com/web/tools/lighthouse) tool to help ensure that the application meets accessibility standards.
+I know a few people with physical handicaps which makes using a mouse nearly impossible as well as a couple severely visually impaired people. I try to ensure I build websites that can be used by them. I make use of [axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) and [google's lighthouse audit](https://developers.google.com/web/tools/lighthouse) tools to help ensure that the application meets accessibility standards.
+
+I tracked the results on the Accessibility Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing).
+
+[![accessibility tests](documentation/images/software_cycle/accessibility_test.png "accessibility tests")](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing)
 
 ### Regression Testing
-No one wants to keep running a large suite of unit tests and cross browser tests again and again. Due to my ineptitude at writing interactive tests with a database, (I tried but learning how to mock data was not something I had planned on doing)I reduced the unit testing and cross site browsing testing to a smaller suite once the core development was 70% done. These tests are on the Regression Tests Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing). While I really want to mock some database interaction, I do not have the bandwidth to take on that additional learning at this time. 
+No one wants to keep running a large suite of unit tests and cross browser tests again and again. Due to my ineptitude at writing interactive tests with a database, (I tried but learning how to mock data was not something I had planned on doing), I reduced the unit testing and cross site browsing testing to a smaller suite once the core development was 70% done. These tests are on the Regression Tests Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing). While I really want to mock some database interaction, I do not have the bandwidth to take on that additional learning at this time. 
 
 ### Automated Testing
 I did install unittest and put tests around the custom filters I wrote as I do not want them breaking. Doing such pointed out several type flaws in my logic that I shored up specifically around data type and none type errors.
@@ -851,6 +875,7 @@ From a terminal window you can execute this suite of test using the following co
  
 ### Defect Tracking
 Once I finished the initial layout of my file structure and had roughed in the base html, I began tracking [defects](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing) in a google sheet. They ranged from severely horrible coding errors, to the realization that my features were not 100% defined and I could make the user experience better.
+[![defects](documentation/images/software_cycle/defect_list.png "defect list")](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing)
 
 #### Noteworthy Bugs
 1. **500 CSRF** -One of the most intriguing bugs I encountered was a 500 error when I introduced page and click metrics. It took me a while to figure out how to restructure my ajax call through an onReady function out of base.html so I could easily access my CSRF_token and set it in the headers within the beforeSend function. Originally my ajax call was housed in my main.js file. That solution fixed 90% of the 500 errors I had seen, but I quickly discovered that my newer pages without forms lacked the setting of the csrf_token in a hidden form. It's easy to forget key steps if you take them early in the development process and forget about them a month later.

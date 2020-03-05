@@ -385,6 +385,3 @@ function getFormattedDate(date) {
 
     return month + '/' + day + '/' + year;
 }
-
-
-/* MAYbe try this to scroll activity selection into view from https://stackoverflow.com/questions/635706/how-to-scroll-to-an-element-inside-a-div */
