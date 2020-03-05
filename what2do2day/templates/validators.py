@@ -35,12 +35,6 @@ def is_time_valid(f_time):
         pass
 
 
-def validate_address(form, field):
-    """See if the address is required or not and if it is valid."""
-    has_address_value = form.has_address.data
-    if has_address_value:
-        raise ValidationError("Address needs attention.")
-
 def validate_daterange(form, field):
     """event filtering daterange validation"""
     if not field.data or len(field.data) != 23:
@@ -124,12 +118,6 @@ def validate_datetime(form, field):
 
         else:
             raise ValidationError("Invalid Date Time.")
-
-
-def validate_option_not_none(form, field):
-    """Make sure a real selection is made."""
-    if str(field.data) == 'none':
-        raise ValidationError('Please select an option.')
 
 
 def validate_rating(form, field):

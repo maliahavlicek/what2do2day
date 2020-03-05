@@ -7,7 +7,7 @@ Malia Havlicek
 >   - [What2do2day](#what2do2day)
 > - [Pros & Cons](#pros-and-cons)
 > - [Decision](#decision)
-> - [Back to README](https://github.com/maliahavlicek/what2do2day#color-choice)
+> - [Back to README](https://github.com/maliahavlicek/what2do2day#scope)
 
 
 ## Ideation
@@ -83,4 +83,4 @@ __What2Do2Day__
 ## Decision
  What2Do2Day has the ability to reach a broader scope of users and could potentially take off like the Nextdoor app.  What2Do2Day is more intriguing and likely to keep users coming back to the site. As a developer, the What2Do2Day app will provide greater value in the long term towards my coding skills due to it's complexity.
 
-[Back to README](https://github.com/maliahavlicek/what2do2day#color-choice)
+[Back to README](https://github.com/maliahavlicek/what2do2day#scope)

@@ -111,7 +111,7 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
 ### Strategy
 Before launching any website, business partners want to know how they can earn money and if there is a need or demand for the project. Defining business goals for a project from the standpoint of an external user as well as site owners helps you evaluate possible returns on investment.
 
-I had a couple of [ideas](documentation/proejct_definition.md) in mind that could fulfill the requirements of this project and wrote out high-level user goals to aid in determining which project would work best. What2do2day was the winner.
+I had a couple of [ideas](documentation/project_definition.md) in mind that could fulfill the requirements of this project and wrote out high-level user goals to aid in determining which project would work best. What2do2day was the winner.
 
 ### Scope
 The concept of What2Do2Day can get extremely intertwined when looking at permissions and roles. I decided that a beta version that eliminates authentication, permissions and roles can still provide a clean and efficient minimal viable product (MVP).  Thus user-profiles and management of users will not be in the first deliverable. 
@@ -128,11 +128,11 @@ Business logic to track the pages and the events and places that users interact 
 
 ### Goals
 #### Customer Goals
-The target audience for What2do2day is children ages 12-18 who have a bit of freedom to move around unsupervised but very little means to addend costly mass entertainment complexes.
+The target audience for What2do2day is children ages 12-18 who have a bit of freedom to move around unsupervised but very little means to addend costly mass entertainment c complexes more than 5 miles from home.
 
 Customer Goals are:
 
-- Bring up the site and look for an event to attend close to home
+- Bring up the site and look for an inexpensive event to attend close to home
 - Look at places to see how they rank without having to read much
 - Quickly find activities that interest them without having to type much
 - Read reviews about places that interest them
@@ -145,7 +145,7 @@ Customer Goals are:
 
 What2do2day helps the customer meet these goals because:
 
- - The application was developed around easily and intuitively Listing Events, Places, writing reviews and Joining events from the planning stages to the end of development.
+ - The application was developed around the concept of ease of finding what you want to do  whether that is finding an event or a place, contributing by writing reviews, adding places or events, or by updating existing content. The navigation is always present, is not more than 3 levels deep and is not dynamic.
  - All the navigation is done either by the clearly identified nav bar or from clearly labeled buttons on list pages.
  - Icons and Text accompany all buttons to make the intent of the button's action more easily understood
  - Forms have place holder text to help guide users to successful completion
@@ -187,7 +187,7 @@ What2do2day aides Place Owners by:
  - Will have specific workflow and permissions in its final deployment
  
  #### WebSite Goals
- The primary goal of what2do2day is to create a user-friendly app that allows customers to quickly find an event they want to attend. It's a meeting point between business/organizations and kids/parents to improve the likelihood of kids getting off their devices and interacting with others face to face at a low cost with minimal supervision.
+ The primary goal of what2do2day is to create a user-friendly app that allows customers to quickly find an event they want to attend. It's a meeting point between business/organizations and kids/parents to improve the likelihood of kids getting off their devices and interacting with others face to face at a low cost with minimal adult supervision.
  
  What2do2day has three main audiences: 
 
@@ -247,19 +247,15 @@ Activities is a table to hold a unique icon image and name values that users hav
 | name   	| String    	| Name of Activity          	| Required<br>Min 1 char<br>Max 50 chars 	| trim<br>to lower 	|
 | icon   	| String    	| system path to image file 	| Required                               	|                  	|
 
-- [x] Create
-- [x] Read
-- [ ] Update
-- [ ] Delete
-
 Activity entries are used by events, places and filtering.
 
-The Activities table is read when a user is adding an event, updating an event, adding a place or updating a place, to determine if a new value should be created or not. The activities table is queried for using the name and icon pair, if it is found, the ObjectId is passed to the event and places. If no match is found, a new Activity is created and that ObjectID is passed to the the place or event.
- 
+- [x] Create - An activity is potentially created when a user successfully creates a place, creates an event, updates an event, or updates a place. 
+- [x] Read - The Activities table is read when a user is adding an event, updating an event, adding a place or updating a place, to determine if a new value should be created or not. The activities table is queried for using the name and icon pair, if it is found, the ObjectId is passed to the event and places. If no match is found, a new Activity is created and that ObjectID is passed to the the place or event.
+- [ ] Update
+- [ ] Delete
  This table has no deletion or updates associated with it. It's strictly create and read. Eventually, maintenance scripts should be written to delete unused/deprecated entries.
-An activity is potentially created when a user successfully creates a place, creates and event, updates an event, or updates a place. 
 
-The reading/writing of the activities table is housed in the [views.py](what2do2day/activities/views.py) file.
+The reading/writing of the activities table is housed in the [what2do2day/activities/views.py](what2do2day/activities/views.py) file.
 #### Addresses
 Addresses are optionally entered in association with Places and Events. This data structure is used by both Events and Places to provide users with a physical location. Only the _id is stored in Places and Events to reduce the amount of data being stored as many places may use the same address as a meeting point for their events.
 
@@ -277,33 +273,27 @@ Addresses are optionally entered in association with Places and Events. This dat
 | one_line        	| String    	| One line address representation 	| system generated for future maps interactions                                                                                                                                        	|                  	|
 | google_place_id 	| String    	| Unique Place ID for google Maps 	| system generated via google maps API                                                                                                                                                 	|                  	|
 
-
-- [x] Create
-- [x] Read
+Address are used by places and events to notify users of a physical location that can be linked up to navigation applications as well as maps rendered by google.
+- [x] Create - Users input address_line_1, address_line_2, city, state, country and postal_code values on event and place forms.
+- [x] Read - The system checks to see if the user entered data is already in the database and if not it will call Google Map's API to retrieve the google_place_id, latitude and longitude values so maps can be rendered without requesting those pieces of information each time a list of event is displayed on the site
 - [ ] Update
 - [ ] Delete
-
-Users input address_line_1, address_line_2, city, state, country and postal_code values. The system checks to see if the user entered data is already in the database and if not it will call Google Map's API to retrieve the google_place_id, latitude and longitude values so maps can be rendered without requesting those pieces of information each time a list of event is displayed on the site. Address ObjectId's are associated withe events and places.
-
-Addresses cannot be updated or deleted, they are only added or read, so long term, there should be a process that checks for unused addresses and delete those items as part of a cleanup process.
+Addresses cannot be updated or deleted, they are only added or read. Long term, there should be a process that checks for unused addresses and delete those items as part of a cleanup process.
+The reading/writing of the activities table is housed in the [what2do2day/addresses/views.py](what2do2day/addresses/views.py) file.
 
 #### Countries
-Countries are cross referenced to addresses. Since the list of countries is long and does not change often this collection was initialized via the helper countries.py helper function
-```$ python helpers/upload_countries.py ```
-It is a read only table after being initialized.
+Countries are cross referenced to addresses. 
 
 | DB Key  	| Data Type 	|      Purpose      	| Form Validation 	| DB processing 	|
 |---------	|:---------:	|:-----------------:	|:---------------:	|---------------	|
 | _id     	| ObjectId  	| unique identifier 	| None            	|               	|
 | country 	| String    	| Country's name    	| None            	| to lower      	|
 
-- [ ] Create
-- [x] Read
+- [x] Create - Since the list of countries is long and does not change often this collection was initialized via the [countries.py](../what2do2day/helpers/upload_countries.py):
+```$ python helpers/upload_countries.py ```
+- [x] Read - The ObjectId for a country is stored in an address. It's used to populate the address collection country drop-down menu. When displaying Places and Events to the screen, the Countries table is queried to provide a textual value for the country associated to an address.
 - [ ] Update
 - [ ] Delete
-
-The ObjectId for a country is stored in an address. It's used to populate the address collection country drop-down menu. When displaying Places and Events to the screen, the Countries table is queried to provide a textual value for the country associated to an address.
-
 
 #### Events
 Events are one of the more complex data structures in What2do2day. An event has cross references to places, addresses, activities, and users and has some data attributed by a call to google maps api:
@@ -322,18 +312,14 @@ Events are one of the more complex data structures in What2do2day. An event has 
 | max_attendees         	| Int32     	| Number of attendees      	| Required<br>min 1<br>max 1000                                                                                                                              	|                                              	|
 | attendees             	| Array     	| array of users           	| Updated when user joins event                                                                                                                              	|                                              	|
 
-
-- [x] Create
-- [x] Read
-- [x] Update
+- [x] Create - events are created when users either create an event, or create a place.
+- [x] Read - Before an event is added to or updated, a uniqueness check is done to ensure the name and date/time combination is unique for events associated to the place. If the event already exists, the user is presented error messaging and routed back to the Events List Page or Update Events List Page.
+- [x] Update - The attendees list for an event is updated when a user interacts with the Join Event (Count Me In) functionality. First the Events database is read to determine if the max number of attendees has been met, and if not, the user is added to the attendee list.  Users can also update events from the navigation menu and change every aspect of an event, but the uniqueness check is still required. 
 - [ ] Delete
-
-Before an event is added to or updated, a uniqueness check is done to ensure the name and date/time combination is unique for events associated to the place. If the event already exists, the user is presented error messaging and routed back to the Events List Page or Update Events List Page.
-
-The attendees list for an event is updated when a user interacts with the Join Event (Count Me In) functionality. First the Events database is read to determine if the max number of attendees has been met, and if not, the user is added to the attendee list.  
 
 Due to the lack of user roles or permissions deletions of events do not happen. Events can be turned off via a soft delete by updating the share property. Ideally past events would be deleted and cleaned out of the databases if they have not been revised in a month to save space and reduce the number of records to keep the database efficient.
 
+Create, Read and Update functionality for the Events table is housed in the [what2do2day/events/controllers.py](what2do2day/events/controllers.py) file.
 #### Metrics Clicks
 The Metrics Clicks collection serves the purpose of tracking clicks by names related to the action the user is taking. Typically data-trigger attributes are set to buttons and links by a developer and handlers will then write to the database when the button or link is clicked through an ajax post. When a template is rendered, the app developer has to set the page value so the reporting will attribute the click the page.
 
@@ -345,17 +331,18 @@ The Metrics Clicks collection serves the purpose of tracking clicks by names rel
 | page      	| String    	| Page click initiated from          	| None, set by app developer 	| n/a           	|
 | method    	| String    	| button or link                     	| None, set by app developer 	| n/a           	| 
 
-
-- [x] Create
-- [x] Read
+- [x] Create - When a user clicks on a button or link, the action is written to the database.
+- [x] Read - The metrics click data is read through an aggregated query to get counts by name and presented on the Metrics page in the clicks table.
 - [ ] Update
 - [ ] Delete
 
-The metrics click data is read through an aggregated query to get counts by name and presented on the Metrics page. At a future point, funnels for joining events could be queried and analyzed to determine.
+At a future point, funnels for joining events could be queried and analyzed to determine the paths users take. It might be nice to another data attribute to the join event click to better correlate the activity type and join rate, likewise for review and event toggles on the places page.
 
 The design decisions around metrics can be found in the Clicks tab of this [google doc](https://docs.google.com/spreadsheets/d/1IRcafdaRZDiYhr5YtFVhcnb1w3mtcNLNPzOdSg6LiX4/edit?usp=sharing).
 
 There are no updates or deletions to the metrics data. Ideally old data would be rolled up after a specific amount to save on disk space.
+
+The Create and Read operations for the Metrics Clicks is housed in the [what2do2day/metrics/views.py](what2do2day/metrics/views.py) file.
 
 #### Metrics Page
 The page metrics collection just holds page visited data:
@@ -366,9 +353,17 @@ The page metrics collection just holds page visited data:
 | name   	| String    	| Page click use visited 	| None, set by app developer 	| n/a           	|
 | type   	| String    	| page or modal          	| None, set by app developer 	| n/a           	|
 
-The metrics page data is read through an aggregated query to get counts of clicks by name and presented on the Metrics page. At a future point, it might be nice to see how more events are joined, initiated from the Places page or the Events page.
+- [x] Create - When a template within the what2do2day application is rendered, the action is written to the database.
+- [x] Read - The metrics page data is read through an aggregated query to get counts of clicks by name and presented on the Metrics page in the pages table.
+- [ ] Update
+- [ ] Delete
+ At a future point, it might be nice to determine if more event joins are initiated from the Places page or the Events page, but for release 1.
 
-The design documentation around the pages metrics can be found in the Page tab of the [metrics spreadsheet](https://docs.google.com/spreadsheets/d/1IRcafdaRZDiYhr5YtFVhcnb1w3mtcNLNPzOdSg6LiX4/edit?usp=sharing).
+There are no updates or deletions to the metrics data. Ideally old data would be rolled up after a specific amount to save on disk space.
+
+The design decisions around metrics can be found in the Pages tab of this [google doc](https://docs.google.com/spreadsheets/d/1IRcafdaRZDiYhr5YtFVhcnb1w3mtcNLNPzOdSg6LiX4/edit?usp=sharing).
+
+The Create and Read operations for the Metrics Pages is housed in the [what2do2day/metrics/views.py](what2do2day/metrics/views.py) file.
 #### Places
 The places object is another major player in what2do2day and is built mostly by user input.
 
@@ -385,20 +380,14 @@ The places object is another major player in what2do2day and is built mostly by 
 | activity    	| ObjectId  	| Cross reference activities table                  	| Required                              	|                  	|
 
 
-- [x] Create
-- [x] Read
-- [x] Update
+- [x] Create - Places are created from the Add Place page. While the user input from to collect a place gathers an email, an address, event and potentially another address and a review, the table only stores data related to the place object. 
+- [x] Read - Before a place is added or updated to the database, the Places database is read to ensure the place's name and address (if one is present) is checked to be unique in the database. This allows franchises to co-exist in the system and prevents places from being updated to collide or stomp on other places in the system.
+- [x] Update - all fields of a place can be updated. Even the name and or address can change and the place will be updated as long as it does not collide with another entry in the database.
 - [ ] Delete
-
-While the user input from to collect a place gathers an email, an address, event and potentially another address and a review, the table only stores data related to the place object. 
-
-Before a place is added or updated to the database, the Places database is ready to ensure the place's name and address (if one is present) is checked to be unique in the database. This allows franchises to co-exist in the system and prevents places from being updated to collide or stomp on other places in the system.
-
-If the places is unique and the user is adding a place, then a new entry is written to the Places database.
-If the user is updating a place, the uniqueness check is done as well. The name and or address can change and the place will be updated as long as it does not collide with another entry in the database.
 
 Places are not deleted from the system. They can be updated to not be shared as a soft_delete. Ideally once business accounts are set up, then there would be admin functions to delete places that have been flagged as business in poor standing or who have not hosted an event in a specified amount of time or places. 
 
+Create, Read and Update functionality for the Events table is housed in the [what2do2day/places/controllers.py](what2do2day/places/controllers.py) file.
 #### Reviews
 Reviews are one of the simpler user objects on the site that requires user input for creation, but it's data structure is quite a bit more complex than the user entry form:
 
@@ -411,55 +400,49 @@ Reviews are one of the simpler user objects on the site that requires user input
 | comments 	| String    	| User's opinion about the place                                   	| Required<br>min 1<br>max 500          	| trim          	|
 | share    	| Boolean   	| Used to hide a review from the place's review list (soft delete) 	| Required                              	|               	|
 
-
-- [x] Create
-- [x] Read
+- [x] Create - Reviews are initiated from the Add Place form and by the add review button on the places list page.
+- [x] Read - Before a review is added to the database, the user and the date and name are queried to ensure the user hasn't reviewed the place within the last week to avoid bloating of the aggregated rating for a given place. Reviews are also read when the places page is rendered. A limited list of the 5 most recent reviews are shown to the user and an aggregated rating is determined by averaging all the reviews. Users can also see the total count of reviews to better distinguish between a 5 star rating based on one review and a 4.75 star rating based on 12 reviews.
 - [ ] Update
 - [ ] Delete
 
-Before a review is added to the database, the user and the date and name are queried to ensure the user hasn't reviewed the place within the last week to avoid bloating of the aggregated rating for a given place.
+Reviews cannot be updated at this time but would be part of a workflow before being shared in a future release.
 
-Reviews are initiated from the Add Place form, by the add review button on the places list page.  Reviews cannot be updated at this time but would be part of a workflow before being shared in a future release.
+At this time reviews are not removed from the database. Ideally there would be a workflow process defined to help delete profane and to better detect robot generated reviews. There should also be a scheduled process to remove reviews from dormant users and reviews associated with deleted places.
 
-At this time reviews are not removed from the database. Ideally there would be a workflow process defined to help delete profaine and robot generated reviews as well as reviews from dormant reviews or reviews associated with deleted places.
-
+Create, Read and Update functionality for the Reviews table is housed in the [what2do2day/reviews/views.py](what2do2day/reviews/views.py) file.
 #### Users
-The user is a very simplistic representation at this time. It's only the email. It's not verified, and it cannot be updated, and it dose not roles or permissions.
+The user is a very simplistic representation at this time. It's only the email. It's not verified, and it cannot be updated, and it dose not roles or permissions. Users' ObjectId's are stored in the Event's attendee's list, as the creator for a Place, and as the author of a review.
 
 | DB Key 	| Data Type 	|                  Purpose                 	| Form Validation          	| DB processing               	|
 |--------	|:---------:	|:----------------------------------------:	|--------------------------	|-----------------------------	|
 | _id    	| ObjectId  	| unique identifier                        	| None                     	| n/a                         	|
 | email  	| String    	| minimalistic view of a user, their email 	| Required<br>email format 	| to lower<br>unique in table 	|
 
-- [x] Create
-- [x] Read
+- [x] Create - User are added to the database when adding a place, joining an event, or adding a review. 
+- [x] Read - Before a user is added to the Users database, the email is checked to see if it is already in the system or not. Users are aggregated into the review list seen on the places list page with the email. The user's ObjectId is added to reviews and the list of attendees for an event. The user's email is used a means to communicate event updates and joining via SMTP mail.
 - [ ] Update
 - [ ] Delete
 
-User are added to the database when adding a place, joining an event, or adding a review. 
+Users cannot be updated or deleted at this time. Once various user roles and permissions are setup, the user profile would be build out and house updates and deletions.
 
-Before a user is added to the Users database, the email is checked to see if it is already in the system or not. Users are aggregated into the review list seen on the places list page with the email. The user's ObjectId is added to reviews and the list of attendees for an event. The user's email is used a means to communicate event updates and joining via STMP mail.
-
-The user is also cross referenced to a place as a creator. Ideally there would be an array of users that would have ownership and permissions to update a place.
-
-Users cannot be updated or deleted at this time. 
+Create, and Read functionality for the Users table is housed in the [what2do2day/users/views.py](what2do2day/users/views.py) file.
 
 ### Skeleton
-Having a rough data structure in hand, I knew what data fields I could present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wireframing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had a higher priority.
+Having a rough data structure in hand, I knew what data fields I could present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wire-framing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had a higher priority.
 [view hand-drawn mockups](documentation/hand-drawn.md)
 
-Once I had the Places list drawn out, I invested several hours to mockup and fine-tune the user experience using Balsamiq.
+Once I had the Places list drawn out, I invested several hours to mock-up and fine-tune the user experience using Balsamiq.
 [view Balsamiq deck](documentation/balsamiq.md)
 
-Taking the time to do more formal mockups exposed an issue with the crowding of edit buttons and delete buttons if I chose to clone the list pages and add buttons for updating and deleting. I decided that delete is really an update function since I am using a share attribute to hide or show items on the Places and Events pages.  The more formal mockups also allowed me to try several different layouts of the data for the main list pages. The mock-ups include layers for searching and in site adding of reviews. Search non-happy paths were also mocked up. 
+Taking the time to do more formal mock-ups exposed an issue with the crowding of edit buttons and delete buttons if I chose to clone the list pages and add buttons for updating and deleting. I decided that delete is really an update function since I am using a share attribute to hide or show items on the Places and Events pages.  The more formal mock-ups also allowed me to try several different layouts of the data for the main list pages. The mock-ups include layers for searching and in site adding of reviews. Search non-happy paths were also mocked up. 
 
-Please note, the mockups were a guideline but not a hard design tool. Some aspects changed during development to make the site more user friendly and intuitive to use.
+Please note, the mock-ups are guidelines not a hard design requirements. Some aspects changed during development to make the site more user friendly and intuitive to use.
 
 #### Content Considerations
 Many UX decisions made had the target audience of 12 - 18 years in mind. The lack of maps on some pages was a conscious choice as the majority of users will be very familiar with the 1-5 mile radius around their home base. I wanted information spaced out with iconic/graphic identification so the users would know readily what interest the the most with limited reading required. 
 
 ## Design Choices
-The application is aimed at users 12-18 in age. The intent is to provide a clean, intuitive design to users with engaging imagery and animation to spice up the views and keep users engaged. 
+The intent is to provide a clean, intuitive design to users with engaging imagery and animation to spice up the views and keep users engaged. 
 
 ### Surface:
 Below are the decisions and internal dialogs I had to help draw out what the end product will look like.
@@ -468,7 +451,7 @@ Below are the decisions and internal dialogs I had to help draw out what the end
 I have never taken a course in color theory and have been told my choices of red are more orange than red so picking colors is a bit of a touchy area for me and I'd much rather have a professional UX designer help me out.  Feel free to read about this [project's color journey](documentation/color_choices.md) if you want to hear more about my struggle.  In short, my final color choices are:
 ![Final Pallet](documentation/images/colors/final_colors.png)
 
-The Green color is the dominate color on the site used to highlight cards, icons and buttons. The dark gray is used on accordions and as a text color,e the lighter gray is used to help delineate event dates. The red is an accent color for error messaging on forms. White is the background filler color but when the grays are used it becomes an icon or text color.
+The Green color is the dominate color on the site used to highlight cards, icons and buttons. The dark gray is used on accordions and as a text color, the lighter gray is used to help delineate event dates. The red is an accent color for error messaging on forms. White is the background filler color but at times it becomes an icon or text color.
 
 #### Typography
 The target age group for this site is those that are young, bored at home whose parents desperately wish their kids would be outside interacting face to face with friends preferably doing something active.
@@ -490,13 +473,13 @@ To perpetuate the theme of Phineas and Ferb throughout the site, the cartoon's b
 <img src="what2do2day/static/assets/images/were_gonna_build_a_rollercoaster_sm.jpg" width="300" height="auto" alt="Phineas and Ferb in backyard" />
 
 ##### Activity Icons
-I wanted easily recognizable activities that users could quickly associate to events and places. I also wanted to give users a bit of self expression when creating events and places, so rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons to passively create activities from. I downloaded icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
+I wanted easily recognizable activities that users could quickly associate to events and places. I also wanted to give users a bit of self expression when creating events and places, so rather than allowing them to randomly load garish or naughty symbols, I decided to provide a broad set of icons to passively create activities. I downloaded free icons from [flaticon](https://www.flaticon.com/packs/outdoor-activities-32)
 By having bold colorful icons, I am hoping to carry forward a cheerful and engaging website. Here are some example activity icons:
 
 <img src="what2do2day/static/assets/images/icons/002-football-field.svg" width="50" height ="50" alt="football field icon"/> <img src="what2do2day/static/assets/images/icons/021-fishing.svg" width="50" height ="50" alt="fishing icon"/>  <img src="what2do2day/static/assets/images/icons/037-road-sign.svg" width="50" height ="50" alt="trail directions icon"/>
 
 ##### Input Icons
-The site looked incredibly dull with wide full width entry fields, so I went back and broke it down into multiple columns and added slight splashes of color with icons relating to the input fields utilizing the primary site color and font awesome icons:  
+The site looked incredibly dull with wide full width entry fields, so I went back and broke it down into multiple columns and added slight splashes of color with icons relating to the input fields. These icons use the primary site color and font awesome icons:  
 
 <img src="documentation/images/form_fields.png" width="100%" height="auto" alt="form field image"/>
 
@@ -508,7 +491,7 @@ The rest of the application's pages were not exciting compared to the home page,
 ##### Modals and Errors
 I wanted users to know through imagery that they had success or errors so I trolled the internet until I found a few Phineas and Ferb related images that would work.
 
- Phineas and Ferb giving each other a high five shows up on success layers: 
+Phineas and Ferb giving each other a high five shows up on success layers: 
  
  <img src="/what2do2day/static/assets/images/success.png" width="100" height="auto" alt="success cheer image" />
 
@@ -516,12 +499,12 @@ Dr. Heinz Doofenshmirtz looking dumbfounded makes an appearance on user based fa
 
 <img src="what2do2day/static/assets/images/oops.png" width="100" height="auto" alt="opps error image" />
 
-Ferb wielding tools is on the application's catch all error page:  
+Ferb wielding tools is on the application's error page:  
 
 <img src="/what2do2day/static/assets/images/fixit.png" width="100" height="auto" alt="fixit image" />
 
 ##### Loading Giff
-I also added a loading gif for the maps in the event the API calls are a tad slow or if there are errors with google's API/configuration: 
+I added a loading gif for the maps in the event the API calls are a tad slow or if there are errors with google's API/configuration: 
 
 <img src="what2do2day/static/assets/images/giphy_load.gif" width="100" height="auto" alt="opps error image" />
 
@@ -632,7 +615,7 @@ To streamline the development process without the complexity of user roles and p
 1. check for max attendees not exceeded before joining an event
 1. adjust the activities listed in the filters based on current items shown on the event list or update events page (meaning if you filter,  your list will get shorter)
 #### API Integration
-1. STMP Email -when a user joins an event, send agenda in email, when event is updated, email joiner list. Note the email includes json-ld for future google calendar integration
+1. SMTP Email -when a user joins an event, send agenda in email, when event is updated, email joiner list. Note the email includes json-ld for future google calendar integration
 1. Google Maps - show map of event location, show map of place location
 #### Metrics
 1. track page and modal visits by date and type
@@ -770,6 +753,32 @@ I attempted to follow a rough Agile methodology where I prefixed discovery tasks
 - [stmp](https://github.com/python/cpython/blob/3.8/Lib/smtplib.py) - Send user notices when an event is joined or when an event they have joined has been updated.
 - [Google Maps Javascript API](https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/) - Customized Map of event and places
 
+## Defensive Programming
+
+### Form Validation:
+I wanted to enable server side validation of the entry forms as I am not a fan of the default browser error messaging. It just didn't look good with my color scheme and the entry forms have conditionally required fields. I chose wtfForms as it was well documented and had many standard validations like StringField - Length, DataRequired, Optional, Email, NumberRange, and URL.
+ 
+Several custom validators were written to aid in this effort. They are located in [what2do2day/templates/validators.py](what2do2day/templates/validators.py):
+
+- catch_xss - looks for ```<script>``` tags in the text and text area inputs and presents a custom error message.
+- validate_daterange - ensures that the start date is before the end date - used for filtering events
+- validate_datetimerange - ensures start date/time is before the end date/time and start date/time is in the future - used to validate add/update event's date time range.
+- validate_rating- used to verify that a selection for custom radio option for a review is made
+ 
+### Cross Site Forgery Protection  
+CSRF token to prevent cross site forgery requests. All forms and and rendered templates within what2do2day have a CSRF token enabled. The ajax request to post click metric data also uses the CSRF token to prevent an attack that would allow users to go to places in the site they are not authorized. While I do not have authenticated users at this point, it makes sense to only accept traffic to the site from the site. 
+
+### XSS Protection
+The route used for filtering has a query parameter which opens the site up to cross site scripting.
+
+After reading up on [OWSAP](https://owasp.org) I discovered I should enable a Content Security Policy. So I updated my [base.html](what2do2day/templates/base.html) file:
+```html
+<meta http-equiv="Content-Security-Policy"
+          content="default-src 'self' 'sha256-+F3gOU1DQxY16x7fQfxUYLFRfEZrEO0VavTzK4EbD6c=' https://fonts.gstatic.com/; img-src * data:; style-src 'self' 'unsafe-inline' https://kit.fontawesome.com/ https://cdn.jsdelivr.net/ https://kit-free.fontawesome.com/ https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ https://fonts.googleapis.com/  https://kit-free.fontawesome.com/ https://kit.fontawesome.com/ data:; script-src 'self' https://kit.fontawesome.com/ https://cdnjs.cloudflare.com/ https://apis.google.com/ https://kit-free.fontawesome.com/ 'unsafe-inline' https: 'nonce-4AAemGb0xJpto1GFP3Nd' 'strict-dynamic'; frame-src 'self' https://www.google.com/; object-src 'none'; base-uri 'self';" />
+   
+``` 
+I also started to build a validation  method that would help prevent XXS from the various input fields. It's not nearly complete but it helps protect the site against the injection of scripts. It's the catch_xss function in my [custom validator](what2do2day/templates/validators.py) file.
+
 ## Testing
 Constant integration testing was preformed to ensure no console/javascript errors were present. Beyond that, unit testing, validation testing, cross browser testing, accessibility testing, and regression testing were manually performed. I also explored automated testing of custom filters that I created. Ideally mocked up database functionality tests would be automated as well, but I have not yet found the time to learn how to mock database data.
 
@@ -818,7 +827,6 @@ Based on my findings I added a Security worksheet to my [testing doc](https://do
 ### Accessibility Testing
 I know a few people with physical handicaps which makes using a mouse nearly impossible as well as a couple severely visually impaired people I try to ensure I build websites that can be use by them. I make use of  [axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) and [google's lighthouse audi](https://developers.google.com/web/tools/lighthouse) tool to help ensure that the application meets accessibility standards.
 
- 
 ### Regression Testing
 No one wants to keep running a large suite of unit tests and cross browser tests again and again. Due to my ineptitude at writing interactive tests with a database, (I tried but learning how to mock data was not something I had planned on doing)I reduced the unit testing and cross site browsing testing to a smaller suite once the core development was 70% done. These tests are on the Regression Tests Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing). While I really want to mock some database interaction, I do not have the bandwidth to take on that additional learning at this time. 
 
@@ -853,8 +861,6 @@ Here's a google-api-javascrpt git hub thread about the issue:
 https://github.com/google/google-api-javascript-client/issues/397
 
 3. The icon pickers have different heights for same rows on T-Hor device widths (769-1024). Running out of time and it doesn't look as terrible as it did on desktop so leaving this issue in place for now.
-
-
 
 ## Deployment
 This site was developed using PyCharm's IDE. To keep records of different versions of all project files, git version control was used. This project is hosted using Heroku deployed from the master branch.
