@@ -460,12 +460,15 @@ a.button.is-link.home-btn-2 {
 }
 
 /* Ratings widget stars */
-.star-wrap{
-    width: 320px;
-    text-align: left;
-    margin: -46px 0 0 0;
-    padding:0;
+.star-wrap {
+    width: 270px;
+    margin: -15px 0 0 0;
+    padding: 6px;
     overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
 }
 div.stars {
     display: inline-block;
