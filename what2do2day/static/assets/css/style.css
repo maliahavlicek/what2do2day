@@ -461,7 +461,7 @@ a.button.is-link.home-btn-2 {
 
 /* Ratings widget stars */
 .star-wrap {
-    width: 270px;
+    width: 250px;
     margin: -15px 0 0 0;
     padding: 6px;
     overflow: hidden;
@@ -470,10 +470,7 @@ a.button.is-link.home-btn-2 {
     align-items: center;
     flex-direction: row-reverse;
 }
-div.stars {
-    display: inline-block;
-    width: 235px;
-}
+
 
 /* hide placeholder selection one */
 .star.star-none {
