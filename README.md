@@ -38,9 +38,9 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
     + [Places](#places)
     + [Reviews](#reviews)
     + [Users](#users)
+- [Design Choices](#design-choices)
   * [Skeleton](#skeleton)
     + [Content Considerations](#content-considerations)
-- [Design Choices](#design-choices)
   * [Surface:](#surface-)
     + [Color Choice](#color-choice)
     + [Typography](#typography)
@@ -436,6 +436,10 @@ Users cannot be updated or deleted at this time. Once various user roles and per
 
 Create, and Read functionality for the Users table is housed in the [what2do2day/users/views.py](what2do2day/users/views.py) file.
 
+
+## Design Choices
+The intent is to provide a clean, intuitive design to users with engaging imagery and animation to spice up the views and keep users engaged. 
+
 ### Skeleton
 Having a rough data structure in hand, I knew what data fields I could present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wire-framing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had a higher priority.
 [view hand-drawn mockups](documentation/hand-drawn.md)
@@ -449,9 +453,6 @@ Please note, the mock-ups are guidelines not a hard design requirements. Some as
 
 #### Content Considerations
 Many UX decisions made had the target audience of 12 - 18 years in mind. The lack of maps on some pages was a conscious choice as the majority of users will be very familiar with the 1-5 mile radius around their home base. I wanted information spaced out with iconic/graphic identification so the users would know readily what interest the the most with limited reading required. 
-
-## Design Choices
-The intent is to provide a clean, intuitive design to users with engaging imagery and animation to spice up the views and keep users engaged. 
 
 ### Surface:
 Below are the decisions and internal dialogs I had to help draw out what the end product will look like.
@@ -752,6 +753,7 @@ I attempted to follow a rough Agile methodology where I prefixed discovery tasks
 - [draw.io](https://about.draw.io/features/) - used to create Entity Relationship diagrams.
 - [balsamiq](https://balsamiq.com/) - used to create professional looking wire frames.
 - [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
+- [mardown table of contents generator](https://ecotrust-canada.github.io/markdown-toc/) - used to create an error free table of contents
 - [icon generator](https://favicon.io/favicon-generator/) - free site to help in website icon generation
 - [regex101.com](https://regex101.com/) - used to help fine tune some regular expression based validation
 - [github](https://github.com/) - used for version control of project files
@@ -797,6 +799,7 @@ I used the following validation websites to test the code:
 - [HTML Validator](https://validator.w3.org/)  - validation of HTML with FLASK is pretty useless as all {{}} bracketed values raise errors. I ran only a few files through the validator and instead relyed heavily upon pycharm's IDE to identify mismatched tags and closing Flask directives.
 - [JSON Validator](https://jsonlint.com/) Used to validate roughed in json-ld for future google calendar integration. It is part of the user send invite email currently, but does not seem to be picked up by gmail. Note: warnings were ignored.
 - [JavaScript Validator](http://beautifytools.com/javascript-validator.php) Note any errors for let, variables set in other .js files, and constants were ignored. I also used a more [ES6 friendly checker](https://www.piliapp.com/syntax-check/es6/) and there were no errors for main.js
+- [CSP validation](https://csp-evaluator.withgoogle.com/) - used to determine that syntax of Context Security Policy is strong and valid
 
 ### Unit Testing
 To ensure core functionality and features were delivered and working I created a series of manual tests in a [google doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing)
