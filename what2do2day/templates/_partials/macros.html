@@ -329,7 +329,7 @@
         <label for="{{ form.id }}" class="label">{{ label }}</label>
         {% if form.choices|length > 0 %}
             <div class="star-wrap">
-                <div class="stars" id="{{ form.id }}">
+                <div class="stars2" id="{{ form.id }}">
                     {% for subfield in form.choices|reverse %}
                         <input class="star star-{{ subfield[0] }}" id="{{ form.id }}-{{ subfield[0]|int-1 }}"
                                type="radio"
