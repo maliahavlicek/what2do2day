@@ -6,6 +6,7 @@ from what2do2day.addresses.views import country_choice_list
 from what2do2day import app, mongo, google_key
 from what2do2day.metrics.views import load_page
 from what2do2day.places.forms import PlaceForm
+from what2do2day.events.forms import CountMeInForm
 
 ################
 #### config ####
@@ -50,6 +51,24 @@ def add_place():
         return render_template('place/add_place.html', form=form, icons=icons, page="place_add")
 
 
+@places_bp.route('/delete_place/', defaults={'status': False}, methods=['GET'])
+@places_bp.route('/delete_place/<string:status>', methods=['GET'])
+def delete_place(status):
+    try:
+        list_places = retrieve_places_from_db(True, filter_form=False, place_id=False)
+    except Exception as e:
+        list_places = []
+    if status:
+        if status == "OK":
+            load_page("place_delete_success", "modal")
+        else:
+            load_page("place_delete_fail", "modal")
+    else:
+        load_page("place_edit_list")
+    return render_template('place/place_delete.html', places=list_places, filter=filters, google_key=google_key,
+                           page="place_delete_list", status=status)
+
+
 @places_bp.route('/edit_place/', defaults={'status': False}, methods=['GET'])
 @places_bp.route('/edit_place/<string:status>', methods=['GET'])
 def edit_place(status):
@@ -57,7 +76,6 @@ def edit_place(status):
         list_places = retrieve_places_from_db(True, filter_form=False, place_id=False)
     except Exception as e:
         list_places = []
-    load_page("place_edit_list")
     if status:
         if status == "OK":
             load_page("place_update_success", "modal")
@@ -85,6 +103,36 @@ def get_places(status):
         load_page("place_list")
     return render_template('place/places.html', places=list_places, google_key=google_key, page="place_list",
                            status=status)
+
+
+@places_bp.route('/remove_place/<string:place_id>/', methods=['GET'])
+def remove_place(place_id):
+    load_page("place_remove")
+    return render_template('place/remove_place.html', places=place_id, google_key=google_key,
+                           page="remove_place")
+
+
+@places_bp.route('/remove_place_auth/<string:place_id>/', methods=['GET', 'POST'])
+def remove_place_auth(place_id):
+    form = CountMeInForm()
+    places = retrieve_places_from_db(True, False, place_id)
+    if form.validate_on_submit():
+        # all is good with the post based on email collection vai CountMeInForm wftForm validation
+        # now see if the user email matches the record in the db for the creation of the place
+        authorized = delete_authorized(place_id, form.email.data)
+        if authorized['status']=="OK":
+            load_page("place_remove_auth_success")
+            return render_template('place/remove_place_auth.html', form=form, places=places, google_key=google_key,
+                                   page="remove_place_auth", status=authorized, place_id=place_id)
+        else:
+            load_page("place_remove_auth_fail")
+            return render_template('place/remove_place_auth.html', form=form, places=places, google_key=google_key,
+                                   page="remove_place_auth", status=authorized, place_id=place_id)
+
+    else:
+        load_page("place_remove_auth")
+        return render_template('place/remove_place_auth.html', form=form, places=places, google_key=google_key,
+                               page="remove_place_auth", status=False)
 
 
 @places_bp.route('/update_place/<string:place_id>/', methods=['GET', 'POST'])

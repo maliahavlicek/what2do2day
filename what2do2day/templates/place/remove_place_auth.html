@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{# This template houses the remove place authorization form and double confirmation modal #}
+{% block content %}
+
+    <section class="hero is-primary" role="banner" aria-label="Banner for Deleting a Place">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Delete Place
+                </h1>
+                {% if places | length < 1 %}
+                    <h2 class="subtitle">
+                        Opps I can't find that place anymore.
+                    </h2>
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p class="control">
+                                <a class="button is-white"
+                                   href="{{ url_for('places_bp.delete_place', _external=True) }}"
+                                   data-track="place_delete,{{ page }},button">
+                                <span class="icon">
+                                    <i class="fas fa-trash-alt"></i>
+                                </span>
+                                    <span>Delete Places</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <main role="main">
+        {% if places | length > 0 %}
+            {% for place in places %}
+                <form method="POST"
+                      action="{{ url_for('places_bp.remove_place_auth', place_id=place['_id'], _external=True) }}"
+                      enctype="multipart/form-data" role="form" aria-label="Delete Place Form">
+                    {{ form.csrf_token }}
+                    <nav class="level is-primary" aria-label="Now Deleting: {{ place['name_name'] | title }}">
+                        <div class="level-left">
+                            <div class="level-item">
+                                <p class="title">
+                                    <i class="fas fa-trash"></i> Now Deleting: {{ place['name_name'] | title }}
+                                </p>
+                            </div>
+                        </div>
+                    </nav>
+                    <section class="section">
+                        <div class="container">
+                            <p class="title is-size-6-mobile is-size-4-tablet">
+                                Please login so we can verify that you are authorized for this action.
+                            </p>
+                            <div class="columns">
+                                <div class="column is-half-desktop">
+                                    <div class="field {% if form.email.errors %}has-error{% endif %}">
+                                        {{ form.email.label(class_="label") }}
+                                        <div class="control has-icons-left has-icons-right">
+                                            {{ form.email(class_="input", placeholder="your.email@you.com") }}
+                                            <span class="icon is-small is-left has-text-primary">
+                                                <i class="fas fa-envelope"></i>
+                                            </span>
+                                            <span class="error-msg icon is-small is-right">
+                                      <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                        </div>
+                                        <p class="error-msg help is-danger">
+                                            {% if form.email.errors|length > 0 %}
+                                                {{ form.email.errors[0] }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="column">
+                                            <p>
+                                                <strong>Did you know:</strong> You can hide the place and its events by
+                                                toggling off the
+                                                share place option in the update place page. Deletion removes everything
+                                                associated with this place from the system.
+                                            </p>
+                                        </div>
+                                        <div class="column warning is-hidden-mobile">
+                                            <div class="image-holder"
+                                                 aria-label="Image of Candace looking scared."></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <div class="section is-submit-wrapper">
+                        <nav class="level" aria-label="Delete Place Form Buttons">
+                            <div class="level-left">
+                                <button type="submit" class="button is-dark is-medium is-inverted submit"
+                                        data-track="{{ page }}_login,{{ page }},button">
+                                    <span class="icon is-small">
+                                       <i class="fas fa-save"></i>
+                                    </span>
+                                    <span class="action">Login</span>
+                                </button>
+                            </div>
+                            <div class="level-right">
+                                <a class="button is-dark is-medium is-light delete_place"
+                                   data-track="{{ page }}_cancel,{{ page }},button"
+                                   href="{{ url_for('places_bp.get_places', _external=True) }}">
+                                    <span class="icon">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span class="action">Cancel</span>
+                                </a>
+                            </div>
+                        </nav>
+                    </div>
+                </form>
+            {% endfor %}
+        {% endif %}
+    </main>
+
+    {% if status %}
+        {# modal for deletion authorizationresults #}
+        <div class="modal is-active {% if status['status'] == 'OK' %}user-success{% else %}user-error{% endif %}"
+             id="modal-count-me-in-submitted">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Deletion {% if status['status']!= "OK" %}not {% endif %}Authorized </p>
+                    <button class="delete" aria-label="close"
+                            data-track="{% if status['status']=="OK" %}modal_close,place_remove_auth_success,button{% else %}modal_close,place_remove_auth_fail,button{% endif %}"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="container">
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                    {% if status['status']=="OK" %}
+                                        <p>
+                                            By deleting this place, all events and reviews associated with it will be
+                                            lost forever.
+                                        </p>
+                                        <p>
+                                            You can hide the place and its events by toggling off the share place option
+                                            in the Update Place Page if you
+                                            wish to keep the data associated with {{ places[0]['place_name']|title }}
+                                        </p>
+                                    {% else %}
+                                        <p>
+                                            You are not authorized to delete {{ places[0]['place_name']|title }}.
+                                        </p>
+                                    {% endif %}
+                                </div>
+                                {% if status['status']!='OK' %}
+                                    <div class="column">
+                                        <div class="image-holder"
+                                             aria-label="Image of Dr. Doofenshmirtz looking bewildered."></div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                </section>
+                {# button to acknowledge message and close modal #}
+                {% if status['status']!="OK" %}
+                    <footer class="modal-card-foot">
+                        <div class="level-left">
+                            <a class=" button is-primary action modal-close-2"
+                               data-track="modal_close,place_remove_auth_fail,button">
+                        <span class="icon is-small">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                                <span class="action">OK</span>
+                            </a>
+                        </div>
+                    </footer>
+                {% else %}
+                    <footer class="modal-card-foot warning">
+                        <a class="button is-primary action modal-close-2"
+                           data-track="modal_close,place_remove_auth_success_delete,button"
+                           href="{{ url_for('places_bp.remove_place', place_id=place_id, _external=True) }}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            <span class="action">Delete</span>
+                        </a>
+                        <a class="button is-primary action modal-close-2"
+                           data-track="modal_close,place_remove_auth_success_update,button"
+                           href="{{ url_for('places_bp.update_place', place_id=place_id, _external=True) }}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-eye-slash"></i>
+                                </span>
+                            <span class="action">Update</span>
+                        </a>
+                    </footer>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

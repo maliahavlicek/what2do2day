@@ -30,6 +30,23 @@ def db_add_place(place):
         return the_place.inserted_id
 
 
+def delete_authorized(place, email):
+    the_user = mongo.db.users.find_one({'email': email})
+    if the_user is None:
+        return {'status': 'FAILURE', 'reason': "user_not_found"}
+
+    the_place = mongo.db.places.find_one({'_id': ObjectId(place)})
+    if the_place is None:
+        return {'status': 'FAILURE', 'reason': "place_not_found"}
+
+    # If object ids the same, then user is authorized
+    if the_user['_id'] == the_place['user']:
+        return {'status': 'OK'}
+    else:
+        return {'status': 'FAILURE', 'reason': "user_not_creator"}
+
+
+
 def place_unique(place):
     """try to retrieve place from db via name and/or address id"""
     the_place = mongo.db.places.find_one(place)
@@ -185,6 +202,9 @@ def retrieve_places_from_db(update, filter_form=False, place_id=False):
     if not update:
         query.append(
             {"$match": {'share_place': True}})
+    if place_id:
+        query.append(
+            {"$match": {'_id': ObjectId(place_id)}})
 
     query.append({
         "$project": {

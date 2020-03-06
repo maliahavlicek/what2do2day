@@ -325,16 +325,23 @@ $(document).ready(function () {
 
     /* handlers for place add event buttons */
     $('.button.action.event-add').click(function () {
-        // need to pass place id to add_review
+        // need to pass place id to new_event
         let place_id = $(this).data('target');
         window.location = "/new_event/" + place_id;
     });
 
-    /* handlers for place add event buttons */
+    /* handlers for place edit buttons */
     $('.button.action.place-edit').click(function () {
-        // need to pass place id to add_review
+        // need to pass place id to update_place
         let place_id = $(this).data('target');
         window.location = "/update_place/" + place_id;
+    });
+
+    /* handlers for place delete buttons */
+    $('.button.action.place-delete').click(function () {
+        // need to pass place id to remove_place_auth
+        let place_id = $(this).data('target');
+        window.location = "/remove_place_auth/" + place_id;
     });
 
 

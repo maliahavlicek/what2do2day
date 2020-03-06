@@ -848,6 +848,13 @@ nav.level.is-primary .level-item {
     background: url(../images/success.png) center center no-repeat;
     background-size: cover;
 }
+.warning .image-holder{
+    height: 250px;
+    width: 250px;
+    background: url(../images/warning.png) center center no-repeat;
+    background-size: cover;
+    margin: auto;
+}
 
 .image-holder.fixit {
     height: 414px;
@@ -864,6 +871,15 @@ nav.level.is-primary .level-item {
 
 .join-event .modal-card-body .is-half {
     margin-bottom: 10px;
+}
+.modal-card-foot.warning{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    margin: 0;
+}
+.modal-card-foot.warning a.button{
+    min-width: 110px;
 }
 
 #event-modal-right {

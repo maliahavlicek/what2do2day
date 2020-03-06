@@ -52,6 +52,9 @@
                     <a class="navbar-item" href="{{ url_for('places_bp.edit_place', _external=True) }}"  data-track="place_update,{{page}},link_nav">
                         Update Place
                     </a>
+                    <a class="navbar-item" href="{{ url_for('places_bp.delete_place', _external=True) }}"  data-track="place_delete,{{page}},link_nav">
+                        Delete Place
+                    </a>
                 </div>
             </div>
 
