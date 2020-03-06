@@ -330,9 +330,9 @@ Events are one of the more complex data structures in What2do2day. An event has 
 - [x] Create - events are created when users either create an event, or create a place.
 - [x] Read - Before an event is added to or updated, a uniqueness check is done to ensure the name and date/time combination is unique for events associated to the place. If the event already exists, the user is presented error messaging and routed back to the Events List Page or Update Events List Page.
 - [x] Update - The attendees list for an event is updated when a user interacts with the Join Event (Count Me In) functionality. First the Events database is read to determine if the max number of attendees has been met, and if not, the user is added to the attendee list.  Users can also update events from the navigation menu and change every aspect of an event, but the uniqueness check is still required. 
-- [ ] Delete
+- [x] Delete - When a place is hard deleted, all of it's associated events are removed from the system. Users can perform a soft delete by updating the event's share property.
 
-Due to the lack of user roles or permissions deletions of events do not happen. Events can be turned off via a soft delete by updating the share property. Ideally past events would be deleted and cleaned out of the databases if they have not been revised in a month to save space and reduce the number of records to keep the database efficient.
+Due to the lack of user roles or permissions, there is no  menu option to perform hard deletions of events. Events are only deleted from the database in association with the removal of a place. Events can be turned off via a soft delete by updating the share property. Ideally past events would be deleted and cleaned out of the databases if they have not been revised in a month to save space and reduce the number of records to keep the database efficient.
 
 Create, Read and Update functionality for the Events table is housed in the [what2do2day/events/controllers.py](what2do2day/events/controllers.py) file.
 #### Metrics Clicks
@@ -399,9 +399,9 @@ The places object is another major player in what2do2day and is built mostly by 
 - [x] Create - Places are created from the Add Place page. While the user input from to collect a place gathers an email, an address, event and potentially another address and a review, the table only stores data related to the place object. 
 - [x] Read - Before a place is added or updated to the database, the Places database is read to ensure the place's name and address (if one is present) is checked to be unique in the database. This allows franchises to co-exist in the system and prevents places from being updated to collide or stomp on other places in the system.
 - [x] Update - all fields of a place can be updated. Even the name and or address can change and the place will be updated as long as it does not collide with another entry in the database.
-- [ ] Delete
+- [x] Delete - Places are deleted by matching the creator's email with the place to be deleted. If the user is authorized to delete a place, they are reminded of the soft delete option where the share property is turn to false. If the user really wants to remove all data, then all associated events and reviews will be deleted too.
 
-Places are not deleted from the system. They can be updated to not be shared as a soft_delete. Ideally once business accounts are set up, then there would be admin functions to delete places that have been flagged as business in poor standing or who have not hosted an event in a specified amount of time or places. 
+Ideally once business accounts are set up, then there would be admin functions to delete places that have been flagged as business in poor standing or who have not hosted an event in a specified amount of time or places. 
 
 Create, Read and Update functionality for the Events table is housed in the [what2do2day/places/controllers.py](what2do2day/places/controllers.py) file.
 #### Reviews
@@ -419,11 +419,11 @@ Reviews are one of the simpler user objects on the site that requires user input
 - [x] Create - Reviews are initiated from the Add Place form and by the add review button on the places list page.
 - [x] Read - Before a review is added to the database, the user and the date and name are queried to ensure the user hasn't reviewed the place within the last week to avoid bloating of the aggregated rating for a given place. Reviews are also read when the places page is rendered. A limited list of the 5 most recent reviews are shown to the user and an aggregated rating is determined by averaging all the reviews. Users can also see the total count of reviews to better distinguish between a 5 star rating based on one review and a 4.75 star rating based on 12 reviews.
 - [ ] Update
-- [ ] Delete
+- [x] Delete - Reviews are deleted when the parent Place is deleted from the system.
 
 Reviews cannot be updated at this time but would be part of a workflow before being shared in a future release.
 
-At this time reviews are not removed from the database. Ideally there would be a workflow process defined to help delete profane and to better detect robot generated reviews. There should also be a scheduled process to remove reviews from dormant users and reviews associated with deleted places.
+At this time reviews are not individually removed from the database. Ideally there would be a workflow process defined to help delete profane and to better detect robot generated reviews. There should also be a scheduled process to remove reviews from dormant users and reviews associated with deleted places.
 
 Create, Read and Update functionality for the Reviews table is housed in the [what2do2day/reviews/views.py](what2do2day/reviews/views.py) file.
 #### Users
@@ -435,7 +435,7 @@ The user is a very simplistic representation at this time. It's only the email. 
 | email  	| String    	| minimalistic view of a user, their email 	| Required<br>email format 	| to lower<br>unique in table 	|
 
 - [x] Create - User are added to the database when adding a place, joining an event, or adding a review. 
-- [x] Read - Before a user is added to the Users database, the email is checked to see if it is already in the system or not. Users are aggregated into the review list seen on the places list page with the email. The user's ObjectId is added to reviews and the list of attendees for an event. The user's email is used a means to communicate event updates and joining via SMTP mail.
+- [x] Read - Before a user is added to the Users database, the email is checked to see if it is already in the system or not. Users are aggregated into the review list seen on the places list page with the email. The user's ObjectId is added to reviews and the list of attendees for an event. The user's email is used a means to communicate event updates, joining and cancellations (triggered by deletion of parent event) via SMTP mail.
 - [ ] Update
 - [ ] Delete
 
@@ -557,10 +557,10 @@ I was also told by a test subject (son number 4) that the lists were boring. So 
 
 For the Review Input, the stars have a wiggle animation on desktop as the user hovers over them and a shine to the selection if you rate something a 5 star. A one star is dull to reflect the glum outlook the reviewer has.
 
-### User Stories:
+## User Stories:
 This website serves 3 sets of users, thus the stories are broken down into 3 categories:
 
-#### For kids looking for something free to do today in their neighborhood:
+### For kids looking for something free to do today in their neighborhood:
   - As a user, I'd like a list of events happening.
   - As a user, I want to filter events by age and activity so I can find something to do that matches my interests.
   - As a user, I want to sort events by a date range so I can find something to do in the future easily.
@@ -571,7 +571,7 @@ This website serves 3 sets of users, thus the stories are broken down into 3 cat
   - As a user, I want to remove my review about a place so I can have a low profile online.
   - As a user, if I don't enter the form data correctly, I want to know how to fix it.
 
-#### For places and organizations involved in building the community
+### For places and organizations involved in building the community
   - As a user, I want to list my place so the community knows about it.
   - As a user, I want to have honest reviews about my place to build trust with the community.
   - As a user, I want to remove reviews about my place so that inappropriate comments are not associated with my place.
@@ -582,7 +582,7 @@ This website serves 3 sets of users, thus the stories are broken down into 3 cat
   - As a user, I want to disable my place if I decide to retire, go on vacation, or sell my place.
   - As a user, I want to know if I make any input errors easily so I can successfully update my form.
 
-#### For site owners hosting a website to store community information
+### For site owners hosting a website to store community information
   - As a site owner, I want a Home page that communicates the purpose of the website.
   - As a site owner, I want the ability to track search criteria to better target ad spacing on my site.
   - As a site owner, I want the ability to track places users follow to negotiate offline conversion money from those places.
