@@ -92,10 +92,11 @@ def myround(*args, **kw):
 
 
 def remove_html_tags(text):
-    """Remove html tags from a string  """
+    """Remove html tags from a string  and illegal characters"""
     import re
     clean = re.compile('<.*?>')
     cleaned = re.sub(clean, '', text)
+    cleaned = re.sub(r"[<>{}`+=|]", "", cleaned)
     return cleaned
 
 

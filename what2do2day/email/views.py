@@ -60,7 +60,8 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
             "details": event['details']
 
         },
-        "modifiedTime": datetime.today()
+        "modifiedTime": datetime.strftime(datetime.today(), '%m/%d/%Y')+'T-7'+
+                        datetime.strftime(datetime.today(), "%H:%M")
     }
     streetAddress = ''
     if 'event_address' in event.keys() and event['event_address'] != '' and event[
@@ -189,10 +190,10 @@ def email_event_cancel(event, user_email_list):
 
     email_body += '<div style="color:#363636; font-size:18px;">'
 
-    email_body += '<h1 style="font-size:22px margin: 20px;">CANCELED' + event['event_name'].title()
+    email_body += '<h1 style="font-size:22px margin: 20px;">CANCELED-' + event['event_name'].title()
     email_body += '<span style="font-size:20px; margin-left:20px;">Sponsored By: ' + event[
         'place-name'].title() + '</span></h1>'
-    text += "\n" + event['event_name'].title()
+    text += "\nCANCELED " + event['event_name'].title()
     text += "\n\tSponsored By: " + event['place-name'].title()
     email_body += '<div class="columns"><div class="is-bold column">When:</div><div class="column">'
 

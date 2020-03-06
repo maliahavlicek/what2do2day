@@ -581,6 +581,7 @@ This website serves 3 sets of users, thus the stories are broken down into 3 cat
   - As a user, I want to disable my events if the weather doesn't cooperate.
   - As a user, I want to disable my place if I decide to retire, go on vacation, or sell my place.
   - As a user, I want to know if I make any input errors easily so I can successfully update my form.
+  - As a user, I want to completely remove my place and it's associated reviews and events. 
 
 ### For site owners hosting a website to store community information
   - As a site owner, I want a Home page that communicates the purpose of the website.
@@ -788,6 +789,7 @@ Several custom validators were written to aid in this effort. They are located i
 - validate_daterange - ensures that the start date is before the end date - used for filtering events
 - validate_datetimerange - ensures start date/time is before the end date/time and start date/time is in the future - used to validate add/update event's date time range.
 - validate_rating- used to verify that a selection for custom radio option for a review is made
+- remove_html_tags - removes html tags from input fields along with these special characters: ```<>{}`+=|]```
  
 ### Cross Site Forgery Protection  
 CSRF token to prevent cross site forgery requests. All forms and and rendered templates within what2do2day have a CSRF token enabled. The ajax request to post click metric data also uses the CSRF token to prevent an attack that would allow users to go to places in the site they are not authorized. While I do not have authenticated users at this point, it makes sense to only accept traffic to the site from the site. 
