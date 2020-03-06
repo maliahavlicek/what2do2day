@@ -7,6 +7,7 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from what2do2day import app, mongo
+from datetime import datetime
 
 
 def email_event(event, user_email_list, update=False, add_attendee=False):
@@ -58,7 +59,8 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
             "endDate": endDate + 'T-7' + endTime,
             "details": event['details']
 
-        }
+        },
+        "modifiedTime": datetime.today()
     }
     streetAddress = ''
     if 'event_address' in event.keys() and event['event_address'] != '' and event[
@@ -86,7 +88,7 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
                     country = mongo.db.countries.find_one({'_id': ObjectId(address['country'])})
                     country = country['country'].title()
                 else:
-                 country = address['country'].title()
+                    country = address['country'].title()
             if 'postal_code' in address.keys() and address['postal_code'] != '':
                 postal_code = {'postal_code': address['postal_code'].title()}
                 displayAddress += '<br>' + address['postal_code'].title() + ' ' + country
@@ -173,5 +175,94 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
                 if app.config['DEBUG']:
                     print('Email update to attendee: ', user_email, " status: failure")
                 pass
+
+    return True
+
+
+def email_event_cancel(event, user_email_list):
+    message = MIMEMultipart("alternative")
+    message["From"] = app.config['EMAIL']
+    password = app.config['EMAIL_PASS']  # Your SMTP password for Gmail
+    message["Subject"] = "CANCELED: What2do2day Event- " + event['event_name'].title()
+    email_body = "<div style='color:#363636; font-size:18px;'>It's your friends with What2do2day. Sadly an event you wanted to attend has been canceled:</div>"
+    text = "Hello,\nIt's your friends with What2do2day. Sadly an event you wanted to attend has been canceled:"
+
+    email_body += '<div style="color:#363636; font-size:18px;">'
+
+    email_body += '<h1 style="font-size:22px margin: 20px;">CANCELED' + event['event_name'].title()
+    email_body += '<span style="font-size:20px; margin-left:20px;">Sponsored By: ' + event[
+        'place-name'].title() + '</span></h1>'
+    text += "\n" + event['event_name'].title()
+    text += "\n\tSponsored By: " + event['place-name'].title()
+    email_body += '<div class="columns"><div class="is-bold column">When:</div><div class="column">'
+
+    startDate = event['date_time_range'][0:10]
+    startTime = event['date_time_range'][11:16]
+    endDate = event['date_time_range'][19:29]
+    endTime = event['date_time_range'][30:35]
+
+    email_body += startDate + " " + filters.time_only(
+        event['date_time_range']) + '</div></div><div style="clear:both"></div>'
+    text += "\nWhen: " + event['date_time_range']
+
+    event_json = {
+        "@context": "http://schema.org",
+        "@type": "EventReservation",
+        "reservationNumber": str(event['_id']),
+        "reservationStatus": "http://schema.org/Confirmed",
+
+        "reservationFor": {
+            "@type": "Event",
+            "name": event['event_name'],
+            "startDate": startDate + 'T-7' + startTime,
+            "endDate": endDate + 'T-7' + endTime,
+            "details": event['details']
+        },
+        "modifiedTime": datetime.strftime(datetime.today(), '%m/%d/%Y')+'T-7'+
+                        datetime.strftime(datetime.today(), "%H:%M"),
+        "status": "cancelled"
+    }
+
+    email_body += '<div class="columns"><div class="is-bold column">Details:</div><div class="column">'
+    email_body += event['details'] + '</div></div><div style="clear:both"></div>'
+
+    email_body = email_body.replace('class="columns"', 'style="line-height:1.8rem; margin:5px;"')
+    email_body = email_body.replace('class="is-bold column"', 'style="float:left; font-weight:700; width: 90px;"')
+    email_body = email_body.replace('class="column"', 'style="float:left; width: auto;"')
+
+    for user in user_email_list:
+        user_email = user['email']
+        event_json["underName"] = {
+            "@type": "Person",
+            "name": user_email
+        }
+        send_email_body = email_body + '</div><script type="application/ld+json">' + json.dumps(
+            event_json) + '</script>'
+        # Turn these into plain/html MIMEText objects
+        part1 = MIMEText(text, "plain")
+        part2 = MIMEText(send_email_body, "html")
+
+        # Add HTML/plain-text parts to MIMEMultipart message
+        # The email client will try to render the last part first
+        message.attach(part1)
+        message.attach(part2)
+        message["To"] = user_email
+
+        # Create secure connection with server and send email
+        context = ssl.create_default_context()
+        try:
+            with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                server.login(app.config['EMAIL'], password)
+                server.sendmail(
+                    app.config['EMAIL'], user_email, message.as_string()
+                )
+            if app.config['DEBUG']:
+                print('Email update to attendee: ', user_email, " status: success")
+
+        except smtplib.SMTPAuthenticationError as e:
+            # not the end of the world if email fails, Ideally would log system and let system admin know there is an issue
+            if app.config['DEBUG']:
+                print('Email cancellation to attendee: ', user_email, " status: failure")
+            pass
 
     return True

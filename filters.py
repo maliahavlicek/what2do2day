@@ -92,11 +92,11 @@ def myround(*args, **kw):
 
 
 def remove_html_tags(text):
-    """Remove html tags from a string and escape special characters """
+    """Remove html tags from a string  """
     import re
     clean = re.compile('<.*?>')
     cleaned = re.sub(clean, '', text)
-    return html.escape(cleaned)
+    return cleaned
 
 
 def pluralize(number, singular='', plural='s', count=False):

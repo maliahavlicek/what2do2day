@@ -302,7 +302,7 @@ $(document).ready(function () {
         iconpicker.toggleClass('is-inverted', 250);
     }
     /* if a form is submitted, change style of button to loading so user has an idea that their action did something */
-    $('button[type=submit]').click(function (){
+    $('button[type=submit]').click(function () {
         $(this).removeClass('is-dark');
         $(this).removeClass('is-inverted');
         $(this).addClass('is-loading');
@@ -342,6 +342,14 @@ $(document).ready(function () {
         // need to pass place id to remove_place_auth
         let place_id = $(this).data('target');
         window.location = "/remove_place_auth/" + place_id;
+    });
+
+
+    /* handlers for place hide buttons */
+    $('.button.action.hide').click(function () {
+        // need to pass place id to remove_place_auth
+        let place_id = $(this).data('place');
+        //do ajax to remove
     });
 
 

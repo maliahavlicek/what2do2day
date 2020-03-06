@@ -7,11 +7,12 @@ from pymongo import WriteConcern
 from datetime import datetime
 from what2do2day.activities.views import get_add_activity_id
 from what2do2day.addresses.views import get_add_address_id
-from what2do2day.events.controllers import event_unique, db_add_event
-from what2do2day.metrics.views import load_page
+from what2do2day.email.views import email_event_cancel
+from what2do2day.events.controllers import event_unique, db_add_event, events_with_attendee_emails_from_db
+from what2do2day.metrics.views import load_page, load_click
 from what2do2day.reviews.views import db_add_review
 from what2do2day.users.views import get_add_user_id
-from what2do2day import mongo
+from what2do2day import mongo, app
 
 
 ##########################
@@ -44,7 +45,6 @@ def delete_authorized(place, email):
         return {'status': 'OK'}
     else:
         return {'status': 'FAILURE', 'reason': "user_not_creator"}
-
 
 
 def place_unique(place):
@@ -104,7 +104,8 @@ def push_place_to_db(form, update=False, place_id=False):
     place['share_place'] = form.share_place.data
 
     # see if activity is in db or not
-    activity_id = get_add_activity_id(filters.remove_html_tags(form.activity_name.data).strip().lower(), form.activity_icon.data)
+    activity_id = get_add_activity_id(filters.remove_html_tags(form.activity_name.data).strip().lower(),
+                                      form.activity_icon.data)
     place['activity'] = activity_id
 
     # now we can add the place or update it
@@ -120,7 +121,8 @@ def push_place_to_db(form, update=False, place_id=False):
         review_id = db_add_review(review)
         if review_id is None:
             load_page("error", "page", "failed to add review.")
-            return render_template('error.html', reason='When adding the Place, we failed to add the review.', page="error")
+            return render_template('error.html', reason='When adding the Place, we failed to add the review.',
+                                   page="error")
 
     has_event = form.event.data['has_event']
     if has_event:
@@ -140,13 +142,16 @@ def push_place_to_db(form, update=False, place_id=False):
         has_address = form.event.address.data['has_address']
         event_address = {}
         if has_address:
-            event_address['address_line_1'] = filters.remove_html_tags(form.event.address.data['address_line_1']).strip().lower()
+            event_address['address_line_1'] = filters.remove_html_tags(
+                form.event.address.data['address_line_1']).strip().lower()
             if form.event.address.data['address_line_2']:
-                event_address['address_line_2'] = filters.remove_html_tags(form.event.address.data['address_line_2']).strip().lower()
+                event_address['address_line_2'] = filters.remove_html_tags(
+                    form.event.address.data['address_line_2']).strip().lower()
             event_address['city'] = filters.remove_html_tags(form.event.address.data['city']).strip().lower()
             event_address['state'] = filters.remove_html_tags(form.event.address.data['state']).strip().lower()
             if form.event.address.data['postal_code']:
-                event_address['postal_code'] = filters.remove_html_tags(form.event.address.data['postal_code']).strip().lower()
+                event_address['postal_code'] = filters.remove_html_tags(
+                    form.event.address.data['postal_code']).strip().lower()
             event_address['country'] = form.event.address.data['country']
             address_id = get_add_address_id(event_address)
             event_address_id = address_id
@@ -162,17 +167,81 @@ def push_place_to_db(form, update=False, place_id=False):
         event['price_for_non_members'] = filters.remove_html_tags(form.event.data['price_for_non_members']).strip()
         event['address'] = event_address_id
         event['max_attendees'] = form.event.data['max_attendees']
-        event['attendees'] = [get_add_user_id(email)]
+        event['attendees'] = []
         event['share'] = form.share_place.data
 
         event_id = db_add_event(event)
         if event_id is None:
             load_page("error", "page", "Failed to load event.")
-            return render_template('error.html', reason='When adding the place, we could not add the event.', page="error")
+            return render_template('error.html', reason='When adding the place, we could not add the event.',
+                                   page="error")
     if update:
         return redirect(url_for('places_bp.edit_place', status="OK"))
     else:
         return redirect(url_for('places_bp.get_places', status="OK"))
+
+
+def remove_from_db(place_id):
+    db_places = mongo.db.places.with_options(
+        write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+    )
+
+    deleted_place = db_places.find_one({'_id': ObjectId(place_id)})
+    place_name = deleted_place['name']
+
+    if deleted_place is not None:
+        # need to get reviews associated with this and remove them
+        db_reviews = mongo.db.reviews.with_options(
+            write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+        )
+        remove_reviews = db_reviews.delete_many({'place': ObjectId(place_id)})
+
+        # format of deleteMany is: {"acknowledged": true, "deletedCount": 8}
+        if remove_reviews.deleted_count > 0:
+            load_click('place_remove_reviews_success', 'post', 'place_remove')
+
+        # next need to remove events, but first need to send cancellation message
+        db_events = mongo.db.events.with_options(
+            write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+        )
+        events = db_events.find({'place': ObjectId(place_id)})
+        if events is not None:
+            # there is at least one event
+            for event in events:
+                # see if there are attendees
+                if 'attendees' in event.keys() and len(event['attendees']) > 0:
+                    notify_event = events_with_attendee_emails_from_db(event['_id'])
+                    user_list = notify_event[0]['user_list']
+                    email_sent = email_event_cancel(notify_event[0], user_list)
+                    if email_sent and app.config['DEBUG']:
+                        print("sent cancellation email")
+            # now remove events
+            remove_events = db_events.delete_many({'place': ObjectId(place_id)})
+
+            # format of deleteMany is: {"acknowledged": true, "deletedCount": 8}
+            if remove_events.deleted_count > 0:
+                load_click('place_remove_events_success', 'post', 'place_remove')
+            else:
+                load_click('place_remove_events_failure', 'post', 'place_remove')
+
+        # now remove place
+        removed_place = db_places.delete_many({'_id': ObjectId(place_id)})
+
+        # format of deleteMany is: {"acknowledged": true, "deletedCount": 8}
+        if removed_place.deleted_count > 0:
+            template = 'success.html'
+            reason = place_name.title() + ' was totally removed from the database.'
+            page = "success"
+        else:
+            template = 'error.html'
+            reason = place_name.title() + ' was not removed from the database.'
+            page = "error"
+    else:
+        template = 'error.html'
+        reason = 'Place was not found in the database.'
+        page = "error"
+
+    return {'template': template, 'reason': reason, 'page': page}
 
 
 def retrieve_places_from_db(update, filter_form=False, place_id=False):

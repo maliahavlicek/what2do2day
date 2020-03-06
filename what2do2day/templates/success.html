@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    </form>
+    <section class="hero is-primary" role="banner" aria-label="Banner for Success Page">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Great!
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section" role="main">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-one-third">
+                    <h2 class="subtitle is-2">
+                        We had success...
+                    </h2>
+                    <p>{{ reason }}</p>
+                    <a class="button action is-primary" href="{{ url_for('home', _external=True) }}" data-track="home,success,button">
+                                <span class="icon">
+                                    <i class="fas fa-home"></i>
+                                </span>
+                        <span>Home</span>
+                    </a>
+                </div>
+                <div class="column is-one-third">
+                    <div class="image-holder success" aria-label="Image of Phineas and Ferb celebrating."></div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

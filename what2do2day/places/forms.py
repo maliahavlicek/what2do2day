@@ -17,6 +17,13 @@ from what2do2day.events.forms import EventForm
 from what2do2day.templates.validators import catch_xss
 
 
+class DeleteForm(FlaskForm):
+    """Delete Form"""
+
+    place_id = StringField('Place', [DataRequired])
+    user_id = StringField('User', [DataRequired])
+
+
 class PlaceForm(FlaskForm):
     """Place Form"""
 

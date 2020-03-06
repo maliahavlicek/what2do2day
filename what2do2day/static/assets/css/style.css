@@ -842,7 +842,7 @@ nav.level.is-primary .level-item {
     background-size: cover;
 }
 
-.user-success .modal-card .image-holder {
+.user-success .modal-card .image-holder, .image-holder.success {
     height: 250px;
     width: 250px;
     background: url(../images/success.png) center center no-repeat;

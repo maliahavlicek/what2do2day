@@ -37,11 +37,11 @@
                       action="{{ url_for('places_bp.remove_place_auth', place_id=place['_id'], _external=True) }}"
                       enctype="multipart/form-data" role="form" aria-label="Delete Place Form">
                     {{ form.csrf_token }}
-                    <nav class="level is-primary" aria-label="Now Deleting: {{ place['name_name'] | title }}">
+                    <nav class="level is-primary" aria-label="Now Deleting: {{ place['place_name'] | title }}">
                         <div class="level-left">
                             <div class="level-item">
                                 <p class="title">
-                                    <i class="fas fa-trash"></i> Now Deleting: {{ place['name_name'] | title }}
+                                    <i class="fas fa-trash"></i> Now Deleting: {{ place['place_name'] | title }}
                                 </p>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                                 <button type="submit" class="button is-dark is-medium is-inverted submit"
                                         data-track="{{ page }}_login,{{ page }},button">
                                     <span class="icon is-small">
-                                       <i class="fas fa-save"></i>
+                                       <i class="fas fa-sign-in-alt"></i>
                                     </span>
                                     <span class="action">Login</span>
                                 </button>
@@ -107,7 +107,7 @@
                                    data-track="{{ page }}_cancel,{{ page }},button"
                                    href="{{ url_for('places_bp.get_places', _external=True) }}">
                                     <span class="icon">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="fas fa-ban"></i>
                                     </span>
                                     <span class="action">Cancel</span>
                                 </a>
@@ -136,14 +136,14 @@
                             <div class="column">
                                 <div class="field">
                                     {% if status['status']=="OK" %}
+                                        <h2>{{ places[0]['name']|title }}</h2>
                                         <p>
-                                            By deleting this place, all events and reviews associated with it will be
+                                            <strong>Delete</strong> means all events and reviews associated with your
+                                            place will be
                                             lost forever.
-                                        </p>
-                                        <p>
-                                            You can hide the place and its events by toggling off the share place option
-                                            in the Update Place Page if you
-                                            wish to keep the data associated with {{ places[0]['place_name']|title }}
+                                            <br>
+                                            <strong>Hide</strong> won't show the place or its events and allows you
+                                            share it later.
                                         </p>
                                     {% else %}
                                         <p>
@@ -161,35 +161,36 @@
                         </div>
                 </section>
                 {# button to acknowledge message and close modal #}
-                {% if status['status']!="OK" %}
+                {% if "OK" not in status['status'] %}
                     <footer class="modal-card-foot">
                         <div class="level-left">
                             <a class=" button is-primary action modal-close-2"
-                               data-track="modal_close,place_remove_auth_fail,button">
-                        <span class="icon is-small">
-                            <i class="fas fa-check-circle"></i>
-                        </span>
+                               data-track="modal_close,{{ page }}_fail,button">
+                                <span class="icon is-small">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
                                 <span class="action">OK</span>
                             </a>
                         </div>
                     </footer>
                 {% else %}
                     <footer class="modal-card-foot warning">
-                        <a class="button is-primary action modal-close-2"
-                           data-track="modal_close,place_remove_auth_success_delete,button"
-                           href="{{ url_for('places_bp.remove_place', place_id=place_id, _external=True) }}">
-                                <span class="icon is-small">
-                                    <i class="fas fa-trash"></i>
-                                </span>
-                            <span class="action">Delete</span>
+
+                        <a class="button action is-primary is-medium hide_place"
+                           data-track="{{ page }}_hide,{{ page }}_success,button"
+                           href="{{ url_for('places_bp.place_hide', place_id=place_id, _external=True) }}">
+                                    <span class="icon">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </span>
+                            <span class="action">Hide</span>
                         </a>
-                        <a class="button is-primary action modal-close-2"
-                           data-track="modal_close,place_remove_auth_success_update,button"
-                           href="{{ url_for('places_bp.update_place', place_id=place_id, _external=True) }}">
-                                <span class="icon is-small">
-                                    <i class="fas fa-eye-slash"></i>
-                                </span>
-                            <span class="action">Update</span>
+                        <a class="button is-dark is-medium submit"
+                                data-track="{{ page }}_delete,{{ page }}_success,button"
+                                href="{{ url_for('places_bp.place_remove', place_id=place_id, _external=True) }}">
+                                    <span class="icon is-small">
+                                       <i class="fas fa-trash"></i>
+                                    </span>
+                            <span class="action">Delete</span>
                         </a>
                     </footer>
                 {% endif %}

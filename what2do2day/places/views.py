@@ -4,8 +4,8 @@ from bson.objectid import ObjectId
 
 from what2do2day.addresses.views import country_choice_list
 from what2do2day import app, mongo, google_key
-from what2do2day.metrics.views import load_page
-from what2do2day.places.forms import PlaceForm
+from what2do2day.metrics.views import load_page, load_click
+from what2do2day.places.forms import PlaceForm, DeleteForm
 from what2do2day.events.forms import CountMeInForm
 
 ################
@@ -105,6 +105,40 @@ def get_places(status):
                            status=status)
 
 
+@places_bp.route('/place_remove/<string:place_id>', methods=['GET'])
+def place_remove(place_id):
+    result = remove_from_db(place_id)
+    load_page(result['page'], 'place_remove', result['reason'])
+    return render_template(result['template'],reason=result['reason'], page=result['page'])
+
+
+@places_bp.route('/place_hide/<string:place_id>', methods=['GET'])
+def place_hide(place_id):
+    # make sure we have a valid ObjectId coming in
+    if str(ObjectId(place_id)) != place_id:
+        load_page("error", "place_hide", "Failure: invalid place id")
+        return render_template('error.html', reason='Encountered an invalid place id when trying to hide a place.',
+                               page="error")
+
+    db = mongo.db.places.with_options(
+        write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
+    )
+    hidden_place = db.find_one({'_id': ObjectId(place_id)})
+
+    hide_place = db.update_one({'_id': ObjectId(place_id)}, {'$set': {"share_place": False}})
+
+    # format of update_one is: { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+    if hide_place.matched_count > 0:
+        load_click('place_hide_success', 'post', 'place_hide')
+        return render_template('success.html', reason=hidden_place['name'].title() + ' was successfully hidden',
+                               page="success")
+
+    else:
+        load_click('place_hide_failure', 'post', 'place_hide')
+        return render_template('error.html', reason=hidden_place['name'].title() + ' could not be hidden.',
+                               page="error")
+
+
 @places_bp.route('/remove_place/<string:place_id>/', methods=['GET'])
 def remove_place(place_id):
     load_page("place_remove")
@@ -112,23 +146,23 @@ def remove_place(place_id):
                            page="remove_place")
 
 
-@places_bp.route('/remove_place_auth/<string:place_id>/', methods=['GET', 'POST'])
-def remove_place_auth(place_id):
+@places_bp.route('/remove_place_auth/<string:place_id>/', defaults={'user_id': None},methods=['GET', 'POST'])
+def remove_place_auth(place_id, user_id,):
     form = CountMeInForm()
     places = retrieve_places_from_db(True, False, place_id)
+
     if form.validate_on_submit():
         # all is good with the post based on email collection vai CountMeInForm wftForm validation
         # now see if the user email matches the record in the db for the creation of the place
         authorized = delete_authorized(place_id, form.email.data)
-        if authorized['status']=="OK":
+        if authorized['status'] == "OK":
             load_page("place_remove_auth_success")
             return render_template('place/remove_place_auth.html', form=form, places=places, google_key=google_key,
-                                   page="remove_place_auth", status=authorized, place_id=place_id)
+                                   page="remove_place_auth", status=authorized, place_id=place_id,)
         else:
             load_page("place_remove_auth_fail")
             return render_template('place/remove_place_auth.html', form=form, places=places, google_key=google_key,
                                    page="remove_place_auth", status=authorized, place_id=place_id)
-
     else:
         load_page("place_remove_auth")
         return render_template('place/remove_place_auth.html', form=form, places=places, google_key=google_key,
