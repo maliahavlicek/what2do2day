@@ -164,6 +164,9 @@ def push_place_to_db(form, update=False, place_id=False):
         event['activity'] = event_activity_id
         event['details'] = filters.remove_html_tags(form.event.data['details']).strip()
         event['age_limit'] = form.event.data['age_limit']
+        # make sure if no-limit in list of age_limits, only have that entry in the list
+        if 'no-limit' in event['age_limit']:
+            event['age_limit'] = ['no-limit']
         event['price_for_non_members'] = filters.remove_html_tags(form.event.data['price_for_non_members']).strip()
         event['address'] = event_address_id
         event['max_attendees'] = form.event.data['max_attendees']
