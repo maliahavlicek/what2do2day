@@ -852,6 +852,9 @@ These manual unit test cases focus on testing the core functionality in a deskto
 
 ### Cross Browser/ Cross Device Verification
 To verify that the application is functional and looks pleasant  across various operating systems and device sizes I devised another suite of manual tests in the cross browser tab of my [testing workheet](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing) on the cross browser tab.
+
+Please note: Since flex grid is the basis of CSS IE 11 and ios lower than 11 will not render the app nicely.
+
 These tests are lighter on the functionality with more attention being paid to the layout and console logs:
 
 [![cross browser tests](documentation/images/software_cycle/cross_browser_test.png "cross browser tests")](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing)
