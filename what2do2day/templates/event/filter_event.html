@@ -58,13 +58,13 @@
                     {# macro for hidden inputs that go into form #}
                     {{ filter_form.activity.label(class_='label') }}
                     <p>Select the Activities your want to see</p>
-                    <div class="activities" style="overflow-y: auto" tabindex="0">
+                    <div class="limited-exposure embedded activities" style="overflow-y: auto" tabindex="0">
                         <div class="control">
                             {# more user friendly experience for selecting mutliples #}
-                            <div class="select is-multiple container activities limited-exposure embedded ">
+                            <div class="select is-multiple container activities">
                                 {{ filter_form.activity(class_="is-hidden controller-ages", size="8", id="event_filter_activity_select") }}
                                 {% for item in filter_form.activity.choices %}
-                                    <a class="card button activities is-primary iconpicker {{ item['icon'] }}"
+                                    <a class="card button activities is-primary {{ item['icon'] }}"
                                        data-choice="{{ item['name'] }}:{{ item['icon'] }}">
                                         <div class="card-content">
                                             <div class="media-con">

@@ -1385,6 +1385,7 @@ i.not-shared {
 
     .limited-exposure.embedded.activities .container.activities .card {
         margin: 15px 0 0 15px;
+        max-height: 130px;
     }
 
     a.card.button.is-primary.iconpicker {
