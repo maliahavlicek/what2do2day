@@ -129,7 +129,7 @@
                     <button class="delete" aria-label="close"
                             data-track="{% if status['status']=="OK" %}modal_close,place_remove_auth_success,button{% else %}modal_close,place_remove_auth_fail,button{% endif %}"></button>
                 </header>
-                <section class="modal-card-body">
+                <section class="modal-card-body"  aria-label="authorization modal">
                     <div class="container">
                         <div class="columns">
                             <div class="column">
@@ -161,7 +161,7 @@
                 </section>
                 {# button to acknowledge message and close modal #}
                 {% if "OK" not in status['status'] %}
-                    <footer class="modal-card-foot">
+                    <section class="modal-card-foot" aria-label="authorization failed acknowledgment">
                         <div class="level-left">
                             <a class=" button is-primary action modal-close-2"
                                data-track="modal_close,{{ page }}_fail,button">
@@ -171,9 +171,9 @@
                                 <span class="action">OK</span>
                             </a>
                         </div>
-                    </footer>
+                    </section>
                 {% else %}
-                    <footer class="modal-card-foot warning">
+                    <section class="modal-card-foot warning" aria-label="authorization Success actions">
 
                         <a class="button action is-primary is-medium hide_place"
                            data-track="{{ page }}_hide,{{ page }}_success,button"
@@ -191,7 +191,7 @@
                                     </span>
                             <span class="action">Delete</span>
                         </a>
-                    </footer>
+                    </section>
                 {% endif %}
             </div>
         </div>
