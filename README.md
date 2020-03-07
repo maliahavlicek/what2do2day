@@ -937,7 +937,7 @@ Some of the following issues are fringe cases whose resolution is better suited 
 3. Updating an event to hide status should notify users of cancellation if event is is in future and has attendees ( need admin roles and cancellation functionality defined)
 3. Deleting a place and it's events should only notify users of future events not past events ( should have a process that freezes events that are past for cloning)
 3. Updating a past event should not notify users (should have a process that freezes events that are past for cloning)
-
+3. Images taken from other sites may run into CSP issues such as the``` GET https://highlandsranch.org/wp-content/uploads/2011/12/FlynB_sm.jpg net::ERR_CERT_DATE_INVALID``` error seen on pages where the place images are shown. A future change will upload images to the system to ensure they don't eventually raise 404's, to avoid CSP issues, and to help make the site a bit more efficient by loading size appropriate imagery.
 ## Deployment
 This site was developed using PyCharm's IDE. To keep records of different versions of all project files, git version control was used. This project is hosted using Heroku deployed from the master branch.
 
