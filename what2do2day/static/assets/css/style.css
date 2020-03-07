@@ -911,6 +911,7 @@ nav.level.is-primary .level-item {
 
 .modal, .modal-background {
     width: 100vw;
+    max-width: 100%;
 }
 
 .modal-card {
