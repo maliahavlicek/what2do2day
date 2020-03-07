@@ -1,7 +1,7 @@
 import bson
 from filters import get_list_of_icons
 
-from flask import Blueprint
+from flask import Blueprint, request
 from what2do2day.addresses.views import country_choice_list
 from what2do2day.places.views import retrieve_places_from_db
 from what2do2day.events.forms import EventForm, CountMeInForm, FilterEventsFrom
@@ -54,8 +54,7 @@ def filter_events(update):
     event = False
     form = CountMeInForm()
     filter_form = FilterEventsFrom()
-
-    if filter_form.validate_on_submit():
+    if request.method == 'POST' and filter_form.is_submitted() and len(filter_form.errors) == 0:
         # pull out any filtering
         filtering = ""
         if filter_form.activity_selection.data:
