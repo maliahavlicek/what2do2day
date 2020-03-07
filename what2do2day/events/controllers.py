@@ -450,6 +450,7 @@ def retrieve_events_from_db(update, filter_form=False, event_id=False):
         if filter_form.filter_date_range.data is not None and filter_form.filter_date_range.data != "":
             filter_start_date = datetime.strptime(filter_form.filter_date_range.data[0:10], '%m/%d/%Y')
             filter_end_date = datetime.strptime(filter_form.filter_date_range.data[14:24], '%m/%d/%Y')
+            filter_end_date = filter_end_date.replace(hour=23, minute=59)
         if filter_form.age.data:
             for age_limit, age_range in age_choices.items():
                 min = age_range[0]
