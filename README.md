@@ -557,6 +557,9 @@ I was also told by a test subject (son number 4) that the lists were boring. So 
 
 For the Review Input, the stars have a wiggle animation on desktop as the user hovers over them and a shine to the selection if you rate something a 5 star. A one star is dull to reflect the glum outlook the reviewer has.
 
+During peer reviews I was told that it was difficult to tell that I had buttons on my home page, they blended in too much and the hover color wasn't different enough. I decided to add animation to make the buttons wiggle ever so slightly every 5 seconds, initially 2.5s off from each other. I also used the rotate and scale technique used on the star buttons to provide a much more obvious interaction clue when the buttons are clicked and made the hover shade much deeper in tone. 
+
+
 ## User Stories:
 This website serves 3 sets of users, thus the stories are broken down into 3 categories:
 
@@ -1017,5 +1020,6 @@ The wonderful results of the google search engine helped me tremendously in comp
 - [aezel](https://stackoverflow.com/users/64266/aezell) for [posting](https://stackoverflow.com/users/64266/aezell) a good way to separate flask filters from run.py
 - [Todd Birchard](https://hackersandslackers.com/flask-blueprints/) For a most useful example about blueprints to make a larger flask application's directory structure manageable
 - [Dan Badar](https://dbader.org/blog/python-send-email)- how to send emails via python and a google account
-- **the G-men** A special thanks goes out to my family for allowing me to ignore them for the past two months as I dove deep into unknown waters. I hope the new skills I'm gaining from this program can pay for us all to go visit the grandparents again. Hawaii or Croatia... tough decisions.
+- [Hima Vincent](https://codemyui.com/wiggle-effect-cta-button-css/) - for Wiggle Effect For CTA Button In CSS post
+- **the G-men** A special thanks goes out to my family for allowing me to ignore them for the past two months as I dove deep into unknown waters. I know the new skills I'm gaining from this program are already helping me in my newest adventure. Fool on boys!
 <img src="documentation/images/IMG_20190717_213729_096.jpg" width="300" height="auto" alt="picture of Malia's boys"/>
