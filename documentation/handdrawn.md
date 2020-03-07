@@ -7,7 +7,7 @@ Malia Havlicek
 > - [Add Place](#add-place)
 > - [Edit Place](#edit-place)
 > - [Edit Review](#edit-review)
-> - [Back to README](https://github.com/maliahavlicek/what2do2day#skeleton)
+> - [Back to README](https://github.com/maliahavlicek/what2do2day#wireframes)
 
 #Home Page
 ![home page](images/initial_mcokups/homepage.png)
@@ -22,4 +22,4 @@ Malia Havlicek
 ![edit_review](images/initial_mcokups/edit_review.png)
 
 
-[Back to README](https://github.com/maliahavlicek/what2do2day#skeleton)
+[Back to README](https://github.com/maliahavlicek/what2do2day#wireframes)

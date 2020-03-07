@@ -26,7 +26,7 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
     + [Customer Goals](#customer-goals)
     + [Place Owner Goals](#place-owner-goals)
     + [WebSite Goals](#website-goals)
-- [Structure](#structure)
+- [Data Structure](#data-structure)
   * [Database Choice](#database-choice)
   * [Data Models](#data-models)
   * [Collections Data Structure](#collections-data-structure)
@@ -40,7 +40,7 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
     + [Reviews](#reviews)
     + [Users](#users)
 - [Design Choices](#design-choices)
-  * [Skeleton](#skeleton)
+  * [Wireframes](#wireframes)
     + [Content Considerations](#content-considerations)
   * [Surface:](#surface)
     + [Color Choice](#color-choice)
@@ -77,6 +77,7 @@ The name and concept of this site is loosely based on the key phrase, "I know wh
     + [More Sophisticated Attendance Tracking](#more-sophisticated-attendance-tracking)
     + [API Integrations](#api-integrations)
     + [Switch to Relational Database](#switch-to-relational-database)
+    + [Ease of Use Enhancements](#ease-of-use-enhancements)
   * [Project Tracking](#project-tracking)
 - [Technologies Used](#technologies-used)
   * [Programming languages](#programming-languages)
@@ -210,7 +211,7 @@ What2do2day aides Place Owners by:
  - Affiliate linking - link to at-cost services provided by businesses and receive a kickback
  - Ads - target online sales related to equipment based on activities a place or event is associated with
 
-## Structure
+## Data Structure
 
 While it was tempting to start with the UI immediately, I took the time to look into the data I wanted to present on the site. My first stop was to look at Google's Maps Places API to determine what fields the Place object should have. Knowing the data fields I may want to have and those that were extraneous, helped me devise an Entity Relationship Diagram(ERD). 
 
@@ -443,11 +444,16 @@ Users cannot be updated or deleted at this time. Once various user roles and per
 
 Create, and Read functionality for the Users table is housed in the [what2do2day/users/views.py](what2do2day/users/views.py) file.
 
+### CRUD Flow Diagrams
+I created flow diagrams as an attempt to show how interwoven the databases are for the what2do2day application:
+(Click the image to open the pdf that contains all the diagrams)
+
+[![Data base Flow Diagrams](documentation/images/data_model/What2do2day DB CRUD Functions-delete_place.png "Data base Flow Diagrams")](documentation/What2do2day DB CRUD Functions.pdf)
 
 ## Design Choices
 The intent is to provide a clean, intuitive design to users with engaging imagery and animation to spice up the views and keep users engaged. 
 
-### Skeleton
+### Wireframes
 Having a rough data structure in hand, I knew what data fields I could present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wire-framing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had a higher priority.
 [view hand-drawn mockups](documentation/hand-drawn.md)
 
@@ -519,6 +525,10 @@ Dr. Heinz Doofenshmirtz looking dumbfounded makes an appearance on user based fa
 Ferb wielding tools is on the application's error page:  
 
 <img src="/what2do2day/static/assets/images/fixit.png" width="100" height="auto" alt="fixit image" />
+
+I also added a warning image when writing the deletion pages as I really wanted to discourage users from deleting things and to instead use the soft delete function. Candace the worrisome older sister looking scared conveys fear or concern rather effectively:
+
+<img src="/what2do2day/static/assets/images/warning.png" width="100" height="auto" alt="warning image" />
 
 ##### Loading Giff
 I added a loading gif for the maps in the event the API calls are a tad slow or if there are errors with google's API/configuration: 
@@ -650,7 +660,6 @@ I overestimated my abilities when originally scoping this project. I didn't acco
 1. Follow a place - I would not gain any skills taking this functionality on and I the UX being similar to the delivered Join Event feature I don't believe I'm loosing out on a learning opportunity by eliminating this functionality.
 1. Filter Places - I tackled more complex filtering logic in the filter events layer and saw this list not getting nearly as long as the events list could be.
 1. Pagination - By including a count of events or places found, the user has an idea of how many results they are seeing. Pagination isn't nearly as useful on smaller devices as the buttons are cumbersome for fingers and users are accustomed to scrolling down vs paging through results, thus pagination was differed
-1. Scroll to top - Longer pages should include a scroll to top fixed button to aid in returning to the top navigation
 1. Update Review - updating and sharing reviews are tightly tied to various user roles. Since user roles were originally out of scope, it made sense to differ this functionality, especially since updating and soft delete powers have been exemplified in update events and update places.
 
 #### User Roles & Permissions
@@ -709,6 +718,14 @@ In the long term once this concept proves viable, authentication would be enable
 1. GoogleCalendar - manage events and email notifications instead of STMP emails.
 #### Switch to Relational Database
 1. MongoDB is not the correct data base, it was chosen because it has a free tier, but the aggregation to force joins is awkward and inefficient. As the dataset grows this will cripple the application's efficiency.
+#### Ease of Use Enhancements
+1. Places could be related to more than one activity, I would ideally have 1-5 activities that could be associated to a place but that was too complex to add implement given the time frame.
+1. Scroll to top - Longer pages should include a scroll to top fixed button to aid in returning to the top navigation
+1. On updates, scroll to the selected activity or show it and then have a change option that allows the user to pick a new option.
+1. On activity selection, allow the user to search or type to find an image icon by name
+1. On places page, much like the gray date divider for events, have a A-Z dictionary glossary to help group items alphabetically to create 10-20 containers once the number of places exceeds a certain threshold
+1. When switching pages, toss up a modal and processing screen so users know their input was received and is being processed MONGODB is SOOO SLOW especially if hosted in Oregon and consumed in Europe.
+
 ### Project Tracking
 The scope of this project was larger than a typical milestone effort and I quickly felt overwhelmed when learning new skills such as Bulma, mongodb aggregated queries, Flask Filters, Flask Macros, Flask WTF Forms, Validators, Flask blueprints and routes. 
 To ensure I kept on task and could feel a sense of accomplishment while taking the countless baby steps towards completion, I devised a [project tacking sheet](https://docs.google.com/spreadsheets/d/1Lnvt9zLgJj0oQFdpOIAs1V2JAN2lVGcBalIBHwXzqjY/edit?usp=sharing):
@@ -806,7 +823,12 @@ After reading up on [OWSAP](https://owasp.org) I discovered I should enable a Co
           content="default-src 'self' 'sha256-+F3gOU1DQxY16x7fQfxUYLFRfEZrEO0VavTzK4EbD6c=' https://fonts.gstatic.com/; img-src * data:; style-src 'self' 'unsafe-inline' https://kit.fontawesome.com/ https://cdn.jsdelivr.net/ https://kit-free.fontawesome.com/ https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ https://fonts.googleapis.com/  https://kit-free.fontawesome.com/ https://kit.fontawesome.com/ data:; script-src 'self' https://kit.fontawesome.com/ https://cdnjs.cloudflare.com/ https://apis.google.com/ https://kit-free.fontawesome.com/ 'unsafe-inline' https: 'nonce-4AAemGb0xJpto1GFP3Nd' 'strict-dynamic'; frame-src 'self' https://www.google.com/; object-src 'none'; base-uri 'self';" />
    
 ``` 
-I also started to build a validation  method that would help prevent XXS from the various input fields. It's not nearly complete but it helps protect the site against the injection of scripts. It's the catch_xss function in my [custom validator](what2do2day/templates/validators.py) file.
+I also started to build a validation  method that would help prevent XXS from the various input fields. It's not nearly complete but it helps protect the site against the injection of ```<script>```  tags. It's the catch_xss function in my [custom validator](what2do2day/templates/validators.py) file.
+
+The remove_html_tags also expands a bit on the sanitization of user input fields by cleaning out special characters that are typically used for cross site scripting too.
+
+### Restricted Deletion
+For the delete place operation, only users who created a place can delete it and all its associated events and reviews.  While there is no registering or authentication of users, the system keeps tracks of emails and tacks a user onto the place creation to restrict the deletion process. When a user indicates interest in deleting something, they are reminded of the hide/soft delete option and heavily encouraged to go that route via imagery and text.
 
 ## Testing
 Constant integration testing was preformed to ensure no console/javascript errors were present. Beyond that, unit testing, validation testing, cross browser testing, accessibility testing, and regression testing were manually performed. I also explored automated testing of custom filters that I created. Ideally mocked up database functionality tests would be automated as well, but I have not yet found the time to learn how to mock database data.
@@ -902,7 +924,13 @@ The site seems to function in safari but it's crowded with console errors.
 Here's a google-api-javascrpt git hub thread about the issue:
 https://github.com/google/google-api-javascript-client/issues/397
 
-3. The icon pickers have different heights for same rows on T-Hor device widths (769-1024). Running out of time and it doesn't look as terrible as it did on desktop so leaving this issue in place for now.
+Some of the following issues are fringe cases whose resolution is better suited for resolution when workflow and higher admin functions such as cloning are available:
+
+3. Entering a Review that is hidden should not aggregate into review rating (workflow should be present to handle this)
+3. Hidden Review should not be in list of reviews shown (workflow should be present to handle this)
+3. Updating an event to hide status should notify users of cancellation if event is is in future and has attendees ( need admin roles and cancellation functionality defined)
+3. Deleting a place and it's events should only notify users of future events not past events ( should have a process that freezes events that are past for cloning)
+3. Updating a past event should not notify users (should have a process that freezes events that are past for cloning)
 
 ## Deployment
 This site was developed using PyCharm's IDE. To keep records of different versions of all project files, git version control was used. This project is hosted using Heroku deployed from the master branch.

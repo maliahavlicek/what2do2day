@@ -20,7 +20,7 @@ Malia Havlicek
 > - [Update Review](#review-update-page)
 > - [Navigation](#navigation)
 > - [Metrics](#metrics)
-> - [Back to README](https://github.com/maliahavlicek/what2do2day#skeleton)
+> - [Back to README](https://github.com/maliahavlicek/what2do2day#wireframes)
 
 ### Home Page
 ![home page mockup](images/wireframes/Home.png)
@@ -158,4 +158,4 @@ Malia Havlicek
   - Name: [slugified name daisy chained if event]
   - if time, maybe have totals for each unique row without DateTime
 
-- [Back to README](https://github.com/maliahavlicek/what2do2day#skeleton)
+- [Back to README](https://github.com/maliahavlicek/what2do2day#wireframes)
