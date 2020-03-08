@@ -310,7 +310,7 @@ Countries are cross referenced to addresses.
 | _id     	| ObjectId  	| unique identifier 	| None            	|               	|
 | country 	| String    	| Country's name    	| None            	| to lower      	|
 
-- [x] Create - Since the list of countries is long and does not change often this collection was initialized via the [countries.py](../what2do2day/helpers/upload_countries.py):
+- [x] Create - Since the list of countries is long and does not change often this collection was initialized via the [what2do2day/helpers/upload_countries.py](../what2do2day/helpers/upload_countries.py) which can be run in the terminal to populate the COUNTRIES database:
 ```$ python helpers/upload_countries.py ```
 - [x] Read - The ObjectId for a country is stored in an address. It's used to populate the address collection country drop-down menu. When displaying Places and Events to the screen, the Countries table is queried to provide a textual value for the country associated to an address.
 - [ ] Update
@@ -342,7 +342,7 @@ Events are one of the more complex data structures in What2do2day. An event has 
 
 Due to the lack of user roles or permissions, there is no  menu option to perform hard deletions of events. Events are only deleted from the database in association with the removal of a place. Events can be turned off via a soft delete by updating the share property. Ideally past events would be deleted and cleaned out of the databases if they have not been revised in a month to save space and reduce the number of records to keep the database efficient.
 
-Create, Read and Update functionality for the Events table is housed in the [what2do2day/events/controllers.py](what2do2day/events/controllers.py) file.
+Create, Read and Update functionality for the Events table is housed in the [what2do2day/events/controllers.py](what2do2day/events/controllers.py) file. Event deletions are initiated from the places controller.py file.
 #### Metrics Clicks
 The Metrics Clicks collection serves the purpose of tracking clicks by names related to the action the user is taking. Typically data-trigger attributes are set to buttons and links by a developer and handlers will then write to the database when the button or link is clicked through an ajax post. When a template is rendered, the app developer has to set the page value so the reporting will attribute the click the page.
 
@@ -411,7 +411,7 @@ The places object is another major player in what2do2day and is built mostly by 
 
 Ideally once business accounts are set up, then there would be admin functions to delete places that have been flagged as business in poor standing or who have not hosted an event in a specified amount of time or places. 
 
-Create, Read and Update functionality for the Events table is housed in the [what2do2day/places/controllers.py](what2do2day/places/controllers.py) file.
+Create, Read, Update, and Delete functionality for the Places table is housed in the [what2do2day/places/controllers.py](what2do2day/places/controllers.py) file.
 #### Reviews
 Reviews are one of the simpler user objects on the site that requires user input for creation, but it's data structure is quite a bit more complex than the user entry form:
 
@@ -433,7 +433,7 @@ Reviews cannot be updated at this time but would be part of a workflow before be
 
 At this time reviews are not individually removed from the database. Ideally there would be a workflow process defined to help delete profane and to better detect robot generated reviews. There should also be a scheduled process to remove reviews from dormant users and reviews associated with deleted places.
 
-Create, Read and Update functionality for the Reviews table is housed in the [what2do2day/reviews/views.py](what2do2day/reviews/views.py) file.
+Create, Read and Update functionality for the Reviews table is housed in the [what2do2day/reviews/views.py](what2do2day/reviews/views.py) file. Deletes are initiated from the Places controllers.py file.
 #### Users
 The user is a very simplistic representation at this time. It's only the email. It's not verified, and it cannot be updated, and it dose not roles or permissions. Users' ObjectId's are stored in the Event's attendee's list, as the creator for a Place, and as the author of a review.
 
@@ -455,7 +455,7 @@ Create, and Read functionality for the Users table is housed in the [what2do2day
 I created flow diagrams as an attempt to show how interwoven the databases are for the what2do2day application:
 (Click the image to open the pdf that contains all the diagrams)
 
-![[Data base Flow Diagrams](documentation/images/data_model/What2do2day DB CRUD Functions-delete_place.png "Data base Flow Diagrams")](documentation/What2do2day DB CRUD Functions.pdf)
+[![Data base Flow Diagrams](documentation/images/data_model/DB_CRUD_Functions-delete_place.png "Data base Flow Diagrams")](documentation/DB_CRUD_Functions.pdf)
 
 ## Design Choices
 The intent is to provide a clean, intuitive design to users with engaging imagery and animation to spice up the views and keep users engaged. 
@@ -801,8 +801,10 @@ I attempted to follow a rough Agile methodology where I prefixed discovery tasks
 - [heroku](https://www.heroku.com/) - runs the what2do2day application in the cloud
 - [color contrast](https://webaim.org/resourceshttps://webaim.org/resources/contrastchecker//contrastchecker/) Tool was used to adjust colors on fonts flagged as needing a higher contrast ratio from google's lighthouse audit tool.
 - [lighthouse audit](https://developers.google.com/web/tools/lighthouse) Google's open source automated too to help improve the quality of your website. Specifically paid attention to Accessibility  and best practices aiming for scores above 80.
+- [axe - web accessibility testing](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) a chrome extension that helps identify other accessibility issues google's lighthouse tool misses, such as land marks
+- [loom](https://www.loom.com/) I wanted to learn how to take videos of my code with audio and discovered loom which currently is freeware and installed as a chrome extension.
 ### APIs
-- [SMTP](https://github.com/python/cpython/blob/3.8/Lib/smtplib.py) - Send user notices when an event is joined or when an event they have joined has been updated.
+- [SMTP](https://github.com/python/cpython/blob/3.8/Lib/smtplib.py) - Send user notices when an event is joined or when an event they have joined has been updated, or canceled via a deletion of the place.
 - [Google Maps Javascript API](https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/) - Customized Map of event and places
 
 ## Defensive Programming
