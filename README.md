@@ -564,37 +564,37 @@ The formal wire-frame process identified the need for the following User Interfa
  I did end up modifying a few things from Bulma as there are errors with their calendar date picker and the default multi select was very ugly in appearance. I felt that customizing activity icon selections to display images greatly increased the user's willingness to interact with the app and was worth the struggle of learning flask macros. 
 
 - Accordion Arrow
-![accordion arrow](documentation/images/components/accordion-arrow.png "accordion arrow")
+![accordion arrow](documentation/images/components/accordion-arrow.png "accordion arrow" = 320x)
 
 - Accordion Drawer
-![accordion drawer](documentation/images/components/accordion-drawer.png "accordion drawer")
+![accordion drawer](documentation/images/components/accordion-drawer.png "accordion drawer" = 320x)
 
 - Datetime Picker
-![datetime picker](documentation/images/components/datetime_picker.png "datetime picker")
+![datetime picker](documentation/images/components/datetime_picker.png "datetime picker" = 320x)
 
 - Dropdown
-![dropdown](documentation/images/components/dropdown.png "dropdown")
+![dropdown](documentation/images/components/dropdown.png "dropdown" = 320x)
 
 - Footer
-![footer](documentation/images/components/footer.png "footer")
+![footer](documentation/images/components/footer.png "footer" = 320x)
 
 - From
-![form](documentation/images/components/form.png "form")
+![form](documentation/images/components/form.png "form" = 320x)
 
 - Icon Picker (modified select, has multi select option in filters)
-![icon picer](documentation/images/components/icon_picker.png "icon picker")
+![icon picer](documentation/images/components/icon_picker.png "icon picker" = 320x)
 
 - Mobile Menu 
-![mobile menu](documentation/images/components/mobile%20menu.png "mobile menu")
+![mobile menu](documentation/images/components/mobile%20menu.png "mobile menu" = 320x)
 
 - Modal
-![modal](documentation/images/components/modal.png "modal")
+![modal](documentation/images/components/modal.png "modal") = 320x
 
 - Multi-Select
-![multi select](documentation/images/components/multi-select.png "multi select")
+![multi select](documentation/images/components/multi-select.png "multi select" = 320x)
 
 - Navigation - Desktop
-![navigation](documentation/images/components/navigation-desktop.png "desktop navigation")
+![navigation](documentation/images/components/navigation-desktop.png "desktop navigation" = 320x)
 
 - Speech Bubble
 ![speed bubble](documentation/images/components/speech_bubble.png "speech bubble")
@@ -1090,6 +1090,7 @@ The photos used in this site were obtained from:
 - [success](https://images.app.goo.gl/ieQJ64nMJXXt7EMP9) - Phineas and Ferb jumping for joy image used on successful follow place, join event screens
 - [opps](https://images.app.goo.gl/dtquPurPUkehqTGHA) - Doofensmirtz oooh image used for already joined, already followed, place already exists, event already exists screens
 - [fixit](https://images.app.goo.gl/EVtxLRwobhduoVe66) - Ferb with tools used for 404, 500 errors where the page request doesn't exist or weird routing issues
+ -[warning](https://images.app.goo.gl/BoN2HwGyT5MJkKqk7) - Candace looking scared, used for warning users about the impact of deletion
 
 ### Acknowledgements
 The wonderful results of the google search engine helped me tremendously in completing this project.
