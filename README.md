@@ -1114,7 +1114,7 @@ The photos used in this site were obtained from:
 ### Acknowledgements
 The wonderful results of the google search engine helped me tremendously in completing this project.
 - [uniwebsidad.com](https://uniwebsidad.com/libros/explore-flask/chapter-8) - Provides documentation on more advanced features of flask
-  - macros and include them from an external file 
+  - how to build macros and include them from an external file 
   - how to make custom filters
 - [Tero Auralinna](https://auralinna.blog/post/2017/how-to-make-a-css-speech-bubble-with-borders-and-drop-shadow) - The home page dialog bubbles were adopted from this post.
 - [CSS tricks](https://css-tricks.com) has an assortment of helpful ways to use CSS to accomplish tasks. 
