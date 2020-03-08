@@ -1091,11 +1091,6 @@ You should be able to access the application at your heroku via the url provided
 Ex) https://what2do2day.herokuapp.com/
 
 ## Credits
-- [Icons made by Freepik from www.flaticon.com](https://www.flaticon.com/packs/outdoor-activities-32)
-- [tables in markdown](https://www.tablesgenerator.com/markdown_tables#)
-- [star rating input](https://codepen.io/jexordexan/pen/yyYEJa) - Thanks Jordan-Simonds
-- [toggle switch](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch)
-- [star rating display](https://codepen.io/FredGenkin/pen/eaXYGV) - Thanks Fred Genkin
 
 ### Content
 - [Avanti Music](https://advantimusic.org) description and imagery
@@ -1121,20 +1116,25 @@ The wonderful results of the google search engine helped me tremendously in comp
 - [uniwebsidad.com](https://uniwebsidad.com/libros/explore-flask/chapter-8) - Provides documentation on more advanced features of flask
   - macros and include them from an external file 
   - how to make custom filters
-- [speech bubbles](https://auralinna.blog/post/2017/how-to-make-a-css-speech-bubble-with-borders-and-drop-shadow) The home page dialog bubbles were adopted from this post by Tero Auralinna.
+- [Tero Auralinna](https://auralinna.blog/post/2017/how-to-make-a-css-speech-bubble-with-borders-and-drop-shadow) - The home page dialog bubbles were adopted from this post.
 - [CSS tricks](https://css-tricks.com) has an assortment of helpful ways to use CSS to accomplish tasks. 
-  - [image centering](https://css-tricks.com/perfect-full-page-background-image/) how to center the home page background image across device sizes
-  -  [styling scrollbars](https://css-tricks.com/the-current-state-of-styling-scrollbars/) to conserve vertical space, I put the icon choices into a scrolling area but wanted to show the scrollbars in an intuitive manner rather than relying on inconsistent default browser styles
+  - [image centering](https://css-tricks.com/perfect-full-page-background-image/) - how to center the home page background image across device sizes
+  -  [styling scrollbars](https://css-tricks.com/the-current-state-of-styling-scrollbars/) - to conserve vertical space, I put the icon choices into a scrolling area but wanted to show the scrollbars in an intuitive manner rather than relying on inconsistent default browser styles
   - [star inputs](https://css-tricks.com/five-methods-for-five-star-ratings/) - ideas on how to display ratings
 - [Kyle Marek-Spartz](https://kyle.marek-spartz.org/posts/2014-04-04-setting-wtforms-selection-fields-dynamically.html) - Setting WTForms Selection Fields Dynamically
 - [mcelhennyi](https://gist.github.com/devxoul/7638142) - Required If validation used in address, event, and review form entries
 - [api_mongodb](https://api.mongodb.com/python/current/migrate-to-pymongo3.html) -  Help in overcoming and understanding write concern errors I encountered with MongoDB
 - [mongo reference](https://docs.mongodb.com/manual/reference/) - Learning how to manipulate dates, strings, perform lookups, sorting, and merges on data
-- [javascript dates](https://www.aspsnippets.com/Articles/JavaScript-Display-Current-Time-in-12-hour-format-AM-PM-and-24-hour-format-with-Hours-Minutes-and-Seconds-hhmmss.aspx) to clean up date formatting in the initial count me in layer
-- [Pretty Printed](https://www.youtube.com/watch?v=kWncnBBxoJ4&feature=youtu.be)This video shows how to integrate google maps to a python flask application.
-- [aezel](https://stackoverflow.com/users/64266/aezell) for [posting](https://stackoverflow.com/users/64266/aezell) a good way to separate flask filters from run.py
-- [Todd Birchard](https://hackersandslackers.com/flask-blueprints/) For a most useful example about blueprints to make a larger flask application's directory structure manageable
+- [javascript dates](https://www.aspsnippets.com/Articles/JavaScript-Display-Current-Time-in-12-hour-format-AM-PM-and-24-hour-format-with-Hours-Minutes-and-Seconds-hhmmss.aspx) - to clean up date formatting in the initial count me in layer
+- [Pretty Printed](https://www.youtube.com/watch?v=kWncnBBxoJ4&feature=youtu.be) - This video shows how to integrate google maps to a python flask application.
+- [aezel](https://stackoverflow.com/users/64266/aezell) for [posting](https://stackoverflow.com/users/64266/aezell) - a good way to separate flask filters from run.py
+- [Todd Birchard](https://hackersandslackers.com/flask-blueprints/) - For a most useful example about blueprints to make a larger flask application's directory structure manageable
 - [Dan Badar](https://dbader.org/blog/python-send-email)- how to send emails via python and a google account
 - [Hima Vincent](https://codemyui.com/wiggle-effect-cta-button-css/) - for Wiggle Effect For CTA Button In CSS post
-- **the G-men** A special thanks goes out to my family for allowing me to ignore them for the past two months as I dove deep into unknown waters. I know the new skills I'm gaining from this program are already helping me in my newest adventure. Fool on boys!
+- [TablesGenerator.com](https://www.tablesgenerator.com/markdown_tables#) - tables in markdown
+- [Jordan-Simonds](https://codepen.io/jexordexan/pen/yyYEJa) - star rating input 
+- [w3schools.com](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch) - toggle switch
+- [Fred Genkin](https://codepen.io/FredGenkin/pen/eaXYGV) - star rating display
+- [ecotrust-canada](http://ecotrust-canada.github.io/markdown-toc) - table of contents generator
+- **the G-men** - A special thanks goes out to my family for allowing me to ignore them for the past two months as I dove deep into unknown waters. I know the new skills I'm gaining from this program are already helping me in my newest adventure. Fool on boys!
 <img src="documentation/images/IMG_20190717_213729_096.jpg" width="300" height="auto" alt="picture of Malia's boys"/>
