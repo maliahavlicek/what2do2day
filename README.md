@@ -564,49 +564,64 @@ The formal wire-frame process identified the need for the following User Interfa
  I did end up modifying a few things from Bulma as there are errors with their calendar date picker and the default multi select was very ugly in appearance. I felt that customizing activity icon selections to display images greatly increased the user's willingness to interact with the app and was worth the struggle of learning flask macros. 
 
 - Accordion Arrow
-![accordion arrow](documentation/images/components/accordion-arrow.png "accordion arrow" = 320x)
+
+<img src="documentation/images/components/accordion-arrow.png" alt="accordion arrow" width="320" />
 
 - Accordion Drawer
-![accordion drawer](documentation/images/components/accordion-drawer.png "accordion drawer" = 320x)
+
+<img src="documentation/images/components/accordion-drawer.png alt="accordion drawer" width="320" />
 
 - Datetime Picker
-![datetime picker](documentation/images/components/datetime_picker.png "datetime picker" = 320x)
+
+<img src="documentation/images/components/datetime_picker.png alt="datetime picker" width="400" />
 
 - Dropdown
-![dropdown](documentation/images/components/dropdown.png "dropdown" = 320x)
+
+<img src="documentation/images/components/dropdown.png alt="dropdown" width="320" />
 
 - Footer
-![footer](documentation/images/components/footer.png "footer" = 320x)
+
+<img src="documentation/images/components/footer.png alt="footer" width="640" />
 
 - From
-![form](documentation/images/components/form.png "form" = 320x)
+
+<img src="documentation/images/components/form.png alt="form" width="640" />
 
 - Icon Picker (modified select, has multi select option in filters)
-![icon picer](documentation/images/components/icon_picker.png "icon picker" = 320x)
+
+<img src="documentation/images/components/icon_picker.png alt="icon picker" width="640" />
 
 - Mobile Menu 
-![mobile menu](documentation/images/components/mobile%20menu.png "mobile menu" = 320x)
+
+<img src="documentation/images/components/mobile%20menu.png alt="mobile menu" width="320" />
 
 - Modal
-![modal](documentation/images/components/modal.png "modal") = 320x
+
+<img src="documentation/images/components/modal.png alt="modal" width="640" />
 
 - Multi-Select
-![multi select](documentation/images/components/multi-select.png "multi select" = 320x)
+
+<img src="documentation/images/components/multi-select.png alt="multi select" width="640" />
 
 - Navigation - Desktop
-![navigation](documentation/images/components/navigation-desktop.png "desktop navigation" = 320x)
+
+<img src="documentation/images/components/navigation-desktop.png alt="desktop navigation" width="640" />
 
 - Speech Bubble
-![speed bubble](documentation/images/components/speech_bubble.png "speech bubble")
+
+<img src="documentation/images/components/speech_bubble.png alt="speech bubble" width="320" />
 
 - Star Input
-![star input](documentation/images/components/star_rating_input.png "rating input")
+
+<img src="documentation/images/components/star_rating_input.png alt="rating input" width="320" />
 
 - Switch 
-![switch](documentation/images/components/switch.png "switch")
+
+<img src="documentation/images/components/switch.png alt="switch" width="320" />
 
 - Tooltip
-![tooltip](documentation/images/components/tooltip.png "tooltip")
+
+<img src="documentation/images/components/tooltip.png alt="tooltip" width="320" />
 
 #### Animations & Transitions
 I trolled [codrops](https://tympanus.net/codrops/) to look for some inspiration.  The following sites provided ideas that greatly altered my original wire-frames:
@@ -1076,6 +1091,7 @@ Ex) https://what2do2day.herokuapp.com/
 
 ### Content
 - [Avanti Music](https://advantimusic.org) description and imagery
+- [Highlands Ranch Community Association](https://hrcaonline.org) archery, fishing pond, hiking imagery
 
 ### Media
 The photos used in this site were obtained from:
