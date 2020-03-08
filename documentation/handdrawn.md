@@ -9,16 +9,16 @@ Malia Havlicek
 > - [Edit Review](#edit-review)
 > - [Back to README](https://github.com/maliahavlicek/what2do2day#wireframes)
 
-#Home Page
+# Home Page
 ![home page](images/initial_mcokups/homepage.png)
 
-#Add Place
+# Add Place
 ![add_place](images/initial_mcokups/add_place.png)
 
-#Edit Place
+# Edit Place
 ![edit place](images/initial_mcokups/edit_place.png)
 
-#Edit Review
+# Edit Review
 ![edit_review](images/initial_mcokups/edit_review.png)
 
 
