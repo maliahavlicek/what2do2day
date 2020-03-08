@@ -563,6 +563,51 @@ The formal wire-frame process identified the need for the following User Interfa
  
  I did end up modifying a few things from Bulma as there are errors with their calendar date picker and the default multi select was very ugly in appearance. I felt that customizing activity icon selections to display images greatly increased the user's willingness to interact with the app and was worth the struggle of learning flask macros. 
 
+- Accordion Arrow
+![accordion arrow](documentation/images/components/accordion-arrow.png "accordion arrow")
+
+- Accordion Drawer
+![accordion drawer](documentation/images/components/accordion-drawer.png "accordion drawer")
+
+- Datetime Picker
+![datetime picker](documentation/images/components/datetime_picker.png "datetime picker")
+
+- Dropdown
+![dropdown](documentation/images/components/dropdown.png "dropdown")
+
+- Footer
+![footer](documentation/images/components/footer.png "footer")
+
+- From
+![form](documentation/images/components/form.png "form")
+
+- Icon Picker (modified select, has multi select option in filters)
+![icon picer](documentation/images/components/icon_picker.png "icon picker")
+
+- Mobile Menu 
+![mobile menu](documentation/images/components/mobile%20menu.png "mobile menu")
+
+- Modal
+![modal](documentation/images/components/modal.png "modal")
+
+- Multi-Select
+![multi select](documentation/images/components/multi-select.png "multi select")
+
+- Navigation - Desktop
+![navigation](documentation/images/components/navigation-desktop.png "desktop navigation")
+
+- Speech Bubble
+![speed bubble](documentation/images/components/speech_bubble.png "speech bubble")
+
+- Star Input
+![star input](documentation/images/components/star_rating_input.png "rating input")
+
+- Switch 
+![switch](documentation/images/components/switch.png "switch")
+
+- Tooltip
+![tooltip](documentation/images/components/tooltip.png "tooltip")
+
 #### Animations & Transitions
 I trolled [codrops](https://tympanus.net/codrops/) to look for some inspiration.  The following sites provided ideas that greatly altered my original wire-frames:
  - [expanding search option](https://tympanus.net/Tutorials/ExpandingSearchBar/) 
@@ -904,6 +949,9 @@ I tracked the results on the Accessibility Tab of my [testing doc](https://docs.
 
 ### Regression Testing
 No one wants to keep running a large suite of unit tests and cross browser tests again and again. Due to my ineptitude at writing interactive tests with a database, (I tried but learning how to mock data was not something I had planned on doing), I reduced the unit testing and cross site browsing testing to a smaller suite once the core development was 70% done. These tests are on the Regression Tests Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing). While I really want to mock some database interaction, I do not have the bandwidth to take on that additional learning at this time. 
+
+[![regression tests](documentation/images/software_cycle/regression_tests.png "regression tests")](https://docs.google.com/spreadsheets/d/1p1aoEQsVZUAZN50AQLZbaerS9UVVQkHG--XoiNccaC0/edit?usp=sharing)
+
 
 ### Automated Testing
 I did install unittest and put tests around the custom filters I wrote as I do not want them breaking. Doing such pointed out several type flaws in my logic that I shored up specifically around data type and none type errors.
