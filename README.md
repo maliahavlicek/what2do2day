@@ -16,7 +16,8 @@ Possibilities to monetize this site abound. Site owners can easily add affiliate
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series [Phineas and Ferb](https://en.wikipedia.org/wiki/Phineas_and_Ferb).
 
 ### How to use
-Here is a short [introductory video](https://www.loom.com/share/1cd0b27f9dcf4deca9272f8bb0cd2f41) of how to use What2do2day 
+Here is a short ![introductory video](https://www.loom.com/share/1cd0b27f9dcf4deca9272f8bb0cd2f41) of how to use What2do2day on desktop.
+Here is another ![video](https://www.loom.com/share/45a1703fdf324e258f679c0ec043483e) for mobile devices and the creation/deletion process.
 
 ## Table of Contents
 <details>
@@ -227,8 +228,11 @@ As a course requirement, this project was based on a NoSQL database structure. W
 
 The Database URI is read from environmental variables within the [flask.cfg](instance/flask.cfg) file:
 > MONGO_URI = environ.get('MONGO_URI_WHAT2DO2DAY')
+>
 > MONGO_SERVER_SELECTION_TIMEOUT_MS = '2000'
+>
 > MONGO_SOCKET_TIMEOUT_MS = '2000'
+>
 > MONGO_CONNECT_TIMEOUT_MS = '2000'
 
 ### Data Models
@@ -451,7 +455,7 @@ Create, and Read functionality for the Users table is housed in the [what2do2day
 I created flow diagrams as an attempt to show how interwoven the databases are for the what2do2day application:
 (Click the image to open the pdf that contains all the diagrams)
 
-[![Data base Flow Diagrams](documentation/images/data_model/What2do2day DB CRUD Functions-delete_place.png "Data base Flow Diagrams")](documentation/What2do2day DB CRUD Functions.pdf)
+![[Data base Flow Diagrams](documentation/images/data_model/What2do2day DB CRUD Functions-delete_place.png "Data base Flow Diagrams")](documentation/What2do2day DB CRUD Functions.pdf)
 
 ## Design Choices
 The intent is to provide a clean, intuitive design to users with engaging imagery and animation to spice up the views and keep users engaged. 
