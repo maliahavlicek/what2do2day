@@ -24,6 +24,7 @@ def get_add_activity_id(name, icon):
 
 
 def unique_activities(update="false"):
+    """get list of activities from the database when update is false, only get those for for future and shared events"""
     activities = []
     ids = {}
     if update == "false":

@@ -20,6 +20,7 @@ events_bp = Blueprint('events_bp', __name__, template_folder='templates', static
 ################
 @events_bp.route('/add_event', methods=['GET'])
 def add_event():
+    """adding an event"""
     try:
         list_places = retrieve_places_from_db(True, filter_form=False, place_id=False)
     except Exception as e:
@@ -33,12 +34,14 @@ def add_event():
 @events_bp.route('/edit_events/<string:filter_string>/', defaults={'update_status': None}, methods=['GET', 'POST'])
 @events_bp.route('/edit_events/<string:filter_string>/<string:update_status>', methods=['GET', 'POST'])
 def edit_events(filter_string, update_status):
+    """editing an event"""
     if filter_string is None:
         filter_string = 'None'
 
     filter_form = FilterEventsFrom()
 
     the_events = retrieve_events_from_db(True, filter_form)
+    # set activities in filter form
     activity_choices = unique_activities(the_events)
     filter_form.activity.choices = activity_choices
     load_page("event_edit_list")
@@ -50,10 +53,12 @@ def edit_events(filter_string, update_status):
 @events_bp.route('/filter_events', defaults={'update': 'false'}, methods=['POST'])
 @events_bp.route('/filter_events/<string:update>/', methods=['POST'])
 def filter_events(update):
+    """filter events"""
     show_modal = False
     event = False
     form = CountMeInForm()
     filter_form = FilterEventsFrom()
+    # check if form was valid (there was a bytes type error when using validate_on_submit when age entered
     if request.method == 'POST' and filter_form.is_submitted() and len(filter_form.errors) == 0:
         # pull out any filtering
         filtering = ""
@@ -74,11 +79,13 @@ def filter_events(update):
     else:
         filter_string = "None"
 
+    # is filter for updating or list
     try:
         if update == 'false':
             list_events = list(retrieve_events_from_db(False, filter_form))
         else:
             list_events = list(retrieve_events_from_db(True, filter_form))
+        # narrow filtering choices down to current list displayed
         activity_choices = unique_activities(list_events)
         filter_form.activity.choices = activity_choices
     except Exception as e:
@@ -100,6 +107,7 @@ def filter_events(update):
 @events_bp.route('/get_events/<string:event_id>/', defaults={'filter_string': None}, methods=['GET', 'POST'])
 @events_bp.route('/get_events/<string:event_id>/<string:filter_string>', methods=['GET', 'POST'])
 def get_events(event_id, filter_string):
+    """get events"""
     show_modal = False
     event = False
     form = CountMeInForm()
@@ -113,6 +121,7 @@ def get_events(event_id, filter_string):
         return add_attendee(form, ObjectId(event_id), filter_form, filter_string)
 
     else:
+        # need to show the events list
         try:
             list_events = retrieve_events_from_db(False, False)
         except Exception as e:
@@ -121,13 +130,14 @@ def get_events(event_id, filter_string):
 
         activity_choices = unique_activities(list_events)
         filter_form.activity.choices = activity_choices
-
+        # form is count me in layer
         if form.email.errors:
             show_modal = True
         if event_id is not None and bson.objectid.ObjectId.is_valid(event_id):
             the_event = mongo.db.events.find_one({'_id': ObjectId(event_id)})
             if the_event is not None:
                 show_modal = True
+                # put event into format the event_layer macro is expecting
                 event = mini_event(the_event)
         page = "event_list"
         if show_modal:
@@ -142,7 +152,9 @@ def get_events(event_id, filter_string):
 @events_bp.route('/new_event/<string:place_id>/', defaults={'status': False}, methods=['GET', 'POST'])
 @events_bp.route('/new_event/<string:place_id>/<string:status>/', methods=['GET', 'POST'])
 def new_event(place_id, status):
+    """add event"""
     form = EventForm()
+    # set choices for form select elements
     form.address.country.choices = country_choice_list()
     icons = get_list_of_icons()
     the_place = mongo.db.places.find_one(ObjectId(place_id))
@@ -160,22 +172,26 @@ def new_event(place_id, status):
 
 @events_bp.route('/update_event/<string:event_id>/', methods=['GET', 'POST'])
 def update_event(event_id):
+    """update event"""
     form = EventForm()
+    # set choices for form select elements
     form.address.country.choices = country_choice_list()
     icons = get_list_of_icons()
 
     try:
+        # get list of ALL events
         list_events = list(retrieve_events_from_db(True, False, event_id))
     except Exception as e:
         load_page("error", "page", e)
         return render_template('error.html', reason=e, page="error")
 
     if form.validate_on_submit():
+        # all is good with the form
         return push_event_to_db(form, list_events[0])
 
     elif list_events is not None and len(form.errors) == 0:
+        # pre populate form
         event = list_events[0]
-        """populate event form"""
         form.has_event.data = True
         form.event_name.data = event['event_name'].title()
         form.event_start_datetime.data = event['date_time_range']
@@ -188,6 +204,7 @@ def update_event(event_id):
         form.max_attendees.data = event['max_attendees']
         form.share.data = event['share']
 
+        # pre populate address
         if 'event_address' in event.keys() and event['event_address'] != "" and len(event['event_address']) > 0:
             form.address.address_line_1.data = event['address-address_line_1'].title()
             if 'address-address_line_2'  in  event.keys():

@@ -19,10 +19,11 @@ from what2do2day import mongo, app
 #### helper functions ####
 ##########################
 def db_add_place(place):
+    """Create Place Database Record"""
     db = mongo.db.places.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
     )
-
+    # update if id is present instead of creating duplicate records
     if '_id' in place.keys():
         the_place = db.update_one({"_id": place['_id']}, {"$set": place})
         return place["_id"]
@@ -32,6 +33,7 @@ def db_add_place(place):
 
 
 def delete_authorized(place, email):
+    """verify user is the owner of a place before allowing delete"""
     the_user = mongo.db.users.find_one({'email': email})
     if the_user is None:
         return {'status': 'FAILURE', 'reason': "user_not_found"}
@@ -57,7 +59,7 @@ def place_unique(place):
 
 
 def push_place_to_db(form, update=False, place_id=False):
-    # unique entries for a place are the name and address, so build that first
+    """unique entries for a place are the name and address, so build those first"""
 
     place = {'name': filters.remove_html_tags(form.name.data).strip().lower()}
     has_address = form.address.data['has_address']
@@ -79,7 +81,6 @@ def push_place_to_db(form, update=False, place_id=False):
         place['address'] = ''
 
     # see if address and name is in db or not
-
     is_unique = place_unique(place)
     if is_unique is not None and not update:
         return redirect(url_for('places_bp.get_places', status="Place already exists."))
@@ -126,7 +127,6 @@ def push_place_to_db(form, update=False, place_id=False):
 
     has_event = form.event.data['has_event']
     if has_event:
-
         # create event object to the point of unique data [place_id, name, date_time_range]
         event = {'place': place_id, 'name': filters.remove_html_tags(form.event.data['event_name']).strip().lower(),
                  'date_time_range': form.event.data['event_start_datetime']
@@ -185,6 +185,7 @@ def push_place_to_db(form, update=False, place_id=False):
 
 
 def remove_from_db(place_id):
+    """DELETION from PLACES """
     db_places = mongo.db.places.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
     )
@@ -248,8 +249,9 @@ def remove_from_db(place_id):
 
 
 def retrieve_places_from_db(update, filter_form=False, place_id=False):
-    # join the activities and address to the places database and flatten it down so we don't have to dig for values
+    """get list of places from db"""
 
+    # join the activities and address to the places database and flatten it down so we don't have to dig for values
     query = []
     activities = []
     ratings = []

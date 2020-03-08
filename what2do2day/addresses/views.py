@@ -14,6 +14,7 @@ addresses_bp = Blueprint('addresses_bp', __name__, template_folder='templates', 
 #### helper functions ####
 ##########################
 def country_choice_list():
+    """get list of counties for address dropdown"""
     country_choices = [('none', 'Pick a Country.')]
     for item in list(mongo.db.countries.find({}, {'country': 1}).sort('country', pymongo.ASCENDING)):
         country_choices.append((

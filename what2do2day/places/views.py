@@ -19,6 +19,7 @@ places_bp = Blueprint('places_bp', __name__, template_folder='templates', static
 ################
 @places_bp.route('/add_place', methods=['GET', 'POST'])
 def add_place():
+    """ADD a place user input"""
     form = PlaceForm()
     form.address.country.choices = country_choice_list()
     form.event.address.country.choices = country_choice_list()
@@ -46,6 +47,7 @@ def add_place():
             print('form.review: ' + str(form.review.errors))
             print('form.event: ' + str(form.event.errors))
 
+        # populate icon choices in form
         icons = filters.get_list_of_icons()
         load_page("place_add")
         return render_template('place/add_place.html', form=form, icons=icons, page="place_add")
@@ -54,10 +56,12 @@ def add_place():
 @places_bp.route('/delete_place/', defaults={'status': False}, methods=['GET'])
 @places_bp.route('/delete_place/<string:status>', methods=['GET'])
 def delete_place(status):
+    """ Delete place picker page"""
     try:
         list_places = retrieve_places_from_db(True, filter_form=False, place_id=False)
     except Exception as e:
         list_places = []
+
     if status:
         if status == "OK":
             load_page("place_delete_success", "modal")
@@ -72,6 +76,7 @@ def delete_place(status):
 @places_bp.route('/edit_place/', defaults={'status': False}, methods=['GET'])
 @places_bp.route('/edit_place/<string:status>', methods=['GET'])
 def edit_place(status):
+    """edit place picker page"""
     try:
         list_places = retrieve_places_from_db(True, filter_form=False, place_id=False)
     except Exception as e:
@@ -90,6 +95,7 @@ def edit_place(status):
 @places_bp.route('/get_places/', defaults={'status': False})
 @places_bp.route('/get_places/<string:status>/')
 def get_places(status):
+    """list places page"""
     try:
         list_places = retrieve_places_from_db(False, filter_form=False, place_id=False)
     except Exception as e:
@@ -107,24 +113,28 @@ def get_places(status):
 
 @places_bp.route('/place_remove/<string:place_id>', methods=['GET'])
 def place_remove(place_id):
+    """DELETE PLACE"""
     result = remove_from_db(place_id)
     load_page(result['page'], 'place_remove', result['reason'])
-    return render_template(result['template'],reason=result['reason'], page=result['page'])
+    return render_template(result['template'], reason=result['reason'], page=result['page'])
 
 
 @places_bp.route('/place_hide/<string:place_id>', methods=['GET'])
 def place_hide(place_id):
+    """HIDE PLACE"""
+
     # make sure we have a valid ObjectId coming in
     if str(ObjectId(place_id)) != place_id:
         load_page("error", "place_hide", "Failure: invalid place id")
         return render_template('error.html', reason='Encountered an invalid place id when trying to hide a place.',
                                page="error")
-
+    # find place to hide
     db = mongo.db.places.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
     )
     hidden_place = db.find_one({'_id': ObjectId(place_id)})
 
+    # set share to false to hide place
     hide_place = db.update_one({'_id': ObjectId(place_id)}, {'$set': {"share_place": False}})
 
     # format of update_one is: { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
@@ -139,15 +149,9 @@ def place_hide(place_id):
                                page="error")
 
 
-@places_bp.route('/remove_place/<string:place_id>/', methods=['GET'])
-def remove_place(place_id):
-    load_page("place_remove")
-    return render_template('place/remove_place.html', places=place_id, google_key=google_key,
-                           page="remove_place")
-
-
-@places_bp.route('/remove_place_auth/<string:place_id>/', defaults={'user_id': None},methods=['GET', 'POST'])
-def remove_place_auth(place_id, user_id,):
+@places_bp.route('/remove_place_auth/<string:place_id>/', defaults={'user_id': None}, methods=['GET', 'POST'])
+def remove_place_auth(place_id, user_id, ):
+    """authorize for deletion page"""
     form = CountMeInForm()
     places = retrieve_places_from_db(True, False, place_id)
 
@@ -158,7 +162,7 @@ def remove_place_auth(place_id, user_id,):
         if authorized['status'] == "OK":
             load_page("place_remove_auth_success")
             return render_template('place/remove_place_auth.html', form=form, places=places, google_key=google_key,
-                                   page="remove_place_auth", status=authorized, place_id=place_id,)
+                                   page="remove_place_auth", status=authorized, place_id=place_id, )
         else:
             load_page("place_remove_auth_fail")
             return render_template('place/remove_place_auth.html', form=form, places=places, google_key=google_key,
@@ -171,7 +175,9 @@ def remove_place_auth(place_id, user_id,):
 
 @places_bp.route('/update_place/<string:place_id>/', methods=['GET', 'POST'])
 def update_place(place_id):
+    """update place user input"""
     form = PlaceForm()
+    # populate country choices
     form.address.country.choices = country_choice_list()
     icons = filters.get_list_of_icons()
     places = []

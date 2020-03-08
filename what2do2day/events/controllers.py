@@ -29,6 +29,7 @@ def get_add_activity_id(name, icon):
 
 
 def unique_activities(events):
+    """get list of unique activities in a list of events"""
     activities = []
     ids = {}
 
@@ -113,6 +114,7 @@ def add_attendee(form, event_id, filter_form, filter_string):
 
 
 def db_add_event(event):
+    """Create a record in the EVENTS table"""
     db = mongo.db.events.with_options(
         write_concern=WriteConcern(w=1, j=False, wtimeout=5000)
     )
@@ -231,10 +233,11 @@ def events_with_attendee_emails_from_db(event_id=False):
                         }}
                     }}, "$$ROOT"]
             }}})
-
+    # get the records from the various collections as a list
     list_events = list(mongo.db.events.aggregate(query))
 
     for event in list_events:
+        # get the country in text
         if 'address-country' in event.keys():
             country_id = event['address-country']
             event['country_id'] = country_id
@@ -243,6 +246,7 @@ def events_with_attendee_emails_from_db(event_id=False):
                 event['address-country'] = country['country']
                 if 'event_address' in event.keys():
                     event['event_address'][0]['country'] = country['country']
+        # build list of users
         if 'attendees' in event.keys() and len(event['attendees']) > 0:
             event['user_list'] = list(mongo.db.users.find({'_id': {"$in": event['attendees']}}))
         else:
@@ -261,6 +265,7 @@ def event_unique(event):
 
 
 def mini_event(event):
+    # common structure for various event displays, a tad more friendly than aggregated output used for common macro
     min_event = {
         '_id': str(event['_id']),
         'activity_name': '',

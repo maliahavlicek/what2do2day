@@ -32,6 +32,7 @@ def google_get_goecords(address):
         search_req = requests.get(search_url, params=search_payload)
 
         search_json = search_req.json()
+        # space out timing of google hits to avoid free tier throttle, real app would pay for services and not need this
         time.sleep(.3)
         address['lat'] = search_json["results"][0]["geometry"]["location"]["lat"]
         address['lng'] = search_json["results"][0]["geometry"]["location"]["lng"]
@@ -44,6 +45,3 @@ def google_get_goecords(address):
 
     return address
 
-################
-#### routes ####
-################

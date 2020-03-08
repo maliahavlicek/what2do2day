@@ -11,18 +11,21 @@ from datetime import datetime
 
 
 def email_event(event, user_email_list, update=False, add_attendee=False):
+    """create email for users if joining an event or if an event has been updated"""
     message = MIMEMultipart("alternative")
     message["From"] = app.config['EMAIL']
     password = app.config['EMAIL_PASS']  # Your SMTP password for Gmail
     message["Subject"] = "What2do2day Event- " + event['event_name'].title()
     email_body = "<div style='color:#363636; font-size:18px;'>It's your friends with What2do2day. Here are the details about an event you wanted to attend:</div>"
     text = "Hello,\nIt's your friends with What2do2day. Here are the details about an event you wanted to attend:"
+    # different subject if updating an event vs joining
     if update:
         message["Subject"] = "Updated: " + message["Subject"]
         email_body = "<div style='color:#363636; font-size:18px;'>It's your friends with What2do2day. An event you wanted to attend has been updated:</div>"
         text = "Hello,\nIt's your friends with What2do2day. An event you wanted to attend has been updated:"
 
     email_body += '<div style="color:#363636; font-size:18px;">'
+    # different intro paragraph if updating
     if update:
         email_body += '<h1 style="font-size:22px; margin: 20px;">' + event[
             'event_name'].title() + '<span style="font-size:20px; margin-left:20px;">Sponsored By: ' + event[
@@ -37,6 +40,7 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
         text += "\n\tSponsored By: " + event['place_name']
     email_body += '<div class="columns"><div class="is-bold column">When:</div><div class="column">'
 
+    # timing details
     startDate = event['date_time_range'][0:10]
     startTime = event['date_time_range'][11:16]
     endDate = event['date_time_range'][19:29]
@@ -46,6 +50,7 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
         event['date_time_range']) + '</div></div><div style="clear:both"></div>'
     text += "\nWhen: " + event['date_time_range']
 
+    # json ld for google calendar schema
     event_json = {
         "@context": "http://schema.org",
         "@type": "EventReservation",
@@ -63,6 +68,7 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
         "modifiedTime": datetime.strftime(datetime.today(), '%m/%d/%Y')+'T-7'+
                         datetime.strftime(datetime.today(), "%H:%M")
     }
+    # build out display address
     streetAddress = ''
     if 'event_address' in event.keys() and event['event_address'] != '' and event[
         'event_address'] != []:
@@ -110,9 +116,10 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
             event_json['reservationFor']['location'] = {'address': address}
             email_body += '<div class="columns"><div class="is-bold column">Where:</div><div class="column">'
             email_body += displayAddress + '</div></div><div style="clear:both"></div>'
+    # details
     email_body += '<div class="columns"><div class="is-bold column">Details:</div><div class="column">'
     email_body += event['details'] + '</div></div><div style="clear:both"></div>'
-
+    # price
     email_body += '<div class="columns"><div class="is-bold column">Price:</div><div class="column">'
     if 'price_for_non_members' in event.keys() and event['price_for_non_members'] != "":
         email_body += event['price_for_non_members'] + '</div></div><div style="clear:both"></div>'
@@ -121,6 +128,7 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
         email_body += "Free </div></div><div style='clear:both'></div>"
         text += "\nPrice: Free"
     email_body += '<div class="columns"><div class="is-bold column">Ages:</div><div class="column">'
+    # age limit
     text += "\nAges: "
     if 'age_limit' in event.keys() and len(event['age_limit']) > 0:
         for index, age in enumerate(event['age_limit']):
@@ -135,10 +143,12 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
         email_body += "No Limit </div></div><div style='clear:both'></div>"
         text += "No Limit"
 
+    # replace classes with inline styles
     email_body = email_body.replace('class="columns"', 'style="line-height:1.8rem; margin:5px;"')
     email_body = email_body.replace('class="is-bold column"', 'style="float:left; font-weight:700; width: 90px;"')
     email_body = email_body.replace('class="column"', 'style="float:left; width: auto;"')
 
+    # loop through users and send each an email
     for user in user_email_list:
         user_email = user['email']
         event_json["underName"] = {
@@ -181,10 +191,12 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
 
 
 def email_event_cancel(event, user_email_list):
+    """Email when place is deleted aka CANCELLED EVENT"""
     message = MIMEMultipart("alternative")
     message["From"] = app.config['EMAIL']
     password = app.config['EMAIL_PASS']  # Your SMTP password for Gmail
     message["Subject"] = "CANCELED: What2do2day Event- " + event['event_name'].title()
+    # build out email body
     email_body = "<div style='color:#363636; font-size:18px;'>It's your friends with What2do2day. Sadly an event you wanted to attend has been canceled:</div>"
     text = "Hello,\nIt's your friends with What2do2day. Sadly an event you wanted to attend has been canceled:"
 
@@ -197,6 +209,7 @@ def email_event_cancel(event, user_email_list):
     text += "\n\tSponsored By: " + event['place-name'].title()
     email_body += '<div class="columns"><div class="is-bold column">When:</div><div class="column">'
 
+    # time
     startDate = event['date_time_range'][0:10]
     startTime = event['date_time_range'][11:16]
     endDate = event['date_time_range'][19:29]
@@ -206,6 +219,7 @@ def email_event_cancel(event, user_email_list):
         event['date_time_range']) + '</div></div><div style="clear:both"></div>'
     text += "\nWhen: " + event['date_time_range']
 
+    # calendar json ld
     event_json = {
         "@context": "http://schema.org",
         "@type": "EventReservation",
@@ -224,13 +238,16 @@ def email_event_cancel(event, user_email_list):
         "status": "cancelled"
     }
 
+    # details
     email_body += '<div class="columns"><div class="is-bold column">Details:</div><div class="column">'
     email_body += event['details'] + '</div></div><div style="clear:both"></div>'
 
+    # inline styles
     email_body = email_body.replace('class="columns"', 'style="line-height:1.8rem; margin:5px;"')
     email_body = email_body.replace('class="is-bold column"', 'style="float:left; font-weight:700; width: 90px;"')
     email_body = email_body.replace('class="column"', 'style="float:left; width: auto;"')
 
+    # email each user
     for user in user_email_list:
         user_email = user['email']
         event_json["underName"] = {

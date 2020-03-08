@@ -33,6 +33,7 @@ def db_add_review(review):
 ################
 @reviews_bp.route('/add_review/<string:place_id>/', methods=['GET', 'POST'])
 def add_review(place_id):
+    """add review page"""
     form = ReviewForm()
     form.use_place_email.data = "n"
     show_modal = False

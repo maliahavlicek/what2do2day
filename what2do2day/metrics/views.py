@@ -61,6 +61,7 @@ def load_click(link_name, method, pg_name):
 ################
 @metrics_bp.route('/mertrics/', methods=['GET', 'POST'])
 def metrics():
+    # metrics for page views
     pages = list(mongo.db.metrics_page.aggregate([
         {
             '$match': {
@@ -81,6 +82,7 @@ def metrics():
         },
         {'$sort': {'count': -1}}
     ]))
+    # metrics for button and link clicks
     clicks = list(mongo.db.metrics_clicks.aggregate([
         {
             '$match': {
@@ -101,9 +103,10 @@ def metrics():
         },
         {'$sort': {'count': -1}}
     ]))
+    # totals
     pgs = [x['count'] for x in pages]
     cls = [x['count'] for x in clicks]
-
+    # stats to help with progress bar presentation
     stats = {
         'page_max': max(pgs),
         'page_total': sum(pgs),
@@ -116,7 +119,9 @@ def metrics():
 
 @metrics_bp.route('/record_click/', methods=['POST'])
 def record_click():
+    """ ajax post of button/link click"""
     if request.method == "POST":
+        # pull query params and stuff into db
         query_string = request.get_data()
         query_string = "".join(chr(x) for x in query_string)
         params = parse_qs(query_string)
@@ -129,6 +134,7 @@ def record_click():
 @metrics_bp.route('/record_page/<string:name>/<string:pg_type>/', defaults={'message': None}, methods=['POST'])
 @metrics_bp.route('/record_page/<string:name>/<string:pg_type>/<string:message>/', methods=['POST'])
 def record_page(name, pg_type, message):
+    """record page view"""
     if name is not None and pg_type is not None:
         if message is None:
             load_page(name, pg_type)
