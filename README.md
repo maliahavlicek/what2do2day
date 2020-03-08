@@ -569,59 +569,59 @@ The formal wire-frame process identified the need for the following User Interfa
 
 - Accordion Drawer
 
-<img src="documentation/images/components/accordion-drawer.png alt="accordion drawer" width="320" />
+<img src="documentation/images/components/accordion-drawer.png" alt="accordion drawer" width="320" />
 
 - Datetime Picker
 
-<img src="documentation/images/components/datetime_picker.png alt="datetime picker" width="400" />
+<img src="documentation/images/components/datetime_picker.png" alt="datetime picker" width="400" />
 
 - Dropdown
 
-<img src="documentation/images/components/dropdown.png alt="dropdown" width="320" />
+<img src="documentation/images/components/dropdown.png" alt="dropdown" width="320" />
 
 - Footer
 
-<img src="documentation/images/components/footer.png alt="footer" width="640" />
+<img src="documentation/images/components/footer.png" alt="footer" width="640" />
 
 - From
 
-<img src="documentation/images/components/form.png alt="form" width="640" />
+<img src="documentation/images/components/form.png" alt="form" width="640" />
 
 - Icon Picker (modified select, has multi select option in filters)
 
-<img src="documentation/images/components/icon_picker.png alt="icon picker" width="640" />
+<img src="documentation/images/components/icon_picker.png" alt="icon picker" width="640" />
 
 - Mobile Menu 
 
-<img src="documentation/images/components/mobile%20menu.png alt="mobile menu" width="320" />
+<img src="documentation/images/components/mobile%20menu.png" alt="mobile menu" width="320" />
 
 - Modal
 
-<img src="documentation/images/components/modal.png alt="modal" width="640" />
+<img src="documentation/images/components/modal.png" alt="modal" width="640" />
 
 - Multi-Select
 
-<img src="documentation/images/components/multi-select.png alt="multi select" width="640" />
+<img src="documentation/images/components/multi-select.png" alt="multi select" width="640" />
 
 - Navigation - Desktop
 
-<img src="documentation/images/components/navigation-desktop.png alt="desktop navigation" width="640" />
+<img src="documentation/images/components/navigation-desktop.png" alt="desktop navigation" width="640" />
 
 - Speech Bubble
 
-<img src="documentation/images/components/speech_bubble.png alt="speech bubble" width="320" />
+<img src="documentation/images/components/speech_bubble.png" alt="speech bubble" width="320" />
 
 - Star Input
 
-<img src="documentation/images/components/star_rating_input.png alt="rating input" width="320" />
+<img src="documentation/images/components/star_rating_input.png" alt="rating input" width="320" />
 
 - Switch 
 
-<img src="documentation/images/components/switch.png alt="switch" width="320" />
+<img src="documentation/images/components/switch.png" alt="switch" width="320" />
 
 - Tooltip
 
-<img src="documentation/images/components/tooltip.png alt="tooltip" width="320" />
+<img src="documentation/images/components/tooltip.png" alt="tooltip" width="320" />
 
 #### Animations & Transitions
 I trolled [codrops](https://tympanus.net/codrops/) to look for some inspiration.  The following sites provided ideas that greatly altered my original wire-frames:
