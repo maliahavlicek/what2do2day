@@ -108,14 +108,16 @@ Here is another [video](https://www.loom.com/share/45a1703fdf324e258f679c0ec0434
     + [Outstanding Defects](#outstanding-defects)
 - [Deployment](#deployment)
   * [GitHub](#github)
-    + [Requires](#requires)
-    + [Running Locally](#running-locally)
-  * [Heroku](#heroku)
-    + [Deployment To Shared Environment](#deployment-to-shared-environment)
+  * [Requires](#requires)
+  * [Development (Running Locally)](#development-running-locally)
+  * [Live (Heroku)](#live-heroku)
 - [Credits](#credits)
   * [Content](#content)
   * [Media](#media)
   * [Acknowledgements](#acknowledgements)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
     
 </details>
 
