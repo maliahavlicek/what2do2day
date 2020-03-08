@@ -1012,9 +1012,10 @@ Some of the following issues are fringe cases whose resolution is better suited 
 This site was developed using PyCharm's IDE. To keep records of different versions of all project files, git version control was used. This project is hosted using Heroku deployed from the master branch.
 
 ### GitHub
+All versions and branches of the code are stored in github:
 https://github.com/maliahavlicek/what2do2day
 
-#### Requires
+### Requires
  - [Jinja](https://github.com/pallets/jinja) 
  ```$ pip install -U Jinja2```
  - [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) 
@@ -1029,7 +1030,9 @@ https://github.com/maliahavlicek/what2do2day
  ```$ pip install flask-googlemaps```
  - a [gmail accoount](https://accounts.google.com/signup) with less secure app access turned on use [this link](https://myaccount.google.com/lesssecureapps?pli=1) after you are signed into the gmail account
 
-#### Running Locally
+### Development (Running Locally)
+PyCharm was the IDE I developed my code in. I was able to deploy my code locally using the following steps:
+
 1. Get the code base from git hub by running this command in the terminal of your IDE: 
 ```$ git clone https://github.com/maliahavlicek/what2do2day.git```
 
@@ -1042,6 +1045,7 @@ https://github.com/maliahavlicek/what2do2day
                 ```$ python -c 'import os; print(os.urandom(24))'```
 > - EMAIL - a [gmail accoount](https://accounts.google.com/signup) once you have an account and are signed in you need to make sure it has less secure app access turned on use [this link](https://myaccount.google.com/lesssecureapps?pli=1)
 > - EMAIL_PASS - the password to the email account
+> - DEBUG -Boolean, Typically True for development and False for deployed version
 
 3. start your server by typing 
 ```$ python run.py```
@@ -1049,9 +1053,9 @@ https://github.com/maliahavlicek/what2do2day
 ```$ python helpers/upload_countries.py ```
 4. access your local version of the application at http://0.0.0.0:5000/home
 
-### Heroku
-Heroku can be used to run this site in a cloud environment to allow visibility to external users.
-#### Deployment To Shared Environment
+### Live (Heroku)
+Heroku was used to run this site in a cloud environment to allow visibility to external users.
+
 1. Get the code base from git hub by running this command in the terminal of your IDE: 
 ```bash
    $ git clone https://github.com/maliahavlicek/what2do2day.git
@@ -1061,14 +1065,15 @@ Heroku can be used to run this site in a cloud environment to allow visibility t
 1. Set the following variables
 > |        Variable       	|   Setting  	|
 >|:---------------------:	|:----------:	|
->| IP                    	| 0.0.0.0    	|
->| PORT                  	| 5000       	|
->| MONGO_URI_WHAT2DO2DAY 	| YOUR_KEY  	|
->| SECRET_KEY            	| YOUR_KEY  	|
->| WTF_CSRF_SECRET_KE    	| YOUR_KEY  	|
->| GOOGLE_MAP_KEY        	| YOUR_KEY   	|
+>| DEBUG                	| False     	|
 >| EMAIL                	| YOUR_KEY   	|
 >| EMAIL_PASS            	| YOUR_KEY   	|
+>| GOOGLE_MAP_KEY        	| YOUR_KEY   	|
+>| IP                    	| 0.0.0.0    	|
+>| MONGO_URI_WHAT2DO2DAY 	| YOUR_KEY  	|
+>| PORT                  	| 5000       	|
+>| SECRET_KEY            	| YOUR_KEY  	|
+>| WTF_CSRF_SECRET_KE    	| YOUR_KEY  	|
 
 5. Go back to your IDE's terminal window and connect to heroku ```bash heroku login``` and enter your credentials
 5. Clone the heroku repository (exact command can be found on the Deployment tab for the app you just created in heroku) ```bash heroku git:clone -a 'your_app_name'```

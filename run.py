@@ -10,6 +10,11 @@ if __name__ == '__main__':
         raise ValueError('SECRET_KEY environment variable is missing.')
     elif not os.getenv("WTF_CSRF_SECRET_KEY"):
         raise ValueError('WTF_CSRF_SECRET_KEY environment variable is missing.')
+    elif not os.getenv("EMAIL"):
+        raise ValueError('EMAIL environment variable is missing.')
+    elif not os.getenv("EMAIL_PASS"):
+        raise ValueError('EMAIL_PASS environment variable is missing.')
     else:
         app.run(host=os.getenv("IP", "0.0.0.0"),
-                port=int(os.getenv("PORT", "5000")))
+                port=int(os.getenv("PORT", "5000")),
+                debug=os.getenv("DEBUG", False))
