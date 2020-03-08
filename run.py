@@ -12,5 +12,4 @@ if __name__ == '__main__':
         raise ValueError('WTF_CSRF_SECRET_KEY environment variable is missing.')
     else:
         app.run(host=os.getenv("IP", "0.0.0.0"),
-                port=int(os.getenv("PORT", "5000")),
-                debug=True)
+                port=int(os.getenv("PORT", "5000")))

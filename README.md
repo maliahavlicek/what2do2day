@@ -1115,8 +1115,9 @@ The wonderful results of the google search engine helped me tremendously in comp
   - how to make custom filters
 - [speech bubbles](https://auralinna.blog/post/2017/how-to-make-a-css-speech-bubble-with-borders-and-drop-shadow) The home page dialog bubbles were adopted from this post by Tero Auralinna.
 - [CSS tricks](https://css-tricks.com) has an assortment of helpful ways to use CSS to accomplish tasks. 
-  - [image centering]((https://css-tricks.com/perfect-full-page-background-image/)) how to center the home page background image across device sizes
+  - [image centering](https://css-tricks.com/perfect-full-page-background-image/) how to center the home page background image across device sizes
   -  [styling scrollbars](https://css-tricks.com/the-current-state-of-styling-scrollbars/) to conserve vertical space, I put the icon choices into a scrolling area but wanted to show the scrollbars in an intuitive manner rather than relying on inconsistent default browser styles
+  - [star inputs](https://css-tricks.com/five-methods-for-five-star-ratings/) - ideas on how to display ratings
 - [Kyle Marek-Spartz](https://kyle.marek-spartz.org/posts/2014-04-04-setting-wtforms-selection-fields-dynamically.html) - Setting WTForms Selection Fields Dynamically
 - [mcelhennyi](https://gist.github.com/devxoul/7638142) - Required If validation used in address, event, and review form entries
 - [api_mongodb](https://api.mongodb.com/python/current/migrate-to-pymongo3.html) -  Help in overcoming and understanding write concern errors I encountered with MongoDB
