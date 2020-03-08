@@ -464,7 +464,7 @@ The intent is to provide a clean, intuitive design to users with engaging imager
 
 ### Wireframes
 Having a rough data structure in hand, I knew what data fields I could present users managing the PLACES, EVENTS and REVIEW objects. I'm not a great artist but I find it easier start hand drawn markups before diving into a wire-framing tool. I drafted out the home screen as well as the places list to kick start decisions concerning what data had a higher priority.
-[view hand-drawn mockups](documentation/hand-drawn.md)
+[view hand-drawn mockups](documentation/handdrawn.md)
 
 Once I had the Places list drawn out, I invested several hours to mock-up and fine-tune the user experience using Balsamiq.
 [view Balsamiq deck](documentation/balsamiq.md)
@@ -576,8 +576,7 @@ I was also told by a test subject (son number 4) that the lists were boring. So 
 
 For the Review Input, the stars have a wiggle animation on desktop as the user hovers over them and a shine to the selection if you rate something a 5 star. A one star is dull to reflect the glum outlook the reviewer has.
 
-During peer reviews I was told that it was difficult to tell that I had buttons on my home page, they blended in too much and the hover color wasn't different enough. I decided to add animation to make the buttons wiggle ever so slightly every 5 seconds, initially 2.5s off from each other. I also used the rotate and scale technique used on the star buttons to provide a much more obvious interaction clue when the buttons are clicked and made the hover shade much deeper in tone. 
-
+During peer reviews I was informed that it was difficult to tell that I had buttons on my home page, they blended in too much and the hover color wasn't different enough. I decided to add animation to make the buttons wiggle ever so slightly every 5 seconds, initially 2.5s off from each other. I also used the rotate and scale technique used on the star buttons to provide a much more obvious interaction clue when the buttons are clicked and made the hover shade much deeper in tone. 
 
 ## User Stories:
 This website serves 3 sets of users, thus the stories are broken down into 3 categories:
@@ -655,21 +654,21 @@ To streamline the development process without the complexity of user roles and p
 1. check for max attendees not exceeded before joining an event
 1. adjust the activities listed in the filters based on current items shown on the event list or update events page (meaning if you filter,  your list will get shorter)
 #### API Integration
-1. SMTP Email -when a user joins an event, send agenda in email, when event is updated, email joiner list. Note the email includes json-ld for future google calendar integration
+1. SMTP Email -when a user joins an event, send agenda in email, when event is updated, email joiner list. When a place is deleted that has events with attendees, email a cancellation out to attendees. Note the email includes json-ld for future google calendar integration.
 1. Google Maps - show map of event location, show map of place location
 #### Metrics
 1. track page and modal visits by date and type
 1. present page metrics by counts with a bar chart, data will be sorted from highest count to lowest count
 1. track user clicks by date and page. Record if a button or link was clicked
-1. present click metrics by counts with a simple bar chart. Datat will be sorted from highest count to lowest count.
+1. present click metrics by counts with a simple bar chart. Data will be sorted from highest count to lowest count.
  
 ### Features Left to Implement
 I overestimated my abilities when originally scoping this project. I didn't account for uncovering some core issues with Bulma's [datepicker functionality](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621), nor did I anticipate as much trouble understanding the routing and parameter passing in flask.  Understanding how to use WtForms and validation took a bit but was well worth the ability to have customized validation for my forms, especially with the date time range and conditional components of addresses, reviews and events when adding a place. I also spent too much time trying to figure out how to break out the controller, filtering, and utility functions from my run.py. Since this project required a greater learning curve than anticipated, some functionality had to be deferred in order to allow me to learn how to automate testing and to provide attention to cross browser/cross device validation.  
 #### Features Deferred from original plan
-1. Follow a place - I would not gain any skills taking this functionality on and I the UX being similar to the delivered Join Event feature I don't believe I'm loosing out on a learning opportunity by eliminating this functionality.
-1. Filter Places - I tackled more complex filtering logic in the filter events layer and saw this list not getting nearly as long as the events list could be.
-1. Pagination - By including a count of events or places found, the user has an idea of how many results they are seeing. Pagination isn't nearly as useful on smaller devices as the buttons are cumbersome for fingers and users are accustomed to scrolling down vs paging through results, thus pagination was differed
-1. Update Review - updating and sharing reviews are tightly tied to various user roles. Since user roles were originally out of scope, it made sense to differ this functionality, especially since updating and soft delete powers have been exemplified in update events and update places.
+1. Follow a place - I would not gain any skills taking this functionality on since the UX would be similar to the delivered Join Event feature. It's definitely a nice feature but not essential to prove the viability of the idea.
+1. Filter Places - I tackled more complex filtering logic in the filter events layer and saw this list not getting nearly as long as the events list could be. Nevertheless, I should look at using the iters library to create a glossary header much like the dates are in the events page list to have groups of 10 - 12 items together and a a-z search by name.
+1. Pagination - By including a count of events or places found, the user has an idea of how many results they are seeing. Pagination isn't nearly as useful on smaller devices as the buttons are cumbersome for fingers and users are accustomed to scrolling down vs paging through results, thus pagination was differed.
+1. Update Review - updating and sharing reviews are tightly tied to various user roles. Since user roles were originally out of scope, it made sense to differ this functionality, especially since updating operataions have been exemplified with more complex objects such as events and places.
 
 #### User Roles & Permissions
 In the long term once this concept proves viable, authentication would be enabled and five sets of roles would accessing the site: 
@@ -736,13 +735,13 @@ In the long term once this concept proves viable, authentication would be enable
 1. When switching pages, toss up a modal and processing screen so users know their input was received and is being processed MONGODB is SOOO SLOW especially if hosted in Oregon and consumed in Europe.
 
 ### Project Tracking
-The scope of this project was larger than a typical milestone effort and I quickly felt overwhelmed when learning new skills such as Bulma, mongodb aggregated queries, Flask Filters, Flask Macros, Flask WTF Forms, Validators, Flask blueprints and routes. 
-To ensure I kept on task and could feel a sense of accomplishment while taking the countless baby steps towards completion, I devised a [project tacking sheet](https://docs.google.com/spreadsheets/d/1Lnvt9zLgJj0oQFdpOIAs1V2JAN2lVGcBalIBHwXzqjY/edit?usp=sharing):
+The scope of this project was much larger than any project I've taken on by myself.  I quickly felt overwhelmed when learning new skills such as Bulma, mongodb aggregated queries, Flask Filters, Flask Macros, Flask WTF Forms, Validators, Flask blueprints and routes. 
+To ensure I kept on task and could feel a sense of accomplishment while tackling the countless baby steps towards completion, I devised a [project tacking sheet](https://docs.google.com/spreadsheets/d/1Lnvt9zLgJj0oQFdpOIAs1V2JAN2lVGcBalIBHwXzqjY/edit?usp=sharing):
  
-This spreadsheet helped me prioritize what aspects I needed to accomplish first and also helped identify features to descope into future releases. It also helped remind me of tasks I like to put off forever such as writing test cases and updating documentation
+This spreadsheet helped me prioritize what aspects I needed to complete first and also helped identify features to descope into future releases. It also helped remind me of tasks I like to put off forever such as writing test cases and updating documentation.
 
 [![project task list](documentation/images/software_cycle/project_tracking.png "project task list")](https://docs.google.com/spreadsheets/d/1Lnvt9zLgJj0oQFdpOIAs1V2JAN2lVGcBalIBHwXzqjY/edit?usp=sharing)
-. 
+
 I attempted to follow a rough Agile methodology where I prefixed discovery tasks in Feature 0 for sprint 0. Then I used the following numbers as a hierarchy of what to develop first:
 
  | Epic Task Number 	|                         Tasks                        	|                                                                     Deliverables                                                                    	|
@@ -768,15 +767,15 @@ I attempted to follow a rough Agile methodology where I prefixed discovery tasks
 
 ## Technologies Used
 ### Programming languages
-- [CSS3](https://www.w3schools.com/w3css/default.asp) - used to define DOM appearance. 
+- [CSS3](https://www.w3schools.com/w3css/default.asp) - used to style DOM appearance. 
 - [HTML5](https://www.w3schools.com/html/default.asp) -  used to define DOM elements. 
-- [JQuery](https://jquery.com) - used to initialize elements of Bulma framework: check boxes, date pickers, menu toggles.
+- [JQuery](https://jquery.com) - used to initialize handlers for user interactive elemtns such as Bulma framework pieces like: check boxes, date pickers, menu toggles.
 - [JavaScript](https://www.javascript.com/)  -  used to format dates and pull data from element attributes.
-- [Python](https://www.python.org/) the project back-end functions are written using Python. Flask and Python is used to build route functions
+- [Python](https://www.python.org/) the project back-end functions are written using Python. Flask and Python is used to build route functions.
 - [Markdown](https://www.markdownguide.org/) Documentation within the readme was generated using markdown
 ### Framework & Extensions
 - [Bulma](https://bulma.io/) - a mobile first, free, open source CSS framework based on Flex-box. Using this framework provides many nice top design elements such as navigation menu bar for desktop, side nav bar for mobile, modals/layers, containers and forms.
-- [Bulma Extensions](https://wikiki.github.io/) extends Bluma by adding more complex design features such as: accordions, pagination, datetime pickers, checkradios, and switches.
+- [Bulma Extensions](https://wikiki.github.io/) extends Bluma by adding more complex design features such as: accordions, pagination, datetime pickers, check-radios, and switches.
 - [mongodb](https://www.mongodb.com/cloud/atlas)- a fully-managed cloud database used to store manage and query data sets
 - [Flask](https://flask-doc.readthedocs.io/en/latest/) - python based templating language. I used Flask for:
   - routing - passing database queries to templates for page specific presentations
@@ -785,29 +784,28 @@ I attempted to follow a rough Agile methodology where I prefixed discovery tasks
   - macros - to generate common HTML with variable dependent settings
 - [WTForms](https://wtforms.readthedocs.io/en/stable/csrf.html#example) - form validation & form level cross-site request forgery protection
 - [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/index.html)- extended form validation and global cross-site request forgery protection
-- [Pygal](http://www.pygal.org/en/stable/documentation/) - charting for metrics dashboard
-- [unittest](https://docs.python.org/3/library/unittest.html) - testing database CRUD functions, flask routing
+- [unittest](https://docs.python.org/3/library/unittest.html) - automated testing of flaks filters
 - [google sheets & drive](https://drive.google.com/drive/folders/1mYY4M0jXf6sPWesmP9Q-wFvjpgT1v8IU?usp=sharing) - Used to create testing documents and project plan (feature to do list) 
 ### Fonts
-- [FontAwesome]() - for icons associated with buttons and inputs
+- [FontAwesome](https://fontawesome.com/icons?m=free) - for icons associated with buttons and inputs
 - [Patrick Hand SC](https://fonts.google.com/specimen/Patrick+Hand+SC) - Google Font's Patrick Hand font was used for headers and home page dialog
 - [Raleway](https://fonts.google.com/specimen/Raleway) - Google's Raleway font was used as the main font
 ### Tools
-- [draw.io](https://about.draw.io/features/) - used to create Entity Relationship diagrams.
+- [github](https://github.com/) - used for version control of project files and branching out to try different things without adversely affecting a functional set of code
+- [draw.io](https://about.draw.io/features/) - used to create Entity Relationship diagrams and CRUD flow diagrams.
 - [balsamiq](https://balsamiq.com/) - used to create professional looking wire frames.
 - [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
-- [mardown table of contents generator](https://ecotrust-canada.github.io/markdown-toc/) - used to create an error free table of contents
+- [mardown table of contents generator](https://ecotrust-canada.github.io/markdown-toc/) - used to create table of contents (be weary it does have some bugs if you have dashes or trailing spaces in your headers)
 - [icon generator](https://favicon.io/favicon-generator/) - free site to help in website icon generation
 - [regex101.com](https://regex101.com/) - used to help fine tune some regular expression based validation
-- [github](https://github.com/) - used for version control of project files
 - [heroku](https://www.heroku.com/) - runs the what2do2day application in the cloud
 - [color contrast](https://webaim.org/resourceshttps://webaim.org/resources/contrastchecker//contrastchecker/) Tool was used to adjust colors on fonts flagged as needing a higher contrast ratio from google's lighthouse audit tool.
-- [lighthouse audit](https://developers.google.com/web/tools/lighthouse) Google's open source automated too to help improve the quality of your website. Specifically paid attention to Accessibility  and best practices aiming for scores above 80.
-- [axe - web accessibility testing](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) a chrome extension that helps identify other accessibility issues google's lighthouse tool misses, such as land marks
+- [lighthouse audit](https://developers.google.com/web/tools/lighthouse) Google's open source tool to help improve the quality of your website. Specifically paid attention to Accessibility and SEO aiming for scores above 80.
+- [axe - web accessibility testing](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) a chrome extension that helps identify other accessibility issues google's lighthouse tool misses, such as landmarks and headings.
 - [loom](https://www.loom.com/) I wanted to learn how to take videos of my code with audio and discovered loom which currently is freeware and installed as a chrome extension.
 ### APIs
-- [SMTP](https://github.com/python/cpython/blob/3.8/Lib/smtplib.py) - Send user notices when an event is joined or when an event they have joined has been updated, or canceled via a deletion of the place.
-- [Google Maps Javascript API](https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/) - Customized Map of event and places
+- [SMTP](https://github.com/python/cpython/blob/3.8/Lib/smtplib.py) - Send emails to users when an event is joined or when an event they have joined has been updated or canceled via a deletion of the place.
+- [Google Maps Javascript API](https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/) - Customized Map of event and places, naturally integrates with navigation tools on smart devices.
 
 ## Defensive Programming
 
@@ -823,7 +821,7 @@ Several custom validators were written to aid in this effort. They are located i
 - remove_html_tags - removes html tags from input fields along with these special characters: ```<>{}`+=|]```
  
 ### Cross Site Forgery Protection  
-CSRF token to prevent cross site forgery requests. All forms and and rendered templates within what2do2day have a CSRF token enabled. The ajax request to post click metric data also uses the CSRF token to prevent an attack that would allow users to go to places in the site they are not authorized. While I do not have authenticated users at this point, it makes sense to only accept traffic to the site from the site. 
+CSRF token - to prevent cross site forgery requests. All forms and and rendered templates within what2do2day have a CSRF token enabled. The ajax request to post click metric data also uses the CSRF token to prevent an attack that would allow users to go to places in the site they are not authorized. While I do not have authenticated users at this point, accept traffic to the site from the site only is a good safety measure.
 
 ### XSS Protection
 The route used for filtering has a query parameter which opens the site up to cross site scripting.
@@ -920,14 +918,14 @@ Once I finished the initial layout of my file structure and had roughed in the b
 
 #### Noteworthy Bugs
 1. **500 CSRF** -One of the most intriguing bugs I encountered was a 500 error when I introduced page and click metrics. It took me a while to figure out how to restructure my ajax call through an onReady function out of base.html so I could easily access my CSRF_token and set it in the headers within the beforeSend function. Originally my ajax call was housed in my main.js file. That solution fixed 90% of the 500 errors I had seen, but I quickly discovered that my newer pages without forms lacked the setting of the csrf_token in a hidden form. It's easy to forget key steps if you take them early in the development process and forget about them a month later.
-1. **flex block madness** Another odd bug was how my custom icon picker and multi picker for ages had mismatched heights. It took me a bit to discover a display flex on an outer div from 
-1. **Bulma Date Picker** The most bamboozling issue I encountered was with Bulma's datepicker and form errors. The darned thing never preselected the date I previously had and had the wrong times. I trolled the internet and found that this is an exasperating issue for many hopeful bulma users. I ended up getting a have way working work around by modifying the calendar.js a bit and adding to my binding functions in main.js. This is the [official thread](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621) that I added my findings to in hopes of getting to a resolution. I tried switching my input field to a date but then it picked up some browser specific console logs so I switched it back to a datetime range.
+1. **flex block madness** Another odd bug was how my custom icon picker and multi picker for ages had mismatched heights. After adjusting outer divs to have flex and max content heights, the issue popped up again and I decided to set absolute max heights for tablets and above.
+1. **Bulma Date Picker** The most bamboozling issue I encountered was with Bulma's datepicker and form errors. The darned thing never preselected the date I previously had and had the wrong times. I trolled the internet and found that this is an exasperating issue for many hopeful bulma users. I ended up getting a have way working work around by modifying the calendar.js a bit and adding to my binding functions in main.js. This is the [official thread](https://github.com/Wikiki/bulma-calendar/issues/163#issuecomment-584172621) that I added my findings to in hopes of getting to a resolution. I tried switching my input field to a date but then it picked up some browser specific console logs so I switched it back to a datetime range. I believe I got the mess working correctly on the places form, but I'm not confident all edge cases were tested so I've added it to the outstanding defects. 
 1. **500 CSP google API** When testing with browser stack using safari iPhone6s I saw the following errors:
 ```
 The source list for Content Security Policy directive 'script-src' contains an invalid source: ''strict-dynamic''. It will be ignored.
 The source list for Content Security Policy directive 'script-src' contains an invalid source: ''report-sample''. It will be ignored.
 ```
-Reading up on stack overflow it looks like google API wants you to have Content Security Policy directives. I tried append such to my flask app but that didn't work too well so I ended up adding many values to my base.html header and having to set a nuance value to my inline script. Learning so many things about web security.
+Reading up on stack overflow it looks like google API wants you to have Content Security Policy directives. I tried to append CSP headers to my flask app but that didn't work too well so I ended up adding many values to my base.html header as meta data and set a nuance value to my inline script declarations. Learning so many things about web security in the course of this project has definitely broadened my knowledge of what hackers do and how to help protect a web site that isn't behind a firewall.
 
 #### Outstanding Defects
 1. Bulma's calendar is the bane of my existence. If you have a user error on a form with a datetime picker, the date time for the end time gets dropped, so the next submit will error. 
@@ -937,15 +935,16 @@ The source list for Content Security Policy directive 'script-src' contains an i
 The site seems to function in safari but it's crowded with console errors.
 Here's a google-api-javascrpt git hub thread about the issue:
 https://github.com/google/google-api-javascript-client/issues/397
+3. Images taken from other sites may run into CSP issues such as the``` GET https://highlandsranch.org/wp-content/uploads/2011/12/FlynB_sm.jpg net::ERR_CERT_DATE_INVALID``` error seen on pages where the place images are shown. A future change will upload images to the system to ensure they don't eventually raise 404's, to avoid CSP issues, and to help make the site a bit more efficient by loading size appropriate imagery.
 
 Some of the following issues are fringe cases whose resolution is better suited for resolution when workflow and higher admin functions such as cloning are available:
 
-3. Entering a Review that is hidden should not aggregate into review rating (workflow should be present to handle this)
-3. Hidden Review should not be in list of reviews shown (workflow should be present to handle this)
-3. Updating an event to hide status should notify users of cancellation if event is is in future and has attendees ( need admin roles and cancellation functionality defined)
-3. Deleting a place and it's events should only notify users of future events not past events ( should have a process that freezes events that are past for cloning)
-3. Updating a past event should not notify users (should have a process that freezes events that are past for cloning)
-3. Images taken from other sites may run into CSP issues such as the``` GET https://highlandsranch.org/wp-content/uploads/2011/12/FlynB_sm.jpg net::ERR_CERT_DATE_INVALID``` error seen on pages where the place images are shown. A future change will upload images to the system to ensure they don't eventually raise 404's, to avoid CSP issues, and to help make the site a bit more efficient by loading size appropriate imagery.
+4. Entering a Review that is hidden should not aggregate into review rating (workflow should be present to handle this)
+4. Hidden Review should not be in list of reviews shown (workflow should be present to handle this)
+4. Updating an event to hide status should notify users of cancellation if event is is in future and has attendees ( need admin roles and cancellation functionality defined)
+4. Deleting a place and it's events should only notify users of future events not past events ( should have a process that freezes events that are past for cloning)
+4. Updating a past event should not notify users (should have a process that freezes events that are past for cloning)
+ 
 ## Deployment
 This site was developed using PyCharm's IDE. To keep records of different versions of all project files, git version control was used. This project is hosted using Heroku deployed from the master branch.
 
