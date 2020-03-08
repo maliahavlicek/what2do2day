@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 from datetime import datetime
-from what2do2day import app, mongo, csrf
+from what2do2day import app, mongo
 from pymongo import errors, WriteConcern
 from urllib.parse import parse_qs
 

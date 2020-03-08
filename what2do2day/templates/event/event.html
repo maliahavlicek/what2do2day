@@ -59,12 +59,11 @@
                     {# count me in button, disabled if max attendess met #}
                     <a class="button is-primary action event-modal {% if event['max_attendees'] == event['attendees']|length %} is-disabled{% endif %}"
                        data-target="{{ event['event_id'] }}"
-                       {% if event['max_attendees'] == event['attendees']|length %}disabled
-                       aria-disabled="true" {% endif %}
+                       {% if event['max_attendees'] == event['attendees']|length %}disabled aria-disabled="true" {% endif %}
                        aria-haspopup="true">
-                                <span class="icon">
-                                    <i class="fas fa-calendar-plus"></i>
-                                </span>
+                        <span class="icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </span>
                         <span class="action">Count Me In</span>
                     </a>
                     <div>
@@ -79,7 +78,8 @@
                         {# event almost booked warning #}
                         {% if event['max_attendees'] != event['attendees']|length and event['max_attendees'] - event['attendees']|length < 10 %}
                             <p class="has-text-warning">
-                                Only {{ (event['max_attendees'] - event['attendees']|length)|pluralize("spot", "spots", True) }} left!
+                                Only {{ (event['max_attendees'] - event['attendees']|length)|pluralize("spot", "spots", True) }}
+                                left!
                             </p>
                         {% endif %}
                         {#  event booked messaging #}

@@ -49,7 +49,8 @@ body {
     margin: 0;
     max-width: 100%;
 }
-.column{
+
+.column {
     max-width: 100%;
 }
 
@@ -345,7 +346,7 @@ a.button.is-link.home-btn-2 {
 /* animation */
 @-webkit-keyframes btnWiggle {
     0% {
-         background-color: #3273dc;
+        background-color: #3273dc;
         -webkit-transform: rotate(0deg);
     }
     2% {
@@ -356,19 +357,19 @@ a.button.is-link.home-btn-2 {
         background-color: #003fa5;
         -webkit-transform: rotate(2deg) scale(1.1);
     }
-   8% {
-         background-color: #3273dc;
+    8% {
+        background-color: #3273dc;
         -webkit-transform: rotate(0deg);
     }
     100% {
-         background-color: #3273dc;
+        background-color: #3273dc;
         -webkit-transform: rotate(0deg);
     }
 }
 
 @-o-keyframes btnWiggle {
     0% {
-         background-color: #3273dc;
+        background-color: #3273dc;
         -webkit-transform: rotate(0deg);
     }
     2% {
@@ -380,34 +381,34 @@ a.button.is-link.home-btn-2 {
         -webkit-transform: rotate(2deg) scale(1.1);
     }
     8% {
-         background-color: #3273dc;
+        background-color: #3273dc;
         -webkit-transform: rotate(0deg);
     }
     100% {
-         background-color: #3273dc;
+        background-color: #3273dc;
         -webkit-transform: rotate(0deg);
     }
 }
 
 @keyframes btnWiggle {
     0% {
-         background-color: #3273dc;
+        background-color: #3273dc;
         -webkit-transform: rotate(0deg);
     }
     2% {
         background-color: #003fa5;
-        -webkit-transform: rotate(-2deg) scale(1.1) ;
+        -webkit-transform: rotate(-2deg) scale(1.1);
     }
     6% {
         background-color: #003fa5;
-        -webkit-transform: rotate(2deg) scale(1.1) ;
+        -webkit-transform: rotate(2deg) scale(1.1);
     }
     8% {
-         background-color: #3273dc;
+        background-color: #3273dc;
         -webkit-transform: rotate(0deg);
     }
     100% {
-         background-color: #3273dc;
+        background-color: #3273dc;
         -webkit-transform: rotate(0deg);
     }
 }
@@ -418,7 +419,7 @@ a.button.is-link.home-btn-1:hover, a.button.is-link.home-btn-2:hover {
     -webkit-animation: 0;
 }
 
-.social a:hover i{
+.social a:hover i {
     transform: rotate(-3deg) scale(1.3);
     color: #00D9B1;
 }
@@ -1605,10 +1606,12 @@ i.not-shared {
         -o-background-size: cover;
         background-size: cover;
     }
+
     /* home buttons */
     .button.home {
         display: inline-block;
     }
+
     a.button.is-link.home-btn-2 {
         margin-left: 100px;
     }

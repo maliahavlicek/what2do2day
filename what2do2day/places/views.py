@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 from what2do2day.addresses.views import country_choice_list
 from what2do2day import app, mongo, google_key
 from what2do2day.metrics.views import load_page, load_click
-from what2do2day.places.forms import PlaceForm, DeleteForm
+from what2do2day.places.forms import PlaceForm
 from what2do2day.events.forms import CountMeInForm
 
 ################

@@ -26,9 +26,9 @@
                                 <p class="control">
                                     <a class="button is-white" data-track="event_add,{{ page }},button"
                                        href="{{ url_for('events_bp.add_event', _external=True) }}">
-                                    <span class="icon">
-                                        <i class="fas fa-calendar-plus"></i>
-                                    </span>
+                                        <span class="icon">
+                                            <i class="fas fa-calendar-plus"></i>
+                                        </span>
                                         <span>Add Event</span>
                                     </a>
                                 </p>
@@ -57,7 +57,8 @@
         {% if events | length > 0 %}
             {% for event in events %}
                 {% if loop.index == 1 or loop.index > 1 and event['start_date']|date_only != events[loop.index - 2]['start_date']|date_only %}
-                    <nav class="level is-primary" aria-label="Events on {{ event['start_date'].strftime('%Y-%m-%d') }} ">
+                    <nav class="level is-primary"
+                         aria-label="Events on {{ event['start_date'].strftime('%Y-%m-%d') }} ">
                         <div class="level-left">
                             <div class="level-item">
                                 <p class="title is-4">
@@ -175,9 +176,9 @@
                     <div class="level-left">
                         <a class=" button is-primary action modal-close-2"
                            data-track="{% if status=="OK" %}modal_close,event_join_success,button{% else %}modal_close,event_join_fail,button{% endif %}">
-                        <span class="icon is-small">
-                            <i class="fas fa-check-circle"></i>
-                        </span>
+                            <span class="icon is-small">
+                                <i class="fas fa-check-circle"></i>
+                            </span>
                             <span class="action">OK</span>
                         </a>
                     </div>
@@ -185,5 +186,4 @@
             </div>
         </div>
     {% endif %}
-
 {% endblock %}

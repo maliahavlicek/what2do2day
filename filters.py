@@ -4,7 +4,6 @@ from os.path import splitext, isfile, join
 
 from jinja2 import filters
 from datetime import datetime
-import html
 
 
 def date_only(date):

@@ -1,4 +1,5 @@
 class ReverseProxied(object):
+    """used to redirect to https"""
     def __init__(self, app):
         self.app = app
 

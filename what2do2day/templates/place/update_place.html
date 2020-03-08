@@ -19,9 +19,9 @@
                             <p class="control">
                                 <a class="button is-white" href="{{ url_for('places_bp.edit_place', _external=True) }}"
                                    data-track="place_edit,{{ page }},button">
-                                <span class="icon">
-                                    <i class="fas fa-plus-square"></i>
-                                </span>
+                                    <span class="icon">
+                                        <i class="fas fa-plus-square"></i>
+                                    </span>
                                     <span>Edit Places</span>
                                 </a>
                             </p>
@@ -50,13 +50,11 @@
                     <section class="section">
                         <div class="container">
                             <div class="list-events">
-                                {# collect initial event of place #}
                                 {# This template collects data for a place. #}
 
                                 {# hidden field to control if we collect a review or event #}
                                 {{ form.has_review }}
                                 {{ form.has_event }}
-
 
                                 <div class="container">
                                     {{ place_entry(form=form, place=place, update=True) }}
@@ -74,9 +72,9 @@
                             <div class="level-left">
                                 <button type="submit" class="button is-dark is-medium is-inverted submit"
                                         data-track="{{ page }}_save,{{ page }},button">
-                            <span class="icon is-small">
-                               <i class="fas fa-save"></i>
-                            </span>
+                                    <span class="icon is-small">
+                                       <i class="fas fa-save"></i>
+                                    </span>
                                     <span class="action">Save Changes</span>
                                 </button>
                             </div>
@@ -84,9 +82,9 @@
                                 <a class="button is-dark is-medium is-light edit_place"
                                    data-track="{{ page }}_cancel,{{ page }},button"
                                    href="{{ url_for('places_bp.edit_place', _external=True) }}">
-                            <span class="icon">
-                                <i class="fas fa-trash"></i>
-                            </span>
+                                    <span class="icon">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
                                     <span class="action">Cancel</span>
                                 </a>
                             </div>

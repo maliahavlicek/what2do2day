@@ -4,7 +4,7 @@
             <img src="{{ url_for('static', filename='favicon-32x32.png', _external=True) }}" alt="Logo for What2Do2Day"
                  width="28" height="28">
         </span>
-        <a class="navbar-item" href="{{ url_for('home', _external=True) }}" data-track="home,{{page}},link_nav" >
+        <a class="navbar-item" href="{{ url_for('home', _external=True) }}" data-track="home,{{ page }},link_nav">
             What2Do2Day
         </a>
         <div class="navbar-burger burger" data-target="what2do2dayNav">
@@ -16,13 +16,15 @@
 
     <div id="what2do2dayNav" class="navbar-menu">
         <div class="navbar-end">
-            <a class="navbar-item" href="{{ url_for('home', _external=True) }}" data-track="home,{{page}},link_nav">
+            <a class="navbar-item" href="{{ url_for('home', _external=True) }}" data-track="home,{{ page }},link_nav">
                 Home
             </a>
-            <a class="navbar-item" href="{{ url_for('events_bp.get_events', _external=True) }}" data-track="events,{{page}},link_nav">
+            <a class="navbar-item" href="{{ url_for('events_bp.get_events', _external=True) }}"
+               data-track="events,{{ page }},link_nav">
                 Events
             </a>
-            <a class="navbar-item" href="{{ url_for('places_bp.get_places', _external=True) }}" data-track="places,{{page}},link_nav">
+            <a class="navbar-item" href="{{ url_for('places_bp.get_places', _external=True) }}"
+               data-track="places,{{ page }},link_nav">
                 Places
             </a>
             <div class="navbar-item has-dropdown is-hoverable">
@@ -30,13 +32,16 @@
                     Contribute
                 </span>
                 <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" href="{{ url_for('events_bp.add_event', _external=True) }}" data-track="event_add,{{page}},link_nav">
+                    <a class="navbar-item" href="{{ url_for('events_bp.add_event', _external=True) }}"
+                       data-track="event_add,{{ page }},link_nav">
                         Add Event
                     </a>
-                    <a class="navbar-item" href="{{ url_for('places_bp.add_place', _external=True) }}" data-track="place_add,{{page}},link_nav">
+                    <a class="navbar-item" href="{{ url_for('places_bp.add_place', _external=True) }}"
+                       data-track="place_add,{{ page }},link_nav">
                         Add Place
                     </a>
-                    <a class="navbar-item" href="{{ url_for('places_bp.get_places', _external=True) }}" data-track="review_add,{{page}},link_nav">
+                    <a class="navbar-item" href="{{ url_for('places_bp.get_places', _external=True) }}"
+                       data-track="review_add,{{ page }},link_nav">
                         Add Review
                     </a>
                 </div>
@@ -46,19 +51,23 @@
                     Update
                 </span>
                 <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" href="{{ url_for('events_bp.edit_events', _external=True) }}"  data-track="event_update,{{page}},link_nav">
+                    <a class="navbar-item" href="{{ url_for('events_bp.edit_events', _external=True) }}"
+                       data-track="event_update,{{ page }},link_nav">
                         Update Event
                     </a>
-                    <a class="navbar-item" href="{{ url_for('places_bp.edit_place', _external=True) }}"  data-track="place_update,{{page}},link_nav">
+                    <a class="navbar-item" href="{{ url_for('places_bp.edit_place', _external=True) }}"
+                       data-track="place_update,{{ page }},link_nav">
                         Update Place
                     </a>
-                    <a class="navbar-item" href="{{ url_for('places_bp.delete_place', _external=True) }}"  data-track="place_delete,{{page}},link_nav">
+                    <a class="navbar-item" href="{{ url_for('places_bp.delete_place', _external=True) }}"
+                       data-track="place_delete,{{ page }},link_nav">
                         Delete Place
                     </a>
                 </div>
             </div>
 
-            <a class="navbar-item" href="{{ url_for('metrics_bp.metrics', _external=True) }}"  data-track="metrics,{{page}},link_nav">
+            <a class="navbar-item" href="{{ url_for('metrics_bp.metrics', _external=True) }}"
+               data-track="metrics,{{ page }},link_nav">
                 Metrics
             </a>
         </div>

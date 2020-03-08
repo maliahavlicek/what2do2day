@@ -123,6 +123,3 @@ def validate_datetime(form, field):
 def validate_rating(form, field):
     if form.has_review.data and str(form.rating.data) == 'none':
         raise ValidationError('Select a star rating.')
-
-
-

@@ -11,7 +11,6 @@ from .controllers import *
 ################
 #### config ####
 ################
-
 events_bp = Blueprint('events_bp', __name__, template_folder='templates', static_folder='static')
 
 
@@ -207,7 +206,7 @@ def update_event(event_id):
         # pre populate address
         if 'event_address' in event.keys() and event['event_address'] != "" and len(event['event_address']) > 0:
             form.address.address_line_1.data = event['address-address_line_1'].title()
-            if 'address-address_line_2'  in  event.keys():
+            if 'address-address_line_2' in event.keys():
                 form.address.address_line_2.data = event['address-address_line_2'].title()
             form.address.city.data = event['address-city'].title()
             form.address.state.data = event['address-state'].title()

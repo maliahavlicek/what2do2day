@@ -30,11 +30,12 @@
                         {% if  filter =="none" %}
                             <div class="level-item">
                                 <p class="control">
-                                    <a class="button is-white" data-track="event_add,event_edit_list,button" data-track="event_add,{{page}},button"
+                                    <a class="button is-white" data-track="event_add,event_edit_list,button"
+                                       data-track="event_add,{{ page }},button"
                                        href="{{ url_for('events_bp.add_event', _external=True) }}">
-                                    <span class="icon">
-                                        <i class="fas fa-calendar-plus"></i>
-                                    </span>
+                                        <span class="icon">
+                                            <i class="fas fa-calendar-plus"></i>
+                                        </span>
                                         <span>Add Event</span>
                                     </a>
                                 </p>
@@ -43,7 +44,8 @@
                             {# reset filter form #}
                             <div class="level-right">
                                 <a class="button is-primary is-inverted" id="reset-event-filter-form"
-                                   href="{{ url_for('events_bp.edit_events', _external=True) }}" data-track="event_filter_clear,{{page}},link">
+                                   href="{{ url_for('events_bp.edit_events', _external=True) }}"
+                                   data-track="event_filter_clear,{{ page }},link">
                                     <span class="icon">
                                         <i class="fas fa-redo-alt"></i>
                                     </span>
@@ -63,7 +65,8 @@
         {% if events | length > 0 %}
             {% for event in events %}
                 {% if loop.index == 1 or loop.index > 1 and event['start_date']|date_only != events[loop.index - 2]['start_date']|date_only %}
-                    <nav class="level is-primary" aria-label="Events on {{ event['start_date'].strftime('%Y-%m-%d') }} {% if event['share']%} - shared{% else %} - disabled {% endif %}">
+                    <nav class="level is-primary"
+                         aria-label="Events on {{ event['start_date'].strftime('%Y-%m-%d') }} {% if event['share'] %} - shared{% else %} - disabled {% endif %}">
                         <div class="level-left">
                             <div class="level-item">
                                 <p class="title is-4">
@@ -85,7 +88,8 @@
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Update Event</p>
-                    <button class="delete" aria-label="close" data-track="{% if status=="OK" %}modal_close,{{page}}_success,button{% else %}modal_close,{{page}}_fail,button{% endif %}"></button>
+                    <button class="delete" aria-label="close"
+                            data-track="{% if status=="OK" %}modal_close,{{ page }}_success,button{% else %}modal_close,{{ page }}_fail,button{% endif %}"></button>
                 </header>
                 <section class="modal-card-body">
                     <div class="container">
@@ -108,10 +112,11 @@
                 {# button to acknowledge message and close modal #}
                 <footer class="modal-card-foot">
                     <div class="level-left">
-                        <a class=" button is-primary action modal-close-2" data-track="{% if status=="OK" %}modal_close,{{page}}_success,button{% else %}modal_close,{{page}}_fail,button{% endif %}">
-                        <span class="icon is-small">
-                            <i class="fas fa-check-circle"></i>
-                        </span>
+                        <a class=" button is-primary action modal-close-2"
+                           data-track="{% if status=="OK" %}modal_close,{{ page }}_success,button{% else %}modal_close,{{ page }}_fail,button{% endif %}">
+                            <span class="icon is-small">
+                                <i class="fas fa-check-circle"></i>
+                            </span>
                             <span class="action">OK</span>
                         </a>
                     </div>

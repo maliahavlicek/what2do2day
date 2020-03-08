@@ -66,11 +66,11 @@
                     {# attendance limit #}
                     <p>Attendance Limit: {{ event['max_attendees'] }}</p>
                     {# count me in button, disabled if max attendess met #}
-                    <a class="button is-primary action edit_event" data-track="place_edit,{{page}},button"
+                    <a class="button is-primary action edit_event" data-track="place_edit,{{ page }},button"
                        href="{{ url_for('events_bp.update_event', event_id=event['event_id'], _external=True) }}">
-                                <span class="icon">
-                                    <i class="fas fa-edit"></i>
-                                </span>
+                        <span class="icon">
+                            <i class="fas fa-edit"></i>
+                        </span>
                         <span class="action">Edit</span>
                     </a>
                     <div>
@@ -83,7 +83,8 @@
                         {# event almost booked warning #}
                         {% if event['max_attendees'] != event['attendees']|length and event['max_attendees'] - event['attendees']|length < 10 %}
                             <p class="has-text-warning">
-                                Only {{ (event['max_attendees'] - event['attendees']|length)|pluralize("spot", "spots", True) }} left!
+                                Only {{ (event['max_attendees'] - event['attendees']|length)|pluralize("spot", "spots", True) }}
+                                left!
                             </p>
                         {% endif %}
                         {#  event booked messaging #}

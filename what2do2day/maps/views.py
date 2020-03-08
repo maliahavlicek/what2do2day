@@ -44,4 +44,3 @@ def google_get_goecords(address):
             print("Did not get search results. ", e)
 
     return address
-

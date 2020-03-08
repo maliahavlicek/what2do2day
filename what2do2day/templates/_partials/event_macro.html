@@ -10,12 +10,12 @@
                 {{ form.event_name.label(class_="label") }}
                 <div class="control has-icons-left has-icons-right">
                     {{ form.event_name(class_="input", placeholder="Event Name") }}
-                    <span class="icon is-small is-left has-text-primary">
-                            <i class="fas fa-monument"></i>
-                        </span>
+                     <span class="icon is-small is-left has-text-primary">
+                        <i class="fas fa-monument"></i>
+                    </span>
                     <span class="error-msg icon is-small is-right">
-                          <i class="fas fa-exclamation-triangle"></i>
-                        </span>
+                      <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                 </div>
                 <p class="error-msg help is-danger">
                     {% if form.event_name.errors|length > 0 %}
@@ -28,12 +28,12 @@
                 {{ form.price_for_non_members.label(class_="label") }}
                 <div class="control has-icons-left has-icons-right">
                     {{ form.price_for_non_members(class_="input", placeholder="Free") }}
-                     <span class="icon is-small is-left has-text-primary">
-                            <i class="fas fa-comments-dollar"></i>
-                        </span>
+                    <span class="icon is-small is-left has-text-primary">
+                        <i class="fas fa-comments-dollar"></i>
+                    </span>
                     <span class="error-msg icon is-small is-right">
-                          <i class="fas fa-exclamation-triangle"></i>
-                        </span>
+                      <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                 </div>
                 <p class="error-msg help is-danger">
                     {% if form.price_for_non_members.errors|length > 0 %}
@@ -63,8 +63,8 @@
                 <div class="control has-icons-right">
                     {{ form.details(class_="textarea", placeholder="Provide details about what to bring and where to meet.") }}
                     <span class="error-msg icon is-small is-right">
-                          <i class="fas fa-exclamation-triangle"></i>
-                        </span>
+                      <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                 </div>
                 <p class="error-msg help is-danger">
                     {% if form.details.errors|length > 0 %}

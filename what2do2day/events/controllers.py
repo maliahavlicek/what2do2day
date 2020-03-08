@@ -5,7 +5,7 @@ from pymongo import WriteConcern
 from datetime import datetime
 from what2do2day.addresses.views import get_add_address_id
 from what2do2day.users.views import get_add_user_id
-from what2do2day import app, mongo, google_key
+from what2do2day import mongo, google_key
 from what2do2day.email.views import email_event
 from what2do2day.metrics.views import load_page
 from filters import remove_html_tags

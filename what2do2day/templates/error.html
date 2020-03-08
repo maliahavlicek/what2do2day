@@ -20,10 +20,11 @@
                         Something went wrong...
                     </h2>
                     <p>{{ reason }}</p>
-                    <a class="button is-primary" href="{{ url_for('home', _external=True) }}" data-track="home,error,button">
-                                <span class="icon">
-                                    <i class="fas fa-home"></i>
-                                </span>
+                    <a class="button is-primary" href="{{ url_for('home', _external=True) }}"
+                       data-track="home,error,button">
+                        <span class="icon">
+                            <i class="fas fa-home"></i>
+                        </span>
                         <span>Try Again</span>
                     </a>
                 </div>

@@ -1009,6 +1009,7 @@ Some of the following issues are fringe cases whose resolution is better suited 
 4. Updating an event to hide status should notify users of cancellation if event is is in future and has attendees ( need admin roles and cancellation functionality defined)
 4. Deleting a place and it's events should only notify users of future events not past events ( should have a process that freezes events that are past for cloning)
 4. Updating a past event should not notify users (should have a process that freezes events that are past for cloning)
+4. This is a feature that must be added before going live: a loading/processing screen as the application transfers from one page to the next. 
  
 ## Deployment
 This site was developed using PyCharm's IDE. To keep records of different versions of all project files, git version control was used. This project is hosted using Heroku deployed from the master branch.

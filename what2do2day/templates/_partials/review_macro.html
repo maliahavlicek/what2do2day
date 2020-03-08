@@ -15,7 +15,7 @@
         <div class="column" {% if form.use_place_email.value == "y" %}style="display: none;"{% endif %}>
             <div class="field {% if form.author.errors %}has-error{% endif %}">
 
-                    {{ form.author.label(class_="label") }}
+                {{ form.author.label(class_="label") }}
                 <div class="control has-icons-left has-icons-right">
                     <div class="control">
                         {{ form.author(class_="input", placeholder="your.email@you.com") }}
@@ -54,8 +54,8 @@
         <div class="control has-icons-right">
             {{ form.comments(class_="textarea", placeholder="Enter Review.") }}
             <span class="error-msg icon is-small is-right">
-                          <i class="fas fa-exclamation-triangle"></i>
-                        </span>
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
         </div>
         <p class="error-msg help is-danger">
             {% if form.comments.errors|length > 0 %}

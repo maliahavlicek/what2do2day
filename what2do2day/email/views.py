@@ -65,7 +65,7 @@ def email_event(event, user_email_list, update=False, add_attendee=False):
             "details": event['details']
 
         },
-        "modifiedTime": datetime.strftime(datetime.today(), '%m/%d/%Y')+'T-7'+
+        "modifiedTime": datetime.strftime(datetime.today(), '%m/%d/%Y') + 'T-7' +
                         datetime.strftime(datetime.today(), "%H:%M")
     }
     # build out display address
@@ -233,7 +233,7 @@ def email_event_cancel(event, user_email_list):
             "endDate": endDate + 'T-7' + endTime,
             "details": event['details']
         },
-        "modifiedTime": datetime.strftime(datetime.today(), '%m/%d/%Y')+'T-7'+
+        "modifiedTime": datetime.strftime(datetime.today(), '%m/%d/%Y') + 'T-7' +
                         datetime.strftime(datetime.today(), "%H:%M"),
         "status": "cancelled"
     }
