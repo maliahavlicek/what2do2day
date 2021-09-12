@@ -15,6 +15,10 @@ Possibilities to monetize this site abound. Site owners can easily add affiliate
 
 The name and concept of this site is loosely based on the key phrase, "I know what we're gonna do today!" from the cartoon series [Phineas and Ferb](https://en.wikipedia.org/wiki/Phineas_and_Ferb).
 
+**Example Screen shot**
+![image](https://user-images.githubusercontent.com/23039742/132997412-3ec319aa-7fcf-4d15-9de6-be522e0fd7a2.png)
+
+
 ### How to use
 Here is a short [introductory video](https://www.loom.com/share/1cd0b27f9dcf4deca9272f8bb0cd2f41) of how to use What2do2day on desktop.
 Here is another [video](https://www.loom.com/share/45a1703fdf324e258f679c0ec043483e) for mobile devices and the creation/deletion process.
