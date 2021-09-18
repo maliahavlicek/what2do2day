@@ -144,6 +144,9 @@ The MVP solution consolidates the Delete functionality into a toggle which share
 
 Business logic to track the pages and the events and places that users interact with will be collected.  This will aide in negotiating affiliate link deals and ads will be include. The user click data being collected does include which pages the click occurred on but funnel reports will not be included in the MVP, only a count of the pages and clicks collected ordered by max to min. 
 
+![image](https://user-images.githubusercontent.com/23039742/133905417-de121b46-6ef4-46a3-bf4f-91ccfece473d.png)
+
+
 ### Goals
 #### Customer Goals
 The target audience for What2do2day is children ages 12-18 who have a bit of freedom to move around unsupervised but very little means to addend costly mass entertainment c complexes more than 5 miles from home.
