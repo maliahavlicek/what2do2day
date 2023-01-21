@@ -1,7 +1,7 @@
 # What2Do2Day
 [![what2do2day](documentation/images/w2d2day%20logo.png "What2do2day App")](http://what2do2day.herokuapp.com/)
 
-[what2do2day - An app to match kids up with free events in their neighborhoods](http://what2do2day.herokuapp.com/)
+[what2do2day - An app to match kids up with free events in their neighborhoods](https://what2do2day.onrender.com)
 ## Author
 Malia Havlicek
 ## Project Overview
