@@ -1,13 +1,13 @@
 # What2Do2Day
-[![what2do2day](documentation/images/w2d2day%20logo.png "What2do2day App")](http://what2do2day.herokuapp.com/)
+![what2do2day](documentation/images/w2d2day%20logo.png "What2do2day App")
 
-[what2do2day - An app to match kids up with free events in their neighborhoods](https://what2do2day.onrender.com)
+what2do2day - An app to match kids up with free events in their neighborhoods
 ## Author
 Malia Havlicek
 ## Project Overview
-[![what2do2day](documentation/images/ResponsiveScreenShot.png "What2do2day App")](http://what2do2day.herokuapp.com/)
+![what2do2day](documentation/images/ResponsiveScreenShot.png "What2do2day App")
 
-[What2do2day](http://what2do2day.herokuapp.com/) provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. The target user for this app is 12 -18 years of age: children who are independent without individual transportation or lots of spare change. 
+What2do2day provides people a way to find free events in their community as a means to solve the question of "What are we gonna do today?" without breaking the bank or needing to travel far from home. Along with finding inexpensive options of what to do today, the site allows users to flag that they are planning on attending an event so other members know they will not be the only one going to a function. The target user for this app is 12 -18 years of age: children who are independent without individual transportation or lots of spare change. 
 
 Users can also view a list of all the places in the community and read reviews about them and see all the future events associated with a given place. Members of the community can add reviews about places to share their experiences and rate organizations. The website has a crisp, young feel to it and was built with ease of use and a younger audience in mind. 
 
@@ -1062,7 +1062,7 @@ PyCharm was the IDE I developed my code in. I was able to deploy my code locally
 4. access your local version of the application at http://0.0.0.0:5000/home
 
 ### Live (Heroku)
-Heroku was used to run this site in a cloud environment to allow visibility to external users.
+Heroku was used to run this site in a cloud environment to allow visibility to external users. Then it was rehosted on render, but my MongoDB has since died so it has deployment errors.
 
 1. Get the code base from git hub by running this command in the terminal of your IDE: 
 ```bash
