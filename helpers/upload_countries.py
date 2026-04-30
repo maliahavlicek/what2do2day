@@ -61,7 +61,7 @@ def main_loop():
         doc = coll.find_one({'country': country.lower()})
         # see if we found it already, if not, load it up
         if not doc:
-            coll.insert({'country': country.lower()})
+            coll.insert_one({'country': country.lower()})
             print('loaded: ' + country.lower())
 
 
